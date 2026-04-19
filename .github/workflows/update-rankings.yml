@@ -1,0 +1,46 @@
+name: Update Stock Rankings
+
+on:
+  schedule:
+    - cron: '0 15 * * 1-5'   # 9:00 AM CST (UTC-6) = 15:00 UTC, Mon-Fri
+    - cron: '30 21 * * 1-5'  # 3:30 PM CST = market close 4pm EST / 3:30 CST
+  workflow_dispatch:          # Allow manual trigger from GitHub Actions tab
+
+jobs:
+  update-rankings:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas numpy requests yfinance scipy ta scikit-learn python-dotenv openpyxl lxml
+
+      - name: Fetch OHLCV data
+        run: python 02_Code/Python/Data_Fetch/fetch_ohlcv.py
+        env:
+          EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
+
+      - name: Calculate indicators
+        run: python 02_Code/Python/Indicators/calc_indicators.py
+
+      - name: Score tickers
+        run: python 02_Code/Python/Scoring_Engine/score_tickers.py
+
+      - name: Export to JSON
+        run: python 02_Code/Python/Scoring_Engine/export_to_json.py
+
+      - name: Commit and push updated rankings
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/rankings.json
+          git diff --staged --quiet || git commit -m "Auto-update rankings $(date +'%Y-%m-%d %H:%M UTC')"
+          git push
