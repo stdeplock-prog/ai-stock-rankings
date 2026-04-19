@@ -70,8 +70,7 @@ for _, row in df.iterrows():
 
 # --- BUILD JSON OUTPUT ---
 output = {
-    "as_of":    datetime.today().strftime("%Y-%m-%d"),
-    "universe": "SP500 + NDX100 (517 tickers)",
+    "as_of":    datetime.now().strftime("%Y-%m-%d %I:%M %p CST"),    "universe": "SP500 + NDX100 (517 tickers)",
     "rows":     rows
 }
 
