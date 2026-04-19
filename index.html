@@ -78,7 +78,7 @@ tr:hover{background:rgba(255,255,255,.03)}
 </main>
 <script>
 let state={rows:[],as_of:null,universe:""};let sortKey="rank",sortDir="asc";
-async function loadData(){const r=await fetch("./data/rankings.json");const d=await r.json();state=d;document.getElementById("updated").textContent=`Last Updated: ${d.as_of||"—"}`;applySearch();}
+async function loadData(){const r=await fetch("./data/rankings.json?v="+Date.now()+");const d=await r.json();state=d;document.getElementById("updated").textContent=`Last Updated: ${d.as_of||"—"}`;applySearch();}
 function render(rows){const tb=document.getElementById("tbody");tb.innerHTML=rows.map(r=>`
 <tr>
   <td>${r.rank??""}</td>
