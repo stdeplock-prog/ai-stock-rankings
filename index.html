@@ -6,24 +6,26 @@
 <title>AI Stock Rankings</title>
 <style>
 :root{--bg:#0b1220;--panel:#111827;--panel2:#172033;--line:#243043;--text:#e5eefc;--muted:#93a4bd;--pill:#1f2937}
-*{box-sizing:border-box} body{margin: 0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
-header{position:sticky;top: 0;z-index: 10;background:var(--panel2);border-bottom: 1px solid var(--line);padding: 12px 16px}
-.row{display:flex;align-items:center;justify-content:space-between;gap: 12px;flex-wrap:wrap}
-.controls{display:flex;gap: 8px;flex-wrap:wrap}
-.btn,select,input{background:var(--panel);color:var(--text);border: 1px solid var(--line);padding: 8px 10px;border-radius: 6px}
-main{padding: 16px}
-.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap: 10px;margin: 12px 0}
-.card{background:var(--panel);border: 1px solid var(--line);border-radius: 8px;padding: 12px}
-.label{font-size: 12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.value{font-size: 22px;font-weight: 700;margin-top: 6px}
-.table-wrap{overflow:auto;border: 1px solid var(--line);border-radius: 8px}
-table{width: 100%;border-collapse:collapse;min-width: 1100px}
-th,td{padding: 10px;border-bottom: 1px solid var(--line);text-align:left}
-th{position:sticky;top: 0;background:var(--panel2);font-size: 12px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{position:sticky;top:0;z-index:10;background:var(--panel2);border-bottom:1px solid var(--line);padding:12px 16px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+.btn,select,input{background:var(--panel);color:var(--text);border:1px solid var(--line);padding:8px 10px;border-radius:6px}
+main{padding:16px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px}
+.label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.value{font-size:22px;font-weight:700;margin-top:6px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;min-width:1100px}
+th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
+th{position:sticky;top:0;background:var(--panel2);font-size:12px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
 tr:hover{background:rgba(255,255,255,.03)}
-.pill{display:inline-block;padding: 3px 8px;border-radius: 999px;background:var(--pill);font-weight: 700}
-@media(max-width: 960px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width: 640px){.kpis{grid-template-columns: 1fr}}
+.pill{display:inline-block;padding:3px 8px;border-radius:999px;background:var(--pill);font-weight:700}
+.err{color:#f87171;padding:12px;font-size:14px}
+@media(max-width:960px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.kpis{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -31,8 +33,8 @@ tr:hover{background:rgba(255,255,255,.03)}
   <div class="row">
     <div>
       <div class="label">Live rankings dashboard</div>
-      <div style="font-size: 22px;font-weight: 700">AI Stock Rankings</div>
-      <div id="updated" class="label" style="margin-top: 4px">Last Updated: —</div>
+      <div style="font-size:22px;font-weight:700">AI Stock Rankings</div>
+      <div id="updated" class="label" style="margin-top:4px">Last Updated: —</div>
     </div>
     <div class="controls">
       <select id="universe">
@@ -41,7 +43,7 @@ tr:hover{background:rgba(255,255,255,.03)}
         <option value="top-low-risk">Top Low Risk</option>
         <option value="top-sp500">Top S&P 500</option>
       </select>
-      <input id="search" placeholder="Search ticker or company"/>
+      <input id="search" placeholder="Search ticker or company">
       <button class="btn" id="refreshBtn">Refresh</button>
       <button class="btn" id="exportBtn">Export CSV</button>
     </div>
@@ -50,10 +52,11 @@ tr:hover{background:rgba(255,255,255,.03)}
 <main>
   <section class="kpis">
     <div class="card"><div class="label">Rows</div><div class="value" id="kpiRows">0</div></div>
-    <div class="card"><div class="label">AI 9–10</div><div class="value" id="kpiTop">0</div></div>
+    <div class="card"><div class="label">AI 9-10</div><div class="value" id="kpiTop">0</div></div>
     <div class="card"><div class="label">Avg Technical</div><div class="value" id="kpiTech">0.00</div></div>
     <div class="card"><div class="label">Avg Sentiment</div><div class="value" id="kpiSent">0.00</div></div>
   </section>
+  <div id="errMsg" class="err"></div>
   <section class="table-wrap">
     <table>
       <thead>
@@ -78,33 +81,74 @@ tr:hover{background:rgba(255,255,255,.03)}
 </main>
 <script>
 let state={rows:[],as_of:null,universe:""};let sortKey="rank",sortDir="asc";
-async function loadData(){const r=await fetch("./data/rankings.json?v="+Date.now()+");const d=await r.json();state=d;document.getElementById("updated").textContent=`Last Updated: ${d.as_of||"—"}`;applySearch();}
-function render(rows){const tb=document.getElementById("tbody");tb.innerHTML=rows.map(r=>`
-<tr>
-  <td>${r.rank??""}</td>
-  <td><strong>${r.ticker??""}</strong></td>
-  <td>${r.company??""}</td>
-  <td>${r.country??""}</td>
-  <td><span class="pill">${r.ai_score??""}</span></td>
-  <td>${r.change??""}</td>
-  <td>${r.fundamental??""}</td>
-  <td>${r.technical??""}</td>
-  <td>${r.sentiment??""}</td>
-  <td>${r.low_risk??""}</td>
-  <td>${r.volume_millions??""}</td>
-  <td>${r.industry??""}</td>
-</tr>`).join("");
-const n=rows.length;const aiHigh=rows.filter(x=>Number(x.ai_score)>=9).length;const avg=k=>n? (rows.reduce((a,b)=>a+(Number(b[k])||0),0)/n).toFixed(2):"0.00";
-document.getElementById("kpiRows").textContent=n;document.getElementById("kpiTop").textContent=aiHigh;document.getElementById("kpiTech").textContent=avg("technical");document.getElementById("kpiSent").textContent=avg("sentiment");}
-function applySearch(){const q=document.getElementById("search").value.trim().toLowerCase();let rows=state.rows||[];if(q){rows=rows.filter(r=>(r.ticker||"").toLowerCase().includes(q)||(r.company||"").toLowerCase().includes(q));}
-rows=rows.slice().sort((a,b)=>{const av=a[sortKey],bv=b[sortKey];const na=Number(av),nb=Number(bv);const va=isNaN(na)?(av||""):na,vb=isNaN(nb)?(bv||""):nb;return sortDir==="asc"?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0);});render(rows);}
-function exportCsv(){const keys=["rank","ticker","company","country","ai_score","change","fundamental","technical","sentiment","low_risk","volume_millions","industry","sector","as_of","universe"];const rows=(state.rows||[]).map(r=>({...r,as_of:state.as_of,universe:state.universe}));const lines=[keys.join(",")].concat(rows.map(r=>keys.map(k=>JSON.stringify(r[k]??"")).join(",")));const blob=new Blob([lines.join("\n")],{type:"text/csv;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="stock-rankings.csv";a.click();}
+async function loadData(){
+  try{
+    const url="./data/rankings.json?cb="+Date.now();
+    const r=await fetch(url,{cache:"no-store"});
+    if(!r.ok){throw new Error("HTTP "+r.status);}
+    const d=await r.json();
+    state=d;
+    document.getElementById("errMsg").textContent="";
+    document.getElementById("updated").textContent="Last Updated: "+(d.as_of||"\u2014");
+    applySearch();
+  }catch(e){
+    document.getElementById("errMsg").textContent="Error loading data: "+e.message;
+  }
+}
+function render(rows){
+  const tb=document.getElementById("tbody");
+  tb.innerHTML=rows.map(r=>`
+    <tr>
+      <td>${r.rank??""}</td>
+      <td><strong>${r.ticker??""}</strong></td>
+      <td>${r.company??""}</td>
+      <td>${r.country??""}</td>
+      <td><span class="pill">${r.ai_score??""}</span></td>
+      <td>${r.change??""}</td>
+      <td>${r.fundamental??""}</td>
+      <td>${r.technical??""}</td>
+      <td>${r.sentiment??""}</td>
+      <td>${r.low_risk??""}</td>
+      <td>${r.volume_millions??""}</td>
+      <td>${r.industry??""}</td>
+    </tr>`).join("");
+  const n=rows.length;
+  const aiHigh=rows.filter(x=>Number(x.ai_score)>=9).length;
+  const avg=k=>n?(rows.reduce((a,b)=>a+(Number(b[k])||0),0)/n).toFixed(2):"0.00";
+  document.getElementById("kpiRows").textContent=n;
+  document.getElementById("kpiTop").textContent=aiHigh;
+  document.getElementById("kpiTech").textContent=avg("technical");
+  document.getElementById("kpiSent").textContent=avg("sentiment");
+}
+function applySearch(){
+  const q=document.getElementById("search").value.trim().toLowerCase();
+  let rows=state.rows||[];
+  if(q){rows=rows.filter(r=>(r.ticker||"").toLowerCase().includes(q)||(r.company||"").toLowerCase().includes(q));}
+  rows=rows.slice().sort((a,b)=>{
+    const av=a[sortKey],bv=b[sortKey];
+    const na=Number(av),nb=Number(bv);
+    const va=isNaN(na)?(av||""):na,vb=isNaN(nb)?(bv||""):nb;
+    return sortDir==="asc"?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0);
+  });
+  render(rows);
+}
+function exportCsv(){
+  const keys=["rank","ticker","company","country","ai_score","change","fundamental","technical","sentiment","low_risk","volume_millions","industry","sector","as_of","universe"];
+  const rows=(state.rows||[]).map(r=>({...r,as_of:state.as_of,universe:state.universe}));
+  const lines=[keys.join(",")].concat(rows.map(r=>keys.map(k=>JSON.stringify(r[k]??"")).join(",")));
+  const blob=new Blob([lines.join("\n")],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="stock-rankings.csv";a.click();
+}
 document.getElementById("refreshBtn").addEventListener("click",loadData);
 document.getElementById("search").addEventListener("input",applySearch);
 document.getElementById("exportBtn").addEventListener("click",exportCsv);
 document.getElementById("universe").addEventListener("change",loadData);
-document.getElementById("thead").addEventListener("click",e=>{const k=e.target.dataset.k;if(!k)return;sortKey=k;sortDir=sortDir==="asc"?"desc":"asc";applySearch();});
-loadData();setInterval(loadData, 15*60*1000);
+document.getElementById("thead").addEventListener("click",e=>{
+  const k=e.target.dataset.k;if(!k)return;
+  sortKey=k;sortDir=sortDir==="asc"?"desc":"asc";applySearch();
+});
+loadData();
+setInterval(loadData,15*60*1000);
 </script>
 </body>
 </html>
