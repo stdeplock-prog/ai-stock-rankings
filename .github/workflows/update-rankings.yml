@@ -44,13 +44,13 @@ jobs:
           EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
 
       - name: Calculate technical indicators
-        run: python 02_Code/Python/Data_Fetch/calc_indicators.py
+        run: python 02_Code/Python/Indicators/calc_indicators.py
 
       - name: Score tickers
-        run: python 02_Code/Python/Data_Fetch/score_tickers.py
+        run: python 02_Code/Python/Scoring_Engine/score_tickers.py
 
       - name: Export rankings to JSON
-        run: python 02_Code/Python/Data_Fetch/export_to_json.py
+        run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
       - name: Commit and push updated rankings.json
         run: |
