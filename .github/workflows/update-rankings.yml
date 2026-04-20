@@ -2,12 +2,12 @@ name: Update Stock Rankings
 
 on:
   schedule:
-    - cron: '30 14 * * 1-5'  # 8:30 AM CST (UTC-6) = 14:30 UTC, Mon-Fri
-    - cron: '30 16 * * 1-5'  # 10:30 AM CST = 16:30 UTC, Mon-Fri
-    - cron: '30 18 * * 1-5'  # 12:30 PM CST = 18:30 UTC, Mon-Fri
-    - cron: '0 20 * * 1-5'   # 2:00 PM CST = 20:00 UTC, Mon-Fri
-    - cron: '31 21 * * 1-5'  # 3:31 PM CST = 21:31 UTC (market close), Mon-Fri
-  workflow_dispatch:          # Allow manual trigger from GitHub Actions tab
+    - cron: '30 14 * * 1-5'  # 8:30 AM CST  (14:30 UTC)  Mon-Fri
+    - cron: '30 16 * * 1-5'  # 10:30 AM CST (16:30 UTC)  Mon-Fri
+    - cron: '30 18 * * 1-5'  # 12:30 PM CST (18:30 UTC)  Mon-Fri
+    - cron: '0 20 * * 1-5'   # 2:00 PM CST  (20:00 UTC)  Mon-Fri
+    - cron: '31 21 * * 1-5'  # 3:31 PM CST  (21:31 UTC)  Mon-Fri (market close)
+  workflow_dispatch:           # Manual trigger from Actions tab
 
 jobs:
   update-rankings:
@@ -17,32 +17,43 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
         run: |
+          pip install --upgrade pip
           pip install pandas numpy requests yfinance scipy ta scikit-learn python-dotenv openpyxl lxml
 
-      - name: Fetch OHLCV data
+      - name: Create required data directories
+        run: |
+          mkdir -p data/reference
+          mkdir -p data/raw/ohlcv_daily
+          mkdir -p data/processed/technical_indicators
+          mkdir -p data/processed/scoring_outputs
+
+      - name: Build universe (S&P 500 + Nasdaq 100)
+        run: python 02_Code/Python/Data_Fetch/build_universe.py
+
+      - name: Fetch OHLCV + fundamentals
         run: python 02_Code/Python/Data_Fetch/fetch_ohlcv.py
         env:
           EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
 
-      - name: Calculate indicators
+      - name: Calculate technical indicators
         run: python 02_Code/Python/Indicators/calc_indicators.py
 
       - name: Score tickers
         run: python 02_Code/Python/Scoring_Engine/score_tickers.py
 
-      - name: Export to JSON
+      - name: Export rankings to JSON
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
-      - name: Commit and push updated rankings
+      - name: Commit and push updated rankings.json
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/rankings.json
           git diff --staged --quiet || git commit -m "Auto-update rankings $(date +'%Y-%m-%d %H:%M UTC')"
