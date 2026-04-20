@@ -1,7 +1,8 @@
 # fetch_ohlcv.py  v2
 # Fetches daily OHLCV data AND fundamental data for all tickers.
-# OHLCV  -> 01_Data/Raw/OHLCV_Daily/<TICKER>_daily.csv
-# Fundamentals -> 01_Data/Processed/fundamentals.csv  (one row per ticker)
+# OHLCV        -> data/raw/ohlcv_daily/<TICKER>_daily.csv
+# Fundamentals -> data/processed/fundamentals.csv  (one row per ticker)
+# Paths are relative to repo root for GitHub Actions compatibility
 
 import yfinance as yf
 import pandas as pd
@@ -10,11 +11,12 @@ import time
 from datetime import datetime
 
 # --- CONFIG ---
-UNIVERSE_FILE = "G:/My Drive/AI-Stock-Rankings/01_Data/Reference/master_universe.csv"
-OHLCV_DIR     = "G:/My Drive/AI-Stock-Rankings/01_Data/Raw/OHLCV_Daily"
-FUND_FILE     = "G:/My Drive/AI-Stock-Rankings/01_Data/Processed/fundamentals.csv"
-START_DATE    = "2023-01-01"
-END_DATE      = datetime.today().strftime("%Y-%m-%d")
+REPO_ROOT      = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+UNIVERSE_FILE  = os.path.join(REPO_ROOT, "data", "reference", "master_universe.csv")
+OHLCV_DIR      = os.path.join(REPO_ROOT, "data", "raw", "ohlcv_daily")
+FUND_FILE      = os.path.join(REPO_ROOT, "data", "processed", "fundamentals.csv")
+START_DATE     = "2023-01-01"
+END_DATE       = datetime.today().strftime("%Y-%m-%d")
 
 os.makedirs(OHLCV_DIR, exist_ok=True)
 os.makedirs(os.path.dirname(FUND_FILE), exist_ok=True)
