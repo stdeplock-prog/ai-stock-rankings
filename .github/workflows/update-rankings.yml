@@ -1,12 +1,12 @@
-    - cron: '30 14 * * 1-5'   # 8:30 AM CST (UTC-6) = 14:30 UTC, Mon-Friname: Update Stock Rankings
+name: Update Stock Rankings
 
 on:
   schedule:
-        - cron: '30 14 * * 1-5'  # 8:30 AM CST (UTC-6) = 14:30 UTC, Mon-Fri
+    - cron: '30 14 * * 1-5'  # 8:30 AM CST (UTC-6) = 14:30 UTC, Mon-Fri
     - cron: '30 16 * * 1-5'  # 10:30 AM CST = 16:30 UTC, Mon-Fri
     - cron: '30 18 * * 1-5'  # 12:30 PM CST = 18:30 UTC, Mon-Fri
     - cron: '0 20 * * 1-5'   # 2:00 PM CST = 20:00 UTC, Mon-Fri
-    - cron: '31 21 * * 1-5'  # 3:31 PM CST = 21:31 UTC (market close), Mon-Fri                - cron: '31 21 * * 1-5'   # 3:31 PM CST = market close, Mon-Fri
+    - cron: '31 21 * * 1-5'  # 3:31 PM CST = 21:31 UTC (market close), Mon-Fri
   workflow_dispatch:          # Allow manual trigger from GitHub Actions tab
 
 jobs:
