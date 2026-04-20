@@ -1,6 +1,7 @@
 # export_to_json.py  v2
 # Converts rankings.csv to rankings.json for dashboard
 # NEW: tracks rank changes day-over-day (CHG column)
+# FIX: sanitize nan/NaN values in all string fields (industry, sector, company)
 
 import pandas as pd
 import json
@@ -12,6 +13,15 @@ RANKINGS_CSV  = "G:/My Drive/AI-Stock-Rankings/01_Data/Processed/Scoring_Outputs
 OHLCV_DIR     = "G:/My Drive/AI-Stock-Rankings/01_Data/Raw/OHLCV_Daily"
 OUTPUT_FILE   = "G:/My Drive/AI-Stock-Rankings/data/rankings.json"
 HISTORY_FILE  = "G:/My Drive/AI-Stock-Rankings/01_Data/Processed/Scoring_Outputs/rankings_history.csv"
+
+# --- HELPER: safely convert a field to string, replacing nan/NaN/None with empty string ---
+def safe_str(val, default=""):
+    if val is None:
+        return default
+    s = str(val).strip()
+    if s.lower() in ("nan", "none", "n/a", ""):
+        return default
+    return s
 
 # --- LOAD CURRENT RANKINGS ---
 df = pd.read_csv(RANKINGS_CSV)
@@ -52,10 +62,15 @@ for _, row in df.iterrows():
     except:
         pass
 
+    # Resolve industry: prefer "Industry" column, fall back to "Sector", then ""
+    industry_val = safe_str(row.get("Industry", ""))
+    if not industry_val:
+        industry_val = safe_str(row.get("Sector", ""))
+
     rows.append({
         "rank":            curr_rank,
         "ticker":          ticker,
-        "company":         str(row["Name"]),
+        "company":         safe_str(row["Name"]),
         "country":         "US",
         "ai_score":        round(row["AI_Score"], 1) if "AI_Score" in row else round(row.get("Score", 0) / 10, 1),
         "change":          change,
@@ -64,13 +79,14 @@ for _, row in df.iterrows():
         "sentiment":       round(row.get("Sentiment", 5.0), 1),
         "low_risk":        round(row.get("Risk", 5.0), 1),
         "volume_millions": vol_millions,
-        "industry":        str(row["Sector"]),
-        "sector":          str(row["Sector"]),
+        "industry":        industry_val,
+        "sector":          safe_str(row.get("Sector", "")),
     })
 
 # --- BUILD JSON OUTPUT ---
 output = {
-    "as_of":    datetime.now().strftime("%Y-%m-%d %I:%M %p CST"),    "universe": "SP500 + NDX100 (517 tickers)",
+    "as_of":    datetime.now().strftime("%Y-%m-%d %I:%M %p CST"),
+    "universe": "SP500 + NDX100 (517 tickers)",
     "rows":     rows
 }
 
@@ -79,7 +95,3 @@ with open(OUTPUT_FILE, "w") as f:
 
 print(f"Exported {len(rows)} tickers to {OUTPUT_FILE}")
 print(f"As of: {output['as_of']}")
-
-# --- SAVE CURRENT RANKINGS AS HISTORY FOR NEXT RUN ---
-df.to_csv(HISTORY_FILE, index=False)
-print(f"Saved history to: {HISTORY_FILE}")
