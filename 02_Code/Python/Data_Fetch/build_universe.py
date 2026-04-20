@@ -1,6 +1,7 @@
 # build_universe.py
 # Builds the master ticker universe from S&P 500 + Nasdaq 100
-# Removes duplicates and saves to 01_Data/Reference/
+# Removes duplicates and saves to data/reference/
+# Paths are relative to repo root for GitHub Actions compatibility
 
 import pandas as pd
 import os
@@ -8,8 +9,10 @@ import requests
 from io import StringIO
 
 # --- CONFIG ---
-OUTPUT_DIR = "G:/My Drive/AI-Stock-Rankings/01_Data/Reference"
-OUTPUT_FILE = os.path.join(OUTPUT_DIR, "master_universe.csv")
+# Use path relative to repo root (works on GitHub Actions + local if run from repo root)
+REPO_ROOT    = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+OUTPUT_DIR   = os.path.join(REPO_ROOT, "data", "reference")
+OUTPUT_FILE  = os.path.join(OUTPUT_DIR, "master_universe.csv")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
