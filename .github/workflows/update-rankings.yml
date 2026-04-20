@@ -9,8 +9,17 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
+  # -------------------------------------------------------
+  # JOB 1: Run the data pipeline and push rankings.json
+  # -------------------------------------------------------
   update-rankings:
     runs-on: ubuntu-latest
 
@@ -52,10 +61,40 @@ jobs:
       - name: Export rankings to JSON
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
-      - name: Commit and push updated rankings.json
+      - name: Commit and push updated data files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/rankings.json
-          git diff --staged --quiet || git commit -m "[main] Auto-update rankings $(date -u '+%Y-%m-%d %H:%M') UTC"
+          git add data/processed/scoring_outputs/rankings_daily_open.csv 2>/dev/null || true
+          git add data/processed/scoring_outputs/rankings_daily_open_date.txt 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "[auto] Update rankings $(date -u '+%Y-%m-%d %H:%M') UTC"
           git push
+
+  # -------------------------------------------------------
+  # JOB 2: Deploy site to GitHub Pages (runs after Job 1)
+  # -------------------------------------------------------
+  deploy-pages:
+    needs: update-rankings
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repo (with fresh data)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
