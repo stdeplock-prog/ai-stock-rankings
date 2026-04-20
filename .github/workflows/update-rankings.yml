@@ -2,12 +2,13 @@ name: Update Stock Rankings
 
 on:
   schedule:
-    - cron: '30 14 * * 1-5'  # 8:30 AM CST  (14:30 UTC)  Mon-Fri
-    - cron: '30 16 * * 1-5'  # 10:30 AM CST (16:30 UTC)  Mon-Fri
+    - cron: '45 14 * * 1-5'  # 8:45 AM CST  (14:45 UTC)  Mon-Fri
     - cron: '30 18 * * 1-5'  # 12:30 PM CST (18:30 UTC)  Mon-Fri
-    - cron: '0 20 * * 1-5'   # 2:00 PM CST  (20:00 UTC)  Mon-Fri
-    - cron: '31 21 * * 1-5'  # 3:31 PM CST  (21:31 UTC)  Mon-Fri (market close)
-  workflow_dispatch:           # Manual trigger from Actions tab
+    - cron: '35 21 * * 1-5'  # 3:35 PM CST  (21:35 UTC)  Mon-Fri
+  workflow_dispatch:          # Manual trigger from Actions tab
+
+permissions:
+  contents: write
 
 jobs:
   update-rankings:
@@ -43,18 +44,18 @@ jobs:
           EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
 
       - name: Calculate technical indicators
-        run: python 02_Code/Python/Indicators/calc_indicators.py
+        run: python 02_Code/Python/Data_Fetch/calc_indicators.py
 
       - name: Score tickers
-        run: python 02_Code/Python/Scoring_Engine/score_tickers.py
+        run: python 02_Code/Python/Data_Fetch/score_tickers.py
 
       - name: Export rankings to JSON
-        run: python 02_Code/Python/Scoring_Engine/export_to_json.py
+        run: python 02_Code/Python/Data_Fetch/export_to_json.py
 
       - name: Commit and push updated rankings.json
         run: |
-          git config user.name  "github-actions[bot]"
+          git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/rankings.json
-          git diff --staged --quiet || git commit -m "Auto-update rankings $(date +'%Y-%m-%d %H:%M UTC')"
+          git diff --staged --quiet || git commit -m "[main] Auto-update rankings $(date -u '+%Y-%m-%d %H:%M') UTC"
           git push
