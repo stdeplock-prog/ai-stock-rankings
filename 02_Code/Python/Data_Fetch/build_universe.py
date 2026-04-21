@@ -36,6 +36,7 @@ print("Fetching Nasdaq 100 list...")
 ndx = read_wiki_table("https://en.wikipedia.org/wiki/Nasdaq-100", table_index=4)
 ndx = ndx.iloc[:, :2].copy()  # Select first 2 columns (Ticker, Company)
 ndx.columns = ["Ticker", "Name"]
+ndx["Ticker"] = ndx["Ticker"].astype(str)  # Convert to string for .str operations
 ndx["Sector"] = "N/A"
 ndx["Index"] = "NDX100"
 ndx["Ticker"] = ndx["Ticker"].str.replace(".", "-", regex=False)
