@@ -34,7 +34,7 @@ print(f"  S&P 500: {len(sp500)} tickers")
 # --- PULL NASDAQ 100 ---
 print("Fetching Nasdaq 100 list...")
 ndx = read_wiki_table("https://en.wikipedia.org/wiki/Nasdaq-100", table_index=4)
-ndx = ndx[["Ticker", "Company"]].copy()
+ndx = ndx.iloc[:, :2].copy()  # Select first 2 columns (Ticker, Company)
 ndx.columns = ["Ticker", "Name"]
 ndx["Sector"] = "N/A"
 ndx["Index"] = "NDX100"
