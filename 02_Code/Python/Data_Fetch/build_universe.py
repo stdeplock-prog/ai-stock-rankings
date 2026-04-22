@@ -54,7 +54,7 @@ rtwo["Ticker"] = rtwo["Ticker"].str.replace(".", "-", regex=False)
 print(f"  Russell 2000: {len(rtwo)} tickers")
 
 # --- COMBINE & DEDUPLICATE ---
-combined = pd.concat([sp500, ndx], rtwo, ignore_index=True)
+combined = pd.concat([sp500, ndx, rtwo], ignore_index=True)
 combined = combined.drop_duplicates(subset="Ticker", keep="first")
 combined = combined.sort_values("Ticker").reset_index(drop=True)
 print(f"\n  Combined unique tickers: {len(combined)}")
