@@ -1,5 +1,5 @@
 # build_universe.py
-# Builds the master ticker universe from S&P 500 + Nasdaq 100
+# Builds the master ticker universe from S&P 500 + Nasdaq  + Russell 2000
 # Removes duplicates and saves to data/reference/
 # Paths are relative to repo root for GitHub Actions compatibility
 
@@ -42,8 +42,19 @@ ndx["Index"] = "NDX100"
 ndx["Ticker"] = ndx["Ticker"].str.replace(".", "-", regex=False)
 print(f"  Nasdaq 100: {len(ndx)} tickers")
 
+# --- PULL RUSSELL 2000 ---
+print("Fetching Russell 2000 list...")
+rtwo = read_wiki_table("https://en.wikipedia.org/wiki/Russell_2000_Index", table_index=2)
+rtwo = rtwo.iloc[:, :2].copy()  # Select first 2 columns (Ticker, Company)
+rtwo.columns = ["Ticker", "Name"]
+rtwo["Ticker"] = rtwo["Ticker"].astype(str)  # Convert to string for .str operations
+rtwo["Sector"] = "N/A"
+rtwo["Index"] = "Russell 2000"
+rtwo["Ticker"] = rtwo["Ticker"].str.replace(".", "-", regex=False)
+print(f"  Russell 2000: {len(rtwo)} tickers")
+
 # --- COMBINE & DEDUPLICATE ---
-combined = pd.concat([sp500, ndx], ignore_index=True)
+combined = pd.concat([sp500, ndx], rtwo, ignore_index=True)
 combined = combined.drop_duplicates(subset="Ticker", keep="first")
 combined = combined.sort_values("Ticker").reset_index(drop=True)
 print(f"\n  Combined unique tickers: {len(combined)}")
