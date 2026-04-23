@@ -147,7 +147,7 @@ output = {
     "as_of":      as_of_str,
     "open_date":  today_str,
     "is_open_run": is_first_run_today,
-    "universe":   "SP500 + NDX100 (517 tickers)",
+    "universe":   "SP500 + NDX100 + Russell1000 (~1400 tickers)",
     "rows":       rows
 }
 
