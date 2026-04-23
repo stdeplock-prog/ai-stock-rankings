@@ -87,11 +87,8 @@ jobs:
         with:
           ref: main
 
-              - name: Patch index.html with loadData() call
-      run: |
-        sed -i 's/renderTasks();/renderTasks();loadData();/' index.html
-        echo "Patched index.html to include loadData()"
-        uses: actions/configure-pages@v5
+                - name: Inject loadData call
+        run: sed -i 's/renderTasks();/renderTasks();loadData();/' index.html
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
