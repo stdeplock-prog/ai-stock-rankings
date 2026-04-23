@@ -1,5 +1,5 @@
 # build_universe.py
-# Builds the master ticker universe from S&P 500 + Nasdaq  + Russell 2000
+# Builds the master ticker universe from S&P 500 + Nasdaq 100 + Russell 1000
 # Removes duplicates and saves to data/reference/
 # Paths are relative to repo root for GitHub Actions compatibility
 
@@ -10,9 +10,9 @@ from io import StringIO
 
 # --- CONFIG ---
 # Use path relative to repo root (works on GitHub Actions + local if run from repo root)
-REPO_ROOT    = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-OUTPUT_DIR   = os.path.join(REPO_ROOT, "data", "reference")
-OUTPUT_FILE  = os.path.join(OUTPUT_DIR, "master_universe.csv")
+REPO_ROOT   = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+OUTPUT_DIR  = os.path.join(REPO_ROOT, "data", "reference")
+OUTPUT_FILE = os.path.join(OUTPUT_DIR, "master_universe.csv")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -42,19 +42,26 @@ ndx["Index"] = "NDX100"
 ndx["Ticker"] = ndx["Ticker"].str.replace(".", "-", regex=False)
 print(f"  Nasdaq 100: {len(ndx)} tickers")
 
-# --- PULL RUSSELL 2000 ---
-print("Fetching Russell 2000 list...")
-rtwo = read_wiki_table("https://en.wikipedia.org/wiki/Russell_2000_Index", table_index=2)
-rtwo = rtwo.iloc[:, :2].copy()  # Select first 2 columns (Ticker, Company)
-rtwo.columns = ["Ticker", "Name"]
-rtwo["Ticker"] = rtwo["Ticker"].astype(str)  # Convert to string for .str operations
-rtwo["Sector"] = "N/A"
-rtwo["Index"] = "Russell 2000"
-rtwo["Ticker"] = rtwo["Ticker"].str.replace(".", "-", regex=False)
-print(f"  Russell 2000: {len(rtwo)} tickers")
+# --- PULL RUSSELL 1000 ---
+print("Fetching Russell 1000 list...")
+try:
+    r1k = read_wiki_table("https://en.wikipedia.org/wiki/Russell_1000_Index", table_index=2)
+except Exception:
+    try:
+        r1k = read_wiki_table("https://en.wikipedia.org/wiki/Russell_1000_Index", table_index=1)
+    except Exception:
+        r1k = read_wiki_table("https://en.wikipedia.org/wiki/Russell_1000_Index", table_index=0)
+r1k = r1k.iloc[:, :2].copy()  # Select first 2 columns (Ticker, Company)
+r1k.columns = ["Ticker", "Name"]
+r1k["Ticker"] = r1k["Ticker"].astype(str)  # Convert to string for .str operations
+r1k["Sector"] = "N/A"
+r1k["Index"] = "Russell1000"
+r1k["Ticker"] = r1k["Ticker"].str.replace(".", "-", regex=False)
+print(f"  Russell 1000: {len(r1k)} tickers")
 
 # --- COMBINE & DEDUPLICATE ---
-combined = pd.concat([sp500, ndx, rtwo], ignore_index=True)
+# Keep S&P 500 label when a ticker appears in multiple indices (first = SP500)
+combined = pd.concat([sp500, ndx, r1k], ignore_index=True)
 combined = combined.drop_duplicates(subset="Ticker", keep="first")
 combined = combined.sort_values("Ticker").reset_index(drop=True)
 print(f"\n  Combined unique tickers: {len(combined)}")
