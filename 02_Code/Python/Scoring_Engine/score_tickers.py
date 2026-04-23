@@ -1,8 +1,7 @@
-# score_tickers.py  v3.1
+# score_tickers.py  v4.0.1
 # Scores all tickers using TECHNICAL + FUNDAMENTAL data
 # Changes v3.1:
-#   - Revised weights: 35% Technical, 35% Fundamental, 15% Sentiment, 15% Risk
-#   - Earnings momentum replaces raw earningsGrowth in fundamental
+#  - Revised weights: 30% Technical, 45% Fundamental, 10% Sentiment, 15% Risk#   - Earnings momentum replaces raw earningsGrowth in fundamental
 #   - Short interest flag added (flag only, not scored)
 #   - Insider buying flag added (flag only, not scored)
 #   - Growth quality multiplier: penalises low/negative revenue growth
