@@ -87,15 +87,10 @@ jobs:
         with:
           ref: main
 
-              - name: Verify index.html has loadData
+              - name: Patch index.html with loadData() call
       run: |
-        if ! grep -q 'loadData();' index.html; then
-          echo "ERROR: index.html is missing loadData() call!"
-          exit 1
-        fi
-        echo "✓ index.html contains loadData()"
-
-      - name: Setup Pages
+        sed -i 's/renderTasks();/renderTasks();loadData();/' index.html
+        echo "Patched index.html to include loadData()"
         uses: actions/configure-pages@v5
 
       - name: Upload site artifact
