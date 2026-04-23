@@ -106,7 +106,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1150px
+            min-width: 1250px
         }
 
         th,
@@ -320,7 +320,11 @@
                         <th data-k="technical">Tech</th>
                         <th data-k="sentiment">Sent</th>
                         <th data-k="low_risk">Risk</th>
-                        <th data-k="volume_millions">Vol (M)</th>
+                                                    <th>Vol (M)</th>
+                                                    <th>Price</th>
+                        230
+                        340
+                        
                         <th data-k="industry">Industry</th>
                     </tr>
                 </thead>
@@ -340,7 +344,7 @@ function render(rows){
   const tb=document.getElementById("tbody");if(!tb)return;
   tb.innerHTML=rows.map(function(r){
     const fav=favorites.has(r.ticker);
-    return "<tr class='"+(fav?"favorited":"")+"'><td><button class='star-btn "+(fav?"active":"")+"' data-ticker='"+r.ticker+"'>"+(fav?"&#9733;":"&#9734;")+"</button></td><td>"+(r.rank||"")+"</td><td>"+(r.change>0?"<span class='chg-up'>&#9650; "+r.change+"</span>":r.change<0?"<span class='chg-down'>&#9660; "+Math.abs(r.change)+"</span>":"<span class='chg-flat'>&#8212;</span>")+"</td><td style='font-weight:700;color:#60a5fa'>"+(r.ticker||"")+"</td><td>"+(r.company||"")+"</td><td>"+(r.country||"")+"</td><td><span class='pill "+aiPill(r.ai_score)+"'>"+fmt(r.ai_score)+"</span></td><td>"+chg(r.change)+"</td><td>"+fmt(r.fundamental)+"</td><td>"+fmt(r.technical)+"</td><td>"+fmt(r.sentiment)+"</td><td>"+fmt(r.low_risk)+"</td><td>"+fmt(r.volume_millions)+"</td><td style='font-size:11px'>"+(r.industry||r.sector||"")+"</td></tr>";
+    return "<tr class='"+(fav?"favorited":"")+"'><td><button class='star-btn "+(fav?"active":"")+"' data-ticker='"+r.ticker+"'>"+(fav?"&#9733;":"&#9734;")+"</button></td><td>"+(r.rank||"")+"</td><td>"+(r.change>0?"<span class='chg-up'>&#9650; "+r.change+"</span>":r.change<0?"<span class='chg-down'>&#9660; "+Math.abs(r.change)+"</span>":"<span class='chg-flat'>&#8212;</span>")+"</td><td style='font-weight:700;color:#60a5fa'>"+(r.ticker||"")+"</td><td>"+(r.company||"")+"</td><td>"+(r.country||"")+"</td><td><span class='pill "+aiPill(r.ai_score)+"'>"+fmt(r.ai_score)+"</span></td><td>"+chg(r.change)+"</td><td>"+fmt(r.fundamental)+"</td><td>"+fmt(r.technical)+"</td><td>"+fmt(r.sentiment)+"</td><td>"+fmt(r.low_risk)+"</td><td>"+347+"</td><td style='font-size:11px'>"+(r.industry||r.sector||"")+"</td></tr>";
   }).join("");
   const n=rows.length;
   document.getElementById("kpiRows").textContent=n;
