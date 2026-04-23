@@ -62,11 +62,11 @@ for _, row in universe.iterrows():
 
         technical = (
             rsi_score      * 0.20 +
-            macd_score     * 0.20 +
-            trend_score    * 0.25 +
+            macd_score     * 0.15 +
+            trend_score    * 0.20 +
             golden_score   * 0.10 +
             vol_score      * 0.10 +
-            momentum_score * 0.15
+            momentum_score * 0.25
         )
 
         # FUNDAMENTAL
@@ -106,19 +106,19 @@ for _, row in universe.iterrows():
             beta_score = 50 if pd.isna(beta) else min(100, max(0, 100 - abs(beta - 1) * 50))
 
             fundamental = (
-                pe_score                * 0.25 +
-                earnings_momentum_score * 0.30 +
-                revenue_score           * 0.25 +
-                beta_score              * 0.20
+                pe_score                * 0.20 +
+                earnings_momentum_score * 0.35 +
+                revenue_score           * 0.30 +
+                beta_score              * 0.15
             )
 
             # Growth quality multiplier: penalise low/negative revenue growth
             rev_g = float(rev_growth) if not pd.isna(rev_growth) else 0.0
             if rev_g >= 0.10:    growth_quality_multiplier = 1.00
-            elif rev_g >= 0.05:  growth_quality_multiplier = 0.92
-            elif rev_g >= 0.02:  growth_quality_multiplier = 0.82
-            elif rev_g >= 0.0:   growth_quality_multiplier = 0.70
-            else:                growth_quality_multiplier = 0.55
+            elif rev_g >= 0.05:  growth_quality_multiplier = 0.95
+            elif rev_g >= 0.02:  growth_quality_multiplier = 0.88
+            elif rev_g >= 0.0:   growth_quality_multiplier = 0.80
+            else:                growth_quality_multiplier = 0.70
             fundamental = fundamental * growth_quality_multiplier
 
             # Short interest flag
@@ -148,9 +148,9 @@ for _, row in universe.iterrows():
 
         # AI COMPOSITE SCORE (v3.1 weights)
         ai_score = (
-            (technical   / 10) * 0.35 +
-            (fundamental / 10) * 0.35 +
-            sentiment          * 0.15 +
+            (technical   / 10) * 0.30 +
+            (fundamental / 10) * 0.45 +
+            sentiment          * 0.10 +
             risk               * 0.15
         )
 
