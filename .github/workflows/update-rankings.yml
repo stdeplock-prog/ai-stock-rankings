@@ -87,6 +87,14 @@ jobs:
         with:
           ref: main
 
+              - name: Verify index.html has loadData
+      run: |
+        if ! grep -q 'loadData();' index.html; then
+          echo "ERROR: index.html is missing loadData() call!"
+          exit 1
+        fi
+        echo "✓ index.html contains loadData()"
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
