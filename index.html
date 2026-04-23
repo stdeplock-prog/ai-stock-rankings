@@ -328,6 +328,404 @@
             </table>
         </div>
     </main>
+<script>
+let state={rows:[]};const schedTimes=[[8,45],[12,30],[15,35]];let sortKey="rank",sortDir="asc",showFavsOnly=false,favorites=new Set(JSON.parse(localStorage.getItem("favTickers")||"[]"));const sectors=new Set();
+function saveFav(){localStorage.setItem("favTickers",JSON.stringify([...favorites]));}
+function toggleFav(t){favorites.has(t)?favorites.delete(t):favorites.add(t);saveFav();applySearch();}
+function aiPill(s){return s>=9?"pill-high":s>=7?"pill-med":"pill-low";}
+function chg(v){if(!v||isNaN(v))return "<span style='color:#9ca3af'>-</span>";return v>0?"<span style='color:#22c55e'>+"+Number(v).toFixed(2)+"%</span>":"<span style='color:#ef4444'>"+Number(v).toFixed(2)+"%</span>";}
+function updateNextRun(){const now=new Date(),cst=new Date(now.toLocaleString("en-US",{timeZone:"America/Chicago"})),h=cst.getHours(),m=cst.getMinutes(),cur=h*60+m;let next=null;for(const[th,tm]of schedTimes){if(th*60+tm>cur){next=[th,tm];break;}}if(!next)next=[8,45];const diff=next[0]*60+next[1]>cur?next[0]*60+next[1]-cur:1440-cur+next[0]*60+next[1];const el=document.getElementById("nextRun");if(el)el.textContent="Next run: "+Math.floor(diff/60)+"h "+(diff%60)+"m ("+String(next[0]).padStart(2,"0")+":"+String(next[1]).padStart(2,"0")+" CST)";}
+function fmt(v,d){return v!=null?Number(v).toFixed(d!=null?d:1):"-";}
+function render(rows){
+  const tb=document.getElementById("tbody");if(!tb)return;
+  tb.innerHTML=rows.map(function(r){
+    const fav=favorites.has(r.ticker);
+    return "<tr class='"+(fav?"favorited":"")+"'><td><button class='star-btn "+(fav?"active":"")+"' data-ticker='"+r.ticker+"'>"+(fav?"&#9733;":"&#9734;")+"</button></td><td>"+(r.rank||"")+"</td><td style='font-weight:700;color:#60a5fa'>"+(r.ticker||"")+"</td><td>"+(r.company||"")+"</td><td>"+(r.country||"")+"</td><td><span class='pill "+aiPill(r.ai_score)+"'>"+fmt(r.ai_score)+"</span></td><td>"+chg(r.change)+"</td><td>"+fmt(r.fundamental)+"</td><td>"+fmt(r.technical)+"</td><td>"+fmt(r.sentiment)+"</td><td>"+fmt(r.low_risk)+"</td><td>"+fmt(r.volume_millions)+"</td><td style='font-size:11px'>"+(r.industry||r.sector||"")+"</td></tr>";
+  }).join("");
+  const n=rows.length;
+  document.getElementById("kpiRows").textContent=n;
+  document.getElementById("kpiTop").textContent=rows.filter(function(r){return Number(r.ai_score)>=9;}).length;
+  document.getElementById("kpiTech").textContent=n?(rows.reduce(function(a,r){return a+Number(r.technical||0);},0)/n).toFixed(2):"0.00";
+  document.getElementById("kpiFavs").textContent=favorites.size;
+  document.querySelectorAll(".star-btn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();toggleFav(e.target.dataset.ticker);});});
+}
+async function loadData(){
+  try{
+    const r=await fetch("./data/rankings.json?cb="+Date.now(),{cache:"no-store"});
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    const d=await r.json();state=d;
+    document.getElementById("errMsg").textContent="";
+    document.getElementById("updated").textContent="Last Updated: "+(d.as_of||"-");
+    sectors.clear();(d.rows||[]).forEach(function(row){if(row.sector)sectors.add(row.sector);});
+    const sf=document.getElementById("sectorFilter"),cur=sf.value;
+    sf.innerHTML="<option value=''>All Sectors</option>"+[...sectors].sort().map(function(s){return "<option value='"+s+"'>"+s+"</option>";}).join("");
+    sf.value=cur;updateNextRun();applySearch();
+  }catch(e){document.getElementById("errMsg").textContent="Error: "+e.message;}
+}
+function applySearch(){
+  const q=document.getElementById("search").value.trim().toLowerCase(),sec=document.getElementById("sectorFilter").value;
+  let rows=(state.rows||[]).slice();
+  if(showFavsOnly)rows=rows.filter(function(r){return favorites.has(r.ticker);});
+  if(sec)rows=rows.filter(function(r){return r.sector===sec;});
+  if(q)rows=rows.filter(function(r){return(r.ticker||"").toLowerCase().includes(q)||(r.company||"").toLowerCase().includes(q);});
+  rows.sort(function(a,b){const av=a[sortKey],bv=b[sortKey];if(av==null)return 1;if(bv==null)return-1;return sortDir==="asc"?(av>bv?1:-1):(av<bv?1:-1);});
+  render(rows);
+}
+function getNextWeekday(h,m){const now=new Date(),d=new Date(now);d.setHours(h,m,0,0);if(d<=now||d.getDay()===0||d.getDay()===6){d.setDate(d.getDate()+1);while(d.getDay()===0||d.getDay()===6)d.setDate(d.getDate()+1);d.setHours(h,m,0,0);}return d;}
+function getNextDOW(dow,h,m){const now=new Date(),d=new Date(now);d.setHours(h,m,0,0);d.setDate(d.getDate()+((dow-d.getDay()+7)%7||7));d.setHours(h,m,0,0);return d;}
+function fmtDT(dt){if(!dt)return "-";return dt.toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit",hour12:true});}
+function renderTasks(){
+  const tb=document.getElementById("tasksTbody");if(!tb)return;
+  const tasks=[
+    {title:"Market Risk Monitor",schedule:"Weekdays @ 9:00 AM",next:getNextWeekday(9,0)},
+    {title:"Politician Stock Trades",schedule:"Weekly Sun @ 5:54 PM",next:getNextDOW(0,17,54)},
+    {title:"Weekly Economic Events",schedule:"Weekly Sun @ 7:20 PM",next:getNextDOW(0,19,20)},
+    {title:"Value & Momentum Screen",schedule:"Weekly Tue @ 10:00 AM",next:getNextDOW(2,10,0)},
+    {title:"Top Options Convictions",schedule:"Weekdays @ 10:00 AM",next:getNextWeekday(10,0)}
+  ];
+  tb.innerHTML=tasks.map(function(t,i){
+    const last=localStorage.getItem("task_last_"+t.title);
+    return "<tr><td>"+(i+1)+"</td><td style='font-weight:600'>"+t.title+"</td><td style='color:var(--muted);font-size:12px'>"+t.schedule+"</td><td style='font-size:12px'>"+fmtDT(last?new Date(last):null)+"</td><td style='color:#22c55e;font-size:12px'>"+fmtDT(t.next)+"</td><td><span class='pill pill-high' style='font-size:11px'>active</span></td></tr>";
+  }).join("");
+}
+document.querySelectorAll("th[data-k]").forEach(function(th){th.addEventListener("click",function(){if(sortKey===th.dataset.k)sortDir=sortDir==="asc"?"desc":"asc";else{sortKey=th.dataset.k;sortDir="asc";}applySearch();});});
+document.getElementById("search").addEventListener("input",applySearch);
+document.getElementById("sectorFilter").addEventListener("change",applySearch);
+document.getElementById("refreshBtn").addEventListener("click",loadData);
+document.getElementById("favFilterBtn").addEventListener("click",function(){showFavsOnly=!showFavsOnly;this.textContent=showFavsOnly?"Show All":"Show Watchlist ("+favorites.size+")";applySearch();});
+document.getElementById("exportBtn").addEventListener("click",function(){const rows=state.rows||[];const csv=["Rank,Ticker,Company,AI,Fund,Tech,Sent,Risk,Vol,Sector"].concat(rows.map(function(r){return[r.rank,r.ticker,r.company,r.ai_score,r.fundamental,r.technical,r.sentiment,r.low_risk,r.volume_millions,r.sector].join(",");})).join("\n");const a=document.createElement("a");a.href="data:text/csv,"+encodeURIComponent(csv);a.download="rankings.csv";a.click();});
+renderTasks();loadData();setInterval(loadData,300000);
+</script>
+<!DOCTYPE html>
+<html lfang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AI Stock Rankings</title>
+    <style>
+        :root {
+            --bg: #0b1220;
+            --panel: #111827;
+            --panel2: #172033;
+            --line: #243043;
+            --text: #e5eefc;
+            --muted: #93a4bd;
+            --pill: #1f2937;
+            --pill-high: #065f46;
+            --pill-med: #854d0e;
+            --pill-low: #4b5563;
+            --star: #fbbf24
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text)
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: var(--panel2);
+            border-bottom: 1px solid var(--line);
+            padding: 12px 16px
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .btn,
+        select,
+        input {
+            background: var(--panel);
+            color: var(--text);
+            border: 1px solid var(--line);
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer
+        }
+
+        main {
+            padding: 16px
+        }
+
+        .kpis {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin: 12px 0
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 12px
+        }
+
+        .label {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .08em
+        }
+
+        .value {
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 6px
+        }
+
+        .table-wrap {
+            overflow: auto;
+            border: 1px solid var(--line);
+            border-radius: 8px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1150px
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid var(--line);
+            text-align: left
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            background: var(--panel2);
+            font-size: 12px;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            cursor: pointer
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, .03)
+        }
+
+        tr.favorited {
+            background: rgba(251, 191, 36, .08);
+            border-left: 3px solid var(--star)
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 13px
+        }
+
+        .pill-high {
+            background: var(--pill-high);
+            color: #d1fae5
+        }
+
+        .pill-med {
+            background: var(--pill-med);
+            color: #fef3c7
+        }
+
+        .pill-low {
+            background: var(--pill-low);
+            color: #e5e7eb
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            font-size: 18px;
+            line-height: 1;
+            color: var(--muted);
+            transition: color .2s
+        }
+
+        .star-btn:hover {
+            color: var(--star)
+        }
+
+        .star-btn.active {
+            color: var(--star)
+        }
+
+        .err {
+            color: #f87171;
+            padding: 12px;
+            font-size: 14px
+        }
+
+        .chg-up {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            color: #22c55e;
+            font-weight: 700;
+            font-size: 13px
+        }
+
+        .chg-down {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            color: #f87171;
+            font-weight: 700;
+            font-size: 13px
+        }
+
+        .chg-flat {
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .chg-up svg,
+        .chg-down svg {
+            flex-shrink: 0
+        }
+
+        .next-run {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px
+        }
+
+        .tasks-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            margin: 16px 0
+        }
+
+        .tasks-wrap table {
+            min-width: 700px
+        }
+
+        @media(max-width:960px) {
+            .kpis {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+        }
+
+        @media(max-width:640px) {
+            .kpis {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="row">
+            <div class="label">Live rankings dashboard</div>
+            <div style="font-size:22px;font-weight:700">AI Stock Rankings</div>
+            <div id="updated" class="label" style="margin-top:4px">Last Updated: â€”</div>
+            <div id="nextRun" class="next-run">Next run: â€”</div>
+        </div>
+        <div class="controls">
+            <select id="universe">
+                <option value="top-popular">Top Popular</option>
+                <option value="top-growth">Top Growth</option>
+                <option value="top-low-risk">Top Low Risk</option>
+                <option value="top-sp500">Top S&P 500</option>
+            </select>
+            <select id="sectorFilter">
+                <option value="">All Sectors</option>
+            </select>
+            <input id="search" placeholder="Search ticker or company">
+            <button class="btn" id="favFilterBtn">Show Watchlist (0)</button>
+            <button class="btn" id="refreshBtn">Refresh</button>
+            <button class="btn" id="exportBtn">Export CSV</button>
+        </div>
+    </header>
+    <main>
+        <div class="kpis">
+            <div class="card">
+                <div class="label">Rows</div>
+                <div class="value" id="kpiRows">0</div>
+            </div>
+            <div class="card">
+                <div class="label">AI 9-10</div>
+                <div class="value" id="kpiTop">0</div>
+            </div>
+            <div class="card">
+                <div class="label">Avg Technical</div>
+                <div class="value" id="kpiTech">0.00</div>
+            </div>
+            <div class="card">
+                <div class="label">Watchlist</div>
+                <div class="value" id="kpiFavs">0</div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:6px;margin-top:8px">
+            <div class="label">Scheduled Tasks</div>
+        </div>
+        <div class="tasks-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:40px">#</th>
+                        <th>Task</th>
+                        <th>Schedule</th>
+                        <th>Last Run</th>
+                        <th>Next Run</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tasksTbody"></tbody>
+            </table>
+        </div>
+        <section class="kpis" style="margin-top:0"></section>
+        <div id="errMsg" class="err"></div>
+        <div class="table-wrap">
+            <table>
+                <thead id="thead">
+                    <tr>
+                        <th style="width:40px"></th>
+                        <th data-k="rank">Rank</th>
+                        <th data-k="ticker">Ticker</th>
+                        <th data-k="company">Company</th>
+                        <th data-k="country">Country</th>
+                        <th data-k="ai_score">AI</th>
+                        <th data-k="change">vs Open</th>
+                        <th data-k="fundamental">Fund</th>
+                        <th data-k="technical">Tech</th>
+                        <th data-k="sentiment">Sent</th>
+                        <th data-k="low_risk">Risk</th>
+                        <th data-k="volume_millions">Vol (M)</th>
+                        <th data-k="industry">Industry</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
+    </main>
     <script>
         let state = { rows: [], as_of: null, universe: "" }, schedTimes = [[8, 45], [12, 30], [15, 35]], sortKey = "rank", sortDir = "asc", sectors = new Set(), favorites = new Set(JSON.parse(localStorage.getItem('favTickers') || '[]')), showFavsOnly = false;
         function saveFavorites() { localStorage.setItem('favTickers', JSON.stringify([...favorites])) }
