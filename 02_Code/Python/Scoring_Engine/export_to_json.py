@@ -1,22 +1,23 @@
-# export_to_json.py  v5
+# export_to_json.py  v6
 # Converts rankings.csv -> data/rankings.json for the live dashboard
 # Change logic: "vs Open" = first run of today vs current run
 #   - On first run of day: saves rankings_daily_open.csv, change = 0
 #   - On subsequent runs: compares against rankings_daily_open.csv
 #   - daily_open resets each calendar day (CDT/CST)
 # v5: adds short_interest and insider_buying fields from score_tickers v3
+# v6: adds closes[] (last 30 daily closes, rounded 2dp) for sparkline charts
 import pandas as pd
 import json
 import os
 from datetime import datetime, timezone, timedelta
 
 # --- CONFIG ---
-REPO_ROOT     = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-RANKINGS_CSV  = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "rankings.csv")
-OHLCV_DIR     = os.path.join(REPO_ROOT, "data", "raw", "ohlcv_daily")
-OUTPUT_FILE   = os.path.join(REPO_ROOT, "data", "rankings.json")
+REPO_ROOT       = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+RANKINGS_CSV    = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "rankings.csv")
+OHLCV_DIR       = os.path.join(REPO_ROOT, "data", "raw", "ohlcv_daily")
+OUTPUT_FILE     = os.path.join(REPO_ROOT, "data", "rankings.json")
 
-# Daily open snapshot — first run of each calendar day
+# Daily open snapshot - first run of each calendar day
 DAILY_OPEN_FILE = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "rankings_daily_open.csv")
 DAILY_OPEN_DATE = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "rankings_daily_open_date.txt")
 
@@ -62,10 +63,10 @@ if is_first_run_today:
     df.to_csv(DAILY_OPEN_FILE, index=False)
     with open(DAILY_OPEN_DATE, "w") as f:
         f.write(today_str)
-    print(f"First run of {today_str} — saved daily open snapshot.")
+    print(f"First run of {today_str} - saved daily open snapshot.")
     open_df = df.copy()
 else:
-    print(f"Subsequent run — comparing vs open snapshot from {last_open_date}.")
+    print(f"Subsequent run - comparing vs open snapshot from {last_open_date}.")
     try:
         open_df = pd.read_csv(DAILY_OPEN_FILE)
     except Exception as e:
@@ -89,15 +90,21 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
     open_rank = open_rank_map.get(ticker, curr_rank)
     change    = open_rank - curr_rank  # e.g. was 10, now 7 -> +3 (moved up)
 
-    # Latest volume from OHLCV
+    # Load OHLCV data for volume + sparkline closes
     vol_millions = 0
+    closes       = []
     try:
         ohlcv_path = os.path.join(OHLCV_DIR, f"{ticker}_daily.csv")
-        ohlcv      = pd.read_csv(ohlcv_path, index_col=0)
+        ohlcv = pd.read_csv(ohlcv_path, index_col=0)
         if isinstance(ohlcv.columns, pd.MultiIndex):
             ohlcv.columns = [col[0] for col in ohlcv.columns]
         ohlcv.columns = [c.title() if isinstance(c, str) else c for c in ohlcv.columns]
-        vol_millions  = round(float(ohlcv["Volume"].iloc[-1]) / 1_000_000, 1) if "Volume" in ohlcv.columns else 0
+        if "Volume" in ohlcv.columns:
+            vol_millions = round(float(ohlcv["Volume"].iloc[-1]) / 1_000_000, 1)
+        # Sparkline: last 30 trading-day closes, rounded to 2dp
+        if "Close" in ohlcv.columns:
+            raw_closes = ohlcv["Close"].dropna().tail(30).tolist()
+            closes = [round(float(c), 2) for c in raw_closes]
     except:
         pass
 
@@ -124,31 +131,32 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
         insider_buying = False
 
     rows.append({
-        "rank":            curr_rank,
-        "ticker":          ticker,
-        "company":         safe_str(row["Name"]),
-        "country":         "US",
-        "ai_score":        round(float(row["AI_Score"]), 1)        if "AI_Score"    in row.index else round(float(row.get("Score", 0)) / 10, 1),
-        "change":          change,
-        "fundamental":     round(float(row.get("Fundamental", 5.0)), 1),
-        "technical":       round(float(row.get("Technical",   5.0)), 1),
-        "sentiment":       round(float(row.get("Sentiment",   5.0)), 1),
-        "low_risk":        round(float(row.get("Risk",         5.0)), 1),
-        "volume_millions": vol_millions,
-        "industry":        industry_val,
-        "sector":          safe_str(row.get("Sector", "")),
-        "short_interest":  short_interest,   # % of float short, or null
-        "insider_buying":  insider_buying,   # true if net insider buys > sells
+        "rank":           curr_rank,
+        "ticker":         ticker,
+        "company":        safe_str(row["Name"]),
+        "country":        "US",
+        "ai_score":       round(float(row["AI_Score"]), 1) if "AI_Score" in row.index else round(float(row.get("Score", 0)) / 10, 1),
+        "change":         change,
+        "fundamental":    round(float(row.get("Fundamental", 5.0)), 1),
+        "technical":      round(float(row.get("Technical", 5.0)), 1),
+        "sentiment":      round(float(row.get("Sentiment", 5.0)), 1),
+        "low_risk":       round(float(row.get("Risk", 5.0)), 1),
+        "volume_millions":vol_millions,
+        "closes":         closes,           # last 30 daily closes for sparkline
+        "industry":       industry_val,
+        "sector":         safe_str(row.get("Sector", "")),
+        "short_interest": short_interest,   # % of float short, or null
+        "insider_buying": insider_buying,   # true if net insider buys > sells
     })
 
 # --- BUILD JSON OUTPUT ---
 as_of_str = get_central_time_str(central_now)
 output = {
-    "as_of":      as_of_str,
-    "open_date":  today_str,
+    "as_of":     as_of_str,
+    "open_date": today_str,
     "is_open_run": is_first_run_today,
-    "universe":   "SP500 + NDX100 + Russell1000 (~1400 tickers)",
-    "rows":       rows
+    "universe":  "SP500 + NDX100 + Russell1000 (~1400 tickers)",
+    "rows":      rows
 }
 
 with open(OUTPUT_FILE, "w") as f:
