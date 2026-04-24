@@ -74,7 +74,8 @@ jobs:
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
       - name: Commit and push updated data files
-            if: github.ref == 'refs/heads/main'
+      
+      if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
