@@ -1,4 +1,4 @@
-# score_swing.py  v1.0
+# score_swing.py  v1.1  (swing-trader calibration)
 # Generates a SWING-TRADING oriented score alongside the existing AI composite.
 # Reads:
 #   data/processed/technical_indicators/{ticker}_indicators.csv  (from calc_indicators.py v2.0)
@@ -52,11 +52,11 @@ def catalyst_bonus(days):
     if days is None or pd.isna(days):
         return 50.0
     d = float(days)
-    if 5 <= d <= 45: return 100.0
-    if 0 <= d < 5:   return 30.0
-    if 45 < d <= 75: return 65.0
+    if 10 <= d <= 60: return 100.0
+    if 0 <= d < 3:  return 20.0
+    if 3 <= d < 10:  return 55.0
+    if 60 < d <= 90: return 60.0
     return 50.0
-
 
 def main():
     universe = pd.read_csv(UNIVERSE)
@@ -91,8 +91,7 @@ def main():
             bb_s = 50
         stoch_s = 100 if 20 <= stoch_k <= 80 else 40
 
-        tech = (rsi_s * 0.25 + macd_s * 0.20 + trend_s * 0.25 +
-                adx_s  * 0.15 + bb_s   * 0.075 + stoch_s * 0.075)
+tech = (rsi_s * 0.20 + macd_s * 0.20 + trend_s * 0.30 + adx_s * 0.20 + bb_s * 0.05 + stoch_s * 0.05)
 
         dist_50 = latest.get("Dist_From_SMA50_Pct", 0) or 0
         if dist_50 >= 0:
@@ -117,7 +116,7 @@ def main():
 
         cat_bonus = catalyst_bonus(row["days_to_earnings"])
         row["Catalyst_Flag"] = bool(row["days_to_earnings"] is not None and
-                                    5 <= (row["days_to_earnings"] or -1) <= 45)
+                                    10 <= (row["days_to_earnings"] or -1) <= 60)
 
         if sent_from_news is not None and not pd.isna(sent_from_news):
             sent = float(sent_from_news)
@@ -127,11 +126,10 @@ def main():
             sent = min(100, max(0, sent))
 
         atr_pct = latest.get("ATR_Pct", 0.02) or 0.02
-        atr_norm = min(100, atr_pct * 2000)
-        vol_drag = 100 - atr_norm
+        atr_norm = 100 if 0.015 <= atr_pct <= 0.040 else (60 + (atr_pct/0.015)*30 if atr_pct < 0.015 else max(0, 100 - (atr_pct - 0.040) * 2000) if atr_pct <= 0.080 else 0)
+        vol_drag = atr_norm  # v1.1: now a vol-fit score (higher = better-fit for swing)
 
-        swing = (0.40 * tech + 0.25 * sent + 0.15 * momentum +
-                 0.10 * cat_bonus + 0.10 * vol_drag)
+        swing = (0.35 * tech + 0.25 * momentum + 0.15 * sent + 0.15 * cat_bonus + 0.10 * vol_drag)
 
         row["Tech"] = round(tech, 2)
         row["Sent"] = round(sent, 2)
@@ -146,9 +144,10 @@ def main():
     df = pd.DataFrame(out_rows).sort_values("SwingScore", ascending=False).reset_index(drop=True)
     df["Swing_Rank"] = df.index + 1
     def tier(s):
-        if s >= 75: return "A"
-        if s >= 60: return "B"
-        return "C"
+        if s >= 70: return "A"
+        if s >= 55: return "B"
+        if s >= 40: return "C"
+        return "D"
     df["Swing_Tier"] = df["SwingScore"].apply(tier)
     df.to_csv(OUT_FILE, index=False)
     print(f"Wrote {len(df)} rows to {OUT_FILE}")
