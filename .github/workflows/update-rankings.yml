@@ -2,9 +2,9 @@ name: Update Stock Rankings
 
 on:
   schedule:
-    - cron: '45 14 * * 1-5'   # 8:45 AM CST  (14:45 UTC)  Mon-Fri
-    - cron: '30 18 * * 1-5'   # 12:30 PM CST (18:30 UTC)  Mon-Fri
-    - cron: '35 21 * * 1-5'   # 3:35 PM CST  (21:35 UTC)  Mon-Fri
+    - cron: '45 14 * * 1-5'   # 8:45 AM CST (14:45 UTC) Mon-Fri
+    - cron: '30 18 * * 1-5'   # 12:30 PM CST (18:30 UTC) Mon-Fri
+    - cron: '35 21 * * 1-5'   # 3:35 PM CST (21:35 UTC) Mon-Fri
   workflow_dispatch:           # Manual trigger from Actions tab
 
 permissions:
@@ -69,13 +69,12 @@ jobs:
       - name: Score swing (SwingScore + tiers)
         run: python 02_Code/Python/Scoring_Engine/score_swing.py
 
-
       - name: Export rankings to JSON
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
-    - name: Commit and push updated data files
-      if: github.ref == 'refs/heads/main'
-      run: |
+      - name: Commit and push updated data files
+        if: github.ref == 'refs/heads/main'
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/rankings.json
