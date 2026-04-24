@@ -91,7 +91,7 @@ def main():
             bb_s = 50
         stoch_s = 100 if 20 <= stoch_k <= 80 else 40
 
-                tech = (rsi_s * 0.20 + macd_s * 0.20 + trend_s * 0.30 + adx_s * 0.20 + bb_s * 0.05 + stoch_s * 0.05)
+            tech = (rsi_s * 0.20 + macd_s * 0.20 + trend_s * 0.30 + adx_s * 0.20 + bb_s * 0.05 + stoch_s * 0.05)
 
         dist_50 = latest.get("Dist_From_SMA50_Pct", 0) or 0
         if dist_50 >= 0:
