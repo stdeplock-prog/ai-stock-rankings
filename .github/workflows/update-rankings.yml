@@ -60,6 +60,16 @@ jobs:
       - name: Score tickers
         run: python 02_Code/Python/Scoring_Engine/score_tickers.py
 
+      - name: Fetch catalysts (earnings + analyst ratings)
+        run: python 02_Code/Python/Data_Fetch/fetch_catalysts.py
+        env:
+          DATA_PROVIDER: ${{ vars.DATA_PROVIDER || 'yfinance' }}
+          EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
+
+      - name: Score swing (SwingScore + tiers)
+        run: python 02_Code/Python/Scoring_Engine/score_swing.py
+
+
       - name: Export rankings to JSON
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
