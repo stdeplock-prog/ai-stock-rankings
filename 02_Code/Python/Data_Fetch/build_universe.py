@@ -103,27 +103,85 @@ else:
 print(f"  Nasdaq 100: {len(ndx)} tickers")
 
 # --- PULL RUSSELL 1000 ---
-print("Fetching Russell 1000 list...")
-try:
-    r1k_tables = read_wiki_tables("https://en.wikipedia.org/wiki/Russell_1000_Index")
-    r1k_df, r1k_col = pick_ticker_table(r1k_tables, min_rows=500)
-except Exception as e:
-    print(f"  WARN: Russell 1000 fetch failed: {e}")
-    r1k_df, r1k_col = None, None
+# Primary source: iShares IWB holdings CSV (authoritative, daily-updated, stable schema).
+# Secondary source: Wikipedia (existing scrape).
+# Tertiary source: cached master_universe.csv (handled later in SAFETY NET).
+IWB_CSV_URL = (
+    "https://www.ishares.com/us/products/239707/ishares-russell-1000-etf/"
+    "?fileType=csv&fileName=IWB_holdings&dataType=fund"
+)
 
-if r1k_df is None:
-    print("  WARN: Russell 1000 table not recognized (Wikipedia layout may have changed).")
-    r1k = pd.DataFrame(columns=["Ticker", "Name", "Sector", "Index"])
+def fetch_russell1000_iwb():
+    """Fetch Russell 1000 constituents from iShares IWB holdings CSV.
+    Returns a DataFrame[Ticker,Name,Sector,Index] or None on any failure.
+    The CSV has ~9 metadata rows above the real header that starts with 'Ticker,'.
+    """
+    try:
+        resp = requests.get(IWB_CSV_URL, headers=HEADERS, timeout=30)
+        resp.raise_for_status()
+        text = resp.text
+        # Find the real header line (the one that actually starts with 'Ticker,')
+        lines = text.splitlines()
+        header_idx = None
+        for i, line in enumerate(lines):
+            if line.lstrip().lower().startswith("ticker,"):
+                header_idx = i
+                break
+        if header_idx is None:
+            print("  WARN: IWB CSV header row not found.")
+            return None
+        csv_body = "\n".join(lines[header_idx:])
+        df = pd.read_csv(StringIO(csv_body))
+        if "Ticker" not in df.columns:
+            print("  WARN: IWB CSV missing Ticker column.")
+            return None
+        # Keep only equity holdings; drop cash/FX/derivative rows.
+        if "Asset Class" in df.columns:
+            df = df[df["Asset Class"].astype(str).str.strip().str.lower() == "equity"]
+        out = pd.DataFrame({
+            "Ticker": df["Ticker"].astype(str).str.strip(),
+            "Name":   df.get("Name", pd.Series([""] * len(df))).astype(str).str.strip(),
+            "Sector": df.get("Sector", pd.Series(["N/A"] * len(df))).astype(str).str.strip(),
+        })
+        out["Index"] = "Russell1000"
+        out["Ticker"] = out["Ticker"].str.replace(".", "-", regex=False)
+        out = out[out["Ticker"].apply(is_valid_ticker)]
+        out = out.drop_duplicates(subset="Ticker", keep="first")
+        if len(out) < 500:
+            print(f"  WARN: IWB returned only {len(out)} tickers; treating as invalid.")
+            return None
+        return out.reset_index(drop=True)
+    except Exception as e:
+        print(f"  WARN: IWB fetch failed: {e}")
+        return None
+
+print("Fetching Russell 1000 list (IWB primary)...")
+r1k = fetch_russell1000_iwb()
+if r1k is not None:
+    print(f"  Russell 1000 (IWB): {len(r1k)} tickers")
 else:
-    other_cols = [c for c in r1k_df.columns if c != r1k_col]
-    name_col = other_cols[0] if other_cols else r1k_col
-    r1k = pd.DataFrame({"Ticker": r1k_df[r1k_col].astype(str).str.strip(),
-                        "Name":   r1k_df[name_col].astype(str).str.strip()})
-    r1k["Sector"] = "N/A"
-    r1k["Index"]  = "Russell1000"
-    r1k["Ticker"] = r1k["Ticker"].str.replace(".", "-", regex=False)
-    r1k = r1k[r1k["Ticker"].apply(is_valid_ticker)]
-print(f"  Russell 1000: {len(r1k)} tickers")
+    print("  Falling back to Wikipedia Russell 1000 scrape...")
+    try:
+        r1k_tables = read_wiki_tables("https://en.wikipedia.org/wiki/Russell_1000_Index")
+        r1k_df, r1k_col = pick_ticker_table(r1k_tables, min_rows=500)
+    except Exception as e:
+        print(f"  WARN: Russell 1000 Wikipedia fetch failed: {e}")
+        r1k_df, r1k_col = None, None
+    if r1k_df is None:
+        print("  WARN: Russell 1000 Wikipedia table not recognized (layout may have changed).")
+        r1k = pd.DataFrame(columns=["Ticker", "Name", "Sector", "Index"])
+    else:
+        other_cols = [c for c in r1k_df.columns if c != r1k_col]
+        name_col = other_cols[0] if other_cols else r1k_col
+        r1k = pd.DataFrame({
+            "Ticker": r1k_df[r1k_col].astype(str).str.strip(),
+            "Name":   r1k_df[name_col].astype(str).str.strip(),
+        })
+        r1k["Sector"] = "N/A"
+        r1k["Index"]  = "Russell1000"
+        r1k["Ticker"] = r1k["Ticker"].str.replace(".", "-", regex=False)
+        r1k = r1k[r1k["Ticker"].apply(is_valid_ticker)]
+    print(f"  Russell 1000 (Wikipedia): {len(r1k)} tickers")
 
 # --- COMBINE & DEDUPLICATE ---
 combined = pd.concat([sp500, ndx, r1k], ignore_index=True)
