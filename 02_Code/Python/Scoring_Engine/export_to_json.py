@@ -16,6 +16,7 @@ REPO_ROOT       = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirnam
 RANKINGS_CSV    = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "rankings.csv")
 OHLCV_DIR       = os.path.join(REPO_ROOT, "data", "raw", "ohlcv_daily")
 OUTPUT_FILE     = os.path.join(REPO_ROOT, "data", "rankings.json")
+SWING_CSV     = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "swing_rankings.csv")
 
 # Daily open snapshot - first run of each calendar day
 DAILY_OPEN_FILE = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "rankings_daily_open.csv")
@@ -45,6 +46,32 @@ def safe_str(val, default=""):
 # --- LOAD CURRENT RANKINGS ---
 df = pd.read_csv(RANKINGS_CSV)
 df = df.head(100)
+
+# --- LOAD SWING RANKINGS (optional, left-join by Ticker) ---
+swing_df = None
+try:
+    if os.path.exists(SWING_CSV):
+        swing_df = pd.read_csv(SWING_CSV)
+        # Keep only the fields we need on the dashboard.
+        swing_keep = [c for c in [
+            "Ticker", "SwingScore", "Swing_Rank", "Swing_Tier",
+            "ATR_Pct", "Vol_Bucket", "Catalyst_Flag",
+            "days_to_earnings", "next_earnings_date",
+            "Ext_Rating_Score", "num_analysts", "Ext_Up_Downside_Pct",
+        ] if c in swing_df.columns]
+        swing_df = swing_df[swing_keep].copy()
+        swing_df["Ticker"] = swing_df["Ticker"].astype(str).str.strip()
+    else:
+        print(f"Note: swing_rankings.csv not found at {SWING_CSV}; swing fields will be blank.")
+except Exception as e:
+    print(f"Warning: failed to load swing rankings ({e}); swing fields will be blank.")
+    swing_df = None
+
+# Build a Ticker -> swing-row lookup for O(1) access in the main loop.
+swing_lookup = {}
+if swing_df is not None and not swing_df.empty:
+    for _, srow in swing_df.iterrows():
+        swing_lookup[str(srow["Ticker"]).strip()] = srow
 
 # --- DETERMINE IF THIS IS THE FIRST RUN OF TODAY ---
 central_now = get_central_now()
@@ -130,6 +157,35 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
     except Exception:
         insider_buying = False
 
+    # Swing fields (joined from swing_rankings.csv; all optional, default to None)
+    srow = swing_lookup.get(ticker)
+    def _swing_f(col, cast=float, nd=2):
+        if srow is None or col not in srow.index:
+            return None
+        v = srow[col]
+        try:
+            if pd.isna(v):
+                return None
+            if cast is float:
+                return round(float(v), nd)
+            if cast is int:
+                return int(float(v))
+            if cast is bool:
+                return bool(v) if not isinstance(v, str) else str(v).strip().lower() == "true"
+            return str(v).strip()
+        except Exception:
+            return None
+    swing_score       = _swing_f("SwingScore", float, 1)
+    swing_rank        = _swing_f("Swing_Rank", int)
+    swing_tier        = _swing_f("Swing_Tier", str)
+    atr_pct           = _swing_f("ATR_Pct", float, 2)
+    vol_bucket        = _swing_f("Vol_Bucket", str)
+    catalyst_flag     = _swing_f("Catalyst_Flag", bool)
+    days_to_earnings  = _swing_f("days_to_earnings", int)
+    next_earnings     = _swing_f("next_earnings_date", str)
+    ext_rating        = _swing_f("Ext_Rating_Score", float, 2)
+    num_analysts      = _swing_f("num_analysts", int)
+    upside_pct        = _swing_f("Ext_Up_Downside_Pct", float, 1)
     rows.append({
         "rank":           curr_rank,
         "ticker":         ticker,
@@ -147,6 +203,18 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
         "sector":         safe_str(row.get("Sector", "")),
         "short_interest": short_interest,   # % of float short, or null
         "insider_buying": insider_buying,   # true if net insider buys > sells
+        # Swing-trader fields (null if ticker not in swing_rankings.csv)
+        "swing_score":      swing_score,
+        "swing_rank":       swing_rank,
+        "swing_tier":       swing_tier,
+        "atr_pct":          atr_pct,
+        "vol_bucket":       vol_bucket,
+        "catalyst_flag":    catalyst_flag,
+        "days_to_earnings": days_to_earnings,
+        "next_earnings":    next_earnings,
+        "ext_rating":       ext_rating,
+        "num_analysts":     num_analysts,
+        "upside_pct":       upside_pct,
     })
 
 # --- BUILD JSON OUTPUT ---
