@@ -80,6 +80,8 @@ jobs:
           git add data/rankings.json
           git add data/processed/scoring_outputs/rankings_daily_open.csv 2>/dev/null || true
           git add data/processed/scoring_outputs/rankings_daily_open_date.txt 2>/dev/null || true
+          git add data/processed/catalysts.csv 2>/dev/null || true
+          git add data/processed/scoring_outputs/swing_rankings.csv 2>/dev/null || true
 
           if git diff --staged --quiet; then
             echo "No changes to commit."
