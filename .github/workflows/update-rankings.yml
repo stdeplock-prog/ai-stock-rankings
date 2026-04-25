@@ -2,9 +2,12 @@ name: Update Stock Rankings
 
 on:
   schedule:
-    - cron: '45 14 * * 1-5'   # 8:45 AM CST (14:45 UTC) Mon-Fri
-    - cron: '30 18 * * 1-5'   # 12:30 PM CST (18:30 UTC) Mon-Fri
-    - cron: '35 21 * * 1-5'   # 3:35 PM CST (21:35 UTC) Mon-Fri
+        # Twin UTC crons + a TZ-aware gate (see first step in update-rankings job).
+    # OS handles DST via TZ=America/Chicago, so YAML never needs DST edits.
+    # Each pair fires twice; the gate exits 78 (neutral) on the off-target twin.
+    - cron: '45 13,14 * * 1-5'   # 8:45 AM America/Chicago  (13:45 UTC CDT / 14:45 UTC CST)
+    - cron: '30 17,18 * * 1-5'   # 12:30 PM America/Chicago (17:30 UTC CDT / 18:30 UTC CST)
+    - cron: '35 20,21 * * 1-5'   # 3:35 PM America/Chicago  (20:35 UTC CDT / 21:35 UTC CST)
   workflow_dispatch:           # Manual trigger from Actions tab
 
 permissions:
@@ -24,6 +27,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Gate on America/Chicago wall-clock time (DST-proof)
+        if: github.event_name == 'schedule'
+        run: |
+          LOCAL_HM=$(TZ=America/Chicago date +%H:%M)
+          LOCAL_DOW=$(TZ=America/Chicago date +%u)   # 1=Mon..7=Sun
+          echo "Chicago local time: $LOCAL_HM (dow=$LOCAL_DOW)"
+          if [ "$LOCAL_DOW" -gt 5 ]; then
+            echo "Weekend in Chicago - skipping (neutral exit)."
+            exit 78
+          fi
+          case "$LOCAL_HM" in
+            08:45|12:30|15:35)
+              echo "On-target slot ($LOCAL_HM) - proceeding."
+              ;;
+            *)
+              echo "Off-target UTC twin ($LOCAL_HM) - skipping (neutral exit)."
+              exit 78
+              ;;
+          esac
+
       - name: Checkout repo
         uses: actions/checkout@v5
         with:
