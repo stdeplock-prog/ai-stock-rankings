@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Stock Rankings</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111827;
+      --panel2: #172033;
+      --line: #243043;
+      --text: #e5eefc;
+      --muted: #93a4bd;
+      --pill: #1f2937;
+      --pill-high: #065f46;
+      --pill-med: #854d0e;
+      --pill-low: #4b5563;
+      --star: #fbbf24;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, Arial, sans-serif; background: var(--bg); color: var(--text); }
+    header { position: sticky; top: 0; z-index: 10; background: var(--panel2); border-bottom: 1px solid var(--line); padding: 12px 16px; }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn, select, input {
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .btn { cursor: pointer; }
+    main { padding: 16px; }
+    .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 12px 0; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+    .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+    .value { font-size: 22px; font-weight: 700; margin-top: 6px; }
+    .table-wrap { overflow: auto; border: 1px solid var(--line); border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; min-width: 1380px; }
+    th, td { padding: 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+    th { position: sticky; top: 0; background: var(--panel2); font-size: 12px; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; white-space: nowrap; }
+    tr:hover { background: rgba(255, 255, 255, .03); }
+    tr.favorited { background: rgba(251, 191, 36, .08); border-left: 3px solid var(--star); }
+    .pill { display: inline-block; padding: 3px 8px; border-radius: 999px; font-weight: 700; font-size: 13px; }
+    .pill-high { background: var(--pill-high); color: #d1fae5; }
+    .pill-med { background: var(--pill-med); color: #fef3c7; }
+    .pill-low { background: var(--pill-low); color: #e5e7eb; }
+    .pill-ok { background: #064e3b; color: #d1fae5; }
+    .pill-warn { background: #78350f; color: #fde68a; }
+    .pill-err { background: #7f1d1d; color: #fecaca; }
+    .swing-pill-high { background: #1d4ed8; color: #dbeafe; }
+    .swing-pill-med { background: #1e40af; color: #dbeafe; }
+    .swing-pill-low { background: #334155; color: #e2e8f0; }
+    .ticker-link { color: #60a5fa; font-weight: 700; text-decoration: none; }
+    .ticker-link:hover { text-decoration: underline; }
+    .swing-badge {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 1px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 10px;
+      vertical-align: middle;
+      background: var(--pill);
+      color: var(--text);
+      border: 1px solid var(--line);
+      letter-spacing: .2px;
+      white-space: nowrap;
+    }
+    .swing-badge.tier-A { background: var(--pill-high); color: #fff; border-color: transparent; }
+    .swing-badge.tier-B { background: var(--pill-med); color: #fff; border-color: transparent; }
+    .swing-badge.tier-C { background: var(--pill-low); color: #fff; border-color: transparent; }
+    .swing-badge.tier-D { background: #374151; color: #cbd5e1; border-color: transparent; }
+    .swing-badge .swing-tier-label { opacity: .85; margin-left: 3px; font-size: 10px; }
+    .star-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      font-size: 18px;
+      line-height: 1;
+      color: var(--muted);
+      transition: color .2s;
+    }
+    .star-btn:hover, .star-btn.active { color: var(--star); }
+    .err { color: #f87171; padding: 12px 0; font-size: 14px; }
+    .chg-up, .chg-down { display: inline-flex; align-items: center; gap: 3px; font-weight: 700; font-size: 13px; }
+    .chg-up { color: #22c55e; }
+    .chg-down { color: #f87171; }
+    .chg-flat { color: var(--muted); font-size: 13px; }
+    .next-run { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .tasks-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; margin: 16px 0; }
+    .tasks-wrap table { min-width: 700px; }
+    .num { white-space: nowrap; }
+    .price-cell { min-width: 88px; }
+    .spark-cell { min-width: 96px; }
+    .muted { color: var(--muted); }
+    .nowrap { white-space: nowrap; }
+    .company-cell { min-width: 190px; }
+    .industry-cell { min-width: 180px; font-size: 11px; }
+    @media (max-width: 960px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) { .kpis { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="row">
+      <div>
+        <div class="label">Live rankings dashboard</div>
+        <div style="font-size:22px;font-weight:700">AI Stock Rankings</div>
+        <div id="updated" class="label" style="margin-top:4px">Last Updated: —</div>
+        <div id="nextRun" class="next-run">Next run: —</div>
+      </div>
+      <div class="controls">
+        <select id="universe">
+          <option value="top-popular">Top Popular</option>
+          <option value="top-growth">Top Growth</option>
+          <option value="top-low-risk">Top Low Risk</option>
+          <option value="top-sp500">Top S&amp;P 500</option>
+        </select>
+        <select id="sectorFilter"><option value="">All Sectors</option></select>
+        <input id="search" placeholder="Search ticker or company" aria-label="Search ticker or company" />
+        <button class="btn" id="favFilterBtn">Show Watchlist (0)</button>
+        <button class="btn" id="refreshBtn">Refresh</button>
+        <button class="btn" id="exportBtn">Export CSV</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="kpis">
+      <div class="card"><div class="label">Rows</div><div class="value" id="kpiRows">0</div></div>
+      <div class="card"><div class="label">AI 9-10</div><div class="value" id="kpiTop">0</div></div>
+      <div class="card"><div class="label">Avg Technical</div><div class="value" id="kpiTech">0.00</div></div>
+      <div class="card"><div class="label">Watchlist</div><div class="value" id="kpiFavs">0</div></div>
+    </div>
+
+    <div class="row" style="margin-bottom:6px;margin-top:8px">
+      <div class="label">Scheduled Tasks</div>
+    </div>
+
+    <div class="tasks-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:40px">#</th>
+            <th>Task</th>
+            <th>Schedule</th>
+            <th>Last Run</th>
+            <th>Next Run</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="tasksTbody"></tbody>
+      </table>
+    </div>
+
+    <div id="errMsg" class="err"></div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:40px"></th>
+            <th data-k="rank">Rank</th>
+            <th style="width:60px" data-k="change" title="Rank change vs prior run">MOV</th>
+            <th data-k="ticker">Ticker</th>
+            <th data-k="company">Company</th>
+            <th data-k="marketcap_sort">Mkt Cap</th>
+            <th data-k="ai_score">AI</th>
+            <th data-k="swing_score">SWING</th>
+            <th data-k="change_vs_open">vs Open</th>
+            <th data-k="fundamental">Fund</th>
+            <th data-k="technical">Tech</th>
+            <th data-k="sentiment">Sent</th>
+            <th data-k="low_risk">Risk</th>
+            <th data-k="volume_millions">Vol (M)</th>
+            <th data-k="price">Price</th>
+            <th>Spark</th>
+            <th data-k="industry">Industry</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const DATA_CANDIDATES = {
+      rankings: ['./data/rankings.json', './rankings.json'],
+      tasks: ['./data/tasks.json', './tasks.json']
+    };
+
+    const schedTimes = [[8,45],[12,30],[15,35]];
+    let state = { rows: [], meta: {} };
+    let sortKey = 'rank';
+    let sortDir = 'asc';
+    let showFavsOnly = false;
+    const sectors = new Set();
+
+    function loadFavorites() {
+      try { return new Set(JSON.parse(localStorage.getItem('favTickers') || '[]')); }
+      catch { return new Set(); }
+    }
+    let favorites = loadFavorites();
+
+    function saveFav() {
+      try { localStorage.setItem('favTickers', JSON.stringify([...favorites])); } catch {}
+    }
+
+    function toggleFav(ticker) {
+      if (favorites.has(ticker)) favorites.delete(ticker);
+      else favorites.add(ticker);
+      saveFav();
+      updateFavButton();
+      applySearch();
+    }
+
+    function updateFavButton() {
+      const btn = document.getElementById('favFilterBtn');
+      btn.textContent = showFavsOnly ? 'Show All' : `Show Watchlist (${favorites.size})`;
+      document.getElementById('kpiFavs').textContent = favorites.size;
+    }
+
+    function getVal(obj, ...keys) {
+      for (const key of keys) {
+        if (obj && obj[key] !== undefined && obj[key] !== null && obj[key] !== '') return obj[key];
+      }
+      return null;
+    }
+
+    async function fetchFirstAvailable(paths) {
+      let lastErr = null;
+      for (const path of paths) {
+        try {
+          const res = await fetch(`${path}?cb=${Date.now()}`, { cache: 'no-store' });
+          if (!res.ok) throw new Error(`HTTP ${res.status} for ${path}`);
+          return await res.json();
+        } catch (err) {
+          lastErr = err;
+        }
+      }
+      throw lastErr || new Error('No data source available');
+    }
+
+    function parseMarketCap(value) {
+      if (value == null) return null;
+      if (typeof value === 'number') return value;
+      const s = String(value).trim().toUpperCase();
+      const m = s.match(/^([\d.]+)\s*([KMBT])?$/);
+      if (!m) return null;
+      const n = Number(m[1]);
+      const mult = { K: 1e3, M: 1e6, B: 1e9, T: 1e12 }[m[2]] || 1;
+      return n * mult;
+    }
+
+    function normalizeRow(row) {
+      const closes = Array.isArray(row.closes) ? row.closes.map(Number).filter(v => Number.isFinite(v)) : [];
+      const marketcapDisplay = getVal(row, 'marketcapdisplay', 'market_cap_display', 'marketcap', 'market_cap');
+      return {
+        rank: Number(getVal(row, 'rank')) || 0,
+        ticker: getVal(row, 'ticker') || '—',
+        company: getVal(row, 'company') || '—',
+        marketcapdisplay: marketcapDisplay,
+        marketcap_sort: parseMarketCap(marketcapDisplay),
+        ai_score: Number(getVal(row, 'ai_score', 'aiscore')),
+        swing_score: getVal(row, 'swing_score', 'swingscore') != null ? Number(getVal(row, 'swing_score', 'swingscore')) : null,
+        swing_tier: getVal(row, 'swing_tier', 'swingtier'),
+        change: getVal(row, 'change', 'mov') != null ? Number(getVal(row, 'change', 'mov')) : 0,
+        change_vs_open: getVal(row, 'change_vs_open', 'changevsopen') != null ? Number(getVal(row, 'change_vs_open', 'changevsopen')) : 0,
+        fundamental: getVal(row, 'fundamental') != null ? Number(getVal(row, 'fundamental')) : null,
+        technical: getVal(row, 'technical') != null ? Number(getVal(row, 'technical')) : null,
+        sentiment: getVal(row, 'sentiment') != null ? Number(getVal(row, 'sentiment')) : null,
+        low_risk: getVal(row, 'low_risk', 'lowrisk') != null ? Number(getVal(row, 'low_risk', 'lowrisk')) : null,
+        volume_millions: getVal(row, 'volume_millions', 'volumemillions') != null ? Number(getVal(row, 'volume_millions', 'volumemillions')) : null,
+        price: closes.length ? closes[closes.length - 1] : (getVal(row, 'price') != null ? Number(getVal(row, 'price')) : null),
+        closes,
+        industry: getVal(row, 'industry') || '—',
+        sector: getVal(row, 'sector') || 'Unspecified'
+      };
+    }
+
+    function fmt(v, d = 1) {
+      const n = Number(v);
+      return Number.isFinite(n) ? n.toFixed(d) : '—';
+    }
+
+    function fmtPrice(v) {
+      const n = Number(v);
+      return Number.isFinite(n) ? n.toFixed(2) : '—';
+    }
+
+    function aiPill(score) {
+      const s = Number(score);
+      return s >= 9 ? 'pill-high' : s >= 7 ? 'pill-med' : 'pill-low';
+    }
+
+    function swingBadgeHTML(score, tier) {
+      if (score == null || score === '') return '—';
+      const t = (tier || '').toString().trim().toUpperCase();
+      const cls = /^[ABCD]$/.test(t) ? `tier-${t}` : '';
+      const s = Number(score);
+      const shown = Number.isFinite(s) ? s.toFixed(1) : String(score);
+      const label = t ? `<span class="swing-tier-label">${t}</span>` : '';
+      const ttl = t ? `SwingScore ${shown} • Tier ${t}` : `SwingScore ${shown}`;
+      return `<span class="swing-badge ${cls}" title="${ttl}">${shown}${label}</span>`;
+    }
+
+    function chg(v) {
+      const n = Number(v);
+      if (!Number.isFinite(n)) return '<span class="muted">—</span>';
+      if (n > 0) return `<span style="color:#22c55e">+${n.toFixed(2)}</span>`;
+      if (n < 0) return `<span style="color:#ef4444">${n.toFixed(2)}</span>`;
+      return '<span class="muted">0.00</span>';
+    }
+
+    function movCell(v) {
+      const n = Number(v);
+      if (!Number.isFinite(n) || n === 0) return '<span class="chg-flat">—</span>';
+      return n > 0
+        ? `<span class="chg-up" title="Moved up ${n}">▲ ${Math.abs(n)}</span>`
+        : `<span class="chg-down" title="Moved down ${Math.abs(n)}">▼ ${Math.abs(n)}</span>`;
+    }
+
+    function drawSparkline(closes) {
+      if (!closes || closes.length < 5) return '<span class="muted">—</span>';
+      const mn = Math.min(...closes), mx = Math.max(...closes), rg = (mx - mn) || 1;
+      const w = 80, h = 28;
+      const pts = closes.map((v, i) => `${(i / (closes.length - 1)) * w},${h - ((v - mn) / rg) * h}`).join(' ');
+      const clr = closes[closes.length - 1] >= closes[0] ? '#22c55e' : '#ef4444';
+      return `<svg width="${w}" height="${h}" style="display:block"><polyline points="${pts}" fill="none" stroke="${clr}" stroke-width="1.5"/></svg>`;
+    }
+
+    function updateNextRun() {
+      const now = new Date();
+      const cst = new Date(now.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+      const cur = cst.getHours() * 60 + cst.getMinutes();
+      let next = null;
+      for (const [h, m] of schedTimes) {
+        if (h * 60 + m > cur) { next = [h, m]; break; }
+      }
+      if (!next) next = [8, 45];
+      const nextMins = next[0] * 60 + next[1];
+      const diff = nextMins > cur ? nextMins - cur : 1440 - cur + nextMins;
+      document.getElementById('nextRun').textContent = `Next run: ${Math.floor(diff / 60)}h ${diff % 60}m (${String(next[0]).padStart(2, '0')}:${String(next[1]).padStart(2, '0')} CST)`;
+    }
+
+    function fmtTaskVal(v) {
+      return (v === undefined || v === null || v === '') ? '—' : String(v);
+    }
+
+    function statusClass(status) {
+      const s = String(status || '').toLowerCase();
+      if (s.includes('ok') || s.includes('success')) return 'pill-ok';
+      if (s.includes('warn')) return 'pill-warn';
+      return 'pill-err';
+    }
+
+    async function renderTasks() {
+      const tb = document.getElementById('tasksTbody');
+      const payload = await fetchFirstAvailable(DATA_CANDIDATES.tasks);
+      const tasks = Array.isArray(payload) ? payload : (Array.isArray(payload.tasks) ? payload.tasks : []);
+
+      tb.innerHTML = tasks.map((t, i) => {
+        const name = getVal(t, 'name', 'title') || '—';
+        const schedule = getVal(t, 'schedule') || '—';
+        const lastRun = fmtTaskVal(getVal(t, 'last_run', 'lastrun'));
+        const nextRun = fmtTaskVal(getVal(t, 'next_run', 'nextrun'));
+        const status = fmtTaskVal(getVal(t, 'status'));
+        return `
+          <tr>
+            <td>${i + 1}</td>
+            <td style="font-weight:600">${name}</td>
+            <td style="color:var(--muted);font-size:12px">${schedule}</td>
+            <td style="font-size:12px">${lastRun}</td>
+            <td style="font-size:12px">${nextRun}</td>
+            <td><span class="pill ${statusClass(status)}" style="font-size:11px">${status}</span></td>
+          </tr>`;
+      }).join('');
+    }
+
+    function render(rows) {
+      const tb = document.getElementById('tbody');
+      tb.innerHTML = rows.map(r => {
+        const fav = favorites.has(r.ticker);
+        const marketCap = r.marketcapdisplay || '—';
+        return `
+          <tr class="${fav ? 'favorited' : ''}">
+            <td><button class="star-btn ${fav ? 'active' : ''}" data-ticker="${r.ticker}" title="Toggle watchlist">${fav ? '★' : '☆'}</button></td>
+            <td class="num">${r.rank}</td>
+            <td>${movCell(r.change)}</td>
+            <td><a class="ticker-link" href="https://finance.yahoo.com/quote/${encodeURIComponent(r.ticker)}" target="_blank" rel="noopener noreferrer">${r.ticker}</a></td>
+            <td class="company-cell">${r.company}</td>
+            <td class="num">${marketCap}</td>
+            <td><span class="pill ${aiPill(r.ai_score)}">${fmt(r.ai_score)}</span></td>
+            <td>${swingBadgeHTML(r.swing_score, r.swing_tier)}</td>
+            <td class="num">${chg(r.change_vs_open)}</td>
+            <td class="num">${fmt(r.fundamental)}</td>
+            <td class="num">${fmt(r.technical)}</td>
+            <td class="num">${fmt(r.sentiment)}</td>
+            <td class="num">${fmt(r.low_risk)}</td>
+            <td class="num">${fmt(r.volume_millions)}</td>
+            <td class="num price-cell">${fmtPrice(r.price)}</td>
+            <td class="spark-cell">${drawSparkline(r.closes)}</td>
+            <td class="industry-cell">${r.industry}<br><span class="muted">${r.sector}</span></td>
+          </tr>`;
+      }).join('');
+
+      const n = rows.length;
+      document.getElementById('kpiRows').textContent = n;
+      document.getElementById('kpiTop').textContent = rows.filter(r => Number(r.ai_score) >= 9).length;
+      document.getElementById('kpiTech').textContent = n ? (rows.reduce((a, r) => a + (Number(r.technical) || 0), 0) / n).toFixed(2) : '0.00';
+      updateFavButton();
+
+      document.querySelectorAll('.star-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          toggleFav(e.currentTarget.dataset.ticker);
+        });
+      });
+    }
+
+    function compareValues(a, b) {
+      if (a == null && b == null) return 0;
+      if (a == null) return 1;
+      if (b == null) return -1;
+      const an = Number(a), bn = Number(b);
+      if (Number.isFinite(an) && Number.isFinite(bn)) return an - bn;
+      return String(a).localeCompare(String(b));
+    }
+
+    function applySearch() {
+      const q = document.getElementById('search').value.trim().toLowerCase();
+      const sec = document.getElementById('sectorFilter').value;
+      let rows = state.rows.slice();
+
+      if (showFavsOnly) rows = rows.filter(r => favorites.has(r.ticker));
+      if (sec) rows = rows.filter(r => r.sector === sec);
+      if (q) rows = rows.filter(r => r.ticker.toLowerCase().includes(q) || r.company.toLowerCase().includes(q) || r.industry.toLowerCase().includes(q));
+
+      rows.sort((a, b) => {
+        const cmp = compareValues(a[sortKey], b[sortKey]);
+        return sortDir === 'asc' ? cmp : -cmp;
+      });
+
+      render(rows);
+    }
+
+    async function loadData() {
+      try {
+        const data = await fetchFirstAvailable(DATA_CANDIDATES.rankings);
+        const rowsRaw = Array.isArray(data.rows) ? data.rows : [];
+        state = { rows: rowsRaw.map(normalizeRow), meta: data };
+
+        document.getElementById('updated').textContent = `Last Updated: ${getVal(data, 'as_of', 'asof') || '—'}`;
+        document.getElementById('errMsg').textContent = '';
+
+        sectors.clear();
+        state.rows.forEach(row => { if (row.sector) sectors.add(row.sector); });
+        const sf = document.getElementById('sectorFilter');
+        const cur = sf.value;
+        sf.innerHTML = '<option value="">All Sectors</option>' + [...sectors].sort().map(s => `<option value="${s}">${s}</option>`).join('');
+        if ([...sf.options].some(o => o.value === cur)) sf.value = cur;
+
+        updateNextRun();
+        await renderTasks();
+        applySearch();
+      } catch (e) {
+        document.getElementById('errMsg').textContent = `Error loading dashboard: ${e.message}`;
+      }
+    }
+
+    document.querySelectorAll('th[data-k]').forEach(th => {
+      th.addEventListener('click', () => {
+        const nextKey = th.dataset.k;
+        if (sortKey === nextKey) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        else { sortKey = nextKey; sortDir = 'asc'; }
+        applySearch();
+      });
+    });
+
+    document.getElementById('search').addEventListener('input', applySearch);
+    document.getElementById('sectorFilter').addEventListener('change', applySearch);
+    document.getElementById('refreshBtn').addEventListener('click', loadData);
+    document.getElementById('favFilterBtn').addEventListener('click', function () {
+      showFavsOnly = !showFavsOnly;
+      updateFavButton();
+      applySearch();
+    });
+    document.getElementById('exportBtn').addEventListener('click', function () {
+      const rows = state.rows;
+      const csv = [
+        'Rank,Ticker,Company,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,Price,Sector,Industry',
+        ...rows.map(r => [
+          r.rank, r.ticker, `"${String(r.company).replaceAll('"', '""')}"`, r.ai_score, r.swing_score,
+          r.change_vs_open, r.fundamental, r.technical, r.sentiment, r.low_risk,
+          r.volume_millions, r.price, `"${String(r.sector).replaceAll('"', '""')}"`, `"${String(r.industry).replaceAll('"', '""')}"`
+        ].join(','))
+      ].join('\n');
+      const a = document.createElement('a');
+      a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+      a.download = 'rankings.csv';
+      a.click();
+    });
+
+    updateFavButton();
+    loadData();
+    setInterval(loadData, 300000);
+    setInterval(updateNextRun, 60000);
+  </script>
+</body>
+</html>
