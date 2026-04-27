@@ -408,7 +408,7 @@ async function loadData(){
     sectors.clear();(d.rows||[]).forEach(function(row){if(row.sector)sectors.add(row.sector);});
     const sf=document.getElementById("sectorFilter"),cur=sf.value;
     sf.innerHTML="<option value=''>All Sectors</option>"+[...sectors].sort().map(function(s){return "<option value='"+s+"'>"+s+"</option>";}).join("");
-    sf.value=cur;updateNextRun();applySearch();
+    sf.value=cur;updateNextRun();applySearch();await renderTasks();
   }catch(e){document.getElementById("errMsg").textContent="Error: "+e.message;}
 }
 function applySearch(){
@@ -423,18 +423,25 @@ function applySearch(){
 function getNextWeekday(h,m){const now=new Date(),d=new Date(now);d.setHours(h,m,0,0);if(d<=now||d.getDay()===0||d.getDay()===6){d.setDate(d.getDate()+1);while(d.getDay()===0||d.getDay()===6)d.setDate(d.getDate()+1);d.setHours(h,m,0,0);}return d;}
 function getNextDOW(dow,h,m){const now=new Date(),d=new Date(now);d.setHours(h,m,0,0);d.setDate(d.getDate()+((dow-d.getDay()+7)%7||7));d.setHours(h,m,0,0);return d;}
 function fmtDT(dt){if(!dt)return "-";return dt.toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit",hour12:true});}
-function renderTasks(){
-  const tb=document.getElementById("tasksTbody");if(!tb)return;
-  const tasks=[
-    {title:"Market Risk Monitor",schedule:"Weekdays @ 9:00 AM",next:getNextWeekday(9,0)},
-    {title:"Politician Stock Trades",schedule:"Weekly Sun @ 5:54 PM",next:getNextDOW(0,17,54)},
-    {title:"Weekly Economic Events",schedule:"Weekly Sun @ 7:20 PM",next:getNextDOW(0,19,20)},
-    {title:"Value & Momentum Screen",schedule:"Weekly Tue @ 10:00 AM",next:getNextDOW(2,10,0)},
-    {title:"Top Options Convictions",schedule:"Weekdays @ 10:00 AM",next:getNextWeekday(10,0)}
-  ];
+async function renderTasks(){
+  const tb=document.getElementById("tasksTbody");
+  if(!tb) return;
+
+  const res=await fetch("./data/tasks.json?cb="+Date.now(),{cache:"no-store"});
+  if(!res.ok) throw new Error("HTTP "+res.status+" loading tasks.json");
+
+  const payload=await res.json();
+  const tasks=(payload && Array.isArray(payload.tasks)) ? payload.tasks : [];
+
   tb.innerHTML=tasks.map(function(t,i){
-    const last=localStorage.getItem("task_last_"+t.title);
-    return "<tr><td>"+(i+1)+"</td><td style='font-weight:600'>"+t.title+"</td><td style='color:var(--muted);font-size:12px'>"+t.schedule+"</td><td style='font-size:12px'>"+fmtDT(last?new Date(last):null)+"</td><td style='color:#22c55e;font-size:12px'>"+fmtDT(t.next)+"</td><td><span class='pill pill-high' style='font-size:11px'>active</span></td></tr>";
+    return "<tr>"
+      +"<td>"+(i+1)+"</td>"
+      +"<td style='font-weight:600'>"+(t.name||t.title||"-")+"</td>"
+      +"<td style='color:var(--muted);font-size:12px'>"+(t.schedule||"-")+"</td>"
+      +"<td style='font-size:12px'>"+(t.last_run||"-")+"</td>"
+      +"<td style='color:#22c55e;font-size:12px'>"+(t.next_run||"-")+"</td>"
+      +"<td><span class='pill pill-high' style='font-size:11px'>"+(t.status||"-")+"</span></td>"
+      +"</tr>";
   }).join("");
 }
 document.querySelectorAll("th[data-k]").forEach(function(th){th.addEventListener("click",function(){if(sortKey===th.dataset.k)sortDir=sortDir==="asc"?"desc":"asc";else{sortKey=th.dataset.k;sortDir="asc";}applySearch();});});
@@ -443,7 +450,7 @@ document.getElementById("sectorFilter").addEventListener("change",applySearch);
 document.getElementById("refreshBtn").addEventListener("click",loadData);
 document.getElementById("favFilterBtn").addEventListener("click",function(){showFavsOnly=!showFavsOnly;this.textContent=showFavsOnly?"Show All":"Show Watchlist ("+favorites.size+")";applySearch();});
 document.getElementById("exportBtn").addEventListener("click",function(){const rows=state.rows||[];const csv=["Rank,Ticker,Company,AI,Fund,Tech,Sent,Risk,Vol,Sector"].concat(rows.map(function(r){return[r.rank,r.ticker,r.company,r.ai_score,r.fundamental,r.technical,r.sentiment,r.low_risk,r.volume_millions,r.sector].join(",");})).join("\n");const a=document.createElement("a");a.href="data:text/csv,"+encodeURIComponent(csv);a.download="rankings.csv";a.click();});
-renderTasks();loadData();setInterval(loadData,300000);
+loadData();setInterval(loadData,300000);
 </script>
     </body>
 </html>
