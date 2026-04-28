@@ -484,14 +484,19 @@
     }
 
     function drawSparkline(closes) {
-      if (!closes || closes.length < 5) return '<span class="muted">—</span>';
+      // Need at least 2 points to draw a line and to compare day-over-day color.
+      if (!closes || closes.length < 2) return '<span class="muted">—</span>';
       const mn = Math.min(...closes);
       const mx = Math.max(...closes);
       const rg = (mx - mn) || 1;
       const w = 80;
       const h = 28;
       const pts = closes.map((v, i) => `${(i / (closes.length - 1)) * w},${h - ((v - mn) / rg) * h}`).join(' ');
-      const clr = closes[closes.length - 1] >= closes[0] ? '#22c55e' : '#ef4444';
+      // Color reflects the most recent trading day vs the prior trading day,
+      // not the entire window. Ties use the neutral muted color.
+      const last = closes[closes.length - 1];
+      const prior = closes[closes.length - 2];
+      const clr = last > prior ? '#22c55e' : last < prior ? '#ef4444' : '#93a4bd';
       return `<svg width="${w}" height="${h}" style="display:block"><polyline points="${pts}" fill="none" stroke="${clr}" stroke-width="1.5"/></svg>`;
     }
 

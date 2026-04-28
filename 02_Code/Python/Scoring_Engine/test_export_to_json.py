@@ -163,6 +163,46 @@ def test_missing_baseline_no_prior_snapshot():
         print("PASS: missing_baseline_no_prior_snapshot")
 
 
+def _write_ohlcv(raw_dir, ticker, closes):
+    """Write a minimal OHLCV CSV that export_to_json can read."""
+    lines = ["Date,Open,High,Low,Close,Adj Close,Volume"]
+    for i, c in enumerate(closes):
+        lines.append(f"2026-01-{i+1:02d},{c},{c},{c},{c},{c},1000000")
+    (raw_dir / f"{ticker}_daily.csv").write_text("\n".join(lines) + "\n")
+
+
+def test_closes_export_caps_at_ten():
+    """Sparkline export should emit at most 10 trailing closes per ticker."""
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        rows = [(1, "AAPL")]
+        _setup_fake_repo(tmp, rows)
+        # 25 closes available; export should take the last 10.
+        closes_in = [round(100 + i * 0.5, 2) for i in range(25)]
+        _write_ohlcv(tmp / "data" / "raw" / "ohlcv_daily", "AAPL", closes_in)
+
+        out, _ = _run(tmp)
+        aapl = next(r for r in out["rows"] if r["ticker"] == "AAPL")
+        assert len(aapl["closes"]) == 10, f"expected 10 closes, got {len(aapl['closes'])}"
+        assert aapl["closes"] == closes_in[-10:], aapl["closes"]
+        print("PASS: closes_export_caps_at_ten")
+
+
+def test_closes_shorter_history_returned_as_is():
+    """If fewer than 10 closes are available, return all of them."""
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        rows = [(1, "AAPL")]
+        _setup_fake_repo(tmp, rows)
+        closes_in = [100.0, 101.0, 102.0]
+        _write_ohlcv(tmp / "data" / "raw" / "ohlcv_daily", "AAPL", closes_in)
+
+        out, _ = _run(tmp)
+        aapl = next(r for r in out["rows"] if r["ticker"] == "AAPL")
+        assert aapl["closes"] == closes_in, aapl["closes"]
+        print("PASS: closes_shorter_history_returned_as_is")
+
+
 def test_ticker_re_enters_top_100_gets_positive_change():
     """A ticker absent from the baseline (was outside top 100) but present
     in today's top 100 should show a positive change, not zero."""
@@ -191,6 +231,8 @@ def main():
     test_subsequent_run_static_data_yields_zero()
     test_missing_baseline_no_prior_snapshot()
     test_ticker_re_enters_top_100_gets_positive_change()
+    test_closes_export_caps_at_ten()
+    test_closes_shorter_history_returned_as_is()
     print("\nAll baseline-policy regression tests passed.")
 
 

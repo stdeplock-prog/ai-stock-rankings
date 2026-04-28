@@ -7,6 +7,9 @@
 #   - daily_open resets each calendar day (CDT/CST)
 # v7: full universe persisted to daily_open (was top 100), missing-ticker
 #     fallback so tickers re-entering top 100 produce a positive change
+# v8: closes[] reduced to last 10 trading-day closes (was 30) so the sparkline
+#     reflects roughly two weeks of price action; color is now driven by
+#     last-vs-prior close on the frontend rather than first-vs-last.
 # v6: adds closes[] (last 30 daily closes, rounded 2dp) for sparkline charts
 # v5: adds short_interest and insider_buying fields from score_tickers v3
 import pandas as pd
@@ -173,9 +176,9 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
         ohlcv.columns = [c.title() if isinstance(c, str) else c for c in ohlcv.columns]
         if "Volume" in ohlcv.columns:
             vol_millions = round(float(ohlcv["Volume"].iloc[-1]) / 1_000_000, 1)
-        # Sparkline: last 30 trading-day closes, rounded to 2dp
+        # Sparkline: last 10 trading-day closes (non-null), rounded to 2dp
         if "Close" in ohlcv.columns:
-            raw_closes = ohlcv["Close"].dropna().tail(30).tolist()
+            raw_closes = ohlcv["Close"].dropna().tail(10).tolist()
             closes = [round(float(c), 2) for c in raw_closes]
     except:
         pass
@@ -248,7 +251,7 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
         "sentiment":      round(float(row.get("Sentiment", 5.0)), 1),
         "low_risk":       round(float(row.get("Risk", 5.0)), 1),
         "volume_millions":vol_millions,
-        "closes":         closes,           # last 30 daily closes for sparkline
+        "closes":         closes,           # last 10 daily closes for sparkline
         "industry":       industry_val,
         "sector":         safe_str(row.get("Sector", "")),
         "short_interest": short_interest,   # % of float short, or null
