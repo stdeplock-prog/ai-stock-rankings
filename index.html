@@ -154,23 +154,23 @@
 
     .swing-badge {
       display: inline-block;
-      margin-left: 6px;
-      padding: 1px 6px;
-      font-size: 11px;
-      font-weight: 600;
-      border-radius: 10px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 4px;
       vertical-align: middle;
-      background: var(--pill);
+      background: transparent;
       color: var(--text);
-      border: 1px solid var(--line);
+      border: 1.5px solid var(--line);
       letter-spacing: .2px;
       white-space: nowrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     }
 
-    .swing-badge.tier-A { background: var(--pill-high); color: #fff; border-color: transparent; }
-    .swing-badge.tier-B { background: var(--pill-med); color: #fff; border-color: transparent; }
-    .swing-badge.tier-C { background: var(--pill-low); color: #fff; border-color: transparent; }
-    .swing-badge.tier-D { background: #374151; color: #cbd5e1; border-color: transparent; }
+    .swing-badge.tier-A { border-color: #10b981; color: #6ee7b7; box-shadow: inset 0 0 0 1px rgba(16,185,129,.25); }
+    .swing-badge.tier-B { border-color: #f59e0b; color: #fcd34d; box-shadow: inset 0 0 0 1px rgba(245,158,11,.25); }
+    .swing-badge.tier-C { border-color: #6b7280; color: #d1d5db; }
+    .swing-badge.tier-D { border-color: #4b5563; color: #9ca3af; }
 
     .swing-badge .swing-tier-label {
       opacity: .85;
@@ -294,6 +294,7 @@
             <th>Last Run</th>
             <th>Next Run</th>
             <th>Status</th>
+            <th>Summary</th>
           </tr>
         </thead>
         <tbody id="tasksTbody"></tbody>
@@ -538,6 +539,7 @@
         const lastRun = fmtTaskVal(getVal(t, 'last_run', 'lastrun', 'lastRun', 'last_run_ct', 'lastRunCt'));
         const nextRun = fmtTaskVal(getVal(t, 'next_run', 'nextrun', 'nextRun', 'next_run_ct', 'nextRunCt'));
         const status = fmtTaskVal(getVal(t, 'status', 'state'));
+        const summary = fmtTaskVal(getVal(t, 'summary', 'result', 'message', 'detail'));
 
         return `
           <tr>
@@ -547,6 +549,7 @@
             <td style="font-size:12px">${lastRun}</td>
             <td style="font-size:12px">${nextRun}</td>
             <td><span class="pill ${statusClass(status)}" style="font-size:11px">${status}</span></td>
+            <td style="font-size:12px;color:var(--muted)">${summary}</td>
           </tr>
         `;
       }).join('');

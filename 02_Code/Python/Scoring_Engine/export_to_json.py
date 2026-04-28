@@ -175,8 +175,8 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
             return str(v).strip()
         except Exception:
             return None
-  _raw = _swing_f("SwingScore", float, 2)
-swing_score = round(_raw / 10.0, 1) if _raw is not None else None
+    _raw_swing        = _swing_f("SwingScore", float, 2)
+    swing_score       = round(_raw_swing / 10.0, 1) if _raw_swing is not None else None
     swing_rank        = _swing_f("Swing_Rank", int)
     swing_tier        = _swing_f("Swing_Tier", str)
     atr_pct           = _swing_f("ATR_Pct", float, 2)
