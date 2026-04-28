@@ -43,6 +43,22 @@ def safe_str(val, default=""):
         return default
     return s
 
+# --- HELPER: format market cap as e.g. "1.23T" / "352.5B" / "—" ---
+def fmt_market_cap(val):
+    try:
+        if val is None or pd.isna(val):
+            return ""
+        n = float(val)
+    except Exception:
+        return ""
+    if n <= 0:
+        return ""
+    for unit, scale in (("T", 1e12), ("B", 1e9), ("M", 1e6), ("K", 1e3)):
+        if n >= scale:
+            v = n / scale
+            return f"{v:.2f}{unit}" if v < 10 else f"{v:.1f}{unit}"
+    return f"{n:.0f}"
+
 # --- LOAD CURRENT RANKINGS ---
 df = pd.read_csv(RANKINGS_CSV)
 df = df.head(100)
@@ -85,19 +101,34 @@ if os.path.exists(DAILY_OPEN_DATE):
 
 is_first_run_today = (last_open_date != today_str)
 
+# Always read the existing daily-open snapshot first (if any).
+# - On first run of day: that file still holds the PREVIOUS trading day's open,
+#   so we use it as the baseline (day-over-day movement) before overwriting it.
+# - On subsequent runs: it holds today's open snapshot (intra-day movement).
+prev_open_df = None
+if os.path.exists(DAILY_OPEN_FILE):
+    try:
+        prev_open_df = pd.read_csv(DAILY_OPEN_FILE)
+    except Exception as e:
+        print(f"Warning: could not load daily open file ({e}).")
+
 if is_first_run_today:
-    # Save this run as today's open baseline
+    if prev_open_df is not None and not prev_open_df.empty:
+        print(f"First run of {today_str} - comparing vs previous open ({last_open_date or 'unknown'}).")
+        open_df = prev_open_df
+    else:
+        print(f"First run of {today_str} - no prior snapshot, change = 0 for all.")
+        open_df = df.copy()
+    # Save this run as today's open baseline (after capturing prev as comparison source)
     df.to_csv(DAILY_OPEN_FILE, index=False)
     with open(DAILY_OPEN_DATE, "w") as f:
         f.write(today_str)
-    print(f"First run of {today_str} - saved daily open snapshot.")
-    open_df = df.copy()
 else:
     print(f"Subsequent run - comparing vs open snapshot from {last_open_date}.")
-    try:
-        open_df = pd.read_csv(DAILY_OPEN_FILE)
-    except Exception as e:
-        print(f"Warning: could not load daily open file ({e}), change = 0 for all.")
+    if prev_open_df is not None and not prev_open_df.empty:
+        open_df = prev_open_df
+    else:
+        print("Warning: daily open file missing, change = 0 for all.")
         open_df = df.copy()
 
 # Build open rank lookup: ticker -> rank at open
@@ -187,11 +218,15 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
     ext_rating        = _swing_f("Ext_Rating_Score", float, 2)
     num_analysts      = _swing_f("num_analysts", int)
     upside_pct        = _swing_f("Ext_Up_Downside_Pct", float, 1)
+    market_cap_raw = row.get("MarketCap", None)
+    market_cap_display = fmt_market_cap(market_cap_raw)
+
     rows.append({
         "rank":           curr_rank,
         "ticker":         ticker,
         "company":        safe_str(row["Name"]),
         "country":        "US",
+        "market_cap":     market_cap_display,
         "ai_score":       round(float(row["AI_Score"]), 1) if "AI_Score" in row.index else round(float(row.get("Score", 0)) / 10, 1),
         "change":         change,
         "fundamental":    round(float(row.get("Fundamental", 5.0)), 1),

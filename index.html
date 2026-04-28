@@ -540,6 +540,13 @@
         const nextRun = fmtTaskVal(getVal(t, 'next_run', 'nextrun', 'nextRun', 'next_run_ct', 'nextRunCt'));
         const status = fmtTaskVal(getVal(t, 'status', 'state'));
         const summary = fmtTaskVal(getVal(t, 'summary', 'result', 'message', 'detail'));
+        const link = getVal(t, 'link', 'url', 'href', 'result_url', 'report_url');
+
+        let summaryCell = summary;
+        if (link && /^https?:\/\//i.test(String(link))) {
+          const safeHref = String(link).replace(/"/g, '&quot;');
+          summaryCell = `${summary === '—' ? '' : summary + ' '}<a href="${safeHref}" target="_blank" rel="noopener noreferrer" style="color:#60a5fa">View →</a>`;
+        }
 
         return `
           <tr>
@@ -549,7 +556,7 @@
             <td style="font-size:12px">${lastRun}</td>
             <td style="font-size:12px">${nextRun}</td>
             <td><span class="pill ${statusClass(status)}" style="font-size:11px">${status}</span></td>
-            <td style="font-size:12px;color:var(--muted)">${summary}</td>
+            <td style="font-size:12px;color:var(--muted)">${summaryCell}</td>
           </tr>
         `;
       }).join('');

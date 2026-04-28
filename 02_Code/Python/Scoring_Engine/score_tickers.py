@@ -165,6 +165,16 @@ for _, row in universe.iterrows():
             if raw_sec and str(raw_sec).lower() not in ("nan", "none", "n/a", ""):
                 industry_val = str(raw_sec)
 
+        # MARKET CAP (raw number; display formatting happens in export_to_json)
+        market_cap_raw = None
+        if not fund_row.empty:
+            mc = fund_row.iloc[0].get("marketCap", None)
+            try:
+                if mc is not None and not pd.isna(mc):
+                    market_cap_raw = float(mc)
+            except Exception:
+                market_cap_raw = None
+
         results.append({
             "Ticker":         ticker,
             "Name":           row["Name"],
@@ -183,6 +193,7 @@ for _, row in universe.iterrows():
             "Golden_Cross":   int(golden),
             "Short_Interest": short_interest,
             "Insider_Buying": insider_flag,
+            "MarketCap":      market_cap_raw,
         })
     except Exception as e:
         print(f"  ERROR {ticker}: {e}")
