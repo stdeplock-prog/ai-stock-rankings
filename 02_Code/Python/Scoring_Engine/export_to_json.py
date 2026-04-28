@@ -1,11 +1,14 @@
-# export_to_json.py  v6
+# export_to_json.py  v7
 # Converts rankings.csv -> data/rankings.json for the live dashboard
 # Change logic: "vs Open" = first run of today vs current run
-#   - On first run of day: saves rankings_daily_open.csv, change = 0
-#   - On subsequent runs: compares against rankings_daily_open.csv
+#   - On first run of day: existing daily_open snapshot (= prior trading day) is
+#     used as the comparison baseline, then overwritten with today's rankings.
+#   - On subsequent runs: compares against today's daily_open snapshot.
 #   - daily_open resets each calendar day (CDT/CST)
-# v5: adds short_interest and insider_buying fields from score_tickers v3
+# v7: full universe persisted to daily_open (was top 100), missing-ticker
+#     fallback so tickers re-entering top 100 produce a positive change
 # v6: adds closes[] (last 30 daily closes, rounded 2dp) for sparkline charts
+# v5: adds short_interest and insider_buying fields from score_tickers v3
 import pandas as pd
 import json
 import os
@@ -60,8 +63,10 @@ def fmt_market_cap(val):
     return f"{n:.0f}"
 
 # --- LOAD CURRENT RANKINGS ---
-df = pd.read_csv(RANKINGS_CSV)
-df = df.head(100)
+# full_df = entire ranked universe (used to persist a complete baseline so we
+# can detect tickers that re-enter the top 100). df = top 100 emitted to JSON.
+full_df = pd.read_csv(RANKINGS_CSV)
+df = full_df.head(100)
 
 # --- LOAD SWING RANKINGS (optional, left-join by Ticker) ---
 swing_df = None
@@ -118,9 +123,10 @@ if is_first_run_today:
         open_df = prev_open_df
     else:
         print(f"First run of {today_str} - no prior snapshot, change = 0 for all.")
-        open_df = df.copy()
-    # Save this run as today's open baseline (after capturing prev as comparison source)
-    df.to_csv(DAILY_OPEN_FILE, index=False)
+        open_df = full_df.copy()
+    # Persist the FULL universe as today's baseline so tickers outside the
+    # current top 100 still have a known prior rank on later compares.
+    full_df.to_csv(DAILY_OPEN_FILE, index=False)
     with open(DAILY_OPEN_DATE, "w") as f:
         f.write(today_str)
 else:
@@ -129,14 +135,22 @@ else:
         open_df = prev_open_df
     else:
         print("Warning: daily open file missing, change = 0 for all.")
-        open_df = df.copy()
+        open_df = full_df.copy()
 
-# Build open rank lookup: ticker -> rank at open
+# Build open rank lookup: ticker -> rank at open. open_df may contain the full
+# universe (v7+) or a top-100 slice (legacy snapshots). Either way, lookup by
+# ticker; tickers absent from the baseline get a sentinel rank so they show
+# as a meaningful positive movement (re-entered top 100) rather than 0.
 open_rank_map = {}
 for _, row in open_df.iterrows():
     t = row["Ticker"]
     r = int(row["Rank"]) if "Rank" in row.index else 0
     open_rank_map[t] = r
+
+# Sentinel: any ticker not in baseline is treated as having been ranked just
+# beyond the current top 100. Yields change = (101 - curr_rank), positive,
+# capped at 100.
+MISSING_BASELINE_RANK = 101
 
 # --- BUILD ROWS ---
 rows = []
@@ -145,7 +159,7 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
     curr_rank = int(row["Rank"]) if "Rank" in row.index else i
 
     # vs-open change: positive = moved UP in rank (lower number = better)
-    open_rank = open_rank_map.get(ticker, curr_rank)
+    open_rank = open_rank_map.get(ticker, MISSING_BASELINE_RANK)
     change    = open_rank - curr_rank  # e.g. was 10, now 7 -> +3 (moved up)
 
     # Load OHLCV data for volume + sparkline closes
