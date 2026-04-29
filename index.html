@@ -548,9 +548,15 @@
         const link = getVal(t, 'link', 'url', 'href', 'result_url', 'report_url');
 
         let summaryCell = summary;
-        if (link && /^https?:\/\//i.test(String(link))) {
-          const safeHref = String(link).replace(/"/g, '&quot;');
-          summaryCell = `${summary === '—' ? '' : summary + ' '}<a href="${safeHref}" target="_blank" rel="noopener noreferrer" style="color:#60a5fa">View →</a>`;
+        const linkStr = link == null ? '' : String(link).trim();
+        // Accept absolute http(s) URLs and same-origin relative paths (./, /, plain).
+        // Reject anything starting with javascript:/data:/vbscript: etc.
+        const isSafeRelative = /^(?:\.{0,2}\/|reports\/|data\/)/i.test(linkStr) && !/^[a-z][a-z0-9+.-]*:/i.test(linkStr);
+        const isHttp = /^https?:\/\//i.test(linkStr);
+        if (linkStr && (isHttp || isSafeRelative)) {
+          const safeHref = linkStr.replace(/"/g, '&quot;');
+          const targetAttrs = isHttp ? ' target="_blank" rel="noopener noreferrer"' : '';
+          summaryCell = `${summary === '—' ? '' : summary + ' '}<a href="${safeHref}"${targetAttrs} style="color:#60a5fa">View report →</a>`;
         }
 
         return `

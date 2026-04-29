@@ -165,6 +165,18 @@ jobs:
         if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
+      - name: Generate market risk monitor report
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/market_risk_monitor.py
+        continue-on-error: true
+
+      - name: Generate options/earnings watchlist report
+        if: steps.gate.outputs.proceed == 'true'
+        run: |
+          pip install markdown
+          python 02_Code/Python/Reports/options_watchlist.py
+        continue-on-error: true
+
       - name: Commit and push updated data files
         if: steps.gate.outputs.proceed == 'true' && github.ref == 'refs/heads/main'
         run: |
@@ -176,6 +188,9 @@ jobs:
           git add data/processed/catalysts.csv 2>/dev/null || true
           git add data/processed/scoring_outputs/swing_rankings.csv 2>/dev/null || true
           git add data/reference/master_universe.csv 2>/dev/null || true
+          git add data/reports/market_risk_monitor.json 2>/dev/null || true
+          git add reports/market-risk-monitor.html 2>/dev/null || true
+          git add reports/options-watchlist.html 2>/dev/null || true
 
           if git diff --staged --quiet; then
             echo "No changes to commit."

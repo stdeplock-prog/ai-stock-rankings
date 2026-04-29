@@ -1,0 +1,310 @@
+"""Market Risk Monitor — generates reports/market-risk-monitor.html and
+data/reports/market_risk_monitor.json.
+
+Indicators:
+  - VIX (yfinance ^VIX)
+  - "When the Generals Fail" — count of leading 7 S&P 500 stocks below 200DMA
+  - POLLS / ADR / NDR / Put-Call Ratio: Source needed (no committed feed)
+
+Pass/warn coloring:
+  - VIX >= 20 = warn (elevated)
+  - Generals Fail >= 3 below 200DMA = warn
+  - POLLS >= 18 = warn
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import sys
+from datetime import datetime, timezone
+from html import escape
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+DATA_DIR = REPO_ROOT / "data" / "reports"
+HTML_DIR = REPO_ROOT / "reports"
+
+LEADING_7 = ["AAPL", "MSFT", "NVDA", "AMZN", "GOOGL", "META", "TSLA"]
+
+
+def _fetch_close_history(ticker: str, period: str = "1y"):
+    """Fetch Close series with yfinance. Returns list[float] or None on error."""
+    try:
+        import yfinance as yf
+    except ImportError:
+        return None
+    try:
+        h = yf.Ticker(ticker).history(period=period, auto_adjust=False)
+        if h is None or h.empty:
+            return None
+        return [float(x) for x in h["Close"].tolist()]
+    except Exception:
+        return None
+
+
+def _build_generals_fail():
+    rows = []
+    below = 0
+    available = 0
+    for t in LEADING_7:
+        closes = _fetch_close_history(t, period="1y")
+        if not closes or len(closes) < 200:
+            rows.append({"ticker": t, "last": None, "ma200": None, "below": None, "status": "unavailable"})
+            continue
+        available += 1
+        last = closes[-1]
+        ma200 = sum(closes[-200:]) / 200.0
+        is_below = last < ma200
+        if is_below:
+            below += 1
+        rows.append({
+            "ticker": t,
+            "last": round(last, 2),
+            "ma200": round(ma200, 2),
+            "below": is_below,
+            "status": "below_200dma" if is_below else "above_200dma",
+        })
+    return {
+        "rows": rows,
+        "below_count": below,
+        "available_count": available,
+        "threshold": 3,
+        "alert": below >= 3,
+    }
+
+
+def _build_vix():
+    closes = _fetch_close_history("^VIX", period="1mo")
+    if not closes:
+        return {"value": None, "status": "unavailable"}
+    last = closes[-1]
+    return {
+        "value": round(last, 2),
+        "status": "elevated" if last >= 20 else "normal",
+        "alert": last >= 20,
+    }
+
+
+def _placeholder(label: str, threshold: str | None = None):
+    return {
+        "value": None,
+        "status": "source_needed",
+        "note": f"Source needed for {label}. Not available in repo data feeds.",
+        "threshold": threshold,
+    }
+
+
+def build_report():
+    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    payload = {
+        "generated_at": generated_at,
+        "indicators": {
+            "polls": _placeholder("POLLS Indicator", threshold=">= 18 triggers alert"),
+            "adr": _placeholder("ADR Indicator"),
+            "vix": _build_vix(),
+            "ndr": _placeholder("NDR Indicator"),
+            "put_call_ratio": _placeholder("Put/Call Ratio"),
+            "generals_fail": _build_generals_fail(),
+        },
+    }
+    return payload
+
+
+# ---- Rendering ---------------------------------------------------------
+
+CSS = """
+:root { --bg:#0b1220; --panel:#111827; --panel2:#172033; --line:#243043; --text:#e5eefc; --muted:#93a4bd; }
+body { margin:0; font-family:Inter,Arial,sans-serif; background:var(--bg); color:var(--text); }
+header { background:var(--panel2); border-bottom:1px solid var(--line); padding:14px 18px; }
+h1 { margin:0; font-size:20px; }
+.meta { color:var(--muted); font-size:12px; margin-top:4px; }
+main { padding:18px; max-width:1100px; margin:0 auto; }
+section { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-bottom:14px; }
+section h2 { margin:0 0 10px; font-size:15px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th, td { padding:8px 10px; border-bottom:1px solid var(--line); text-align:left; }
+th { color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:.05em; }
+.pill { display:inline-block; padding:3px 10px; border-radius:999px; font-weight:700; font-size:12px; }
+.pill-pass { background:#064e3b; color:#d1fae5; }
+.pill-warn { background:#78350f; color:#fde68a; }
+.pill-info { background:#1f2937; color:#cbd5e1; }
+.signal-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:6px; }
+.signal-row .label { min-width:170px; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.05em; }
+.signal-row .val { font-weight:700; font-size:15px; }
+.note { color:var(--muted); font-size:12px; margin-top:6px; }
+a { color:#60a5fa; }
+.back { display:inline-block; margin-top:12px; color:#60a5fa; text-decoration:none; }
+.back:hover { text-decoration:underline; }
+"""
+
+
+def _pill(text: str, kind: str) -> str:
+    return f'<span class="pill pill-{kind}">{escape(text)}</span>'
+
+
+def _signal_row(label: str, value_html: str, pill_html: str, note: str = "") -> str:
+    note_html = f'<div class="note">{escape(note)}</div>' if note else ""
+    return f"""
+    <div class="signal-row">
+      <div class="label">{escape(label)}</div>
+      <div class="val">{value_html}</div>
+      {pill_html}
+    </div>
+    {note_html}
+    """
+
+
+def render_html(payload: dict) -> str:
+    ind = payload["indicators"]
+
+    # POLLS
+    polls = ind["polls"]
+    polls_row = _signal_row(
+        "POLLS Indicator",
+        '<span style="color:#9ca3af">—</span>',
+        _pill("Source needed", "info"),
+        polls.get("note", ""),
+    )
+
+    # ADR
+    adr = ind["adr"]
+    adr_row = _signal_row(
+        "ADR Indicator",
+        '<span style="color:#9ca3af">—</span>',
+        _pill("Source needed", "info"),
+        adr.get("note", ""),
+    )
+
+    # VIX
+    vix = ind["vix"]
+    if vix.get("value") is None:
+        vix_row = _signal_row("VIX", "—", _pill("Unavailable", "info"))
+    else:
+        kind = "warn" if vix.get("alert") else "pass"
+        label = "Elevated" if vix.get("alert") else "Normal"
+        vix_row = _signal_row("VIX", f'{vix["value"]:.2f}', _pill(label, kind), "Threshold: warn at >= 20")
+
+    # NDR
+    ndr = ind["ndr"]
+    ndr_row = _signal_row(
+        "NDR Indicator",
+        '<span style="color:#9ca3af">—</span>',
+        _pill("Source needed", "info"),
+        ndr.get("note", ""),
+    )
+
+    # Put/Call Ratio
+    pcr = ind["put_call_ratio"]
+    pcr_row = _signal_row(
+        "Put/Call Ratio",
+        '<span style="color:#9ca3af">—</span>',
+        _pill("Source needed", "info"),
+        pcr.get("note", ""),
+    )
+
+    # Generals Fail
+    gf = ind["generals_fail"]
+    rows_html_parts = []
+    for r in gf["rows"]:
+        if r["last"] is None:
+            rows_html_parts.append(
+                f"<tr><td>{escape(r['ticker'])}</td><td>—</td><td>—</td><td>{_pill('Unavailable', 'info')}</td></tr>"
+            )
+        else:
+            kind = "warn" if r["below"] else "pass"
+            label = "Below 200DMA" if r["below"] else "Above 200DMA"
+            rows_html_parts.append(
+                f"<tr><td>{escape(r['ticker'])}</td><td>{r['last']:.2f}</td><td>{r['ma200']:.2f}</td><td>{_pill(label, kind)}</td></tr>"
+            )
+
+    gf_pill_kind = "warn" if gf["alert"] else "pass"
+    gf_pill_label = (
+        f"ALERT: {gf['below_count']}/{gf['available_count']} below 200DMA"
+        if gf["alert"]
+        else f"OK: {gf['below_count']}/{gf['available_count']} below 200DMA"
+    )
+
+    polls_alert = polls.get("value") is not None and polls.get("alert")
+    if polls.get("value") is None:
+        compare_polls_html = _pill("POLLS source needed", "info")
+    else:
+        compare_polls_html = _pill(
+            f"POLLS = {polls['value']} ({'>=' if polls_alert else '<'} 18)",
+            "warn" if polls_alert else "pass",
+        )
+    compare_gf_html = _pill(
+        f"Generals Fail = {gf['below_count']}/{gf['available_count']} ({'>=' if gf['alert'] else '<'} 3)",
+        "warn" if gf["alert"] else "pass",
+    )
+
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Market Risk Monitor</title>
+  <style>{CSS}</style>
+</head>
+<body>
+  <header>
+    <h1>Market Risk Monitor</h1>
+    <div class="meta">Generated {escape(payload['generated_at'])}</div>
+  </header>
+  <main>
+    <section>
+      <h2>Headline Comparison</h2>
+      <div class="signal-row">
+        <div class="label">POLLS &gt;= 18</div>
+        <div class="val">{compare_polls_html}</div>
+      </div>
+      <div class="signal-row">
+        <div class="label">Generals Fail &gt;= 3 below 200DMA</div>
+        <div class="val">{compare_gf_html}</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Risk Indicators (last available values)</h2>
+      {polls_row}
+      {adr_row}
+      {vix_row}
+      {ndr_row}
+      {pcr_row}
+    </section>
+
+    <section>
+      <h2>When the Generals Fail — Leading 7 vs 200DMA</h2>
+      <div class="signal-row">
+        <div class="label">Headline</div>
+        <div class="val">{_pill(gf_pill_label, gf_pill_kind)}</div>
+      </div>
+      <table>
+        <thead><tr><th>Ticker</th><th>Last</th><th>200DMA</th><th>Status</th></tr></thead>
+        <tbody>
+          {''.join(rows_html_parts)}
+        </tbody>
+      </table>
+      <div class="note">Leading 7 = Magnificent 7 (AAPL, MSFT, NVDA, AMZN, GOOGL, META, TSLA). Source: yfinance daily closes.</div>
+    </section>
+
+    <a class="back" href="../index.html">&larr; Back to dashboard</a>
+  </main>
+</body>
+</html>
+"""
+    return html
+
+
+def main():
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    HTML_DIR.mkdir(parents=True, exist_ok=True)
+    payload = build_report()
+    (DATA_DIR / "market_risk_monitor.json").write_text(json.dumps(payload, indent=2))
+    (HTML_DIR / "market-risk-monitor.html").write_text(render_html(payload))
+    print(f"Wrote market risk monitor report ({payload['generated_at']})")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

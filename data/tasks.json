@@ -1,31 +1,51 @@
 {
   "tasks": [
     {
+      "id": "market-risk-monitor",
+      "name": "Market Risk Monitor",
+      "schedule": "Each rankings refresh (3x daily, weekdays)",
+      "last_run": "2026-04-29 03:56 PM CDT",
+      "next_run": "2026-04-30 08:45 AM CDT",
+      "status": "warn",
+      "summary": "Generals Fail 3/7 below 200DMA (MSFT, META, TSLA) — alert. VIX 18.81 normal. POLLS/ADR/NDR/Put-Call: source needed.",
+      "report_url": "./reports/market-risk-monitor.html"
+    },
+    {
+      "id": "options-earnings-watchlist",
+      "name": "Options & Earnings Watchlist",
+      "schedule": "Daily 5:00 PM CT",
+      "last_run": "2026-04-28 05:00 PM CDT",
+      "next_run": "2026-04-29 05:00 PM CDT",
+      "status": "OK",
+      "summary": "Top picks: NVDA, META, TXN, MU, AMZN. May 15/22 monthly calls. IV-crush risk on META/AMZN around Apr 29 earnings.",
+      "report_url": "./reports/options-watchlist.html"
+    },
+    {
       "id": "market-open-scan",
       "name": "Market Open Scan",
       "schedule": "Weekdays 8:30 AM CT",
-      "last_run": "2026-04-27 08:30 AM CDT",
-      "next_run": "2026-04-28 08:30 AM CDT",
+      "last_run": "2026-04-29 08:30 AM CDT",
+      "next_run": "2026-04-30 08:30 AM CDT",
       "status": "OK",
-      "summary": "Completed on schedule at market open."
+      "summary": "Open scan complete. See dashboard rankings table for top movers since open."
     },
     {
       "id": "midday-health-check",
       "name": "Midday Health Check",
       "schedule": "Weekdays 12:00 PM CT",
-      "last_run": "2026-04-27 12:00 PM CDT",
-      "next_run": "2026-04-28 12:00 PM CDT",
+      "last_run": "2026-04-29 12:00 PM CDT",
+      "next_run": "2026-04-30 12:00 PM CDT",
       "status": "OK",
-      "summary": "Completed midday system and data health check."
+      "summary": "Midday data refresh and pipeline health check passed."
     },
     {
       "id": "close-recap",
       "name": "Close Recap",
       "schedule": "Weekdays 3:30 PM CT",
-      "last_run": "2026-04-24 03:30 PM CDT",
-      "next_run": "2026-04-27 03:30 PM CDT",
+      "last_run": "2026-04-28 03:30 PM CDT",
+      "next_run": "2026-04-29 03:30 PM CDT",
       "status": "OK",
-      "summary": "Next close recap is scheduled for this afternoon."
+      "summary": "Close recap queued; rankings refresh fires at 3:35 PM CT."
     },
     {
       "id": "weekly-rebalance",
@@ -34,16 +54,7 @@
       "last_run": "2026-04-24 04:00 PM CDT",
       "next_run": "2026-05-01 04:00 PM CDT",
       "status": "OK",
-      "summary": "Weekly rebalance review is queued for next Friday."
-    },
-    {
-      "id": "earnings-watchlist",
-      "name": "Earnings Watchlist",
-      "schedule": "Daily 5:00 PM CT",
-      "last_run": "2026-04-26 05:00 PM CDT",
-      "next_run": "2026-04-27 05:00 PM CDT",
-      "status": "OK",
-      "summary": "Daily earnings watchlist refresh is due later today."
+      "summary": "Weekly rebalance review queued for Friday close."
     }
   ]
 }

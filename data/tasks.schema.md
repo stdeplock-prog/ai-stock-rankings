@@ -16,10 +16,12 @@ the `tasks` array is rendered as one row in the Background Tasks table.
 
 ## Optional: result link
 
-If you populate any of these fields with an `http(s)://` URL, the frontend
-appends a "View →" hyperlink to the summary cell. This is the hook for
-linking out to a Perplexity task result, a Slack message, a GitHub Action
-run, or any other artifact:
+If you populate any of these fields with an `http(s)://` URL or a
+same-origin relative path (`./reports/...`, `/reports/...`,
+`reports/...`, `./data/...`), the frontend appends a "View report →"
+hyperlink to the summary cell. This is the hook for linking out to a
+Perplexity task result, a Slack message, a GitHub Action run, or a
+generated report file in this repo:
 
 - `link`
 - `url`
@@ -27,8 +29,9 @@ run, or any other artifact:
 - `result_url`
 - `report_url`
 
-Only one is needed. The link must start with `http://` or `https://` — other
-values are ignored. Example:
+Only one is needed. The link must be `http(s)://` OR a same-origin
+relative path beginning with `./`, `/`, `reports/`, or `data/`. Other
+schemes (e.g. `javascript:`, `data:`) are ignored for safety. Example:
 
 ```json
 {
