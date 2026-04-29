@@ -143,6 +143,7 @@
     .pill-ok { background: #064e3b; color: #d1fae5; }
     .pill-warn { background: #78350f; color: #fde68a; }
     .pill-err { background: #7f1d1d; color: #fecaca; }
+    .pill-neutral { background: #374151; color: #d1d5db; }
 
     .ticker-link {
       color: #60a5fa;
@@ -528,6 +529,7 @@
 
     function statusClass(status) {
       const s = String(status || '').toLowerCase();
+      if (s.includes('not run') || s === 'pending' || s === 'planned' || s === 'n/a' || s === '—') return 'pill-neutral';
       if (s.includes('ok') || s.includes('success')) return 'pill-ok';
       if (s.includes('warn')) return 'pill-warn';
       return 'pill-err';

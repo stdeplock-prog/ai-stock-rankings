@@ -11,7 +11,7 @@ the `tasks` array is rendered as one row in the Background Tasks table.
 | `schedule`    | `cron`, `frequency`                    | schedule cell |
 | `last_run`    | `lastrun`, `lastRun`, `last_run_ct`    | last-run cell |
 | `next_run`    | `nextrun`, `nextRun`, `next_run_ct`    | next-run cell |
-| `status`      | `state`                                | status pill (`OK` / contains `warn` / else error) |
+| `status`      | `state`                                | status pill (`OK` → green; contains `warn` → amber; `Not Run`/`pending`/`planned`/`n/a`/`—` → neutral gray; else red error) |
 | `summary`     | `result`, `message`, `detail`          | summary cell text |
 
 ## Optional: result link
@@ -45,6 +45,32 @@ schemes (e.g. `javascript:`, `data:`) are ignored for safety. Example:
   "result_url": "https://www.perplexity.ai/search/<task-id>"
 }
 ```
+
+## Status values
+
+The frontend matches `status` case-insensitively:
+
+- `OK` / `success` → green pill
+- anything containing `warn` → amber pill
+- `Not Run`, `pending`, `planned`, `n/a`, or `—` → neutral gray pill (use
+  this for tasks that are listed but not yet wired up, so they don't
+  visually resemble a passing or alerting task)
+- anything else → red error pill
+
+## Report cadence
+
+The two report-generating tasks currently driven by
+`.github/workflows/update-rankings.yml` are:
+
+- **Market Risk Monitor** (`reports/market-risk-monitor.html`)
+- **Options & Earnings Watchlist** (`reports/options-watchlist.html`)
+
+Both are regenerated only on the **first scheduled rankings refresh of
+the day** (08:45 America/Chicago, weekdays — the active CDT or CST
+twin) and on manual `workflow_dispatch` runs. The midday (12:30 CT) and
+near-close (15:35 CT) rankings refreshes leave the existing report
+files untouched, so the reports reflect the morning snapshot until the
+next morning (or a manual dispatch).
 
 ## Populating today
 

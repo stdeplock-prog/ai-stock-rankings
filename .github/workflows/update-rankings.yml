@@ -165,13 +165,26 @@ jobs:
         if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
+      # Daily reports: only generate on the first scheduled refresh of the day
+      # (08:45 America/Chicago — either CDT or CST twin) or on manual dispatch.
+      # Midday and near-close runs skip these so the reports stay stable to the
+      # morning snapshot. The active-twin gate above means at most one of the
+      # two 08:45 crons proceeds on a given calendar day.
       - name: Generate market risk monitor report
-        if: steps.gate.outputs.proceed == 'true'
+        if: >-
+          steps.gate.outputs.proceed == 'true' &&
+          (github.event_name == 'workflow_dispatch' ||
+           github.event.schedule == '45 13 * * 1-5' ||
+           github.event.schedule == '45 14 * * 1-5')
         run: python 02_Code/Python/Reports/market_risk_monitor.py
         continue-on-error: true
 
       - name: Generate options/earnings watchlist report
-        if: steps.gate.outputs.proceed == 'true'
+        if: >-
+          steps.gate.outputs.proceed == 'true' &&
+          (github.event_name == 'workflow_dispatch' ||
+           github.event.schedule == '45 13 * * 1-5' ||
+           github.event.schedule == '45 14 * * 1-5')
         run: |
           pip install markdown
           python 02_Code/Python/Reports/options_watchlist.py
