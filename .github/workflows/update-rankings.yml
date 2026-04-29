@@ -1,13 +1,42 @@
 name: Update Stock Rankings
 
+# Scheduling notes
+# ----------------
+# We want three runs per US weekday in America/Chicago: 08:45, 12:30, 15:35.
+# GitHub Actions cron runs in UTC and has no native timezone support, so for
+# DST coverage we register two UTC crons per slot (CDT vs CST). To keep DST
+# from doubling the work, exactly one of each twin pair must execute on any
+# given calendar day; the other must exit successfully (not fail).
+#
+# Two robustness problems the previous design hit:
+#   1. GitHub Actions frequently delays scheduled runs by several minutes
+#      under load, so an exact wall-clock minute match (e.g. require HH:MM
+#      to equal 08:45) skipped intended runs.
+#   2. `exit 78` in a workflow `run:` step is treated as a normal failure;
+#      neutral exit codes only apply to GitHub Apps check runs, not Actions
+#      steps. Skips therefore showed as red failures.
+#
+# Current design:
+#   * Each cron line targets exactly one slot in one US offset (CDT or CST).
+#   * The "Decide whether this run should proceed" step uses
+#     `github.event.schedule` (the literal cron string) plus the current
+#     America/Chicago date offset to decide if this particular twin is the
+#     active one today. Off-target twins set `proceed=false` and the job
+#     short-circuits via step-level `if:` — the job ends green.
+#   * Manual `workflow_dispatch` runs always proceed.
+#   * No wall-clock minute matching, so GitHub Actions delays are tolerated.
+
 on:
   schedule:
-        # Twin UTC crons + a TZ-aware gate (see first step in update-rankings job).
-    # OS handles DST via TZ=America/Chicago, so YAML never needs DST edits.
-    # Each pair fires twice; the gate exits 78 (neutral) on the off-target twin.
-    - cron: '45 13,14 * * 1-5'   # 8:45 AM America/Chicago  (13:45 UTC CDT / 14:45 UTC CST)
-    - cron: '30 17,18 * * 1-5'   # 12:30 PM America/Chicago (17:30 UTC CDT / 18:30 UTC CST)
-    - cron: '35 20,21 * * 1-5'   # 3:35 PM America/Chicago  (20:35 UTC CDT / 21:35 UTC CST)
+    # 08:45 America/Chicago — CDT twin (UTC-5) and CST twin (UTC-6)
+    - cron: '45 13 * * 1-5'   # 08:45 CDT
+    - cron: '45 14 * * 1-5'   # 08:45 CST
+    # 12:30 America/Chicago
+    - cron: '30 17 * * 1-5'   # 12:30 CDT
+    - cron: '30 18 * * 1-5'   # 12:30 CST
+    # 15:35 America/Chicago
+    - cron: '35 20 * * 1-5'   # 15:35 CDT
+    - cron: '35 21 * * 1-5'   # 15:35 CST
   workflow_dispatch:           # Manual trigger from Actions tab
 
 permissions:
@@ -27,42 +56,76 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Gate on America/Chicago wall-clock time (DST-proof)
-        if: github.event_name == 'schedule'
+      # Decide whether this particular trigger should run the pipeline.
+      # For schedule events, only the twin that matches today's actual
+      # America/Chicago UTC offset proceeds; the other exits successfully
+      # so the run shows green instead of red. workflow_dispatch always
+      # proceeds. The decision is exported as `proceed` for later steps.
+      - name: Decide whether this run should proceed
+        id: gate
         run: |
-          LOCAL_HM=$(TZ=America/Chicago date +%H:%M)
-          LOCAL_DOW=$(TZ=America/Chicago date +%u)   # 1=Mon..7=Sun
-          echo "Chicago local time: $LOCAL_HM (dow=$LOCAL_DOW)"
-          if [ "$LOCAL_DOW" -gt 5 ]; then
-            echo "Weekend in Chicago - skipping (neutral exit)."
-            exit 78
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "Manual or non-schedule trigger - proceeding."
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
-          case "$LOCAL_HM" in
-            08:45|12:30|15:35)
-              echo "On-target slot ($LOCAL_HM) - proceeding."
-              ;;
+
+          # Current offset from UTC in America/Chicago: -0500 in CDT, -0600 in CST.
+          OFFSET=$(TZ=America/Chicago date +%z)
+          DOW=$(TZ=America/Chicago date +%u)   # 1=Mon..7=Sun
+          SCHED='${{ github.event.schedule }}'
+          echo "Trigger schedule: $SCHED"
+          echo "Chicago offset:   $OFFSET (dow=$DOW)"
+
+          if [ "$DOW" -gt 5 ]; then
+            echo "Weekend in Chicago - skipping (success)."
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Map each cron to the offset under which it represents the
+          # intended local slot. CDT crons are the "early" UTC hour of
+          # each pair; CST crons are the "late" UTC hour.
+          case "$SCHED" in
+            '45 13 * * 1-5'|'30 17 * * 1-5'|'35 20 * * 1-5')
+              EXPECTED='-0500' ;;   # CDT
+            '45 14 * * 1-5'|'30 18 * * 1-5'|'35 21 * * 1-5')
+              EXPECTED='-0600' ;;   # CST
             *)
-              echo "Off-target UTC twin ($LOCAL_HM) - skipping (neutral exit)."
-              exit 78
-              ;;
+              echo "Unknown schedule '$SCHED' - proceeding defensively."
+              echo "proceed=true" >> "$GITHUB_OUTPUT"
+              exit 0 ;;
           esac
 
+          if [ "$OFFSET" = "$EXPECTED" ]; then
+            echo "Active twin for current offset - proceeding."
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Off-target twin (expected $EXPECTED, got $OFFSET) - skipping (success)."
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout repo
+        if: steps.gate.outputs.proceed == 'true'
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Set up Python 3.11
+        if: steps.gate.outputs.proceed == 'true'
         uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
       - name: Install dependencies
+        if: steps.gate.outputs.proceed == 'true'
         run: |
           pip install --upgrade pip
           pip install pandas numpy requests yfinance scipy ta scikit-learn python-dotenv openpyxl lxml
 
       - name: Create required data directories
+        if: steps.gate.outputs.proceed == 'true'
         run: |
           mkdir -p data/reference
           mkdir -p data/raw/ohlcv_daily
@@ -70,33 +133,40 @@ jobs:
           mkdir -p data/processed/scoring_outputs
 
       - name: Build universe (S&P 500 + Nasdaq 100)
+        if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Data_Fetch/build_universe.py
 
       - name: Fetch OHLCV + fundamentals
+        if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Data_Fetch/fetch_ohlcv.py
         env:
           EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
 
       - name: Calculate technical indicators
+        if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Indicators/calc_indicators.py
 
       - name: Score tickers
+        if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/score_tickers.py
 
       - name: Fetch catalysts (earnings + analyst ratings)
+        if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Data_Fetch/fetch_catalysts.py
         env:
           DATA_PROVIDER: ${{ vars.DATA_PROVIDER || 'yfinance' }}
           EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
 
       - name: Score swing (SwingScore + tiers)
+        if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/score_swing.py
 
       - name: Export rankings to JSON
+        if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
       - name: Commit and push updated data files
-        if: github.ref == 'refs/heads/main'
+        if: steps.gate.outputs.proceed == 'true' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -117,11 +187,16 @@ jobs:
           git pull --rebase origin main
           git push origin HEAD:main
 
+    outputs:
+      proceeded: ${{ steps.gate.outputs.proceed }}
+
   # -------------------------------------------------------
   # JOB 2: Deploy site to GitHub Pages (runs after Job 1)
+  # Only deploy when the pipeline actually ran; otherwise the
+  # gated-out twin would redeploy unchanged content (or fail).
   # -------------------------------------------------------
   deploy-pages:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && needs.update-rankings.outputs.proceeded == 'true'
     needs: update-rankings
     runs-on: ubuntu-latest
     environment:
