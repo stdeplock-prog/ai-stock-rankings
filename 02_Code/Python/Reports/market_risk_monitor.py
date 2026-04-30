@@ -17,13 +17,14 @@ from __future__ import annotations
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from html import escape
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DATA_DIR = REPO_ROOT / "data" / "reports"
 HTML_DIR = REPO_ROOT / "reports"
+TASKS_FILE = REPO_ROOT / "data" / "tasks.json"
 
 LEADING_7 = ["AAPL", "MSFT", "NVDA", "AMZN", "GOOGL", "META", "TSLA"]
 
@@ -296,12 +297,78 @@ def render_html(payload: dict) -> str:
     return html
 
 
+def _summary_from_payload(payload: dict) -> tuple[str, str]:
+    """Return (status, summary) for tasks.json based on actual signal state.
+
+    Status: 'warn' if any wired indicator is in alert; 'OK' otherwise. The
+    'source needed' indicators do not flip the status — they're surfaced in
+    the summary text so the dashboard reflects real state, not fabrications.
+    """
+    ind = payload["indicators"]
+    parts = []
+    alert = False
+
+    gf = ind["generals_fail"]
+    below = gf.get("below_count")
+    avail = gf.get("available_count")
+    if avail:
+        below_tickers = [r["ticker"] for r in gf.get("rows", []) if r.get("below")]
+        if gf.get("alert"):
+            alert = True
+            tail = f" ({', '.join(below_tickers)})" if below_tickers else ""
+            parts.append(f"Generals Fail {below}/{avail} below 200DMA{tail} — alert")
+        else:
+            parts.append(f"Generals Fail {below}/{avail} below 200DMA")
+    else:
+        parts.append("Generals Fail: unavailable")
+
+    vix = ind["vix"]
+    if vix.get("value") is not None:
+        label = "elevated" if vix.get("alert") else "normal"
+        if vix.get("alert"):
+            alert = True
+        parts.append(f"VIX {vix['value']:.2f} {label}")
+    else:
+        parts.append("VIX unavailable")
+
+    sn = [name for name, key in [
+        ("POLLS", "polls"),
+        ("ADR", "adr"),
+        ("NDR", "ndr"),
+        ("Put-Call", "put_call_ratio"),
+    ] if ind[key].get("status") == "source_needed"]
+    if sn:
+        parts.append("/".join(sn) + ": source needed")
+
+    return ("warn" if alert else "OK", ". ".join(parts) + ".")
+
+
 def main():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     HTML_DIR.mkdir(parents=True, exist_ok=True)
     payload = build_report()
     (DATA_DIR / "market_risk_monitor.json").write_text(json.dumps(payload, indent=2))
     (HTML_DIR / "market-risk-monitor.html").write_text(render_html(payload))
+
+    # Stamp tasks.json so the dashboard reflects this regeneration. Failures
+    # here must not break the report itself.
+    try:
+        from _tasks_meta import update_task
+    except ImportError:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from _tasks_meta import update_task
+    status, summary = _summary_from_payload(payload)
+    try:
+        update_task(
+            TASKS_FILE,
+            task_id="market-risk-monitor",
+            status=status,
+            summary=summary,
+            report_url="./reports/market-risk-monitor.html",
+        )
+    except Exception as e:
+        print(f"Warning: could not update tasks.json for market-risk-monitor: {e}")
+
     print(f"Wrote market risk monitor report ({payload['generated_at']})")
     return 0
 

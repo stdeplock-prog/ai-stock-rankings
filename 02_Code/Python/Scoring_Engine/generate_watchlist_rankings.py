@@ -244,10 +244,45 @@ def row_from_main(rank, raw_sym, ticker, row, swing_lookup):
     return out
 
 
+def _classify_instrument(symbol, info):
+    """Identify instrument kind for SUPP rows so the dashboard can be honest
+    about what fundamentals are or are not available.
+
+    Returns one of: 'crypto', 'etf', 'fund', 'foreign', 'otc', 'equity', 'unknown'.
+    Fundamentals fields (PE / margins / etc.) only meaningfully apply to
+    'equity' rows; the others legitimately stay null.
+    """
+    sym = (symbol or "").upper()
+    if sym.endswith("-USD") or sym.endswith("USD") and any(c.isalpha() for c in sym[:-3]):
+        return "crypto"
+    quote_type = (info.get("quoteType") or "").upper()
+    if quote_type in ("CRYPTOCURRENCY", "CRYPTO"):
+        return "crypto"
+    if quote_type == "ETF":
+        return "etf"
+    if quote_type in ("MUTUALFUND", "FUND"):
+        return "fund"
+    # Foreign listings end with a country suffix (e.g. .KS, .HK, .TO, .L).
+    if "." in sym and sym.split(".")[-1].isalpha() and len(sym.split(".")[-1]) <= 3:
+        return "foreign"
+    market = (info.get("market") or "").lower()
+    if "otc" in market:
+        return "otc"
+    return "equity" if quote_type == "EQUITY" else "unknown"
+
+
 def fetch_supplemental(ticker_for_yf):
-    """Fetch a lightweight row via yfinance for a ticker outside the main pipeline.
-    Returns dict with price/closes/market_cap/industry/sector or None on failure.
-    Network call, slow; gated by yfinance availability."""
+    """Fetch fields via yfinance for a ticker outside the main pipeline.
+
+    Mirrors the FUND_FIELDS set from 02_Code/Python/Data_Fetch/fetch_ohlcv.py
+    so SUPP rows expose the same fundamentals as the main pipeline whenever
+    the source has them. yfinance is the main pipeline's fundamentals source
+    today (see fetch_ohlcv.py FUND_FIELDS), so reusing it keeps the data path
+    consistent rather than introducing a parallel patchwork.
+
+    Returns dict with price/closes plus a `fundamentals` sub-dict and an
+    `instrument_kind` classification, or None on failure.
+    """
     try:
         import yfinance as yf
     except Exception:
@@ -257,7 +292,6 @@ def fetch_supplemental(ticker_for_yf):
         hist = t.history(period="60d", auto_adjust=True)
         if hist is None or hist.empty:
             return None
-        # Last 10 closes for sparkline
         if "Close" in hist.columns:
             raw_closes = hist["Close"].dropna().tail(10).tolist()
             closes = [round(float(c), 2) for c in raw_closes]
@@ -275,6 +309,23 @@ def fetch_supplemental(ticker_for_yf):
             info = t.info or {}
         except Exception:
             info = {}
+
+        # Same fundamental field set the main pipeline persists, so dashboard
+        # rows look the same regardless of origin. Missing fields stay None.
+        fund_keys = [
+            "trailingPE", "forwardPE",
+            "trailingEps", "epsTrailingTwelveMonths",
+            "revenueGrowth", "earningsGrowth",
+            "dividendYield", "beta",
+            "fiftyTwoWeekHigh", "fiftyTwoWeekLow",
+            "returnOnEquity", "returnOnAssets",
+            "debtToEquity", "currentRatio",
+            "grossMargins", "operatingMargins", "profitMargins",
+            "freeCashflow", "priceToBook",
+        ]
+        fundamentals = {k: info.get(k) for k in fund_keys}
+        kind = _classify_instrument(ticker_for_yf, info)
+
         return {
             "price":           last_close,
             "closes":          closes,
@@ -284,6 +335,8 @@ def fetch_supplemental(ticker_for_yf):
             "sector":          safe_str(info.get("sector", "")),
             "market_cap_raw":  info.get("marketCap", None),
             "country":         safe_str(info.get("country", "")) or "—",
+            "fundamentals":    fundamentals,
+            "instrument_kind": kind,
         }
     except Exception as e:
         print(f"  yfinance fetch failed for {ticker_for_yf}: {e}")
@@ -306,36 +359,56 @@ def synthetic_score_from_closes(closes):
 
 def row_from_supplemental(rank, raw_sym, fetched):
     score = synthetic_score_from_closes(fetched["closes"])
+    kind = fetched.get("instrument_kind") or "unknown"
+    fundamentals = fetched.get("fundamentals") or {}
+    # Fundamentals are only meaningful for individual equities. Crypto/ETFs/
+    # funds get the technical-only treatment with the kind surfaced so the
+    # dashboard / consumer can label rows honestly instead of inventing zeros.
+    enriched = kind == "equity" and any(v is not None for v in fundamentals.values())
+
+    market_cap_display = fmt_market_cap(fetched["market_cap_raw"])
+    sector = fetched["sector"] or ("Crypto" if kind == "crypto" else
+                                   "ETF"    if kind == "etf"    else "—")
+    industry = fetched["industry"] or sector
+
     return {
-        "rank":            rank,
-        "ticker":          raw_sym,
-        "company":         fetched["company"] or raw_sym,
-        "country":         fetched["country"] or "—",
-        "market_cap":      fmt_market_cap(fetched["market_cap_raw"]),
-        "ai_score":        score,
-        "change":          0,
-        "fundamental":     None,
-        "technical":       score,
-        "sentiment":       None,
-        "low_risk":        None,
-        "volume_millions": fetched["vol_millions"],
-        "closes":          fetched["closes"],
-        "industry":        fetched["industry"] or "—",
-        "sector":          fetched["sector"] or "—",
-        "short_interest":  None,
-        "insider_buying":  False,
-        "swing_score":     None,
-        "swing_rank":      None,
-        "swing_tier":      None,
-        "atr_pct":         None,
-        "vol_bucket":      None,
-        "catalyst_flag":   None,
+        "rank":             rank,
+        "ticker":           raw_sym,
+        "company":          fetched["company"] or raw_sym,
+        "country":          fetched["country"] or "—",
+        "market_cap":       market_cap_display,
+        "ai_score":         score,
+        "change":           0,
+        "fundamental":      None,    # composite score from main pipeline; not derivable here
+        "technical":        score,
+        "sentiment":        None,
+        "low_risk":         None,
+        "volume_millions":  fetched["vol_millions"],
+        "closes":           fetched["closes"],
+        "industry":         industry,
+        "sector":           sector,
+        "short_interest":   None,
+        "insider_buying":   False,
+        "swing_score":      None,
+        "swing_rank":       None,
+        "swing_tier":       None,
+        "atr_pct":          None,
+        "vol_bucket":       None,
+        "catalyst_flag":    None,
         "days_to_earnings": None,
-        "next_earnings":   None,
-        "ext_rating":      None,
-        "num_analysts":    None,
-        "upside_pct":      None,
-        "data_source":     "supplemental_yfinance",
+        "next_earnings":    None,
+        "ext_rating":       None,
+        "num_analysts":     None,
+        "upside_pct":       None,
+        # Detailed fundamentals from yfinance .info (same field set as
+        # 02_Code/Python/Data_Fetch/fetch_ohlcv.py FUND_FIELDS). Useful for
+        # downstream consumers; the current dashboard does not render them.
+        "fundamentals":     fundamentals if enriched else {},
+        "instrument_kind":  kind,
+        "enrichment_source": "yfinance_info" if enriched else (
+            "yfinance_price_only" if kind in ("crypto", "etf", "fund") else "yfinance_partial"
+        ),
+        "data_source":      "supplemental_yfinance",
     }
 
 
@@ -416,6 +489,19 @@ def main():
             src_label_counts[lbl] += 1
         r["source"] = lbl
 
+    # SUPP enrichment breakdown so the dashboard / consumers can see what
+    # fraction of supplemental rows came back with full fundamentals vs.
+    # technical-only / unavailable.
+    supp_kind_counts = {}
+    supp_enrich_counts = {}
+    for r in rows:
+        if r.get("data_source") != "supplemental_yfinance":
+            continue
+        k = r.get("instrument_kind") or "unknown"
+        supp_kind_counts[k] = supp_kind_counts.get(k, 0) + 1
+        es = r.get("enrichment_source") or "unknown"
+        supp_enrich_counts[es] = supp_enrich_counts.get(es, 0) + 1
+
     central_now = get_central_now()
     today_str = central_now.strftime("%Y-%m-%d")
     as_of_str = get_central_time_str(central_now)
@@ -434,6 +520,8 @@ def main():
             "unavailable_count":  len(unavailable),
             "by_data_source":     source_counts,
             "by_source_label":    src_label_counts,
+            "supp_by_kind":       supp_kind_counts,
+            "supp_by_enrichment": supp_enrich_counts,
         },
         "unavailable": unavailable,
         "rows":        rows,

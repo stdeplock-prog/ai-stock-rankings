@@ -259,16 +259,15 @@
       </div>
       <div class="controls">
         <a class="ticker-link" href="./watchlist.html" style="padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);text-decoration:none;font-size:13px">Watchlist →</a>
-        <select id="universe">
-          <option value="top-popular">Top Popular</option>
-          <option value="top-growth">Top Growth</option>
+        <select id="universe" title="Preset sort. Click any column header to override.">
+          <option value="top-ai-score">Top AI Score</option>
+          <option value="top-most-traded">Most Traded</option>
           <option value="top-low-risk">Top Low Risk</option>
-          <option value="top-sp500">Top S&amp;P 500</option>
         </select>
         <select id="sectorFilter"><option value="">All Sectors</option></select>
         <input id="search" placeholder="Search ticker or company" aria-label="Search ticker or company" />
         <button class="btn" id="favFilterBtn">Show Watchlist (0)</button>
-        <button class="btn" id="refreshBtn">Refresh</button>
+        <button class="btn" id="refreshBtn">Reload data</button>
         <button class="btn" id="exportBtn">Export CSV</button>
       </div>
     </div>
@@ -341,10 +340,21 @@
 
     const schedTimes = [[8,45],[12,30],[15,35]];
     let state = { rows: [], meta: {} };
+    // Default sort follows the universe dropdown preset until the user clicks
+    // a column header, which sets userSortOverride=true and pins sortKey/dir.
     let sortKey = 'rank';
     let sortDir = 'asc';
+    let userSortOverride = false;
     let showFavsOnly = false;
     const sectors = new Set();
+
+    // Each universe preset maps to a (sortKey, sortDir) pair. Header-click
+    // sorting still works and takes precedence once the user picks a column.
+    const UNIVERSE_PRESETS = {
+      'top-ai-score':    { key: 'rank',            dir: 'asc'  }, // rank already AI-score desc
+      'top-most-traded': { key: 'volume_millions', dir: 'desc' },
+      'top-low-risk':    { key: 'low_risk',        dir: 'desc' },
+    };
 
     let favorites = new Set();
 
@@ -645,9 +655,22 @@
         );
       }
 
+      // Universe preset drives the default sort. Once the user clicks a column
+      // header (userSortOverride=true), that column wins until they pick a new
+      // preset from the dropdown (which resets the override).
+      let activeKey = sortKey;
+      let activeDir = sortDir;
+      if (!userSortOverride) {
+        const preset = UNIVERSE_PRESETS[document.getElementById('universe').value];
+        if (preset) {
+          activeKey = preset.key;
+          activeDir = preset.dir;
+        }
+      }
+
       rows.sort((a, b) => {
-        const cmp = compareValues(a[sortKey], b[sortKey]);
-        return sortDir === 'asc' ? cmp : -cmp;
+        const cmp = compareValues(a[activeKey], b[activeKey]);
+        return activeDir === 'asc' ? cmp : -cmp;
       });
 
       render(rows);
@@ -686,11 +709,15 @@
     document.querySelectorAll('th[data-k]').forEach(th => {
       th.addEventListener('click', () => {
         const nextKey = th.dataset.k;
-        if (sortKey === nextKey) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-        else {
+        // Header click pins the column and direction; later renders ignore the
+        // universe preset until the user changes the dropdown again.
+        if (userSortOverride && sortKey === nextKey) {
+          sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
           sortKey = nextKey;
           sortDir = 'asc';
         }
+        userSortOverride = true;
         applySearch();
       });
     });
@@ -698,6 +725,11 @@
     document.getElementById('search').addEventListener('input', applySearch);
     document.getElementById('sectorFilter').addEventListener('change', applySearch);
     document.getElementById('refreshBtn').addEventListener('click', loadData);
+    document.getElementById('universe').addEventListener('change', () => {
+      // Picking a new preset clears any prior column-header override.
+      userSortOverride = false;
+      applySearch();
+    });
 
     document.getElementById('favFilterBtn').addEventListener('click', function () {
       showFavsOnly = !showFavsOnly;

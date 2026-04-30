@@ -6,6 +6,7 @@ Run after editing the markdown source to refresh the HTML.
 
 from __future__ import annotations
 
+import re
 import sys
 from datetime import datetime, timezone
 from html import escape
@@ -14,6 +15,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[3]
 SRC_MD = REPO_ROOT / "reports" / "highest-conviction-options-calls-2026-04-28.md"
 OUT_HTML = REPO_ROOT / "reports" / "options-watchlist.html"
+TASKS_FILE = REPO_ROOT / "data" / "tasks.json"
 
 CSS = """
 :root { --bg:#0b1220; --panel:#111827; --panel2:#172033; --line:#243043; --text:#e5eefc; --muted:#93a4bd; }
@@ -83,8 +85,56 @@ def render():
 </html>
 """
     OUT_HTML.write_text(html, encoding="utf-8")
+
+    # Stamp tasks.json. Best-effort: on any failure just log and move on so the
+    # report regeneration itself stays green.
+    try:
+        from _tasks_meta import update_task
+    except ImportError:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from _tasks_meta import update_task
+    try:
+        summary = _summary_from_md(md_text)
+        update_task(
+            TASKS_FILE,
+            task_id="options-earnings-watchlist",
+            status="OK",
+            summary=summary,
+            report_url="./reports/options-watchlist.html",
+        )
+    except Exception as e:
+        print(f"Warning: could not update tasks.json for options-earnings-watchlist: {e}")
+
     print(f"Wrote {OUT_HTML.relative_to(REPO_ROOT)}")
     return 0
+
+
+def _summary_from_md(md_text: str) -> str:
+    """Extract a one-line summary from the canonical markdown.
+
+    Pulls the report's H1 date and the list of "Pick N: <Ticker>" headers so
+    the dashboard summary tracks whatever is currently in the markdown source
+    instead of staying frozen at hand-edited text.
+    """
+    # Date from the first H1 line, e.g. "# Highest Conviction Options Calls — April 28, 2026".
+    date_label = ""
+    h1 = re.search(r"^#\s+(.+)$", md_text, re.MULTILINE)
+    if h1:
+        m = re.search(r"—\s*(.+)$", h1.group(1))
+        if m:
+            date_label = m.group(1).strip()
+
+    # Tickers from "## Pick N: NAME (TICKER)" or similar.
+    picks = re.findall(r"##\s*Pick\s*\d+\s*:\s*[^()\n]*\(([A-Z\.\-]{1,8})\)", md_text)
+
+    parts = []
+    if picks:
+        parts.append("Top picks: " + ", ".join(picks))
+    if date_label:
+        parts.append(f"Source: {date_label}")
+    if not parts:
+        parts.append("Options watchlist regenerated from markdown source")
+    return ". ".join(parts) + "."
 
 
 if __name__ == "__main__":
