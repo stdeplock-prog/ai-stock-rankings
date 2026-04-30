@@ -288,6 +288,10 @@ jobs:
           git add data/reports/market_risk_monitor.json 2>/dev/null || true
           git add reports/market-risk-monitor.html 2>/dev/null || true
           git add reports/options-watchlist.html 2>/dev/null || true
+          # tasks.json is stamped by the daily report scripts (last_run /
+          # next_run / status / summary). If we don't stage it here, the later
+          # `git pull --rebase` aborts with "unstaged changes".
+          git add data/tasks.json 2>/dev/null || true
 
           if git diff --staged --quiet; then
             echo "No changes to commit."
