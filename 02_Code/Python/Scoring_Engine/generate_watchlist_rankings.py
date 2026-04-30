@@ -268,7 +268,16 @@ def _classify_instrument(symbol, info):
     market = (info.get("market") or "").lower()
     if "otc" in market:
         return "otc"
-    return "equity" if quote_type == "EQUITY" else "unknown"
+    if quote_type == "EQUITY":
+        return "equity"
+    # yfinance .info often omits quoteType for tickers it returns price data for.
+    # Infer equity when the row carries individual-stock signals (sector +
+    # marketCap, neither of which apply to crypto/ETF/forex). Conservative:
+    # both must be present to avoid mis-tagging an ETF whose info has only
+    # sector. Falls back to 'unknown' otherwise.
+    if info.get("sector") and info.get("marketCap"):
+        return "equity"
+    return "unknown"
 
 
 def fetch_supplemental(ticker_for_yf):
