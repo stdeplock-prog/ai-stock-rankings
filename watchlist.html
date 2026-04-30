@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Stock Rankings</title>
+  <title>Watchlist Rankings</title>
   <style>
     :root {
       --bg: #0b1220;
@@ -61,6 +61,20 @@
     }
 
     .btn { cursor: pointer; }
+
+    .nav-link {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      color: #60a5fa;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .nav-link:hover { background: var(--panel2); }
 
     main { padding: 16px; }
 
@@ -191,19 +205,11 @@
     }
 
     .star-btn:hover,
-    .star-btn.active {
-      color: var(--star);
-    }
+    .star-btn.active { color: var(--star); }
 
-    .err {
-      color: #f87171;
-      padding: 12px 0;
-      font-size: 14px;
-    }
+    .err { color: #f87171; padding: 12px 0; font-size: 14px; }
 
-    .chg-up,
-    .chg-down,
-    .chg-flat {
+    .chg-up, .chg-down, .chg-flat {
       display: inline-flex;
       align-items: center;
       gap: 3px;
@@ -216,21 +222,6 @@
     .chg-down { color: #f87171; }
     .chg-flat { color: var(--muted); }
 
-    .next-run {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .tasks-wrap {
-      overflow-x: auto;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      margin: 16px 0;
-    }
-
-    .tasks-wrap table { min-width: 700px; }
-
     .num { white-space: nowrap; }
     .price-cell { min-width: 88px; }
     .spark-cell { min-width: 96px; }
@@ -238,6 +229,41 @@
     .nowrap { white-space: nowrap; }
     .company-cell { min-width: 190px; }
     .industry-cell { min-width: 180px; font-size: 11px; }
+
+    .src-pill {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+    .src-csv  { background: #1e3a8a; color: #bfdbfe; }
+    .src-tv   { background: #4c1d95; color: #ddd6fe; }
+    .src-both { background: #064e3b; color: #a7f3d0; }
+    .src-supp { background: #78350f; color: #fde68a; }
+
+    .unavailable-wrap {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+
+    .unavailable-wrap .pillrow { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .unavailable-wrap .ticker-chip {
+      background: #2a1a1a;
+      border: 1px solid #5a1a1a;
+      color: #fca5a5;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
 
     @media (max-width: 960px) {
       .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -252,22 +278,21 @@
   <header>
     <div class="row">
       <div>
-        <div class="label">Live rankings dashboard</div>
-        <div style="font-size:22px;font-weight:700">AI Stock Rankings</div>
+        <div class="label">Personal watchlist</div>
+        <div style="font-size:22px;font-weight:700">Watchlist Rankings</div>
         <div id="updated" class="label" style="margin-top:4px">Last Updated: —</div>
-        <div id="nextRun" class="next-run">Next run: —</div>
+        <div id="srcMeta" class="label" style="margin-top:2px;text-transform:none;letter-spacing:0;color:var(--muted)">Sources: —</div>
       </div>
       <div class="controls">
-        <a class="ticker-link" href="./watchlist.html" style="padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);text-decoration:none;font-size:13px">Watchlist →</a>
-        <select id="universe">
-          <option value="top-popular">Top Popular</option>
-          <option value="top-growth">Top Growth</option>
-          <option value="top-low-risk">Top Low Risk</option>
-          <option value="top-sp500">Top S&amp;P 500</option>
+        <a class="nav-link" href="./index.html">← Main Rankings</a>
+        <select id="sourceFilter">
+          <option value="">All sources</option>
+          <option value="csv">CSV only</option>
+          <option value="tradingview">TradingView only</option>
+          <option value="both">In both</option>
         </select>
-        <select id="sectorFilter"><option value="">All Sectors</option></select>
         <input id="search" placeholder="Search ticker or company" aria-label="Search ticker or company" />
-        <button class="btn" id="favFilterBtn">Show Watchlist (0)</button>
+        <button class="btn" id="favFilterBtn">Show Favorites (0)</button>
         <button class="btn" id="refreshBtn">Refresh</button>
         <button class="btn" id="exportBtn">Export CSV</button>
       </div>
@@ -276,31 +301,10 @@
 
   <main>
     <div class="kpis">
-      <div class="card"><div class="label">Rows</div><div class="value" id="kpiRows">0</div></div>
+      <div class="card"><div class="label">Scored Rows</div><div class="value" id="kpiRows">0</div></div>
       <div class="card"><div class="label">AI 9-10</div><div class="value" id="kpiTop">0</div></div>
       <div class="card"><div class="label">Avg Technical</div><div class="value" id="kpiTech">0.00</div></div>
-      <div class="card"><div class="label">Watchlist</div><div class="value" id="kpiFavs">0</div></div>
-    </div>
-
-    <div class="row" style="margin-bottom:6px;margin-top:8px">
-      <div class="label">Scheduled Tasks</div>
-    </div>
-
-    <div class="tasks-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:40px">#</th>
-            <th>Task</th>
-            <th>Schedule</th>
-            <th>Last Run</th>
-            <th>Next Run</th>
-            <th>Status</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody id="tasksTbody"></tbody>
-      </table>
+      <div class="card"><div class="label">Unavailable</div><div class="value" id="kpiUnavail">0</div></div>
     </div>
 
     <div id="errMsg" class="err"></div>
@@ -331,30 +335,30 @@
         <tbody id="tbody"></tbody>
       </table>
     </div>
+
+    <div id="unavailableBlock" class="unavailable-wrap" style="display:none">
+      <div class="label">Unavailable Tickers</div>
+      <div class="muted" style="font-size:12px;margin-top:4px" id="unavailableCount">—</div>
+      <div class="pillrow" id="unavailablePills"></div>
+    </div>
   </main>
 
   <script>
     const DATA_CANDIDATES = {
-      rankings: ['./data/rankings.json', './rankings.json'],
-      tasks: ['./data/tasks.json', './tasks.json']
+      rankings: ['./data/watchlist_rankings.json']
     };
 
-    const schedTimes = [[8,45],[12,30],[15,35]];
-    let state = { rows: [], meta: {} };
+    let state = { rows: [], meta: {}, unavailable: [] };
     let sortKey = 'rank';
     let sortDir = 'asc';
     let showFavsOnly = false;
-    const sectors = new Set();
-
     let favorites = new Set();
 
     function loadFavorites() {
       try {
         if (typeof localStorage === 'undefined') return new Set();
         return new Set(JSON.parse(localStorage.getItem('favTickers') || '[]'));
-      } catch {
-        return new Set();
-      }
+      } catch { return new Set(); }
     }
 
     function saveFav() {
@@ -376,8 +380,7 @@
 
     function updateFavButton() {
       const btn = document.getElementById('favFilterBtn');
-      btn.textContent = showFavsOnly ? 'Show All' : `Show Watchlist (${favorites.size})`;
-      document.getElementById('kpiFavs').textContent = favorites.size;
+      btn.textContent = showFavsOnly ? 'Show All' : `Show Favorites (${favorites.size})`;
     }
 
     function getVal(obj, ...keys) {
@@ -394,9 +397,7 @@
           const res = await fetch(`${path}?cb=${Date.now()}`, { cache: 'no-store' });
           if (!res.ok) throw new Error(`HTTP ${res.status} for ${path}`);
           return await res.json();
-        } catch (err) {
-          lastErr = err;
-        }
+        } catch (err) { lastErr = err; }
       }
       throw lastErr || new Error('No data source available');
     }
@@ -416,9 +417,7 @@
       const closes = Array.isArray(row.closes)
         ? row.closes.map(Number).filter(v => Number.isFinite(v))
         : [];
-
       const marketcapDisplay = getVal(row, 'marketcapdisplay', 'market_cap_display', 'marketcap', 'market_cap');
-
       return {
         rank: Number(getVal(row, 'rank')) || 0,
         ticker: getVal(row, 'ticker') || '—',
@@ -438,7 +437,9 @@
         price: closes.length ? closes[closes.length - 1] : (getVal(row, 'price') != null ? Number(getVal(row, 'price')) : null),
         closes,
         industry: getVal(row, 'industry') || '—',
-        sector: getVal(row, 'sector') || 'Unspecified'
+        sector: getVal(row, 'sector') || 'Unspecified',
+        source: getVal(row, 'source') || 'unknown',
+        data_source: getVal(row, 'data_source') || ''
       };
     }
 
@@ -446,12 +447,10 @@
       const n = Number(v);
       return Number.isFinite(n) ? n.toFixed(d) : '—';
     }
-
     function fmtPrice(v) {
       const n = Number(v);
       return Number.isFinite(n) ? n.toFixed(2) : '—';
     }
-
     function aiPill(score) {
       const s = Number(score);
       return s >= 9 ? 'pill-high' : s >= 7 ? 'pill-med' : 'pill-low';
@@ -486,109 +485,43 @@
     }
 
     function drawSparkline(closes) {
-      // Need at least 2 points to draw a line and to compare day-over-day color.
       if (!closes || closes.length < 2) return '<span class="muted">—</span>';
       const mn = Math.min(...closes);
       const mx = Math.max(...closes);
       const rg = (mx - mn) || 1;
-      const w = 80;
-      const h = 28;
+      const w = 80, h = 28;
       const pts = closes.map((v, i) => `${(i / (closes.length - 1)) * w},${h - ((v - mn) / rg) * h}`).join(' ');
-      // Color reflects the most recent trading day vs the prior trading day,
-      // not the entire window. Ties use the neutral muted color.
       const last = closes[closes.length - 1];
       const prior = closes[closes.length - 2];
       const clr = last > prior ? '#22c55e' : last < prior ? '#ef4444' : '#93a4bd';
       return `<svg width="${w}" height="${h}" style="display:block"><polyline points="${pts}" fill="none" stroke="${clr}" stroke-width="1.5"/></svg>`;
     }
 
-    function updateNextRun() {
-      const now = new Date();
-      const cst = new Date(now.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
-      const cur = cst.getHours() * 60 + cst.getMinutes();
-      let next = null;
-
-      for (const [h, m] of schedTimes) {
-        if (h * 60 + m > cur) {
-          next = [h, m];
-          break;
-        }
-      }
-
-      if (!next) next = [8, 45];
-
-      const nextMins = next[0] * 60 + next[1];
-      const diff = nextMins > cur ? nextMins - cur : 1440 - cur + nextMins;
-
-      document.getElementById('nextRun').textContent =
-        `Next run: ${Math.floor(diff / 60)}h ${diff % 60}m (${String(next[0]).padStart(2, '0')}:${String(next[1]).padStart(2, '0')} CST)`;
-    }
-
-    function fmtTaskVal(v) {
-      return (v === undefined || v === null || v === '') ? '—' : String(v);
-    }
-
-    function statusClass(status) {
-      const s = String(status || '').toLowerCase();
-      if (s.includes('not run') || s === 'pending' || s === 'planned' || s === 'n/a' || s === '—') return 'pill-neutral';
-      if (s.includes('ok') || s.includes('success')) return 'pill-ok';
-      if (s.includes('warn')) return 'pill-warn';
-      return 'pill-err';
-    }
-
-    async function renderTasks() {
-      const tb = document.getElementById('tasksTbody');
-      const payload = await fetchFirstAvailable(DATA_CANDIDATES.tasks);
-      const tasks = Array.isArray(payload) ? payload : (Array.isArray(payload.tasks) ? payload.tasks : []);
-
-      tb.innerHTML = tasks.map((t, i) => {
-        const name = getVal(t, 'name', 'title', 'task') || '—';
-        const schedule = getVal(t, 'schedule', 'cron', 'frequency') || '—';
-        const lastRun = fmtTaskVal(getVal(t, 'last_run', 'lastrun', 'lastRun', 'last_run_ct', 'lastRunCt'));
-        const nextRun = fmtTaskVal(getVal(t, 'next_run', 'nextrun', 'nextRun', 'next_run_ct', 'nextRunCt'));
-        const status = fmtTaskVal(getVal(t, 'status', 'state'));
-        const summary = fmtTaskVal(getVal(t, 'summary', 'result', 'message', 'detail'));
-        const link = getVal(t, 'link', 'url', 'href', 'result_url', 'report_url');
-
-        let summaryCell = summary;
-        const linkStr = link == null ? '' : String(link).trim();
-        // Accept absolute http(s) URLs and same-origin relative paths (./, /, plain).
-        // Reject anything starting with javascript:/data:/vbscript: etc.
-        const isSafeRelative = /^(?:\.{0,2}\/|reports\/|data\/)/i.test(linkStr) && !/^[a-z][a-z0-9+.-]*:/i.test(linkStr);
-        const isHttp = /^https?:\/\//i.test(linkStr);
-        if (linkStr && (isHttp || isSafeRelative)) {
-          const safeHref = linkStr.replace(/"/g, '&quot;');
-          const targetAttrs = isHttp ? ' target="_blank" rel="noopener noreferrer"' : '';
-          summaryCell = `${summary === '—' ? '' : summary + ' '}<a href="${safeHref}"${targetAttrs} style="color:#60a5fa">View report →</a>`;
-        }
-
-        return `
-          <tr>
-            <td>${i + 1}</td>
-            <td style="font-weight:600">${name}</td>
-            <td style="color:var(--muted);font-size:12px">${schedule}</td>
-            <td style="font-size:12px">${lastRun}</td>
-            <td style="font-size:12px">${nextRun}</td>
-            <td><span class="pill ${statusClass(status)}" style="font-size:11px">${status}</span></td>
-            <td style="font-size:12px;color:var(--muted)">${summaryCell}</td>
-          </tr>
-        `;
-      }).join('');
+    function srcPill(src, dataSource) {
+      const supp = dataSource === 'supplemental_yfinance';
+      let cls = 'src-pill ', txt = '';
+      if (src === 'both') { cls += 'src-both'; txt = 'BOTH'; }
+      else if (src === 'csv') { cls += 'src-csv'; txt = 'CSV'; }
+      else if (src === 'tradingview') { cls += 'src-tv'; txt = 'TV'; }
+      else { cls += 'src-csv'; txt = src.toUpperCase(); }
+      const suppPill = supp ? `<span class="src-pill src-supp" title="Supplemental yfinance fetch (not in main pipeline)">SUPP</span>` : '';
+      return `<span class="${cls}" title="Source list: ${src}">${txt}</span>${suppPill}`;
     }
 
     function render(rows) {
       const tb = document.getElementById('tbody');
-
       tb.innerHTML = rows.map(r => {
         const fav = favorites.has(r.ticker);
         const marketCap = r.marketcapdisplay || '—';
-
         return `
           <tr class="${fav ? 'favorited' : ''}">
-            <td><button class="star-btn ${fav ? 'active' : ''}" data-ticker="${r.ticker}" title="Toggle watchlist">${fav ? '★' : '☆'}</button></td>
+            <td><button class="star-btn ${fav ? 'active' : ''}" data-ticker="${r.ticker}" title="Toggle favorite">${fav ? '★' : '☆'}</button></td>
             <td class="num">${r.rank}</td>
             <td>${movCell(r.change)}</td>
-            <td><a class="ticker-link" href="https://finance.yahoo.com/quote/${encodeURIComponent(r.ticker)}" target="_blank" rel="noopener noreferrer">${r.ticker}</a></td>
+            <td>
+              <a class="ticker-link" href="https://finance.yahoo.com/quote/${encodeURIComponent(r.ticker)}" target="_blank" rel="noopener noreferrer">${r.ticker}</a>
+              ${srcPill(r.source, r.data_source)}
+            </td>
             <td class="company-cell">${r.company}</td>
             <td class="num">${marketCap}</td>
             <td><span class="pill ${aiPill(r.ai_score)}">${fmt(r.ai_score)}</span></td>
@@ -611,7 +544,6 @@
       document.getElementById('kpiTop').textContent = rows.filter(r => Number(r.ai_score) >= 9).length;
       document.getElementById('kpiTech').textContent =
         n ? (rows.reduce((a, r) => a + (Number(r.technical) || 0), 0) / n).toFixed(2) : '0.00';
-      updateFavButton();
 
       document.querySelectorAll('.star-btn').forEach(btn => {
         btn.addEventListener('click', e => {
@@ -632,16 +564,16 @@
 
     function applySearch() {
       const q = document.getElementById('search').value.trim().toLowerCase();
-      const sec = document.getElementById('sectorFilter').value;
+      const srcFilter = document.getElementById('sourceFilter').value;
       let rows = state.rows.slice();
 
       if (showFavsOnly) rows = rows.filter(r => favorites.has(r.ticker));
-      if (sec) rows = rows.filter(r => r.sector === sec);
+      if (srcFilter) rows = rows.filter(r => r.source === srcFilter);
       if (q) {
         rows = rows.filter(r =>
           r.ticker.toLowerCase().includes(q) ||
-          r.company.toLowerCase().includes(q) ||
-          r.industry.toLowerCase().includes(q)
+          (r.company || '').toLowerCase().includes(q) ||
+          (r.industry || '').toLowerCase().includes(q)
         );
       }
 
@@ -649,37 +581,52 @@
         const cmp = compareValues(a[sortKey], b[sortKey]);
         return sortDir === 'asc' ? cmp : -cmp;
       });
-
       render(rows);
+    }
+
+    function renderUnavailable(unavailable) {
+      const block = document.getElementById('unavailableBlock');
+      const pills = document.getElementById('unavailablePills');
+      const count = document.getElementById('unavailableCount');
+      document.getElementById('kpiUnavail').textContent = unavailable.length;
+      if (!unavailable.length) {
+        block.style.display = 'none';
+        return;
+      }
+      block.style.display = '';
+      count.textContent = `${unavailable.length} ticker(s) could not be scored. Common reasons: foreign listing without yfinance support, OTC, or symbol mapping issue.`;
+      pills.innerHTML = unavailable.map(u => {
+        const lbl = u.tried ? `${u.input} → ${u.tried}` : u.input;
+        const title = `Source: ${u.source || 'unknown'} • ${u.reason || ''}`;
+        return `<span class="ticker-chip" title="${title.replace(/"/g,'&quot;')}">${lbl}</span>`;
+      }).join('');
+    }
+
+    function renderSourceMeta(meta) {
+      if (!meta) return;
+      const el = document.getElementById('srcMeta');
+      const parts = [];
+      if (meta.csv_count != null) parts.push(`CSV: ${meta.csv_count}`);
+      if (meta.tradingview_count != null) parts.push(`TV: ${meta.tradingview_count}`);
+      if (meta.in_both != null) parts.push(`Both: ${meta.in_both}`);
+      if (meta.combined_unique != null) parts.push(`Unique: ${meta.combined_unique}`);
+      if (meta.scored != null) parts.push(`Scored: ${meta.scored}`);
+      if (meta.unavailable_count) parts.push(`Unavailable: ${meta.unavailable_count}`);
+      el.textContent = 'Sources — ' + parts.join(' · ');
     }
 
     async function loadData() {
       try {
         const data = await fetchFirstAvailable(DATA_CANDIDATES.rankings);
         const rowsRaw = Array.isArray(data.rows) ? data.rows : [];
-        state = { rows: rowsRaw.map(normalizeRow), meta: data };
-
+        state = { rows: rowsRaw.map(normalizeRow), meta: data, unavailable: data.unavailable || [] };
         document.getElementById('updated').textContent = `Last Updated: ${getVal(data, 'as_of', 'asof') || '—'}`;
         document.getElementById('errMsg').textContent = '';
-
-        sectors.clear();
-        state.rows.forEach(row => {
-          if (row.sector) sectors.add(row.sector);
-        });
-
-        const sf = document.getElementById('sectorFilter');
-        const cur = sf.value;
-        sf.innerHTML =
-          '<option value="">All Sectors</option>' +
-          [...sectors].sort().map(s => `<option value="${s}">${s}</option>`).join('');
-
-        if ([...sf.options].some(o => o.value === cur)) sf.value = cur;
-
-        updateNextRun();
-        await renderTasks();
+        renderSourceMeta(data.source_meta);
+        renderUnavailable(state.unavailable);
         applySearch();
       } catch (e) {
-        document.getElementById('errMsg').textContent = `Error loading dashboard: ${e.message}`;
+        document.getElementById('errMsg').textContent = `Error loading watchlist: ${e.message}`;
       }
     }
 
@@ -687,18 +634,14 @@
       th.addEventListener('click', () => {
         const nextKey = th.dataset.k;
         if (sortKey === nextKey) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-        else {
-          sortKey = nextKey;
-          sortDir = 'asc';
-        }
+        else { sortKey = nextKey; sortDir = 'asc'; }
         applySearch();
       });
     });
 
     document.getElementById('search').addEventListener('input', applySearch);
-    document.getElementById('sectorFilter').addEventListener('change', applySearch);
+    document.getElementById('sourceFilter').addEventListener('change', applySearch);
     document.getElementById('refreshBtn').addEventListener('click', loadData);
-
     document.getElementById('favFilterBtn').addEventListener('click', function () {
       showFavsOnly = !showFavsOnly;
       updateFavButton();
@@ -708,7 +651,7 @@
     document.getElementById('exportBtn').addEventListener('click', function () {
       const rows = state.rows;
       const csv = [
-        'Rank,Ticker,Company,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,Price,Sector,Industry',
+        'Rank,Ticker,Company,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,Price,Sector,Industry,Source',
         ...rows.map(r => [
           r.rank,
           r.ticker,
@@ -723,20 +666,19 @@
           r.volume_millions,
           r.price,
           `"${String(r.sector).replaceAll('"', '""')}"`,
-          `"${String(r.industry).replaceAll('"', '""')}"`
+          `"${String(r.industry).replaceAll('"', '""')}"`,
+          r.source
         ].join(','))
       ].join('\n');
-
       const a = document.createElement('a');
       a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-      a.download = 'rankings.csv';
+      a.download = 'watchlist-rankings.csv';
       a.click();
     });
 
     updateFavButton();
     loadData();
     setInterval(loadData, 300000);
-    setInterval(updateNextRun, 60000);
   </script>
 </body>
 </html>

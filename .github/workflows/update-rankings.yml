@@ -245,6 +245,11 @@ jobs:
         if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
+      - name: Generate watchlist rankings JSON (CSV + TradingView union)
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Scoring_Engine/generate_watchlist_rankings.py
+        continue-on-error: true
+
       # Daily reports: only generate on the morning slot (08:45 America/Chicago)
       # or on manual dispatch. Midday and close runs skip these so the reports
       # stay stable to the morning snapshot. The slot-level idempotency above
@@ -273,6 +278,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/rankings.json
+          git add data/watchlist_rankings.json 2>/dev/null || true
+          git add data/watchlist_sources.json 2>/dev/null || true
           git add data/processed/scoring_outputs/rankings_daily_open.csv 2>/dev/null || true
           git add data/processed/scoring_outputs/rankings_daily_open_date.txt 2>/dev/null || true
           git add data/processed/catalysts.csv 2>/dev/null || true
