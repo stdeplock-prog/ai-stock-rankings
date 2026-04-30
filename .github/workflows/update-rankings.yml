@@ -8,35 +8,54 @@ name: Update Stock Rankings
 # from doubling the work, exactly one of each twin pair must execute on any
 # given calendar day; the other must exit successfully (not fail).
 #
-# Two robustness problems the previous design hit:
-#   1. GitHub Actions frequently delays scheduled runs by several minutes
-#      under load, so an exact wall-clock minute match (e.g. require HH:MM
-#      to equal 08:45) skipped intended runs.
+# Robustness lessons hit in earlier designs:
+#   1. GitHub Actions frequently delays *or drops* scheduled runs by several
+#      minutes-to-hours under load (the 13:45 UTC slot in particular was
+#      dropping every weekday). Cron lines are best-effort, not guarantees.
 #   2. `exit 78` in a workflow `run:` step is treated as a normal failure;
 #      neutral exit codes only apply to GitHub Apps check runs, not Actions
 #      steps. Skips therefore showed as red failures.
 #
 # Current design:
-#   * Each cron line targets exactly one slot in one US offset (CDT or CST).
+#   * Each slot has THREE cron lines per offset (primary + 15min + 30min
+#     backups) so a delayed/dropped firing at the primary minute still has
+#     two more chances. All three carry the same logical slot id.
 #   * The "Decide whether this run should proceed" step uses
 #     `github.event.schedule` (the literal cron string) plus the current
 #     America/Chicago date offset to decide if this particular twin is the
-#     active one today. Off-target twins set `proceed=false` and the job
-#     short-circuits via step-level `if:` — the job ends green.
-#   * Manual `workflow_dispatch` runs always proceed.
+#     active one today. Off-target twins (wrong offset, weekend) set
+#     proceed=false and the job short-circuits via step-level `if:` — the
+#     job ends green.
+#   * Slot-level idempotency: if rankings.json's last commit on main is
+#     already from today within this slot's window, the backup firings
+#     skip the heavy pipeline (proceed=false). The first cron to actually
+#     succeed for the slot wins; later retries are cheap no-ops.
+#   * Manual `workflow_dispatch` always proceeds (overrides idempotency).
 #   * No wall-clock minute matching, so GitHub Actions delays are tolerated.
 
 on:
   schedule:
-    # 08:45 America/Chicago — CDT twin (UTC-5) and CST twin (UTC-6)
+    # 08:45 America/Chicago slot — primary + two backups for each offset.
     - cron: '45 13 * * 1-5'   # 08:45 CDT
+    - cron: '0 14 * * 1-5'    # 09:00 CDT (backup 1)
+    - cron: '15 14 * * 1-5'   # 09:15 CDT (backup 2)
     - cron: '45 14 * * 1-5'   # 08:45 CST
-    # 12:30 America/Chicago
+    - cron: '0 15 * * 1-5'    # 09:00 CST (backup 1)
+    - cron: '15 15 * * 1-5'   # 09:15 CST (backup 2)
+    # 12:30 America/Chicago slot.
     - cron: '30 17 * * 1-5'   # 12:30 CDT
+    - cron: '45 17 * * 1-5'   # 12:45 CDT (backup 1)
+    - cron: '0 18 * * 1-5'    # 13:00 CDT (backup 2)
     - cron: '30 18 * * 1-5'   # 12:30 CST
-    # 15:35 America/Chicago
+    - cron: '45 18 * * 1-5'   # 12:45 CST (backup 1)
+    - cron: '0 19 * * 1-5'    # 13:00 CST (backup 2)
+    # 15:35 America/Chicago slot.
     - cron: '35 20 * * 1-5'   # 15:35 CDT
+    - cron: '50 20 * * 1-5'   # 15:50 CDT (backup 1)
+    - cron: '5 21 * * 1-5'    # 16:05 CDT (backup 2)
     - cron: '35 21 * * 1-5'   # 15:35 CST
+    - cron: '50 21 * * 1-5'   # 15:50 CST (backup 1)
+    - cron: '5 22 * * 1-5'    # 16:05 CST (backup 2)
   workflow_dispatch:           # Manual trigger from Actions tab
 
 permissions:
@@ -56,11 +75,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout up-front so the gate step can read git history for the
+      # slot-level idempotency check, and the later push step has full
+      # history available for rebase. fetch-depth: 0 keeps both happy.
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
       # Decide whether this particular trigger should run the pipeline.
       # For schedule events, only the twin that matches today's actual
       # America/Chicago UTC offset proceeds; the other exits successfully
       # so the run shows green instead of red. workflow_dispatch always
-      # proceeds. The decision is exported as `proceed` for later steps.
+      # proceeds. Per-slot idempotency: if the slot has already been
+      # satisfied today (rankings.json committed within the slot window),
+      # backup firings skip. The decision is exported as `proceed` and
+      # `slot` for later steps.
       - name: Decide whether this run should proceed
         id: gate
         run: |
@@ -68,49 +98,99 @@ jobs:
           if [ "${{ github.event_name }}" != "schedule" ]; then
             echo "Manual or non-schedule trigger - proceeding."
             echo "proceed=true" >> "$GITHUB_OUTPUT"
+            echo "slot=manual" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           # Current offset from UTC in America/Chicago: -0500 in CDT, -0600 in CST.
           OFFSET=$(TZ=America/Chicago date +%z)
           DOW=$(TZ=America/Chicago date +%u)   # 1=Mon..7=Sun
+          TODAY_CHI=$(TZ=America/Chicago date +%Y-%m-%d)
           SCHED='${{ github.event.schedule }}'
           echo "Trigger schedule: $SCHED"
-          echo "Chicago offset:   $OFFSET (dow=$DOW)"
+          echo "Chicago offset:   $OFFSET (dow=$DOW, today=$TODAY_CHI)"
 
           if [ "$DOW" -gt 5 ]; then
             echo "Weekend in Chicago - skipping (success)."
             echo "proceed=false" >> "$GITHUB_OUTPUT"
+            echo "slot=weekend" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          # Map each cron to the offset under which it represents the
-          # intended local slot. CDT crons are the "early" UTC hour of
-          # each pair; CST crons are the "late" UTC hour.
+          # Map each cron to:
+          #   - SLOT: logical slot id (morning/midday/close)
+          #   - EXPECTED: the offset under which this cron is the active twin
+          # Backup firings for the same slot share the SLOT id so idempotency
+          # below dedupes them.
           case "$SCHED" in
-            '45 13 * * 1-5'|'30 17 * * 1-5'|'35 20 * * 1-5')
-              EXPECTED='-0500' ;;   # CDT
-            '45 14 * * 1-5'|'30 18 * * 1-5'|'35 21 * * 1-5')
-              EXPECTED='-0600' ;;   # CST
+            '45 13 * * 1-5'|'0 14 * * 1-5'|'15 14 * * 1-5')
+              SLOT='morning';  EXPECTED='-0500' ;;   # CDT
+            '45 14 * * 1-5'|'0 15 * * 1-5'|'15 15 * * 1-5')
+              SLOT='morning';  EXPECTED='-0600' ;;   # CST
+            '30 17 * * 1-5'|'45 17 * * 1-5'|'0 18 * * 1-5')
+              SLOT='midday';   EXPECTED='-0500' ;;   # CDT
+            '30 18 * * 1-5'|'45 18 * * 1-5'|'0 19 * * 1-5')
+              SLOT='midday';   EXPECTED='-0600' ;;   # CST
+            '35 20 * * 1-5'|'50 20 * * 1-5'|'5 21 * * 1-5')
+              SLOT='close';    EXPECTED='-0500' ;;   # CDT
+            '35 21 * * 1-5'|'50 21 * * 1-5'|'5 22 * * 1-5')
+              SLOT='close';    EXPECTED='-0600' ;;   # CST
             *)
               echo "Unknown schedule '$SCHED' - proceeding defensively."
               echo "proceed=true" >> "$GITHUB_OUTPUT"
+              echo "slot=unknown" >> "$GITHUB_OUTPUT"
               exit 0 ;;
           esac
+          echo "slot=$SLOT" >> "$GITHUB_OUTPUT"
 
-          if [ "$OFFSET" = "$EXPECTED" ]; then
-            echo "Active twin for current offset - proceeding."
-            echo "proceed=true" >> "$GITHUB_OUTPUT"
-          else
+          if [ "$OFFSET" != "$EXPECTED" ]; then
             echo "Off-target twin (expected $EXPECTED, got $OFFSET) - skipping (success)."
             echo "proceed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "Active twin for current offset."
+
+          # Slot-level idempotency. Fetch the timestamp of the most recent
+          # commit that touched rankings.json on main, convert to Chicago
+          # local time, and check whether it falls inside this slot's
+          # window today. If so, the slot is already satisfied and this
+          # backup firing should skip.
+          LAST=$(git log -1 --format=%ct -- data/rankings.json 2>/dev/null || echo "")
+          if [ -z "$LAST" ]; then
+            echo "No prior rankings.json commit found - proceeding."
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          LAST_DATE=$(TZ=America/Chicago date -d "@$LAST" +%Y-%m-%d)
+          LAST_HM=$(TZ=America/Chicago date -d "@$LAST" +%H:%M)
+          echo "Last rankings.json commit (Chicago): $LAST_DATE $LAST_HM"
+
+          if [ "$LAST_DATE" != "$TODAY_CHI" ]; then
+            echo "No commit today yet - proceeding."
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
-      - name: Checkout repo
-        if: steps.gate.outputs.proceed == 'true'
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
+          # Slot windows in Chicago wall-clock. A slot is "satisfied" if a
+          # commit landed at or after the slot's start time today. We use
+          # generous lower bounds tied to the earliest cron firing for each
+          # slot, with no upper bound (a later commit always counts as "the
+          # slot ran"). Slot identity is the SLOT id from the case above.
+          case "$SLOT" in
+            morning) MIN_HM='08:45' ;;
+            midday)  MIN_HM='12:30' ;;
+            close)   MIN_HM='15:35' ;;
+            *)       MIN_HM='00:00' ;;
+          esac
+
+          # Compare HH:MM lexicographically (works because zero-padded).
+          if [ "$LAST_HM" \< "$MIN_HM" ]; then
+            echo "Today's $SLOT slot not yet satisfied (last commit $LAST_HM < $MIN_HM) - proceeding."
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Today's $SLOT slot already satisfied (last commit $LAST_HM >= $MIN_HM) - skipping (success)."
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Set up Python 3.11
         if: steps.gate.outputs.proceed == 'true'
@@ -165,17 +245,15 @@ jobs:
         if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
-      # Daily reports: only generate on the first scheduled refresh of the day
-      # (08:45 America/Chicago — either CDT or CST twin) or on manual dispatch.
-      # Midday and near-close runs skip these so the reports stay stable to the
-      # morning snapshot. The active-twin gate above means at most one of the
-      # two 08:45 crons proceeds on a given calendar day.
+      # Daily reports: only generate on the morning slot (08:45 America/Chicago)
+      # or on manual dispatch. Midday and close runs skip these so the reports
+      # stay stable to the morning snapshot. The slot-level idempotency above
+      # ensures at most one of the morning crons does heavy work per day.
       - name: Generate market risk monitor report
         if: >-
           steps.gate.outputs.proceed == 'true' &&
           (github.event_name == 'workflow_dispatch' ||
-           github.event.schedule == '45 13 * * 1-5' ||
-           github.event.schedule == '45 14 * * 1-5')
+           steps.gate.outputs.slot == 'morning')
         run: python 02_Code/Python/Reports/market_risk_monitor.py
         continue-on-error: true
 
@@ -183,8 +261,7 @@ jobs:
         if: >-
           steps.gate.outputs.proceed == 'true' &&
           (github.event_name == 'workflow_dispatch' ||
-           github.event.schedule == '45 13 * * 1-5' ||
-           github.event.schedule == '45 14 * * 1-5')
+           steps.gate.outputs.slot == 'morning')
         run: |
           pip install markdown
           python 02_Code/Python/Reports/options_watchlist.py
