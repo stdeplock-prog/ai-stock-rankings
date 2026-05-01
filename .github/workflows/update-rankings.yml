@@ -259,10 +259,19 @@ jobs:
         if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
+      # EODHD_API_KEY is only injected on the morning slot (or manual dispatch)
+      # so live EODHD fundamentals fetches happen at most once per ticker per
+      # day. Midday/close runs read the on-disk cache populated by the morning
+      # run (see 02_Code/Python/Data_Fetch/eodhd_fundamentals.py: use_cache
+      # short-circuits before the API key check). If the secret is missing
+      # entirely, the helper returns None and the watchlist falls through to
+      # yfinance-only — same behavior as before this enrichment existed.
       - name: Generate watchlist rankings JSON (CSV + TradingView union)
         if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/generate_watchlist_rankings.py
         continue-on-error: true
+        env:
+          EODHD_API_KEY: ${{ (github.event_name == 'workflow_dispatch' || steps.gate.outputs.slot == 'morning') && secrets.EODHD_API_KEY || '' }}
 
       # Daily reports: only generate on the morning slot (08:45 America/Chicago)
       # or on manual dispatch. Midday and close runs skip these so the reports
