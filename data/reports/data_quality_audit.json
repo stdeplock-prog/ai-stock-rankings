@@ -1,0 +1,283 @@
+{
+  "generated_at": "2026-05-01T17:47:52Z",
+  "overall": "WARN",
+  "sections": {
+    "rankings": {
+      "present": true,
+      "checks": [
+        {
+          "name": "row_count",
+          "status": "OK",
+          "message": "100 rows",
+          "data": {}
+        },
+        {
+          "name": "rankings_freshness",
+          "status": "OK",
+          "message": "as_of 2026-05-01 11:06 AM CDT (age 1.7h)",
+          "data": {}
+        },
+        {
+          "name": "missing_market_cap",
+          "status": "OK",
+          "message": "1/100 (1%)",
+          "data": {}
+        },
+        {
+          "name": "missing_sector",
+          "status": "WARN",
+          "message": "43/100 (43%)",
+          "data": {}
+        },
+        {
+          "name": "missing_industry",
+          "status": "OK",
+          "message": "0/100 (0%)",
+          "data": {}
+        },
+        {
+          "name": "sparkline_short",
+          "status": "OK",
+          "message": "0/100 (0%) (rows with closes length < 5)",
+          "data": {}
+        },
+        {
+          "name": "mov_distribution",
+          "status": "OK",
+          "message": "+37 / -16 / 0=47 / missing=0",
+          "data": {}
+        },
+        {
+          "name": "score_missing_ai_score",
+          "status": "OK",
+          "message": "0/100 (0%)",
+          "data": {}
+        },
+        {
+          "name": "score_missing_fundamental",
+          "status": "OK",
+          "message": "0/100 (0%)",
+          "data": {}
+        },
+        {
+          "name": "score_missing_technical",
+          "status": "OK",
+          "message": "0/100 (0%)",
+          "data": {}
+        },
+        {
+          "name": "score_missing_sentiment",
+          "status": "OK",
+          "message": "0/100 (0%)",
+          "data": {}
+        },
+        {
+          "name": "score_missing_low_risk",
+          "status": "OK",
+          "message": "0/100 (0%)",
+          "data": {}
+        },
+        {
+          "name": "score_missing_swing_score",
+          "status": "OK",
+          "message": "0/100 (0%)",
+          "data": {}
+        }
+      ],
+      "metrics": {
+        "as_of": "2026-05-01 11:06 AM CDT",
+        "open_date": "2026-05-01",
+        "is_open_run": false,
+        "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
+        "row_count": 100,
+        "missing_market_cap": 1,
+        "missing_sector": 43,
+        "missing_industry": 0,
+        "closes_length_distribution": {
+          "10": 100
+        },
+        "closes_short_count": 0,
+        "mov_distribution": {
+          "positive": 37,
+          "negative": 16,
+          "zero": 47,
+          "missing": 0
+        },
+        "score_missing": {
+          "ai_score": 0,
+          "fundamental": 0,
+          "technical": 0,
+          "sentiment": 0,
+          "low_risk": 0,
+          "swing_score": 0
+        }
+      },
+      "status": "WARN"
+    },
+    "watchlist": {
+      "present": true,
+      "checks": [
+        {
+          "name": "watchlist_freshness",
+          "status": "OK",
+          "message": "as_of 2026-05-01 11:06 AM CDT (age 1.7h)",
+          "data": {}
+        },
+        {
+          "name": "supp_full_fundamentals",
+          "status": "OK",
+          "message": "64/75 (85%) full fundamentals",
+          "data": {}
+        },
+        {
+          "name": "unavailable_spike",
+          "status": "OK",
+          "message": "1/143 unavailable (1%)",
+          "data": {}
+        },
+        {
+          "name": "supp_missing_market_cap",
+          "status": "OK",
+          "message": "8/75 (11%)",
+          "data": {}
+        },
+        {
+          "name": "supp_missing_fundamental",
+          "status": "OK",
+          "message": "11/75 (15%)",
+          "data": {}
+        }
+      ],
+      "metrics": {
+        "as_of": "2026-05-01 11:06 AM CDT",
+        "row_count": 142,
+        "unavailable_count": 1,
+        "unavailable_sample": [
+          {
+            "input": "CBRS",
+            "source": "csv",
+            "reason": "not in main rankings and supplemental fetch failed or disabled"
+          }
+        ],
+        "by_source_label": {
+          "tradingview": 69,
+          "both": 29,
+          "csv": 44
+        },
+        "by_data_source": {
+          "main_pipeline": 67,
+          "supplemental_yfinance": 75
+        },
+        "supp_summary": {
+          "total": 75,
+          "full_fundamentals": 64,
+          "metadata_only": 0,
+          "price_only": 9,
+          "technical_only": 2,
+          "unavailable": 1
+        },
+        "supp_by_kind": {
+          "equity": 64,
+          "etf": 7,
+          "foreign": 2,
+          "crypto": 2
+        },
+        "supp_by_enrichment": {
+          "yfinance_fundamentals": 64,
+          "yfinance_price_only": 9,
+          "yfinance_partial": 2
+        },
+        "unavailable_ratio": 0.007,
+        "supp_rows_inspected": 75,
+        "supp_missing_market_cap": 8,
+        "supp_missing_sector": 0,
+        "supp_missing_fundamental": 11
+      },
+      "status": "OK"
+    },
+    "tasks": {
+      "present": true,
+      "checks": [
+        {
+          "name": "tasks_status",
+          "status": "OK",
+          "message": "4/6 Not Run",
+          "data": {}
+        },
+        {
+          "name": "stale_report_metadata",
+          "status": "OK",
+          "message": "no stale report metadata",
+          "data": {}
+        }
+      ],
+      "metrics": {
+        "task_count": 6,
+        "status_counts": {
+          "warn": 1,
+          "OK": 1,
+          "Not Run": 4
+        },
+        "not_run_count": 4,
+        "not_run_ids": [
+          "market-open-scan",
+          "midday-health-check",
+          "close-recap",
+          "weekly-rebalance"
+        ],
+        "stale_report_ids": [],
+        "tasks": [
+          {
+            "id": "market-risk-monitor",
+            "name": "Market Risk Monitor",
+            "status": "warn",
+            "last_run": "2026-05-01 11:06 AM CDT",
+            "next_run": "2026-05-04 08:45 AM CDT",
+            "has_report": true
+          },
+          {
+            "id": "options-earnings-watchlist",
+            "name": "Options & Earnings Watchlist",
+            "status": "OK",
+            "last_run": "2026-05-01 11:06 AM CDT",
+            "next_run": "2026-05-04 08:45 AM CDT",
+            "has_report": true
+          },
+          {
+            "id": "market-open-scan",
+            "name": "Market Open Scan",
+            "status": "Not Run",
+            "last_run": "\u2014",
+            "next_run": "\u2014",
+            "has_report": false
+          },
+          {
+            "id": "midday-health-check",
+            "name": "Midday Health Check",
+            "status": "Not Run",
+            "last_run": "\u2014",
+            "next_run": "\u2014",
+            "has_report": false
+          },
+          {
+            "id": "close-recap",
+            "name": "Close Recap",
+            "status": "Not Run",
+            "last_run": "\u2014",
+            "next_run": "\u2014",
+            "has_report": false
+          },
+          {
+            "id": "weekly-rebalance",
+            "name": "Weekly Rebalance Check",
+            "status": "Not Run",
+            "last_run": "\u2014",
+            "next_run": "\u2014",
+            "has_report": false
+          }
+        ]
+      },
+      "status": "OK"
+    }
+  }
+}

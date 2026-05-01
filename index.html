@@ -281,8 +281,9 @@
       <div class="card"><div class="label">Watchlist</div><div class="value" id="kpiFavs">0</div></div>
     </div>
 
-    <div class="row" style="margin-bottom:6px;margin-top:8px">
+    <div class="row" style="margin-bottom:6px;margin-top:8px;display:flex;justify-content:space-between;align-items:baseline">
       <div class="label">Scheduled Tasks</div>
+      <div class="label" style="font-size:11px"><a href="./reports/data-quality-audit.html" id="dqaLink" style="color:var(--muted);text-decoration:none">Data quality audit</a></div>
     </div>
 
     <div class="tasks-wrap">
@@ -586,6 +587,23 @@
       }).join('');
     }
 
+    async function decorateAuditLink() {
+      // Best-effort: color the Data quality audit link by overall status.
+      // Silently no-ops if the file is missing (e.g. before first run).
+      try {
+        const r = await fetch('./data/reports/data_quality_audit.json', { cache: 'no-store' });
+        if (!r.ok) return;
+        const j = await r.json();
+        const a = document.getElementById('dqaLink');
+        if (!a || !j || !j.overall) return;
+        const color = j.overall === 'OK' ? '#3c8c3c'
+                    : j.overall === 'WARN' ? '#b88a00'
+                    : '#c0392b';
+        a.style.color = color;
+        a.textContent = `Data quality audit: ${j.overall}`;
+      } catch (_e) { /* ignore */ }
+    }
+
     function render(rows) {
       const tb = document.getElementById('tbody');
 
@@ -700,6 +718,7 @@
 
         updateNextRun();
         await renderTasks();
+        decorateAuditLink();
         applySearch();
       } catch (e) {
         document.getElementById('errMsg').textContent = `Error loading dashboard: ${e.message}`;
