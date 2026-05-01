@@ -17,45 +17,61 @@ name: Update Stock Rankings
 #      steps. Skips therefore showed as red failures.
 #
 # Current design:
-#   * Each slot has THREE cron lines per offset (primary + 15min + 30min
-#     backups) so a delayed/dropped firing at the primary minute still has
-#     two more chances. All three carry the same logical slot id.
+#   * Each slot has FIVE cron lines per offset (primary + four 15-minute
+#     backups spanning the next hour) so a delayed/dropped firing at the
+#     primary minute still has multiple chances. GitHub Actions has been
+#     observed to delay scheduled triggers by 30-60+ minutes under load,
+#     so the backup window must extend well past the primary minute.
+#     All five carry the same logical slot id; once one wins, slot-level
+#     idempotency below short-circuits the rest.
 #   * The "Decide whether this run should proceed" step uses
-#     `github.event.schedule` (the literal cron string) plus the current
-#     America/Chicago date offset to decide if this particular twin is the
-#     active one today. Off-target twins (wrong offset, weekend) set
-#     proceed=false and the job short-circuits via step-level `if:` — the
-#     job ends green.
+#     `github.event.schedule` (the literal cron string) to identify the
+#     logical slot (morning/midday/close). Slot-level idempotency does
+#     all the dedupe work, so the previous "twin offset" filter has been
+#     dropped — it was rejecting valid firings on whichever DST offset
+#     wasn't currently active and providing no protection that idempotency
+#     doesn't already give us.
 #   * Slot-level idempotency: if rankings.json's last commit on main is
-#     already from today within this slot's window, the backup firings
+#     already from today within this slot's window, subsequent firings
 #     skip the heavy pipeline (proceed=false). The first cron to actually
-#     succeed for the slot wins; later retries are cheap no-ops.
+#     succeed for the slot wins; later retries are cheap no-ops. This
+#     also handles CDT/CST twin dedupe — only one of the offset pair can
+#     win the slot per day.
 #   * Manual `workflow_dispatch` always proceeds (overrides idempotency).
 #   * No wall-clock minute matching, so GitHub Actions delays are tolerated.
 
 on:
   schedule:
-    # 08:45 America/Chicago slot — primary + two backups for each offset.
+    # 08:45 America/Chicago slot — primary + four 15-min backups per offset.
     - cron: '45 13 * * 1-5'   # 08:45 CDT
     - cron: '0 14 * * 1-5'    # 09:00 CDT (backup 1)
     - cron: '15 14 * * 1-5'   # 09:15 CDT (backup 2)
-    - cron: '45 14 * * 1-5'   # 08:45 CST
+    - cron: '30 14 * * 1-5'   # 09:30 CDT (backup 3)
+    - cron: '45 14 * * 1-5'   # 09:45 CDT (backup 4)  [also 08:45 CST primary]
     - cron: '0 15 * * 1-5'    # 09:00 CST (backup 1)
     - cron: '15 15 * * 1-5'   # 09:15 CST (backup 2)
-    # 12:30 America/Chicago slot.
+    - cron: '30 15 * * 1-5'   # 09:30 CST (backup 3)
+    - cron: '45 15 * * 1-5'   # 09:45 CST (backup 4)
+    # 12:30 America/Chicago slot — primary + four 15-min backups per offset.
     - cron: '30 17 * * 1-5'   # 12:30 CDT
     - cron: '45 17 * * 1-5'   # 12:45 CDT (backup 1)
     - cron: '0 18 * * 1-5'    # 13:00 CDT (backup 2)
-    - cron: '30 18 * * 1-5'   # 12:30 CST
+    - cron: '15 18 * * 1-5'   # 13:15 CDT (backup 3)
+    - cron: '30 18 * * 1-5'   # 13:30 CDT (backup 4)  [also 12:30 CST primary]
     - cron: '45 18 * * 1-5'   # 12:45 CST (backup 1)
     - cron: '0 19 * * 1-5'    # 13:00 CST (backup 2)
-    # 15:35 America/Chicago slot.
+    - cron: '15 19 * * 1-5'   # 13:15 CST (backup 3)
+    - cron: '30 19 * * 1-5'   # 13:30 CST (backup 4)
+    # 15:35 America/Chicago slot — primary + four 15-min backups per offset.
     - cron: '35 20 * * 1-5'   # 15:35 CDT
     - cron: '50 20 * * 1-5'   # 15:50 CDT (backup 1)
     - cron: '5 21 * * 1-5'    # 16:05 CDT (backup 2)
-    - cron: '35 21 * * 1-5'   # 15:35 CST
+    - cron: '20 21 * * 1-5'   # 16:20 CDT (backup 3)
+    - cron: '35 21 * * 1-5'   # 16:35 CDT (backup 4)  [also 15:35 CST primary]
     - cron: '50 21 * * 1-5'   # 15:50 CST (backup 1)
     - cron: '5 22 * * 1-5'    # 16:05 CST (backup 2)
+    - cron: '20 22 * * 1-5'   # 16:20 CST (backup 3)
+    - cron: '35 22 * * 1-5'   # 16:35 CST (backup 4)
   workflow_dispatch:           # Manual trigger from Actions tab
 
 permissions:
@@ -117,24 +133,21 @@ jobs:
             exit 0
           fi
 
-          # Map each cron to:
-          #   - SLOT: logical slot id (morning/midday/close)
-          #   - EXPECTED: the offset under which this cron is the active twin
-          # Backup firings for the same slot share the SLOT id so idempotency
-          # below dedupes them.
+          # Map each cron to its logical slot id (morning/midday/close).
+          # All cron lines in a slot's CDT+CST window map to the same SLOT,
+          # and slot-level idempotency below dedupes them so only one
+          # firing actually does the heavy work per slot per day.
           case "$SCHED" in
-            '45 13 * * 1-5'|'0 14 * * 1-5'|'15 14 * * 1-5')
-              SLOT='morning';  EXPECTED='-0500' ;;   # CDT
-            '45 14 * * 1-5'|'0 15 * * 1-5'|'15 15 * * 1-5')
-              SLOT='morning';  EXPECTED='-0600' ;;   # CST
-            '30 17 * * 1-5'|'45 17 * * 1-5'|'0 18 * * 1-5')
-              SLOT='midday';   EXPECTED='-0500' ;;   # CDT
-            '30 18 * * 1-5'|'45 18 * * 1-5'|'0 19 * * 1-5')
-              SLOT='midday';   EXPECTED='-0600' ;;   # CST
-            '35 20 * * 1-5'|'50 20 * * 1-5'|'5 21 * * 1-5')
-              SLOT='close';    EXPECTED='-0500' ;;   # CDT
-            '35 21 * * 1-5'|'50 21 * * 1-5'|'5 22 * * 1-5')
-              SLOT='close';    EXPECTED='-0600' ;;   # CST
+            # Morning slot: 13:45/14:00/14:15/14:30/14:45/15:00/15:15/15:30/15:45 UTC
+            # (covers 08:45 CDT primary through 09:45 CST backup 4)
+            '45 13 * * 1-5'|'0 14 * * 1-5'|'15 14 * * 1-5'|'30 14 * * 1-5'|'45 14 * * 1-5'|'0 15 * * 1-5'|'15 15 * * 1-5'|'30 15 * * 1-5'|'45 15 * * 1-5')
+              SLOT='morning' ;;
+            # Midday slot: 17:30 .. 19:30 UTC
+            '30 17 * * 1-5'|'45 17 * * 1-5'|'0 18 * * 1-5'|'15 18 * * 1-5'|'30 18 * * 1-5'|'45 18 * * 1-5'|'0 19 * * 1-5'|'15 19 * * 1-5'|'30 19 * * 1-5')
+              SLOT='midday' ;;
+            # Close slot: 20:35 .. 22:35 UTC
+            '35 20 * * 1-5'|'50 20 * * 1-5'|'5 21 * * 1-5'|'20 21 * * 1-5'|'35 21 * * 1-5'|'50 21 * * 1-5'|'5 22 * * 1-5'|'20 22 * * 1-5'|'35 22 * * 1-5')
+              SLOT='close' ;;
             *)
               echo "Unknown schedule '$SCHED' - proceeding defensively."
               echo "proceed=true" >> "$GITHUB_OUTPUT"
@@ -143,18 +156,29 @@ jobs:
           esac
           echo "slot=$SLOT" >> "$GITHUB_OUTPUT"
 
-          if [ "$OFFSET" != "$EXPECTED" ]; then
-            echo "Off-target twin (expected $EXPECTED, got $OFFSET) - skipping (success)."
+          # Stale-firing guard. GitHub Actions sometimes delays scheduled
+          # triggers by many hours; we don't want a close-slot cron from
+          # the prior day to run at 03:00 the next morning. Each slot has
+          # a wall-clock window in Chicago time outside which the firing
+          # is treated as too stale to act on.
+          NOW_HM=$(TZ=America/Chicago date +%H:%M)
+          case "$SLOT" in
+            morning) MIN_HM='08:45'; MAX_HM='12:00' ;;
+            midday)  MIN_HM='12:30'; MAX_HM='15:00' ;;
+            close)   MIN_HM='15:35'; MAX_HM='18:30' ;;
+            *)       MIN_HM='00:00'; MAX_HM='23:59' ;;
+          esac
+          # Lexicographic compare on zero-padded HH:MM is safe.
+          if [ "$NOW_HM" \< "$MIN_HM" ] || [ "$NOW_HM" \> "$MAX_HM" ]; then
+            echo "Firing outside $SLOT window ($NOW_HM not in [$MIN_HM,$MAX_HM]) - skipping stale (success)."
             echo "proceed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          echo "Active twin for current offset."
 
           # Slot-level idempotency. Fetch the timestamp of the most recent
           # commit that touched rankings.json on main, convert to Chicago
-          # local time, and check whether it falls inside this slot's
-          # window today. If so, the slot is already satisfied and this
-          # backup firing should skip.
+          # local time, and check whether the slot has already been
+          # satisfied today (a commit in or after the slot's window today).
           LAST=$(git log -1 --format=%ct -- data/rankings.json 2>/dev/null || echo "")
           if [ -z "$LAST" ]; then
             echo "No prior rankings.json commit found - proceeding."
@@ -171,19 +195,9 @@ jobs:
             exit 0
           fi
 
-          # Slot windows in Chicago wall-clock. A slot is "satisfied" if a
-          # commit landed at or after the slot's start time today. We use
-          # generous lower bounds tied to the earliest cron firing for each
-          # slot, with no upper bound (a later commit always counts as "the
-          # slot ran"). Slot identity is the SLOT id from the case above.
-          case "$SLOT" in
-            morning) MIN_HM='08:45' ;;
-            midday)  MIN_HM='12:30' ;;
-            close)   MIN_HM='15:35' ;;
-            *)       MIN_HM='00:00' ;;
-          esac
-
-          # Compare HH:MM lexicographically (works because zero-padded).
+          # A commit at or after MIN_HM today satisfies the slot. No upper
+          # bound on the satisfying commit (a later same-day commit always
+          # counts as having covered the slot).
           if [ "$LAST_HM" \< "$MIN_HM" ]; then
             echo "Today's $SLOT slot not yet satisfied (last commit $LAST_HM < $MIN_HM) - proceeding."
             echo "proceed=true" >> "$GITHUB_OUTPUT"

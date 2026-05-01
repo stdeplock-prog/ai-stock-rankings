@@ -366,8 +366,119 @@ def synthetic_score_from_closes(closes):
     return round(max(0.0, min(10.0, score)), 1)
 
 
+def _get(d, key):
+    """Safe getter that treats None / NaN / empty as missing."""
+    if d is None:
+        return None
+    v = d.get(key)
+    if v is None:
+        return None
+    try:
+        if pd.isna(v):
+            return None
+    except Exception:
+        pass
+    return v
+
+
+def fundamental_from_yfinance(fundamentals):
+    """Ports the Fundamental composite from score_tickers.py so SUPP equity
+    rows expose the same 0-10 score the main pipeline computes from the same
+    yfinance fields. Identical formula and weights — keep in sync if the
+    main scoring formula changes.
+
+    Returns a tuple (fundamental_0_to_10, components_dict) where
+    components_dict surfaces the sub-scores actually used so the page can
+    explain how the value was derived. Returns (None, None) when there is
+    not enough fundamental signal to produce a meaningful score (no PE, no
+    growth, no margins) — better to render '—' than fabricate a 5.0.
+    """
+    if not fundamentals:
+        return None, None
+
+    pe        = _get(fundamentals, "trailingPE")
+    eps_t     = _get(fundamentals, "trailingEps") or _get(fundamentals, "epsTrailingTwelveMonths")
+    eps_g     = _get(fundamentals, "earningsGrowth")
+    rev_g     = _get(fundamentals, "revenueGrowth")
+    beta      = _get(fundamentals, "beta")
+
+    # Require at least one of PE / growth / earnings momentum signal — pure
+    # margin/beta isn't enough to fake a fundamental score honestly.
+    has_signal = any(v is not None for v in (pe, eps_t, eps_g, rev_g))
+    if not has_signal:
+        return None, None
+
+    # PE score (same formula as score_tickers.py).
+    if pe is None or pe <= 0:
+        pe_score = 50
+    elif 10 <= pe <= 20:
+        pe_score = 100
+    elif pe < 10:
+        pe_score = max(0, 50 + (pe - 10) * 5)
+    else:
+        pe_score = max(0, 100 - (pe - 20) * 2)
+
+    # Earnings momentum: blend of growth + forward-vs-trailing beat. SUPP
+    # path doesn't have forwardEps, so we approximate beat_score via the
+    # field if present, otherwise neutral 50.
+    eps_forward = _get(fundamentals, "forwardPE")  # placeholder; not the same as forwardEps
+    beat_score = 50  # neutral when we don't have forward EPS
+    growth_score = 50 if eps_g is None else min(100, max(0, 50 + float(eps_g) * 150))
+    earnings_momentum_score = growth_score * 0.5 + beat_score * 0.5
+
+    revenue_score = 50 if rev_g is None else min(100, max(0, 50 + float(rev_g) * 200))
+    beta_score    = 50 if beta is None  else min(100, max(0, 100 - abs(float(beta) - 1) * 50))
+
+    fundamental_100 = (
+        pe_score                * 0.20 +
+        earnings_momentum_score * 0.35 +
+        revenue_score           * 0.30 +
+        beta_score              * 0.15
+    )
+
+    rev_g_f = float(rev_g) if rev_g is not None else 0.0
+    if rev_g_f >= 0.10:    multiplier = 1.00
+    elif rev_g_f >= 0.05:  multiplier = 0.95
+    elif rev_g_f >= 0.02:  multiplier = 0.88
+    elif rev_g_f >= 0.0:   multiplier = 0.80
+    else:                  multiplier = 0.70
+    fundamental_100 = fundamental_100 * multiplier
+
+    return round(fundamental_100 / 10.0, 2), {
+        "pe_score":      round(pe_score, 1),
+        "growth_score":  round(growth_score, 1),
+        "revenue_score": round(revenue_score, 1),
+        "beta_score":    round(beta_score, 1),
+        "growth_quality_multiplier": multiplier,
+    }
+
+
+def sentiment_and_risk_from_yfinance(closes, fundamentals):
+    """SUPP-side approximation of the Sentiment and Risk subscores.
+
+    The main pipeline derives Sentiment from RSI_14 (a true technical
+    indicator), which we don't compute on SUPP rows; using the 10-day
+    momentum proxy here would be misleading because it would just echo
+    the technical score. We therefore leave Sentiment None when no honest
+    estimate is available.
+
+    Risk uses beta (same as main pipeline), with the RSI-based modifier
+    omitted; if beta is missing we leave Risk None as well.
+    """
+    sentiment = None  # no honest signal source on the SUPP side
+    risk = None
+    beta = _get(fundamentals or {}, "beta")
+    if beta is not None:
+        try:
+            b = float(beta)
+            risk = round(max(0.0, min(10.0, 10 - abs(b - 1) * 5)), 2)
+        except Exception:
+            risk = None
+    return sentiment, risk
+
+
 def row_from_supplemental(rank, raw_sym, fetched):
-    score = synthetic_score_from_closes(fetched["closes"])
+    technical_score = synthetic_score_from_closes(fetched["closes"])
     kind = fetched.get("instrument_kind") or "unknown"
     fundamentals = fetched.get("fundamentals") or {}
     # Fundamentals are only meaningful for individual equities. Crypto/ETFs/
@@ -375,10 +486,52 @@ def row_from_supplemental(rank, raw_sym, fetched):
     # dashboard / consumer can label rows honestly instead of inventing zeros.
     enriched = kind == "equity" and any(v is not None for v in fundamentals.values())
 
+    # Compute fundamentals composite for SUPP equities using the SAME formula
+    # the main pipeline applies in score_tickers.py — fed by the SAME yfinance
+    # fields the main pipeline reads. For non-equity rows or rows with no
+    # fundamental signal, leave the score null rather than fabricating one.
+    fundamental_score = None
+    fundamental_components = None
+    sentiment_score = None
+    risk_score = None
+    if kind == "equity" and enriched:
+        fundamental_score, fundamental_components = fundamental_from_yfinance(fundamentals)
+        sentiment_score, risk_score = sentiment_and_risk_from_yfinance(fetched["closes"], fundamentals)
+
+    # Composite AI_Score for SUPP equities mirrors the main pipeline weights
+    # (30% Tech / 45% Fund / 10% Sentiment / 15% Risk). When components are
+    # missing we fall back to the technical-only momentum proxy so the row
+    # still sorts. This keeps the computation transparent: see ai_score_basis.
+    if fundamental_score is not None:
+        # Use neutrals for whichever subscores aren't available so the
+        # weighted sum still maps onto the same 0-10 axis.
+        sent_use = sentiment_score if sentiment_score is not None else 5.0
+        risk_use = risk_score      if risk_score      is not None else 5.0
+        ai_score = (
+            technical_score   * 0.30 +
+            fundamental_score * 0.45 +
+            sent_use          * 0.10 +
+            risk_use          * 0.15
+        )
+        ai_score = round(max(0.0, min(10.0, ai_score)), 1)
+        ai_basis = "supp_composite"
+    else:
+        ai_score = technical_score
+        ai_basis = "supp_technical_only"
+
     market_cap_display = fmt_market_cap(fetched["market_cap_raw"])
     sector = fetched["sector"] or ("Crypto" if kind == "crypto" else
                                    "ETF"    if kind == "etf"    else "—")
     industry = fetched["industry"] or sector
+
+    enrichment_source = "yfinance_info" if enriched else (
+        "yfinance_price_only" if kind in ("crypto", "etf", "fund") else "yfinance_partial"
+    )
+    # Distinguish equities that yielded a real Fundamental composite from
+    # those that only had thin metadata (sector/marketCap, no PE/growth).
+    # The watchlist summary uses this to count "full SUPP enrichment".
+    if fundamental_score is not None:
+        enrichment_source = "yfinance_fundamentals"
 
     return {
         "rank":             rank,
@@ -386,12 +539,13 @@ def row_from_supplemental(rank, raw_sym, fetched):
         "company":          fetched["company"] or raw_sym,
         "country":          fetched["country"] or "—",
         "market_cap":       market_cap_display,
-        "ai_score":         score,
+        "ai_score":         ai_score,
+        "ai_score_basis":   ai_basis,
         "change":           0,
-        "fundamental":      None,    # composite score from main pipeline; not derivable here
-        "technical":        score,
-        "sentiment":        None,
-        "low_risk":         None,
+        "fundamental":      fundamental_score,
+        "technical":        technical_score,
+        "sentiment":        sentiment_score,
+        "low_risk":         risk_score,
         "volume_millions":  fetched["vol_millions"],
         "closes":           fetched["closes"],
         "industry":         industry,
@@ -413,10 +567,10 @@ def row_from_supplemental(rank, raw_sym, fetched):
         # 02_Code/Python/Data_Fetch/fetch_ohlcv.py FUND_FIELDS). Useful for
         # downstream consumers; the current dashboard does not render them.
         "fundamentals":     fundamentals if enriched else {},
+        "fundamental_components": fundamental_components,
+        "fundamental_source":     "yfinance_derived" if fundamental_score is not None else None,
         "instrument_kind":  kind,
-        "enrichment_source": "yfinance_info" if enriched else (
-            "yfinance_price_only" if kind in ("crypto", "etf", "fund") else "yfinance_partial"
-        ),
+        "enrichment_source": enrichment_source,
         "data_source":      "supplemental_yfinance",
     }
 
@@ -503,13 +657,31 @@ def main():
     # technical-only / unavailable.
     supp_kind_counts = {}
     supp_enrich_counts = {}
+    # Higher-level summary aimed at the watchlist UI (option #4).
+    supp_summary = {
+        "total":           0,
+        "full_fundamentals": 0,  # enrichment_source == yfinance_fundamentals
+        "metadata_only":     0,  # enrichment_source == yfinance_info  (sector/mc but no PE/growth)
+        "price_only":        0,  # crypto/etf/fund with price but no fundamentals
+        "technical_only":    0,  # equity with neither fundamentals nor sector/mc
+    }
     for r in rows:
         if r.get("data_source") != "supplemental_yfinance":
             continue
+        supp_summary["total"] += 1
         k = r.get("instrument_kind") or "unknown"
         supp_kind_counts[k] = supp_kind_counts.get(k, 0) + 1
         es = r.get("enrichment_source") or "unknown"
         supp_enrich_counts[es] = supp_enrich_counts.get(es, 0) + 1
+        if es == "yfinance_fundamentals":
+            supp_summary["full_fundamentals"] += 1
+        elif es == "yfinance_info":
+            supp_summary["metadata_only"] += 1
+        elif es == "yfinance_price_only":
+            supp_summary["price_only"] += 1
+        else:
+            supp_summary["technical_only"] += 1
+    supp_summary["unavailable"] = len(unavailable)
 
     central_now = get_central_now()
     today_str = central_now.strftime("%Y-%m-%d")
@@ -531,6 +703,7 @@ def main():
             "by_source_label":    src_label_counts,
             "supp_by_kind":       supp_kind_counts,
             "supp_by_enrichment": supp_enrich_counts,
+            "supp_summary":       supp_summary,
         },
         "unavailable": unavailable,
         "rows":        rows,

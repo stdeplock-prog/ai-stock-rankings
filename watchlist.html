@@ -307,6 +307,8 @@
       <div class="card"><div class="label">Unavailable</div><div class="value" id="kpiUnavail">0</div></div>
     </div>
 
+    <div id="suppSummary" class="label" style="margin:6px 2px 12px;text-transform:none;letter-spacing:0;color:var(--muted);font-size:12px"></div>
+
     <div id="errMsg" class="err"></div>
 
     <div class="table-wrap">
@@ -613,6 +615,23 @@
       if (meta.scored != null) parts.push(`Scored: ${meta.scored}`);
       if (meta.unavailable_count) parts.push(`Unavailable: ${meta.unavailable_count}`);
       el.textContent = 'Sources — ' + parts.join(' · ');
+
+      // SUPP coverage breakdown — option #4. Renders an honest summary of
+      // what fraction of supplemental tickers have full fundamentals vs.
+      // metadata-only / price-only / technical-only / unavailable, so the
+      // page makes clear which SUPP rows came back rich and which thin.
+      const suppEl = document.getElementById('suppSummary');
+      if (!suppEl) return;
+      const s = meta.supp_summary;
+      if (!s || !s.total) { suppEl.textContent = ''; return; }
+      const segs = [
+        `full fundamentals ${s.full_fundamentals || 0}`,
+        `metadata-only ${s.metadata_only || 0}`,
+        `price-only ${s.price_only || 0}`,
+        `technical-only ${s.technical_only || 0}`,
+      ];
+      if (s.unavailable) segs.push(`unavailable ${s.unavailable}`);
+      suppEl.textContent = `SUPP enrichment (${s.total}) — ` + segs.join(' · ');
     }
 
     async function loadData() {
