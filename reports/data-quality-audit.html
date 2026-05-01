@@ -18,26 +18,26 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Data Quality Audit</h1>
-<p class="meta">Generated 2026-05-01T17:47:52Z &middot; Overall: <span class="badge">WARN</span></p>
+<p class="meta">Generated 2026-05-01T18:10:25Z &middot; Overall: <span class="badge">WARN</span></p>
 
 <div class="section"><h2>Rankings<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-05-01 11:06 AM CDT&quot;,
+  &quot;as_of&quot;: &quot;2026-05-01 01:10 PM CDT&quot;,
   &quot;open_date&quot;: &quot;2026-05-01&quot;,
   &quot;is_open_run&quot;: false,
   &quot;universe&quot;: &quot;SP500 + NDX100 + Russell1000 (~1400 tickers)&quot;,
   &quot;row_count&quot;: 100,
-  &quot;missing_market_cap&quot;: 1,
-  &quot;missing_sector&quot;: 43,
+  &quot;missing_market_cap&quot;: 0,
+  &quot;missing_sector&quot;: 44,
   &quot;missing_industry&quot;: 0,
   &quot;closes_length_distribution&quot;: {
     &quot;10&quot;: 100
   },
   &quot;closes_short_count&quot;: 0,
   &quot;mov_distribution&quot;: {
-    &quot;positive&quot;: 37,
-    &quot;negative&quot;: 16,
-    &quot;zero&quot;: 47,
+    &quot;positive&quot;: 29,
+    &quot;negative&quot;: 33,
+    &quot;zero&quot;: 38,
     &quot;missing&quot;: 0
   },
   &quot;score_missing&quot;: {
@@ -51,12 +51,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>row_count</td><td class="OK">OK</td><td>100 rows</td></tr>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-01 11:06 AM CDT (age 1.7h)</td></tr>
-<tr><td>missing_market_cap</td><td class="OK">OK</td><td>1/100 (1%)</td></tr>
-<tr><td>missing_sector</td><td class="WARN">WARN</td><td>43/100 (43%)</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-01 01:10 PM CDT (age 0.0h)</td></tr>
+<tr><td>missing_market_cap</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
+<tr><td>missing_sector</td><td class="WARN">WARN</td><td>44/100 (44%)</td></tr>
 <tr><td>missing_industry</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>sparkline_short</td><td class="OK">OK</td><td>0/100 (0%) (rows with closes length &lt; 5)</td></tr>
-<tr><td>mov_distribution</td><td class="OK">OK</td><td>+37 / -16 / 0=47 / missing=0</td></tr>
+<tr><td>mov_distribution</td><td class="OK">OK</td><td>+29 / -33 / 0=38 / missing=0</td></tr>
 <tr><td>score_missing_ai_score</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>score_missing_fundamental</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>score_missing_technical</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
@@ -64,12 +64,17 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td>score_missing_low_risk</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>score_missing_swing_score</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Watchlist<span class="OK">OK</span></h2>
+<div class="section"><h2>Watchlist<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-05-01 11:06 AM CDT&quot;,
-  &quot;row_count&quot;: 142,
-  &quot;unavailable_count&quot;: 1,
+  &quot;as_of&quot;: &quot;2026-05-01 01:10 PM CDT&quot;,
+  &quot;row_count&quot;: 141,
+  &quot;unavailable_count&quot;: 2,
   &quot;unavailable_sample&quot;: [
+    {
+      &quot;input&quot;: &quot;000660.KS&quot;,
+      &quot;source&quot;: &quot;tradingview&quot;,
+      &quot;reason&quot;: &quot;not in main rankings and supplemental fetch failed or disabled&quot;
+    },
     {
       &quot;input&quot;: &quot;CBRS&quot;,
       &quot;source&quot;: &quot;csv&quot;,
@@ -77,45 +82,46 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     }
   ],
   &quot;by_source_label&quot;: {
-    &quot;tradingview&quot;: 69,
+    &quot;tradingview&quot;: 68,
     &quot;both&quot;: 29,
     &quot;csv&quot;: 44
   },
   &quot;by_data_source&quot;: {
-    &quot;main_pipeline&quot;: 67,
-    &quot;supplemental_yfinance&quot;: 75
+    &quot;supplemental_yfinance&quot;: 74,
+    &quot;main_pipeline&quot;: 67
   },
   &quot;supp_summary&quot;: {
-    &quot;total&quot;: 75,
-    &quot;full_fundamentals&quot;: 64,
+    &quot;total&quot;: 74,
+    &quot;full_fundamentals&quot;: 37,
     &quot;metadata_only&quot;: 0,
-    &quot;price_only&quot;: 9,
-    &quot;technical_only&quot;: 2,
-    &quot;unavailable&quot;: 1
+    &quot;price_only&quot;: 6,
+    &quot;technical_only&quot;: 31,
+    &quot;unavailable&quot;: 2
   },
   &quot;supp_by_kind&quot;: {
-    &quot;equity&quot;: 64,
-    &quot;etf&quot;: 7,
-    &quot;foreign&quot;: 2,
-    &quot;crypto&quot;: 2
+    &quot;unknown&quot;: 30,
+    &quot;equity&quot;: 37,
+    &quot;etf&quot;: 4,
+    &quot;crypto&quot;: 2,
+    &quot;foreign&quot;: 1
   },
   &quot;supp_by_enrichment&quot;: {
-    &quot;yfinance_fundamentals&quot;: 64,
-    &quot;yfinance_price_only&quot;: 9,
-    &quot;yfinance_partial&quot;: 2
+    &quot;yfinance_partial&quot;: 31,
+    &quot;yfinance_fundamentals&quot;: 37,
+    &quot;yfinance_price_only&quot;: 6
   },
-  &quot;unavailable_ratio&quot;: 0.007,
-  &quot;supp_rows_inspected&quot;: 75,
-  &quot;supp_missing_market_cap&quot;: 8,
-  &quot;supp_missing_sector&quot;: 0,
-  &quot;supp_missing_fundamental&quot;: 11
+  &quot;unavailable_ratio&quot;: 0.014,
+  &quot;supp_rows_inspected&quot;: 74,
+  &quot;supp_missing_market_cap&quot;: 36,
+  &quot;supp_missing_sector&quot;: 31,
+  &quot;supp_missing_fundamental&quot;: 37
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>watchlist_freshness</td><td class="OK">OK</td><td>as_of 2026-05-01 11:06 AM CDT (age 1.7h)</td></tr>
-<tr><td>supp_full_fundamentals</td><td class="OK">OK</td><td>64/75 (85%) full fundamentals</td></tr>
-<tr><td>unavailable_spike</td><td class="OK">OK</td><td>1/143 unavailable (1%)</td></tr>
-<tr><td>supp_missing_market_cap</td><td class="OK">OK</td><td>8/75 (11%)</td></tr>
-<tr><td>supp_missing_fundamental</td><td class="OK">OK</td><td>11/75 (15%)</td></tr>
+<tr><td>watchlist_freshness</td><td class="OK">OK</td><td>as_of 2026-05-01 01:10 PM CDT (age 0.0h)</td></tr>
+<tr><td>supp_full_fundamentals</td><td class="WARN">WARN</td><td>only 37/74 (50%) full fundamentals — yfinance enrichment degraded</td></tr>
+<tr><td>unavailable_spike</td><td class="OK">OK</td><td>2/143 unavailable (1%)</td></tr>
+<tr><td>supp_missing_market_cap</td><td class="WARN">WARN</td><td>36/74 (49%)</td></tr>
+<tr><td>supp_missing_fundamental</td><td class="WARN">WARN</td><td>37/74 (50%)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Tasks<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -138,7 +144,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;market-risk-monitor&quot;,
       &quot;name&quot;: &quot;Market Risk Monitor&quot;,
       &quot;status&quot;: &quot;warn&quot;,
-      &quot;last_run&quot;: &quot;2026-05-01 11:06 AM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-05-01 01:10 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-05-04 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -146,7 +152,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;options-earnings-watchlist&quot;,
       &quot;name&quot;: &quot;Options &amp; Earnings Watchlist&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-05-01 11:06 AM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-05-01 01:10 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-05-04 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
