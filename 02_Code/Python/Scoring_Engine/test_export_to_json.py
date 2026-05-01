@@ -21,6 +21,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 EXPORT_SCRIPT = REPO_ROOT / "02_Code" / "Python" / "Scoring_Engine" / "export_to_json.py"
+SECTOR_MAP_MODULE = REPO_ROOT / "02_Code" / "Python" / "Scoring_Engine" / "industry_sector_map.py"
 
 
 def _ranking_csv(rows):
@@ -49,6 +50,8 @@ def _setup_fake_repo(tmp, current_rows, baseline_rows=None, baseline_date=""):
 
     # Copy the real script into the fake repo so its relative path math works.
     shutil.copy(EXPORT_SCRIPT, code_dir / "export_to_json.py")
+    # The script imports industry_sector_map from its own directory.
+    shutil.copy(SECTOR_MAP_MODULE, code_dir / "industry_sector_map.py")
 
     (out_dir / "rankings.csv").write_text(_ranking_csv(current_rows))
 
@@ -203,6 +206,59 @@ def test_closes_shorter_history_returned_as_is():
         print("PASS: closes_shorter_history_returned_as_is")
 
 
+def _ranking_csv_with_sectors(rows):
+    """Like _ranking_csv but each row carries explicit (sector, industry)."""
+    header = (
+        "Rank,Ticker,Name,Sector,Industry,Index,AI_Score,Technical,Fundamental,"
+        "Sentiment,Risk,RSI,MACD_Hist,Above_SMA50,Above_SMA200,Golden_Cross,"
+        "Short_Interest,Insider_Buying,MarketCap"
+    )
+    lines = [header]
+    for rank, ticker, sector, industry in rows:
+        lines.append(
+            f"{rank},{ticker},{ticker} Inc,{sector},{industry},SP500,"
+            f"8.5,8.0,8.0,8.0,8.0,60.0,0.1,1,1,0,,False,1000000000"
+        )
+    return "\n".join(lines) + "\n"
+
+
+def test_export_resolves_blank_sector_via_industry_mapping():
+    """When the rankings.csv has Sector=N/A but Industry is populated, the
+    exported JSON should fill sector via the deterministic industry mapping —
+    not pass through the blank or "N/A" value."""
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        # Mix of real-world cases: blank, N/A, populated
+        rows = [
+            (1, "STWD", "N/A", "REIT - Mortgage"),         # -> Real Estate
+            (2, "WTFC", "",    "Banks - Regional"),         # -> Financials
+            (3, "RS",   "nan", "Steel"),                    # -> Materials
+            (4, "MO",   "Consumer Staples", "Tobacco"),     # passthrough
+            (5, "ZZZ",  "",    "Some Mystery Industry"),    # unmapped -> ""
+        ]
+        code_dir = tmp / "02_Code" / "Python" / "Scoring_Engine"
+        out_dir = tmp / "data" / "processed" / "scoring_outputs"
+        raw_dir = tmp / "data" / "raw" / "ohlcv_daily"
+        code_dir.mkdir(parents=True)
+        out_dir.mkdir(parents=True)
+        raw_dir.mkdir(parents=True)
+        shutil.copy(EXPORT_SCRIPT, code_dir / "export_to_json.py")
+        shutil.copy(SECTOR_MAP_MODULE, code_dir / "industry_sector_map.py")
+        (out_dir / "rankings.csv").write_text(_ranking_csv_with_sectors(rows))
+
+        out, _ = _run(tmp)
+        by_ticker = {r["ticker"]: r for r in out["rows"]}
+        assert by_ticker["STWD"]["sector"] == "Real Estate", by_ticker["STWD"]
+        assert by_ticker["WTFC"]["sector"] == "Financials", by_ticker["WTFC"]
+        assert by_ticker["RS"]["sector"]   == "Materials",  by_ticker["RS"]
+        assert by_ticker["MO"]["sector"]   == "Consumer Staples", by_ticker["MO"]
+        # Unmapped industry stays blank — we don't fabricate.
+        assert by_ticker["ZZZ"]["sector"]  == "", by_ticker["ZZZ"]
+        # industry must remain stable for the UI/audit.
+        assert by_ticker["STWD"]["industry"] == "REIT - Mortgage"
+        print("PASS: export_resolves_blank_sector_via_industry_mapping")
+
+
 def test_ticker_re_enters_top_100_gets_positive_change():
     """A ticker absent from the baseline (was outside top 100) but present
     in today's top 100 should show a positive change, not zero."""
@@ -231,6 +287,7 @@ def main():
     test_subsequent_run_static_data_yields_zero()
     test_missing_baseline_no_prior_snapshot()
     test_ticker_re_enters_top_100_gets_positive_change()
+    test_export_resolves_blank_sector_via_industry_mapping()
     test_closes_export_caps_at_ten()
     test_closes_shorter_history_returned_as_is()
     print("\nAll baseline-policy regression tests passed.")

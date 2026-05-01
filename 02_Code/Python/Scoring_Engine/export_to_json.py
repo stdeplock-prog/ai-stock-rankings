@@ -15,7 +15,11 @@
 import pandas as pd
 import json
 import os
+import sys
 from datetime import datetime, timezone, timedelta
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from industry_sector_map import resolve_sector
 
 # --- CONFIG ---
 REPO_ROOT       = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -188,6 +192,14 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
     if not industry_val:
         industry_val = safe_str(row.get("Sector", ""))
 
+    # Sector: defense-in-depth fallback. score_tickers.py now resolves sector
+    # before writing rankings.csv, but in case an older CSV is loaded the same
+    # resolver is applied here so the JSON is consistent.
+    sector_val = resolve_sector(
+        universe_sector=row.get("Sector"),
+        industry=industry_val,
+    )
+
     # Short interest flag (% of float, or None)
     si_raw = row.get("Short_Interest", None)
     if si_raw is not None and str(si_raw).lower() not in ("nan", "none", ""):
@@ -253,7 +265,7 @@ for i, (_, row) in enumerate(df.iterrows(), 1):
         "volume_millions":vol_millions,
         "closes":         closes,           # last 10 daily closes for sparkline
         "industry":       industry_val,
-        "sector":         safe_str(row.get("Sector", "")),
+        "sector":         sector_val,
         "short_interest": short_interest,   # % of float short, or null
         "insider_buying": insider_buying,   # true if net insider buys > sells
         # Swing-trader fields (null if ticker not in swing_rankings.csv)

@@ -9,6 +9,10 @@
 import pandas as pd
 import numpy as np
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from industry_sector_map import resolve_sector
 
 REPO_ROOT       = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 INDICATORS_DIR  = os.path.join(REPO_ROOT, "data", "processed", "technical_indicators")
@@ -165,6 +169,17 @@ for _, row in universe.iterrows():
             if raw_sec and str(raw_sec).lower() not in ("nan", "none", "n/a", ""):
                 industry_val = str(raw_sec)
 
+        # SECTOR: prefer yfinance sector, fall back to universe Sector, then a
+        # deterministic industry->sector mapping. Many NDX100 / Russell1000
+        # rows have universe Sector="N/A", so without this fallback rankings
+        # rows show a populated industry but blank sector.
+        yf_sector = fund_row.iloc[0].get("sector") if not fund_row.empty else None
+        sector_val = resolve_sector(
+            yf_sector=yf_sector,
+            universe_sector=row.get("Sector"),
+            industry=industry_val,
+        )
+
         # MARKET CAP (raw number; display formatting happens in export_to_json)
         market_cap_raw = None
         if not fund_row.empty:
@@ -178,7 +193,7 @@ for _, row in universe.iterrows():
         results.append({
             "Ticker":         ticker,
             "Name":           row["Name"],
-            "Sector":         row["Sector"],
+            "Sector":         sector_val,
             "Industry":       industry_val,
             "Index":          row["Index"],
             "AI_Score":       round(ai_score, 2),
