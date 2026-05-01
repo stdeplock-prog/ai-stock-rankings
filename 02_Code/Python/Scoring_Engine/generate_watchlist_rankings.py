@@ -39,9 +39,10 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.p
 # no env reads), so this works in the unit-test environment too.
 sys.path.insert(0, os.path.join(REPO_ROOT, "02_Code", "Python", "Data_Fetch"))
 try:
-    from eodhd_fundamentals import fetch_eodhd_fundamentals  # noqa: E402
+    from eodhd_fundamentals import fetch_eodhd_fundamentals, EodhdBudget  # noqa: E402
 except Exception:
     fetch_eodhd_fundamentals = None  # type: ignore
+    EodhdBudget = None  # type: ignore
 
 SOURCES_FILE   = os.path.join(REPO_ROOT, "data", "watchlist_sources.json")
 RANKINGS_CSV   = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "rankings.csv")
@@ -307,7 +308,7 @@ def _classify_instrument(symbol, info):
     return "unknown"
 
 
-def fetch_supplemental(ticker_for_yf):
+def fetch_supplemental(ticker_for_yf, eodhd_budget=None):
     """Fetch fields via yfinance for a ticker outside the main pipeline.
 
     Mirrors the FUND_FIELDS set from 02_Code/Python/Data_Fetch/fetch_ohlcv.py
@@ -378,6 +379,7 @@ def fetch_supplemental(ticker_for_yf):
         # inside the helper, so this block stays cheap for those too.
         eodhd_used = False
         eodhd_symbol_used = None
+        eodhd_deferred = False
         if kind == "equity" and fetch_eodhd_fundamentals is not None:
             missing_signal = all(fundamentals.get(k) is None for k in
                                  ("trailingPE", "trailingEps", "revenueGrowth",
@@ -388,11 +390,19 @@ def fetch_supplemental(ticker_for_yf):
             # field. If yfinance gave us a complete-enough picture
             # (missing_signal is False AND no gaps in the canonical map),
             # we still may want to overlay metadata fields like sector.
+            deferred_before = eodhd_budget.deferred if eodhd_budget is not None else 0
             try:
-                eodhd_data = fetch_eodhd_fundamentals(ticker_for_yf)
+                eodhd_data = fetch_eodhd_fundamentals(ticker_for_yf, budget=eodhd_budget)
             except Exception as e:
                 print(f"  EODHD enrichment failed for {ticker_for_yf}: {e}")
                 eodhd_data = None
+            # If the helper returned None AND the budget's deferred counter
+            # advanced, this row was specifically skipped due to quota
+            # exhaustion (vs. a real "no data" or 404). Surface that on the
+            # row so the audit trail is honest about the gap.
+            if eodhd_data is None and eodhd_budget is not None \
+               and eodhd_budget.deferred > deferred_before:
+                eodhd_deferred = True
             if eodhd_data:
                 eodhd_used = True
                 eodhd_symbol_used = eodhd_data.get("_eodhd_symbol")
@@ -441,6 +451,7 @@ def fetch_supplemental(ticker_for_yf):
             "fundamental_source":      fundamental_source,
             "eodhd_used":      eodhd_used,
             "eodhd_symbol":    eodhd_symbol_used,
+            "eodhd_deferred":  eodhd_deferred,
             "instrument_kind": kind,
         }
     except Exception as e:
@@ -681,6 +692,7 @@ def row_from_supplemental(rank, raw_sym, fetched):
         "fundamentals_provenance": fetched.get("fundamentals_provenance"),
         "eodhd_fundamentals":     bool(fetched.get("eodhd_used")),
         "eodhd_symbol":           fetched.get("eodhd_symbol"),
+        "eodhd_deferred":         bool(fetched.get("eodhd_deferred")),
         "instrument_kind":  kind,
         "enrichment_source": enrichment_source,
         "data_source":      "supplemental_yfinance",
@@ -716,6 +728,18 @@ def main():
     # Allow opting out of the network fetch (CI flag).
     allow_supplemental = os.environ.get("WATCHLIST_DISABLE_SUPPLEMENTAL", "").lower() not in ("1", "true", "yes")
 
+    # Per-run live-call budget for EODHD fundamentals. The free EODHD plan
+    # is tight on daily fundamentals calls; without a guard a manual or
+    # morning workflow run could blow through the quota by querying every
+    # uncached SUPP equity. Cache hits are always allowed and never count
+    # against the budget. Default chosen conservatively for the free plan
+    # (a few dozen total calls/day covers fundamentals + catalysts + buffer).
+    try:
+        max_live_calls = int(os.environ.get("EODHD_MAX_FUNDAMENTAL_CALLS", "15"))
+    except ValueError:
+        max_live_calls = 15
+    eodhd_budget = EodhdBudget(max_live_calls) if EodhdBudget is not None else None
+
     # Build rows. We rank later by AI_Score, then assign 1..N.
     pending = []  # list of dicts before ranking
     for raw_sym in combined:
@@ -735,7 +759,7 @@ def main():
 
         # 2) supplemental yfinance fetch for non-pipeline tickers
         if allow_supplemental:
-            fetched = fetch_supplemental(normalized)
+            fetched = fetch_supplemental(normalized, eodhd_budget=eodhd_budget)
             if fetched:
                 pending.append(row_from_supplemental(0, raw_sym, fetched))
                 source_counts["supplemental_yfinance"] += 1
@@ -819,6 +843,12 @@ def main():
             "supp_by_kind":       supp_kind_counts,
             "supp_by_enrichment": supp_enrich_counts,
             "supp_summary":       supp_summary,
+            # EODHD live-call quota accounting for the run. Cache hits are
+            # always served (free); live_calls is capped at eodhd_budget;
+            # eodhd_deferred counts uncached symbols skipped after budget
+            # exhaustion. Use this to audit whether a given run touched the
+            # free-plan quota ceiling.
+            **(eodhd_budget.as_dict() if eodhd_budget is not None else {}),
         },
         "unavailable": unavailable,
         "rows":        rows,

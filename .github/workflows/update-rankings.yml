@@ -272,6 +272,12 @@ jobs:
         continue-on-error: true
         env:
           EODHD_API_KEY: ${{ (github.event_name == 'workflow_dispatch' || steps.gate.outputs.slot == 'morning') && secrets.EODHD_API_KEY || '' }}
+          # Hard cap on live EODHD fundamentals calls per run. Cache hits are
+          # always allowed; this only bounds network traffic. Sized for the
+          # free EODHD plan's daily fundamentals quota with headroom for
+          # fetch_ohlcv.py + fetch_catalysts.py, which also hit EODHD on the
+          # morning slot.
+          EODHD_MAX_FUNDAMENTAL_CALLS: '15'
 
       # Daily reports: only generate on the morning slot (08:45 America/Chicago)
       # or on manual dispatch. Midday and close runs skip these so the reports

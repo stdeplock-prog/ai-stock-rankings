@@ -217,6 +217,32 @@ def test_eodhd_overlay_into_supp_row():
     print("  EODHD overlay into SUPP row: OK")
 
 
+def test_eodhd_budget_metadata_in_output():
+    """The generator must emit the EODHD live-call budget accounting fields
+    in source_meta so quota behavior is auditable from the JSON alone.
+    Even with supplemental fetch disabled, the budget snapshot should be
+    present (zero counters, configured budget value)."""
+    env = os.environ.copy()
+    env["WATCHLIST_DISABLE_SUPPLEMENTAL"] = "1"
+    env["EODHD_MAX_FUNDAMENTAL_CALLS"] = "7"
+    res = subprocess.run([sys.executable, GENERATOR],
+                         capture_output=True, text=True, env=env, cwd=REPO_ROOT)
+    if res.returncode != 0:
+        fail(f"generator exited {res.returncode}\nstderr={res.stderr}")
+    with open(OUTPUT) as f:
+        data = json.load(f)
+    sm = data["source_meta"]
+    for k in ("eodhd_budget", "eodhd_cache_hits", "eodhd_live_calls", "eodhd_deferred"):
+        assert k in sm, f"source_meta missing {k!r}: {sorted(sm.keys())}"
+    assert sm["eodhd_budget"] == 7, sm["eodhd_budget"]
+    # Supplemental disabled => no fetches, no cache hits, no defers.
+    assert sm["eodhd_live_calls"] == 0
+    assert sm["eodhd_deferred"] == 0
+    print(f"  EODHD budget metadata: budget={sm['eodhd_budget']}, "
+          f"live={sm['eodhd_live_calls']}, cache={sm['eodhd_cache_hits']}, "
+          f"deferred={sm['eodhd_deferred']} (OK)")
+
+
 def test_eodhd_disabled_when_no_module():
     """Sanity: even if the EODHD module is somehow unavailable, the watchlist
     generator must still run (the import is wrapped). This is a regression
@@ -238,6 +264,7 @@ def main():
     test_supp_summary_categorization()
     test_eodhd_overlay_into_supp_row()
     test_eodhd_disabled_when_no_module()
+    test_eodhd_budget_metadata_in_output()
     test_generator_runs()
     print("All tests passed.")
 

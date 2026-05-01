@@ -177,6 +177,103 @@ def test_fetch_404_returns_none(tmp_cache):
     print("  fetch 404 -> None: OK")
 
 
+def test_budget_caps_live_calls(tmp_cache):
+    """With a budget of N, only N live calls succeed; further uncached
+    symbols return None and increment the deferred counter."""
+    payload = {"General": {"Name": "X"}, "Highlights": {"PERatio": 10.0}}
+    call_count = {"n": 0}
+    def fake_get(url, params=None, timeout=None):
+        call_count["n"] += 1
+        return _fake_response(200, payload)
+
+    budget = ef.EodhdBudget(max_live_calls=2)
+    # First two distinct symbols hit live and burn the budget.
+    out1 = ef.fetch_eodhd_fundamentals("ZA", api_key="k", use_cache=True,
+                                        request_fn=fake_get, budget=budget)
+    out2 = ef.fetch_eodhd_fundamentals("ZB", api_key="k", use_cache=True,
+                                        request_fn=fake_get, budget=budget)
+    assert out1 is not None and out1["_eodhd_source"] == "api"
+    assert out2 is not None and out2["_eodhd_source"] == "api"
+    assert budget.live_calls == 2
+    assert budget.deferred == 0
+
+    # Third uncached symbol must NOT hit the network: budget is exhausted.
+    def boom(*a, **k):
+        raise AssertionError("request_fn called after budget exhausted")
+    out3 = ef.fetch_eodhd_fundamentals("ZC", api_key="k", use_cache=True,
+                                        request_fn=boom, budget=budget)
+    assert out3 is None
+    assert budget.live_calls == 2, "live_calls must stay capped"
+    assert budget.deferred == 1, f"expected deferred=1, got {budget.deferred}"
+    print("  budget caps live calls + deferred counter: OK")
+
+
+def test_budget_cache_hits_are_free(tmp_cache):
+    """Cache hits never count against the live-call budget and remain
+    available even after the budget is exhausted."""
+    payload = {"General": {"Name": "Cached Co"}, "Highlights": {"PERatio": 15.0}}
+    # Pre-populate cache for a symbol so subsequent fetches are cache-served.
+    os.makedirs(ef.CACHE_DIR, exist_ok=True)
+    with open(os.path.join(ef.CACHE_DIR, "CACHED.US.json"), "w") as f:
+        json.dump(payload, f)
+
+    budget = ef.EodhdBudget(max_live_calls=0)  # budget already exhausted
+    # Cache hit must still succeed and bump cache_hits, NOT deferred.
+    out = ef.fetch_eodhd_fundamentals("CACHED", api_key="k", use_cache=True,
+                                       budget=budget)
+    assert out is not None
+    assert out["_eodhd_source"] == "cache"
+    assert budget.cache_hits == 1
+    assert budget.live_calls == 0
+    assert budget.deferred == 0
+
+    # A second cache hit on the same symbol still costs nothing.
+    out2 = ef.fetch_eodhd_fundamentals("CACHED", api_key="k", use_cache=True,
+                                        budget=budget)
+    assert out2 is not None
+    assert budget.cache_hits == 2
+    assert budget.live_calls == 0
+    assert budget.deferred == 0
+    print("  budget allows cache hits even when exhausted: OK")
+
+
+def test_budget_no_key_does_not_count_deferred(tmp_cache):
+    """When no API key is configured, uncached misses return None but should
+    NOT be counted as 'deferred' — there's no live call we'd make even with
+    a generous budget. Deferred specifically means 'budget exhausted'."""
+    budget = ef.EodhdBudget(max_live_calls=10)
+    out = ef.fetch_eodhd_fundamentals("UNK", api_key="", use_cache=True,
+                                       budget=budget)
+    assert out is None
+    assert budget.live_calls == 0
+    assert budget.deferred == 0, \
+        "no-key misses are not budget-exhaustion deferrals"
+    assert budget.cache_hits == 0
+    print("  budget: no-key path doesn't pollute deferred counter: OK")
+
+
+def test_budget_zero_defers_all_uncached(tmp_cache):
+    """A budget of zero with no cache means every uncached call is deferred
+    immediately. Useful safety net: setting EODHD_MAX_FUNDAMENTAL_CALLS=0
+    must produce zero network traffic regardless of API-key presence."""
+    def boom(*a, **k):
+        raise AssertionError("request_fn called when budget is zero")
+    budget = ef.EodhdBudget(max_live_calls=0)
+    out = ef.fetch_eodhd_fundamentals("WHATEVER", api_key="k", use_cache=True,
+                                       request_fn=boom, budget=budget)
+    assert out is None
+    assert budget.live_calls == 0
+    assert budget.deferred == 1
+    snapshot = budget.as_dict()
+    assert snapshot == {
+        "eodhd_budget": 0,
+        "eodhd_cache_hits": 0,
+        "eodhd_live_calls": 0,
+        "eodhd_deferred": 1,
+    }, snapshot
+    print("  budget=0 defers all uncached, no network: OK")
+
+
 def test_cache_makes_test_runnable_without_key(tmp_cache):
     """Pre-populate the cache for a foreign symbol; verify fetch returns the
     mapped data without an API key. This is the path SUPP enrichment uses
@@ -233,6 +330,10 @@ def main():
     _run_with_tmp_cache(test_fetch_via_injected_request)
     _run_with_tmp_cache(test_fetch_404_returns_none)
     _run_with_tmp_cache(test_cache_makes_test_runnable_without_key)
+    _run_with_tmp_cache(test_budget_caps_live_calls)
+    _run_with_tmp_cache(test_budget_cache_hits_are_free)
+    _run_with_tmp_cache(test_budget_no_key_does_not_count_deferred)
+    _run_with_tmp_cache(test_budget_zero_defers_all_uncached)
     print("All eodhd_fundamentals tests passed.")
 
 

@@ -212,16 +212,63 @@ def _save_cache(symbol_eodhd: str, payload: dict) -> None:
         print(f"  EODHD cache write failed for {symbol_eodhd}: {e}")
 
 
+class EodhdBudget:
+    """Per-run live-call budget for EODHD fundamentals.
+
+    The free EODHD plan caps daily fundamentals API calls aggressively, so
+    a manual or scheduled morning run that hits live for every uncached
+    SUPP equity could blow through the quota in a single firing. This
+    object lets callers cap the number of live (network) calls per run
+    while still allowing unlimited cache hits.
+
+    Counters intentionally split:
+      * cache_hits — payload served from disk cache, no quota cost
+      * live_calls — actual network fetches that succeeded with a payload
+      * deferred — uncached symbols skipped because the live budget was
+        already exhausted; these rows should be flagged so the audit
+        trail makes the gap visible instead of silently producing None
+    """
+
+    def __init__(self, max_live_calls: int):
+        self.max_live_calls = max(0, int(max_live_calls))
+        self.cache_hits = 0
+        self.live_calls = 0
+        self.deferred = 0
+
+    def has_room(self) -> bool:
+        return self.live_calls < self.max_live_calls
+
+    def note_cache_hit(self) -> None:
+        self.cache_hits += 1
+
+    def note_live_call(self) -> None:
+        self.live_calls += 1
+
+    def note_deferred(self) -> None:
+        self.deferred += 1
+
+    def as_dict(self) -> dict:
+        return {
+            "eodhd_budget":      self.max_live_calls,
+            "eodhd_cache_hits":  self.cache_hits,
+            "eodhd_live_calls":  self.live_calls,
+            "eodhd_deferred":    self.deferred,
+        }
+
+
 def fetch_eodhd_fundamentals(symbol: str,
                              api_key: Optional[str] = None,
                              use_cache: bool = True,
-                             request_fn=None) -> Optional[dict]:
+                             request_fn=None,
+                             budget: Optional["EodhdBudget"] = None) -> Optional[dict]:
     """Fetch EODHD fundamentals for a watchlist symbol and return the canonical
     field dict, or None when:
       * the symbol is not appropriate for the equity fundamentals endpoint
         (crypto, blank, etc.)
       * no API key is available and there is no cached payload to fall back to
       * the network call fails or returns a non-200 response
+      * a `budget` was supplied and its live-call quota is already exhausted
+        (in which case the symbol is recorded as deferred)
 
     Args:
       symbol: raw watchlist symbol (e.g. "AAPL", "005930.KS").
@@ -229,6 +276,9 @@ def fetch_eodhd_fundamentals(symbol: str,
       use_cache: read/write data/cache/eodhd_fundamentals/<sym>.json.
       request_fn: optional injection point for tests; should mimic
         requests.get (returns an object with .status_code and .json()).
+      budget: optional EodhdBudget; cache hits never count against it,
+        live calls do. When exhausted, uncached symbols return None and
+        increment the deferred counter so the caller can surface them.
 
     Returns:
       dict mapped via map_eodhd_payload(), augmented with `_eodhd_symbol`
@@ -239,17 +289,28 @@ def fetch_eodhd_fundamentals(symbol: str,
         return None
 
     # Cache hit short-circuits both API-key and network checks. This is what
-    # makes tests deterministic without live credentials.
+    # makes tests deterministic without live credentials. Cache hits are
+    # always allowed, even when the live-call budget is exhausted.
     if use_cache:
         cached = _load_cache(eodhd_sym)
         if cached is not None:
             mapped = map_eodhd_payload(cached)
             mapped["_eodhd_symbol"] = eodhd_sym
             mapped["_eodhd_source"] = "cache"
+            if budget is not None:
+                budget.note_cache_hit()
             return mapped
 
     key = api_key if api_key is not None else os.environ.get("EODHD_API_KEY", "")
     if not key:
+        return None
+
+    # Live-call budget gate. Check AFTER the cache-hit short-circuit (so cache
+    # hits are always free) and AFTER the api_key check (no key means no
+    # network call is possible anyway, and we should not count those rows
+    # as deferred — they'd be deferred even with a generous budget).
+    if budget is not None and not budget.has_room():
+        budget.note_deferred()
         return None
 
     if request_fn is None:
@@ -282,6 +343,9 @@ def fetch_eodhd_fundamentals(symbol: str,
 
     if use_cache:
         _save_cache(eodhd_sym, payload)
+
+    if budget is not None:
+        budget.note_live_call()
 
     mapped = map_eodhd_payload(payload)
     mapped["_eodhd_symbol"] = eodhd_sym
