@@ -5,7 +5,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
      max-width:980px;margin:24px auto;padding:0 16px;color:#1a1a1a;}
 h1{margin:0 0 4px} .meta{color:#666;font-size:13px;margin-bottom:18px}
 .badge{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:#c0392b}
 .section{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}
 .section h2{margin:0 0 10px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
 table{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px}
@@ -18,25 +18,25 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Data Quality Audit</h1>
-<p class="meta">Generated 2026-05-01T18:10:25Z &middot; Overall: <span class="badge">WARN</span></p>
+<p class="meta">Generated 2026-05-01T18:43:41Z &middot; Overall: <span class="badge">FAIL</span></p>
 
-<div class="section"><h2>Rankings<span class="WARN">WARN</span></h2>
+<div class="section"><h2>Rankings<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-05-01 01:10 PM CDT&quot;,
+  &quot;as_of&quot;: &quot;2026-05-01 01:43 PM CDT&quot;,
   &quot;open_date&quot;: &quot;2026-05-01&quot;,
   &quot;is_open_run&quot;: false,
   &quot;universe&quot;: &quot;SP500 + NDX100 + Russell1000 (~1400 tickers)&quot;,
   &quot;row_count&quot;: 100,
-  &quot;missing_market_cap&quot;: 0,
-  &quot;missing_sector&quot;: 44,
+  &quot;missing_market_cap&quot;: 1,
+  &quot;missing_sector&quot;: 0,
   &quot;missing_industry&quot;: 0,
   &quot;closes_length_distribution&quot;: {
     &quot;10&quot;: 100
   },
   &quot;closes_short_count&quot;: 0,
   &quot;mov_distribution&quot;: {
-    &quot;positive&quot;: 29,
-    &quot;negative&quot;: 33,
+    &quot;positive&quot;: 41,
+    &quot;negative&quot;: 21,
     &quot;zero&quot;: 38,
     &quot;missing&quot;: 0
   },
@@ -51,12 +51,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>row_count</td><td class="OK">OK</td><td>100 rows</td></tr>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-01 01:10 PM CDT (age 0.0h)</td></tr>
-<tr><td>missing_market_cap</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
-<tr><td>missing_sector</td><td class="WARN">WARN</td><td>44/100 (44%)</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-01 01:43 PM CDT (age 0.0h)</td></tr>
+<tr><td>missing_market_cap</td><td class="OK">OK</td><td>1/100 (1%)</td></tr>
+<tr><td>missing_sector</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>missing_industry</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>sparkline_short</td><td class="OK">OK</td><td>0/100 (0%) (rows with closes length &lt; 5)</td></tr>
-<tr><td>mov_distribution</td><td class="OK">OK</td><td>+29 / -33 / 0=38 / missing=0</td></tr>
+<tr><td>mov_distribution</td><td class="OK">OK</td><td>+41 / -21 / 0=38 / missing=0</td></tr>
 <tr><td>score_missing_ai_score</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>score_missing_fundamental</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>score_missing_technical</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
@@ -64,9 +64,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td>score_missing_low_risk</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>score_missing_swing_score</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Watchlist<span class="WARN">WARN</span></h2>
+<div class="section"><h2>Watchlist<span class="FAIL">FAIL</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-05-01 01:10 PM CDT&quot;,
+  &quot;as_of&quot;: &quot;2026-05-01 01:43 PM CDT&quot;,
   &quot;row_count&quot;: 141,
   &quot;unavailable_count&quot;: 2,
   &quot;unavailable_sample&quot;: [
@@ -82,9 +82,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     }
   ],
   &quot;by_source_label&quot;: {
-    &quot;tradingview&quot;: 68,
     &quot;both&quot;: 29,
-    &quot;csv&quot;: 44
+    &quot;csv&quot;: 44,
+    &quot;tradingview&quot;: 68
   },
   &quot;by_data_source&quot;: {
     &quot;supplemental_yfinance&quot;: 74,
@@ -92,36 +92,33 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   },
   &quot;supp_summary&quot;: {
     &quot;total&quot;: 74,
-    &quot;full_fundamentals&quot;: 37,
+    &quot;full_fundamentals&quot;: 0,
     &quot;metadata_only&quot;: 0,
-    &quot;price_only&quot;: 6,
-    &quot;technical_only&quot;: 31,
+    &quot;price_only&quot;: 2,
+    &quot;technical_only&quot;: 72,
     &quot;unavailable&quot;: 2
   },
   &quot;supp_by_kind&quot;: {
-    &quot;unknown&quot;: 30,
-    &quot;equity&quot;: 37,
-    &quot;etf&quot;: 4,
+    &quot;unknown&quot;: 71,
     &quot;crypto&quot;: 2,
     &quot;foreign&quot;: 1
   },
   &quot;supp_by_enrichment&quot;: {
-    &quot;yfinance_partial&quot;: 31,
-    &quot;yfinance_fundamentals&quot;: 37,
-    &quot;yfinance_price_only&quot;: 6
+    &quot;yfinance_partial&quot;: 72,
+    &quot;yfinance_price_only&quot;: 2
   },
   &quot;unavailable_ratio&quot;: 0.014,
   &quot;supp_rows_inspected&quot;: 74,
-  &quot;supp_missing_market_cap&quot;: 36,
-  &quot;supp_missing_sector&quot;: 31,
-  &quot;supp_missing_fundamental&quot;: 37
+  &quot;supp_missing_market_cap&quot;: 74,
+  &quot;supp_missing_sector&quot;: 72,
+  &quot;supp_missing_fundamental&quot;: 74
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>watchlist_freshness</td><td class="OK">OK</td><td>as_of 2026-05-01 01:10 PM CDT (age 0.0h)</td></tr>
-<tr><td>supp_full_fundamentals</td><td class="WARN">WARN</td><td>only 37/74 (50%) full fundamentals — yfinance enrichment degraded</td></tr>
+<tr><td>watchlist_freshness</td><td class="OK">OK</td><td>as_of 2026-05-01 01:43 PM CDT (age 0.0h)</td></tr>
+<tr><td>supp_full_fundamentals</td><td class="FAIL">FAIL</td><td>only 0/74 (0%) full fundamentals — yfinance enrichment broken</td></tr>
 <tr><td>unavailable_spike</td><td class="OK">OK</td><td>2/143 unavailable (1%)</td></tr>
-<tr><td>supp_missing_market_cap</td><td class="WARN">WARN</td><td>36/74 (49%)</td></tr>
-<tr><td>supp_missing_fundamental</td><td class="WARN">WARN</td><td>37/74 (50%)</td></tr>
+<tr><td>supp_missing_market_cap</td><td class="FAIL">FAIL</td><td>74/74 (100%)</td></tr>
+<tr><td>supp_missing_fundamental</td><td class="FAIL">FAIL</td><td>74/74 (100%)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Tasks<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -144,7 +141,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;market-risk-monitor&quot;,
       &quot;name&quot;: &quot;Market Risk Monitor&quot;,
       &quot;status&quot;: &quot;warn&quot;,
-      &quot;last_run&quot;: &quot;2026-05-01 01:10 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-05-01 01:43 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-05-04 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -152,7 +149,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;options-earnings-watchlist&quot;,
       &quot;name&quot;: &quot;Options &amp; Earnings Watchlist&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-05-01 01:10 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-05-01 01:43 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-05-04 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
