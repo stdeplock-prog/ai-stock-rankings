@@ -825,10 +825,11 @@ th,td{{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-ali
                 f"{_fmt(v.get('mean'))} / {_fmt(v.get('median'))}</td></tr>"
             )
         sc = b.get("sector_concentration") or {}
+        conc_badge = ' <span class="WARN">CONC</span>' if sc.get("concentrated") else ''
         parts.append(
             f"<tr><td>Top sector</td><td>{escape(str(sc.get('top_sector') or '—'))} "
             f"({_fmt_pct(sc.get('top_pct'))})"
-            f"{' <span class=\"WARN\">CONC</span>' if sc.get('concentrated') else ''}"
+            f"{conc_badge}"
             f"</td></tr>"
         )
         parts.append(
