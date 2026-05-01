@@ -34,6 +34,15 @@ import pandas as pd
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
+# Import the EODHD fundamentals helper from the sibling Data_Fetch package.
+# It is intentionally side-effect free at import time (no network calls,
+# no env reads), so this works in the unit-test environment too.
+sys.path.insert(0, os.path.join(REPO_ROOT, "02_Code", "Python", "Data_Fetch"))
+try:
+    from eodhd_fundamentals import fetch_eodhd_fundamentals  # noqa: E402
+except Exception:
+    fetch_eodhd_fundamentals = None  # type: ignore
+
 SOURCES_FILE   = os.path.join(REPO_ROOT, "data", "watchlist_sources.json")
 RANKINGS_CSV   = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "rankings.csv")
 SWING_CSV      = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "swing_rankings.csv")
@@ -353,6 +362,71 @@ def fetch_supplemental(ticker_for_yf):
         fundamentals = {k: info.get(k) for k in fund_keys}
         kind = _classify_instrument(ticker_for_yf, info)
 
+        # Track which provider populated each fundamental field. Default to
+        # yfinance for whatever yfinance gave us; EODHD enrichment below
+        # overlays missing fields and stamps them as eodhd.
+        provenance = {
+            k: ("yfinance" if v is not None else None) for k, v in fundamentals.items()
+        }
+        fundamental_source = "yfinance" if any(v is not None for v in fundamentals.values()) else None
+
+        # EODHD enrichment for equities the watchlist cares about: foreign
+        # listings, small-caps, OTC names that yfinance .info often returns
+        # empty for. Only run when EODHD_API_KEY is set OR a cached payload
+        # exists (the helper short-circuits on cache hit). Crypto / mutual
+        # funds / clearly non-equity rows are skipped by symbol normalization
+        # inside the helper, so this block stays cheap for those too.
+        eodhd_used = False
+        eodhd_symbol_used = None
+        if kind == "equity" and fetch_eodhd_fundamentals is not None:
+            missing_signal = all(fundamentals.get(k) is None for k in
+                                 ("trailingPE", "trailingEps", "revenueGrowth",
+                                  "earningsGrowth", "profitMargins"))
+            # Even if we have *some* fundamentals, fill specific gaps EODHD
+            # commonly covers (margins / RoE / RoA) so the row's
+            # Fundamental composite isn't penalized by a single missing
+            # field. If yfinance gave us a complete-enough picture
+            # (missing_signal is False AND no gaps in the canonical map),
+            # we still may want to overlay metadata fields like sector.
+            try:
+                eodhd_data = fetch_eodhd_fundamentals(ticker_for_yf)
+            except Exception as e:
+                print(f"  EODHD enrichment failed for {ticker_for_yf}: {e}")
+                eodhd_data = None
+            if eodhd_data:
+                eodhd_used = True
+                eodhd_symbol_used = eodhd_data.get("_eodhd_symbol")
+                # Overlay onto fundamentals: only fill values yfinance left
+                # blank, never overwrite. This preserves yfinance numbers
+                # when both sources have them and avoids surprise drift.
+                for k in fundamentals:
+                    if fundamentals.get(k) is None:
+                        v = eodhd_data.get(k)
+                        if v is not None:
+                            fundamentals[k] = v
+                            provenance[k] = "eodhd"
+                # Metadata fallbacks: sector / industry / market cap / name /
+                # country. These are not in fund_keys but used elsewhere.
+                if not safe_str(info.get("sector", "")) and eodhd_data.get("sector"):
+                    info["sector"] = eodhd_data["sector"]
+                if not safe_str(info.get("industry", "")) and eodhd_data.get("industry"):
+                    info["industry"] = eodhd_data["industry"]
+                if info.get("marketCap") in (None, 0) and eodhd_data.get("marketCap"):
+                    info["marketCap"] = eodhd_data["marketCap"]
+                if not safe_str(info.get("shortName") or info.get("longName") or "") and eodhd_data.get("shortName"):
+                    info["shortName"] = eodhd_data["shortName"]
+                if not safe_str(info.get("country", "")) and eodhd_data.get("country"):
+                    info["country"] = eodhd_data["country"]
+                # Update fundamental_source: if EODHD filled fundamentals
+                # that yfinance didn't have, mark the composite source as
+                # whichever provider actually contributed numbers.
+                yf_count = sum(1 for k, src in provenance.items() if src == "yfinance")
+                eo_count = sum(1 for k, src in provenance.items() if src == "eodhd")
+                if eo_count and not yf_count:
+                    fundamental_source = "eodhd"
+                elif eo_count and yf_count:
+                    fundamental_source = "yfinance+eodhd"
+
         return {
             "price":           last_close,
             "closes":          closes,
@@ -363,6 +437,10 @@ def fetch_supplemental(ticker_for_yf):
             "market_cap_raw":  info.get("marketCap", None),
             "country":         safe_str(info.get("country", "")) or "—",
             "fundamentals":    fundamentals,
+            "fundamentals_provenance": provenance,
+            "fundamental_source":      fundamental_source,
+            "eodhd_used":      eodhd_used,
+            "eodhd_symbol":    eodhd_symbol_used,
             "instrument_kind": kind,
         }
     except Exception as e:
@@ -550,6 +628,14 @@ def row_from_supplemental(rank, raw_sym, fetched):
     # The watchlist summary uses this to count "full SUPP enrichment".
     if fundamental_score is not None:
         enrichment_source = "yfinance_fundamentals"
+    # If EODHD contributed any of the canonical fields, label the
+    # enrichment source accordingly. This is what supp_summary uses to
+    # report how many SUPP rows were fully enriched and via which provider.
+    fetched_fund_source = fetched.get("fundamental_source")
+    if fundamental_score is not None and fetched_fund_source == "eodhd":
+        enrichment_source = "eodhd_fundamentals"
+    elif fundamental_score is not None and fetched_fund_source == "yfinance+eodhd":
+        enrichment_source = "yfinance+eodhd_fundamentals"
 
     return {
         "rank":             rank,
@@ -586,7 +672,15 @@ def row_from_supplemental(rank, raw_sym, fetched):
         # downstream consumers; the current dashboard does not render them.
         "fundamentals":     fundamentals if enriched else {},
         "fundamental_components": fundamental_components,
-        "fundamental_source":     "yfinance_derived" if fundamental_score is not None else None,
+        # Concrete provider for the fundamental composite, derived from
+        # field-level provenance. Values: yfinance, eodhd, yfinance+eodhd,
+        # or None (no composite produced).
+        "fundamental_source":     (
+            fetched.get("fundamental_source") if fundamental_score is not None else None
+        ) or ("yfinance_derived" if fundamental_score is not None else None),
+        "fundamentals_provenance": fetched.get("fundamentals_provenance"),
+        "eodhd_fundamentals":     bool(fetched.get("eodhd_used")),
+        "eodhd_symbol":           fetched.get("eodhd_symbol"),
         "instrument_kind":  kind,
         "enrichment_source": enrichment_source,
         "data_source":      "supplemental_yfinance",
@@ -678,10 +772,11 @@ def main():
     # Higher-level summary aimed at the watchlist UI (option #4).
     supp_summary = {
         "total":           0,
-        "full_fundamentals": 0,  # enrichment_source == yfinance_fundamentals
-        "metadata_only":     0,  # enrichment_source == yfinance_info  (sector/mc but no PE/growth)
-        "price_only":        0,  # crypto/etf/fund with price but no fundamentals
-        "technical_only":    0,  # equity with neither fundamentals nor sector/mc
+        "full_fundamentals": 0,   # fundamentals composite produced (any provider)
+        "eodhd_enriched":    0,   # at least one fundamental field came from EODHD
+        "metadata_only":     0,   # enrichment_source == yfinance_info (sector/mc but no PE/growth)
+        "price_only":        0,   # crypto/etf/fund with price but no fundamentals
+        "technical_only":    0,   # equity with neither fundamentals nor sector/mc
     }
     for r in rows:
         if r.get("data_source") != "supplemental_yfinance":
@@ -691,7 +786,7 @@ def main():
         supp_kind_counts[k] = supp_kind_counts.get(k, 0) + 1
         es = r.get("enrichment_source") or "unknown"
         supp_enrich_counts[es] = supp_enrich_counts.get(es, 0) + 1
-        if es == "yfinance_fundamentals":
+        if es in ("yfinance_fundamentals", "eodhd_fundamentals", "yfinance+eodhd_fundamentals"):
             supp_summary["full_fundamentals"] += 1
         elif es == "yfinance_info":
             supp_summary["metadata_only"] += 1
@@ -699,6 +794,8 @@ def main():
             supp_summary["price_only"] += 1
         else:
             supp_summary["technical_only"] += 1
+        if r.get("eodhd_fundamentals"):
+            supp_summary["eodhd_enriched"] += 1
     supp_summary["unavailable"] = len(unavailable)
 
     central_now = get_central_now()

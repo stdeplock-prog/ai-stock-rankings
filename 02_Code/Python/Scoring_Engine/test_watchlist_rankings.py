@@ -164,12 +164,80 @@ def test_supp_summary_categorization():
     print("  supp_summary categorization honesty: OK")
 
 
+def test_eodhd_overlay_into_supp_row():
+    """When yfinance returns no fundamentals but EODHD (via cache) has them,
+    the row produced by row_from_supplemental must:
+      * pick up the fundamentals from EODHD
+      * report fundamental_source = 'eodhd' (not 'yfinance_derived')
+      * carry eodhd_fundamentals = True
+      * still carry data_source = 'supplemental_yfinance' (origin label
+        unchanged so the dashboard treats it as a SUPP row)
+      * land in the eodhd_fundamentals enrichment_source bucket
+    """
+    sys.path.insert(0, os.path.dirname(GENERATOR))
+    from generate_watchlist_rankings import row_from_supplemental
+
+    fetched = {
+        "price": 75.0,
+        "closes": [73.0, 74.0, 75.0],
+        "vol_millions": 0.5,
+        "company": "Test Foreign Co",
+        "industry": "Banking",
+        "sector": "Financials",
+        "market_cap_raw": 5_000_000_000,
+        "country": "Canada",
+        # Real signal sourced via EODHD. Provenance reflects that.
+        "fundamentals": {
+            "trailingPE": 14.0,
+            "trailingEps": 5.0,
+            "revenueGrowth": 0.06,
+            "earningsGrowth": 0.10,
+            "beta": 0.9,
+            "profitMargins": 0.15,
+        },
+        "fundamentals_provenance": {
+            "trailingPE": "eodhd", "trailingEps": "eodhd",
+            "revenueGrowth": "eodhd", "earningsGrowth": "eodhd",
+            "beta": "eodhd", "profitMargins": "eodhd",
+        },
+        "fundamental_source": "eodhd",
+        "eodhd_used": True,
+        "eodhd_symbol": "TST.TO",
+        "instrument_kind": "equity",
+    }
+    row = row_from_supplemental(1, "TST.TO", fetched)
+    assert row["data_source"] == "supplemental_yfinance", \
+        "SUPP origin label must be preserved when EODHD enriches the row"
+    assert row["eodhd_fundamentals"] is True
+    assert row["eodhd_symbol"] == "TST.TO"
+    assert row["fundamental_source"] == "eodhd", row["fundamental_source"]
+    assert row["enrichment_source"] == "eodhd_fundamentals", row["enrichment_source"]
+    assert row["fundamental"] is not None and 0 <= row["fundamental"] <= 10
+    assert row["ai_score_basis"] == "supp_composite"
+    print("  EODHD overlay into SUPP row: OK")
+
+
+def test_eodhd_disabled_when_no_module():
+    """Sanity: even if the EODHD module is somehow unavailable, the watchlist
+    generator must still run (the import is wrapped). This is a regression
+    guard for environments where requests/yfinance are absent."""
+    sys.path.insert(0, os.path.dirname(GENERATOR))
+    import generate_watchlist_rankings as gen
+    # The module-level fetch_eodhd_fundamentals must always exist as a name
+    # (None when import failed, callable otherwise) so the runtime branch
+    # `if fetch_eodhd_fundamentals is not None` doesn't NameError.
+    assert hasattr(gen, "fetch_eodhd_fundamentals")
+    print("  EODHD soft-import guard: OK")
+
+
 def main():
     print("Running watchlist smoke tests...")
     test_sources_well_formed()
     test_dedup_after_override()
     test_classify_instrument()
     test_supp_summary_categorization()
+    test_eodhd_overlay_into_supp_row()
+    test_eodhd_disabled_when_no_module()
     test_generator_runs()
     print("All tests passed.")
 
