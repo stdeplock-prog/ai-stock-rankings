@@ -271,11 +271,29 @@ def _classify_instrument(symbol, info):
     if quote_type == "EQUITY":
         return "equity"
     # yfinance .info often omits quoteType for tickers it returns price data for.
-    # Infer equity when the row carries individual-stock signals (sector +
-    # marketCap, neither of which apply to crypto/ETF/forex). Conservative:
-    # both must be present to avoid mis-tagging an ETF whose info has only
-    # sector. Falls back to 'unknown' otherwise.
-    if info.get("sector") and info.get("marketCap"):
+    # Infer equity when the row carries individual-stock signals. Strict
+    # sector AND marketCap gating left most rows as 'unknown' even when
+    # yfinance returned fields that only apply to equities (e.g. industry,
+    # sharesOutstanding, an EPS reading). Loosen to: sector OR marketCap,
+    # OR another reliable equity-only marker. We still avoid mis-tagging
+    # ETFs/funds because those quoteTypes were caught above; the residual
+    # risk is an ETF whose .info lacks quoteType but exposes a sector —
+    # acceptable since we only treat as equity, downstream fundamentals
+    # gating still requires real PE/growth/EPS to produce a Fundamental
+    # score (see fundamental_from_yfinance).
+    if info.get("sector") or info.get("marketCap"):
+        return "equity"
+    equity_only_markers = (
+        info.get("industry"),
+        info.get("sharesOutstanding"),
+        info.get("trailingEps"),
+        info.get("epsTrailingTwelveMonths"),
+        info.get("trailingPE"),
+        info.get("forwardPE"),
+        info.get("bookValue"),
+        info.get("priceToBook"),
+    )
+    if any(m for m in equity_only_markers):
         return "equity"
     return "unknown"
 
