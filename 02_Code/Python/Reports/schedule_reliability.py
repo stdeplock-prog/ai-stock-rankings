@@ -252,6 +252,16 @@ def analyze_slot_calendar(runs: list[dict], today_chi: date) -> dict:
         slot_hits: dict[str, int] = {s: 0 for s in SLOT_ORDER}
         for r in day_runs:
             slot = r.get("slot")
+            # Manual dispatches don't carry a slot id, but they *do*
+            # satisfy whichever slot's window their wall-clock landed in.
+            # Infer from ts_chicago so the calendar credits a manual
+            # run rather than reporting the slot as missing.
+            if slot in (None, "", "manual", "unknown"):
+                ts_chi = r.get("ts_chicago") or ""
+                hm = ts_chi[-5:] if len(ts_chi) >= 5 else ""
+                inferred = _slot_for_chicago_hm(hm) if hm else None
+                if inferred:
+                    slot = inferred
             if slot in slot_hits:
                 slot_hits[slot] += 1
         row = {"date": ds, "slot_hits": slot_hits, "missing": [], "duplicate": []}
@@ -542,9 +552,19 @@ def _stamp_task_if_present(report: dict) -> None:
 def build_report() -> dict:
     runs = load_runs_jsonl()
     used_fallback = False
+    used_supplement = False
     if not runs:
         runs = load_runs_from_git()
         used_fallback = True
+    elif len(runs) < LOOKBACK_TRADING_DAYS * 2:
+        # JSONL is freshly bootstrapped (first ~few days after deploy);
+        # supplement with git-log entries from days NOT already covered
+        # so the calendar isn't blanket-missing while history fills in.
+        covered_days = {r.get("chicago_date") for r in runs if r.get("chicago_date")}
+        for g in load_runs_from_git():
+            if g.get("chicago_date") not in covered_days:
+                runs.append(g)
+        used_supplement = True
 
     rankings = load_rankings()
     now_utc = _now_utc()
@@ -581,6 +601,11 @@ def build_report() -> dict:
         cal_section["checks"].append(_check(
             "history_source", "WARN",
             "workflow_runs.jsonl missing — calendar derived from git log fallback"))
+    elif used_supplement:
+        cal_section["checks"].append(_check(
+            "history_source", "OK",
+            f"jsonl has {sum(1 for r in runs if r.get('source') != 'git_log_fallback')} records "
+            f"(supplemented with git log for older days while history fills in)"))
     else:
         cal_section["checks"].append(_check(
             "history_source", "OK",
