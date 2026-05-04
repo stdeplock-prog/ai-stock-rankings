@@ -760,10 +760,15 @@ def main():
     eodhd_budget = EodhdBudget(max_live_calls) if EodhdBudget is not None else None
 
     # Pre-flight visibility on the EODHD enrichment gate. Logs the boolean
-    # without ever leaking the secret value. If key_present is False at the
-    # end of the run, the budget snapshot will also reflect skipped_no_key
-    # so the failure mode is unambiguous in the persisted JSON.
+    # without ever leaking the secret value. The env-derived flag is
+    # forced onto the budget so that the persisted JSON answers
+    # "was the secret available to this run?" even when the helper is
+    # never invoked (no eligible rows / yfinance rate-limited / etc.) —
+    # without it, eodhd_key_present would stay False on a budget that
+    # never got touched, indistinguishable from a missing secret.
     eodhd_key_in_env = bool(os.environ.get("EODHD_API_KEY", ""))
+    if eodhd_budget is not None and eodhd_key_in_env:
+        eodhd_budget.note_key_present()
     print(f"EODHD enrichment: enabled={eodhd_enabled} "
           f"key_present={eodhd_key_in_env} "
           f"max_live_calls={max_live_calls} "
