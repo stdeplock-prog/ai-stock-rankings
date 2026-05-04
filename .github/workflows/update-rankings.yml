@@ -321,6 +321,16 @@ jobs:
         run: python 02_Code/Python/Reports/data_quality_audit.py
         continue-on-error: true
 
+      # Scoring Parity Review — compares score semantics and coverage across
+      # main rankings, watchlist main_pipeline rows, and watchlist SUPP rows.
+      # Reads only the published rankings/watchlist JSON, no network. Always
+      # safe to run; continue-on-error so a transient parsing failure cannot
+      # block the rankings commit.
+      - name: Generate scoring parity review
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/scoring_parity_review.py
+        continue-on-error: true
+
       # Benchmark Review — model-validation report comparing leader buckets
       # against momentum/trend, sector concentration, SPY/QQQ/IWM context,
       # and a forward-performance snapshot scaffold. Reads existing artifacts
@@ -349,10 +359,12 @@ jobs:
           git add data/reports/data_quality_audit.json 2>/dev/null || true
           git add data/reports/benchmark_review.json 2>/dev/null || true
           git add data/reports/benchmark_snapshots.jsonl 2>/dev/null || true
+          git add data/reports/scoring_parity_review.json 2>/dev/null || true
           git add reports/market-risk-monitor.html 2>/dev/null || true
           git add reports/options-watchlist.html 2>/dev/null || true
           git add reports/data-quality-audit.html 2>/dev/null || true
           git add reports/benchmark-review.html 2>/dev/null || true
+          git add reports/scoring-parity-review.html 2>/dev/null || true
           # tasks.json is stamped by the daily report scripts (last_run /
           # next_run / status / summary). If we don't stage it here, the later
           # `git pull --rebase` aborts with "unstaged changes".
