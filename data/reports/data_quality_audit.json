@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-04T19:09:29Z",
+  "generated_at": "2026-05-04T19:48:41Z",
   "overall": "FAIL",
   "sections": {
     "rankings": {
@@ -14,13 +14,13 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-04 02:09 PM CDT (age 0.0h)",
+          "message": "as_of 2026-05-04 02:48 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "missing_market_cap",
           "status": "OK",
-          "message": "0/100 (0%)",
+          "message": "1/100 (1%)",
           "data": {}
         },
         {
@@ -44,7 +44,7 @@
         {
           "name": "mov_distribution",
           "status": "OK",
-          "message": "+12 / -50 / 0=38 / missing=0",
+          "message": "+31 / -21 / 0=48 / missing=0",
           "data": {}
         },
         {
@@ -85,12 +85,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-04 02:09 PM CDT",
+        "as_of": "2026-05-04 02:48 PM CDT",
         "open_date": "2026-05-04",
         "is_open_run": false,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "row_count": 100,
-        "missing_market_cap": 0,
+        "missing_market_cap": 1,
         "missing_sector": 0,
         "missing_industry": 0,
         "closes_length_distribution": {
@@ -98,9 +98,9 @@
         },
         "closes_short_count": 0,
         "mov_distribution": {
-          "positive": 12,
-          "negative": 50,
-          "zero": 38,
+          "positive": 31,
+          "negative": 21,
+          "zero": 48,
           "missing": 0
         },
         "score_missing": {
@@ -120,39 +120,44 @@
         {
           "name": "watchlist_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-04 02:09 PM CDT (age 0.0h)",
+          "message": "as_of 2026-05-04 02:48 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "supp_full_fundamentals",
           "status": "FAIL",
-          "message": "only 12/75 (16%) full fundamentals \u2014 yfinance enrichment broken",
+          "message": "only 0/74 (0%) full fundamentals \u2014 yfinance enrichment broken",
           "data": {}
         },
         {
           "name": "unavailable_spike",
           "status": "OK",
-          "message": "1/143 unavailable (1%)",
+          "message": "2/143 unavailable (1%)",
           "data": {}
         },
         {
           "name": "supp_missing_market_cap",
           "status": "FAIL",
-          "message": "60/75 (80%)",
+          "message": "74/74 (100%)",
           "data": {}
         },
         {
           "name": "supp_missing_fundamental",
           "status": "FAIL",
-          "message": "63/75 (84%)",
+          "message": "74/74 (100%)",
           "data": {}
         }
       ],
       "metrics": {
-        "as_of": "2026-05-04 02:09 PM CDT",
-        "row_count": 142,
-        "unavailable_count": 1,
+        "as_of": "2026-05-04 02:48 PM CDT",
+        "row_count": 141,
+        "unavailable_count": 2,
         "unavailable_sample": [
+          {
+            "input": "000660.KS",
+            "source": "tradingview",
+            "reason": "not in main rankings and supplemental fetch failed or disabled"
+          },
           {
             "input": "CBRS",
             "source": "csv",
@@ -160,39 +165,37 @@
           }
         ],
         "by_source_label": {
-          "tradingview": 69,
+          "tradingview": 68,
           "csv": 44,
           "both": 29
         },
         "by_data_source": {
-          "supplemental_yfinance": 75,
+          "supplemental_yfinance": 74,
           "main_pipeline": 67
         },
         "supp_summary": {
-          "total": 75,
-          "full_fundamentals": 12,
+          "total": 74,
+          "full_fundamentals": 0,
           "eodhd_enriched": 0,
           "metadata_only": 0,
           "price_only": 2,
-          "technical_only": 61,
-          "unavailable": 1
+          "technical_only": 72,
+          "unavailable": 2
         },
         "supp_by_kind": {
-          "unknown": 59,
-          "foreign": 2,
-          "equity": 12,
+          "unknown": 71,
+          "foreign": 1,
           "crypto": 2
         },
         "supp_by_enrichment": {
-          "yfinance_partial": 61,
-          "yfinance_fundamentals": 12,
+          "yfinance_partial": 72,
           "yfinance_price_only": 2
         },
-        "unavailable_ratio": 0.007,
-        "supp_rows_inspected": 75,
-        "supp_missing_market_cap": 60,
-        "supp_missing_sector": 59,
-        "supp_missing_fundamental": 63
+        "unavailable_ratio": 0.014,
+        "supp_rows_inspected": 74,
+        "supp_missing_market_cap": 74,
+        "supp_missing_sector": 72,
+        "supp_missing_fundamental": 74
       },
       "status": "FAIL"
     },
@@ -232,7 +235,7 @@
             "id": "market-risk-monitor",
             "name": "Market Risk Monitor",
             "status": "warn",
-            "last_run": "2026-05-04 02:09 PM CDT",
+            "last_run": "2026-05-04 02:48 PM CDT",
             "next_run": "2026-05-05 08:45 AM CDT",
             "has_report": true
           },
@@ -240,7 +243,7 @@
             "id": "options-earnings-watchlist",
             "name": "Options & Earnings Watchlist",
             "status": "OK",
-            "last_run": "2026-05-04 02:09 PM CDT",
+            "last_run": "2026-05-04 02:48 PM CDT",
             "next_run": "2026-05-05 08:45 AM CDT",
             "has_report": true
           },
@@ -248,7 +251,7 @@
             "id": "benchmark-review",
             "name": "Benchmark Review",
             "status": "warn",
-            "last_run": "2026-05-04 01:23 PM CDT",
+            "last_run": "2026-05-04 02:09 PM CDT",
             "next_run": "\u2014",
             "has_report": true
           },
