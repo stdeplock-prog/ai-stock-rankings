@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-01T20:33:13Z",
+  "generated_at": "2026-05-04T17:19:51Z",
   "overall": "FAIL",
   "sections": {
     "rankings": {
@@ -14,13 +14,13 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-01 03:32 PM CDT (age 0.0h)",
+          "message": "as_of 2026-05-04 12:19 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "missing_market_cap",
           "status": "OK",
-          "message": "0/100 (0%)",
+          "message": "1/100 (1%)",
           "data": {}
         },
         {
@@ -44,7 +44,7 @@
         {
           "name": "mov_distribution",
           "status": "OK",
-          "message": "+29 / -32 / 0=39 / missing=0",
+          "message": "+57 / -39 / 0=4 / missing=0",
           "data": {}
         },
         {
@@ -85,12 +85,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-01 03:32 PM CDT",
-        "open_date": "2026-05-01",
-        "is_open_run": false,
+        "as_of": "2026-05-04 12:19 PM CDT",
+        "open_date": "2026-05-04",
+        "is_open_run": true,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "row_count": 100,
-        "missing_market_cap": 0,
+        "missing_market_cap": 1,
         "missing_sector": 0,
         "missing_industry": 0,
         "closes_length_distribution": {
@@ -98,9 +98,9 @@
         },
         "closes_short_count": 0,
         "mov_distribution": {
-          "positive": 29,
-          "negative": 32,
-          "zero": 39,
+          "positive": 57,
+          "negative": 39,
+          "zero": 4,
           "missing": 0
         },
         "score_missing": {
@@ -120,7 +120,7 @@
         {
           "name": "watchlist_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-01 03:33 PM CDT (age 0.0h)",
+          "message": "as_of 2026-05-04 12:19 PM CDT (age 0.0h)",
           "data": {}
         },
         {
@@ -149,7 +149,7 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-01 03:33 PM CDT",
+        "as_of": "2026-05-04 12:19 PM CDT",
         "row_count": 141,
         "unavailable_count": 2,
         "unavailable_sample": [
@@ -166,8 +166,8 @@
         ],
         "by_source_label": {
           "tradingview": 68,
-          "both": 29,
-          "csv": 44
+          "csv": 44,
+          "both": 29
         },
         "by_data_source": {
           "supplemental_yfinance": 74,
@@ -210,9 +210,13 @@
         },
         {
           "name": "stale_report_metadata",
-          "status": "OK",
-          "message": "no stale report metadata",
-          "data": {}
+          "status": "WARN",
+          "message": "report task(s) with last_run >24h before rankings as_of: benchmark-review",
+          "data": {
+            "ids": [
+              "benchmark-review"
+            ]
+          }
         }
       ],
       "metrics": {
@@ -229,29 +233,31 @@
           "close-recap",
           "weekly-rebalance"
         ],
-        "stale_report_ids": [],
+        "stale_report_ids": [
+          "benchmark-review"
+        ],
         "tasks": [
           {
             "id": "market-risk-monitor",
             "name": "Market Risk Monitor",
             "status": "warn",
-            "last_run": "2026-05-01 03:33 PM CDT",
-            "next_run": "2026-05-04 08:45 AM CDT",
+            "last_run": "2026-05-04 12:19 PM CDT",
+            "next_run": "2026-05-05 08:45 AM CDT",
             "has_report": true
           },
           {
             "id": "options-earnings-watchlist",
             "name": "Options & Earnings Watchlist",
             "status": "OK",
-            "last_run": "2026-05-01 03:33 PM CDT",
-            "next_run": "2026-05-04 08:45 AM CDT",
+            "last_run": "2026-05-04 12:19 PM CDT",
+            "next_run": "2026-05-05 08:45 AM CDT",
             "has_report": true
           },
           {
             "id": "benchmark-review",
             "name": "Benchmark Review",
             "status": "warn",
-            "last_run": "2026-05-01 03:00 PM CDT",
+            "last_run": "2026-05-01 03:32 PM CDT",
             "next_run": "\u2014",
             "has_report": true
           },
@@ -289,7 +295,7 @@
           }
         ]
       },
-      "status": "OK"
+      "status": "WARN"
     }
   }
 }
