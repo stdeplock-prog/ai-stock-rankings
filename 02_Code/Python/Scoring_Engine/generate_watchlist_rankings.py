@@ -254,6 +254,78 @@ def row_from_main(rank, raw_sym, ticker, row, swing_lookup):
     return out
 
 
+# Symbols known to be non-equity instruments where EODHD's equity fundamentals
+# endpoint either errors or returns useless payloads. Tickers in this set are
+# explicitly skipped before the live gate so we don't waste budget on them. Add
+# new ones as we observe them — the cost of a missing symbol here is one
+# wasted live call (caught by the helper's None return), so the list is
+# intentionally conservative.
+KNOWN_NON_EQUITY_SYMBOLS = {
+    # Crypto pairs (also caught by suffix rule, listed for clarity).
+    "BTC-USD", "ETH-USD", "SOL-USD", "BTCUSD", "SOLUSD", "ETHUSD",
+    # Commodity / sector / thematic ETFs that frequently appear in watchlists.
+    "USO", "GUSH", "GLD", "SLV", "IBIT", "QTUM", "MSOS",
+    # Class-share class ETFs / vehicles that are not regular equities.
+    "BIPC",  # Brookfield Infrastructure Partners (LP class)
+}
+
+
+def _likely_equity_symbol(sym):
+    """Return True iff the symbol is a plausible candidate for EODHD's equity
+    fundamentals endpoint *before* we know yfinance's classification.
+
+    The watchlist generator previously waited for yfinance to classify a
+    ticker as 'equity' before attempting EODHD enrichment. Under yfinance
+    rate-limiting that classification frequently lands as 'unknown' even for
+    real US equities (sector/marketCap come back empty), which silently
+    locked out EODHD enrichment for the very rows it was added to cover.
+
+    This heuristic is the pre-yfinance gate. It is intentionally conservative
+    — it filters out cases where calling EODHD is *guaranteed* to be wrong
+    (crypto pairs, KRX, known non-equity symbols) but otherwise lets EODHD
+    answer the question. EODHD's response (or its absence) is then the
+    authoritative signal: if it returns equity-like fundamentals we
+    reclassify the row as equity; if it returns nothing we fall through.
+    """
+    if not sym:
+        return False
+    s = sym.strip().upper()
+    if not s:
+        return False
+    # Crypto pair patterns — *-USD or trailing USD with alpha base.
+    if s.endswith("-USD"):
+        return False
+    if s.endswith("USD") and len(s) > 3 and s[:-3].isalpha() and len(s[:-3]) <= 5:
+        return False
+    # Known non-equity symbols (ETFs, funds, etc.) we explicitly do not
+    # want to spend EODHD live calls on.
+    if s in KNOWN_NON_EQUITY_SYMBOLS:
+        return False
+    # Foreign listings: only allow through if the suffix is one EODHD will
+    # actually classify as equity. KRX (.KS / .KQ) returns useless ETF/fund
+    # payloads for the bare-number Korean tickers in this watchlist, so
+    # leave those out and let the existing yfinance path handle them.
+    if "." in s:
+        head, tail = s.rsplit(".", 1)
+        if tail in ("KS", "KQ"):
+            return False
+        # Pure-numeric heads (e.g. 005930.KS, 000660.KS) are KRX-style
+        # foreign listings — even with a different suffix, treat as non-
+        # equity for EODHD purposes.
+        if head.isdigit():
+            return False
+        # Other foreign suffixes are allowed through; EODHD covers most.
+        # A 404 is harmless (None return, no quota cost beyond the call).
+        return True
+    # Plain US-style ticker. Allow alphabetic (and digit-bearing) tickers
+    # of reasonable length. Reject anything with unusual characters.
+    if not all(c.isalnum() or c in ("-",) for c in s):
+        return False
+    if len(s) > 6:
+        return False
+    return True
+
+
 def _classify_instrument(symbol, info):
     """Identify instrument kind for SUPP rows so the dashboard can be honest
     about what fundamentals are or are not available.
@@ -373,58 +445,65 @@ def fetch_supplemental(ticker_for_yf, eodhd_budget=None, gate_counts=None):
 
         # EODHD enrichment for equities the watchlist cares about: foreign
         # listings, small-caps, OTC names that yfinance .info often returns
-        # empty for. Only run when EODHD_API_KEY is set OR a cached payload
-        # exists (the helper short-circuits on cache hit). Crypto / mutual
-        # funds / clearly non-equity rows are skipped by symbol normalization
-        # inside the helper, so this block stays cheap for those too.
+        # empty for. The pre-fix flow gated EODHD on yfinance having already
+        # classified the row as 'equity'. That broke under yfinance rate-
+        # limiting: rows came back with empty .info (kind='unknown'), so
+        # EODHD never got a chance to classify or enrich them — defeating
+        # the whole reason EODHD was wired in.
+        #
+        # The new flow lets EODHD enrich any *likely-equity* symbol whose
+        # source-side metadata (suffix, override mapping, known non-equity
+        # list) doesn't disqualify it, regardless of yfinance's verdict.
+        # When EODHD returns equity-like fundamentals for a row we marked
+        # 'unknown', we reclassify the row to 'equity' so the downstream
+        # composite scoring kicks in. The SUPP origin label is preserved.
         eodhd_used = False
         eodhd_symbol_used = None
         eodhd_deferred = False
-        if kind != "equity":
+        likely_equity = _likely_equity_symbol(ticker_for_yf)
+        eodhd_eligible = (kind == "equity") or (kind == "unknown" and likely_equity)
+
+        if not eodhd_eligible:
             if gate_counts is not None:
-                gate_counts["skipped_not_equity"] += 1
+                if kind in ("crypto", "etf", "fund"):
+                    gate_counts["skipped_known_non_equity"] += 1
+                elif kind == "foreign":
+                    # Foreign listings whose suffix _likely_equity_symbol
+                    # excluded (KRX, numeric heads). The yfinance flow
+                    # still serves them via metadata-only.
+                    gate_counts["skipped_known_non_equity"] += 1
+                elif kind == "unknown" and not likely_equity:
+                    gate_counts["skipped_symbol_pattern"] += 1
+                else:
+                    gate_counts["skipped_not_equity"] += 1
         elif fetch_eodhd_fundamentals is None:
             if gate_counts is not None:
                 gate_counts["skipped_helper_missing"] += 1
-        if kind == "equity" and fetch_eodhd_fundamentals is not None:
+        else:
             if gate_counts is not None:
                 gate_counts["eligible"] += 1
-            missing_signal = all(fundamentals.get(k) is None for k in
-                                 ("trailingPE", "trailingEps", "revenueGrowth",
-                                  "earningsGrowth", "profitMargins"))
-            # Even if we have *some* fundamentals, fill specific gaps EODHD
-            # commonly covers (margins / RoE / RoA) so the row's
-            # Fundamental composite isn't penalized by a single missing
-            # field. If yfinance gave us a complete-enough picture
-            # (missing_signal is False AND no gaps in the canonical map),
-            # we still may want to overlay metadata fields like sector.
+                if kind == "equity":
+                    gate_counts["eligible_yfinance_equity"] += 1
+                else:
+                    gate_counts["eligible_likely_equity"] += 1
             deferred_before = eodhd_budget.deferred if eodhd_budget is not None else 0
             try:
                 eodhd_data = fetch_eodhd_fundamentals(ticker_for_yf, budget=eodhd_budget)
             except Exception as e:
                 print(f"  EODHD enrichment failed for {ticker_for_yf}: {e}")
                 eodhd_data = None
-            # If the helper returned None AND the budget's deferred counter
-            # advanced, this row was specifically skipped due to quota
-            # exhaustion (vs. a real "no data" or 404). Surface that on the
-            # row so the audit trail is honest about the gap.
             if eodhd_data is None and eodhd_budget is not None \
                and eodhd_budget.deferred > deferred_before:
                 eodhd_deferred = True
             if eodhd_data:
                 eodhd_used = True
                 eodhd_symbol_used = eodhd_data.get("_eodhd_symbol")
-                # Overlay onto fundamentals: only fill values yfinance left
-                # blank, never overwrite. This preserves yfinance numbers
-                # when both sources have them and avoids surprise drift.
                 for k in fundamentals:
                     if fundamentals.get(k) is None:
                         v = eodhd_data.get(k)
                         if v is not None:
                             fundamentals[k] = v
                             provenance[k] = "eodhd"
-                # Metadata fallbacks: sector / industry / market cap / name /
-                # country. These are not in fund_keys but used elsewhere.
                 if not safe_str(info.get("sector", "")) and eodhd_data.get("sector"):
                     info["sector"] = eodhd_data["sector"]
                 if not safe_str(info.get("industry", "")) and eodhd_data.get("industry"):
@@ -435,15 +514,31 @@ def fetch_supplemental(ticker_for_yf, eodhd_budget=None, gate_counts=None):
                     info["shortName"] = eodhd_data["shortName"]
                 if not safe_str(info.get("country", "")) and eodhd_data.get("country"):
                     info["country"] = eodhd_data["country"]
-                # Update fundamental_source: if EODHD filled fundamentals
-                # that yfinance didn't have, mark the composite source as
-                # whichever provider actually contributed numbers.
                 yf_count = sum(1 for k, src in provenance.items() if src == "yfinance")
                 eo_count = sum(1 for k, src in provenance.items() if src == "eodhd")
                 if eo_count and not yf_count:
                     fundamental_source = "eodhd"
                 elif eo_count and yf_count:
                     fundamental_source = "yfinance+eodhd"
+                # If the row was previously kind='unknown' and EODHD came
+                # back with equity-like signal (any of PE / EPS / growth /
+                # margins / sector), reclassify to equity so the SUPP
+                # downstream composite scoring path applies. We only
+                # *promote* to equity — we never downgrade an existing
+                # equity classification. ETFs/funds/crypto are gated out
+                # above so this only fires on ambiguous 'unknown' rows.
+                if kind == "unknown":
+                    equity_signal = any(
+                        eodhd_data.get(k) is not None for k in (
+                            "trailingPE", "trailingEps", "revenueGrowth",
+                            "earningsGrowth", "profitMargins", "sector",
+                            "marketCap", "industry",
+                        )
+                    )
+                    if equity_signal:
+                        kind = "equity"
+                        if gate_counts is not None:
+                            gate_counts["reclassified_to_equity"] += 1
 
         return {
             "price":           last_close,
@@ -777,8 +872,13 @@ def main():
     # final summary explains every supp row's outcome.
     eodhd_gate_counts = {
         "skipped_not_equity": 0,
+        "skipped_known_non_equity": 0,
+        "skipped_symbol_pattern": 0,
         "skipped_helper_missing": 0,
         "eligible": 0,
+        "eligible_yfinance_equity": 0,
+        "eligible_likely_equity": 0,
+        "reclassified_to_equity": 0,
     }
 
     # Build rows. We rank later by AI_Score, then assign 1..N.

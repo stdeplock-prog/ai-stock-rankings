@@ -301,6 +301,242 @@ def test_eodhd_observability_keys_in_output():
     print("  EODHD observability keys in output: OK")
 
 
+def test_likely_equity_heuristic():
+    """The pre-yfinance gate must accept plain US tickers (so EODHD can
+    classify/enrich them when yfinance returns empty .info under rate-
+    limiting), and must reject crypto / ETFs / KRX / numeric-foreign tickers
+    that should never spend live EODHD budget.
+    """
+    sys.path.insert(0, os.path.dirname(GENERATOR))
+    from generate_watchlist_rankings import _likely_equity_symbol
+
+    # Plain US tickers should be eligible — these are exactly the rows
+    # yfinance was failing to classify as equity before the fix.
+    for sym in ("AXTI", "SOUN", "VISN", "NBIS", "VIAV", "PI", "AAPL",
+                "NVDA", "AMD", "MP", "BBAI", "USAR"):
+        assert _likely_equity_symbol(sym) is True, f"{sym} must be eligible"
+
+    # Crypto pairs must be excluded.
+    for sym in ("BTC-USD", "SOL-USD", "ETH-USD", "BTCUSD", "SOLUSD"):
+        assert _likely_equity_symbol(sym) is False, f"{sym} must be excluded (crypto)"
+
+    # Known ETFs / funds / non-equity vehicles must be excluded.
+    for sym in ("USO", "GUSH", "GLD", "SLV", "IBIT", "QTUM", "MSOS", "BIPC"):
+        assert _likely_equity_symbol(sym) is False, f"{sym} must be excluded (non-equity)"
+
+    # KRX foreign listings — numeric heads with .KS / .KQ.
+    for sym in ("005930.KS", "000660.KS", "005930", "000660"):
+        # The bare numeric form passes the symbol-shape filter but should
+        # still be rejected (digit-only head). With .KS suffix the
+        # explicit suffix rule rejects it.
+        if "." in sym:
+            assert _likely_equity_symbol(sym) is False, f"{sym} must be excluded (KRX)"
+    # Other foreign (Canadian / London / etc.) suffixes are allowed
+    # through — EODHD covers them and a 404 is harmless.
+    assert _likely_equity_symbol("SHOP.TO") is True
+    assert _likely_equity_symbol("BARC.L") is True
+
+    # Empty / blank inputs are not eligible.
+    assert _likely_equity_symbol("") is False
+    assert _likely_equity_symbol(None) is False
+    print("  likely_equity heuristic: OK")
+
+
+def test_eodhd_attempted_for_unknown_likely_equity():
+    """When yfinance classifies a row as 'unknown' (e.g. rate-limited info),
+    a likely-equity symbol must still be considered eligible for EODHD and,
+    if EODHD returns equity-like fundamentals, the row gets reclassified to
+    equity. This is the core regression: pre-fix this row would have been
+    counted under skipped_not_equity and EODHD would never run.
+
+    We exercise the gating logic by calling fetch_supplemental directly
+    with a stubbed yfinance + injected EODHD response.
+    """
+    sys.path.insert(0, os.path.dirname(GENERATOR))
+    import generate_watchlist_rankings as gen
+    from eodhd_fundamentals import EodhdBudget
+
+    # Stub yfinance: hist with closes, but info empty so kind => 'unknown'.
+    class _Hist:
+        empty = False
+        columns = ["Close", "Volume"]
+        def __getitem__(self, k):
+            import pandas as pd
+            if k == "Close":
+                return pd.Series([10.0, 11.0, 12.0, 13.0, 14.0])
+            return pd.Series([1_000_000])
+    class _Stub:
+        def __init__(self, sym): pass
+        def history(self, **kw): return _Hist()
+        @property
+        def info(self): return {}
+    class _yf_mod:
+        Ticker = _Stub
+    saved_yf = sys.modules.get("yfinance")
+    sys.modules["yfinance"] = _yf_mod
+
+    # Stub EODHD: return equity-like fundamentals so reclassification fires.
+    saved_helper = gen.fetch_eodhd_fundamentals
+    def fake_eodhd(symbol, budget=None, **kw):
+        if budget is not None:
+            budget.note_attempted()
+            budget.note_live_call()
+            budget.note_key_present()
+        return {
+            "trailingPE": 25.0, "trailingEps": 1.0, "revenueGrowth": 0.20,
+            "earningsGrowth": 0.30, "profitMargins": 0.10,
+            "sector": "Technology", "industry": "Semiconductors",
+            "marketCap": 1_000_000_000, "shortName": "Stub Co", "country": "USA",
+            "_eodhd_symbol": f"{symbol}.US",
+        }
+    gen.fetch_eodhd_fundamentals = fake_eodhd
+    try:
+        budget = EodhdBudget(15)
+        gate = {
+            "skipped_not_equity": 0, "skipped_known_non_equity": 0,
+            "skipped_symbol_pattern": 0, "skipped_helper_missing": 0,
+            "eligible": 0, "eligible_yfinance_equity": 0,
+            "eligible_likely_equity": 0, "reclassified_to_equity": 0,
+        }
+        out = gen.fetch_supplemental("AXTI", eodhd_budget=budget, gate_counts=gate)
+        assert out is not None, "fetch_supplemental returned None"
+        assert out["instrument_kind"] == "equity", \
+            f"expected reclassified equity, got {out['instrument_kind']!r}"
+        assert out["eodhd_used"] is True
+        assert out["fundamentals"]["trailingPE"] == 25.0
+        assert gate["eligible_likely_equity"] == 1, gate
+        assert gate["reclassified_to_equity"] == 1, gate
+        assert gate["skipped_not_equity"] == 0, gate
+    finally:
+        gen.fetch_eodhd_fundamentals = saved_helper
+        if saved_yf is None:
+            sys.modules.pop("yfinance", None)
+        else:
+            sys.modules["yfinance"] = saved_yf
+    print("  EODHD attempted for unknown likely-equity: OK")
+
+
+def test_eodhd_skips_known_non_equity_via_pre_gate():
+    """Crypto and ETF symbols must be counted under skipped_known_non_equity
+    (not skipped_not_equity) so the metadata distinguishes 'we know this
+    isn't an equity' from 'yfinance hasn't told us yet'. Budget must not
+    advance for them.
+    """
+    sys.path.insert(0, os.path.dirname(GENERATOR))
+    import generate_watchlist_rankings as gen
+    from eodhd_fundamentals import EodhdBudget
+
+    class _Hist:
+        empty = False
+        columns = ["Close", "Volume"]
+        def __getitem__(self, k):
+            import pandas as pd
+            if k == "Close":
+                return pd.Series([10.0, 11.0, 12.0])
+            return pd.Series([1_000_000])
+    class _StubETF:
+        def __init__(self, sym): self.sym = sym
+        def history(self, **kw): return _Hist()
+        @property
+        def info(self):
+            return {"quoteType": "ETF"} if self.sym in ("USO", "GLD", "GUSH") else {}
+    class _yf_mod:
+        Ticker = _StubETF
+    saved_yf = sys.modules.get("yfinance")
+    sys.modules["yfinance"] = _yf_mod
+
+    saved_helper = gen.fetch_eodhd_fundamentals
+    called = {"n": 0}
+    def must_not_be_called(*a, **kw):
+        called["n"] += 1
+        return None
+    gen.fetch_eodhd_fundamentals = must_not_be_called
+    try:
+        budget = EodhdBudget(15)
+        gate = {
+            "skipped_not_equity": 0, "skipped_known_non_equity": 0,
+            "skipped_symbol_pattern": 0, "skipped_helper_missing": 0,
+            "eligible": 0, "eligible_yfinance_equity": 0,
+            "eligible_likely_equity": 0, "reclassified_to_equity": 0,
+        }
+        # ETF: yfinance.info reports quoteType=ETF, so kind='etf'.
+        gen.fetch_supplemental("USO", eodhd_budget=budget, gate_counts=gate)
+        # Crypto inferred by suffix.
+        gen.fetch_supplemental("BTC-USD", eodhd_budget=budget, gate_counts=gate)
+        assert gate["skipped_known_non_equity"] >= 2, gate
+        assert called["n"] == 0, "EODHD must not be called for ETF/crypto"
+        assert budget.live_calls == 0
+    finally:
+        gen.fetch_eodhd_fundamentals = saved_helper
+        if saved_yf is None:
+            sys.modules.pop("yfinance", None)
+        else:
+            sys.modules["yfinance"] = saved_yf
+    print("  EODHD pre-gate skips ETF/crypto: OK")
+
+
+def test_eodhd_budget_respected_with_likely_equity():
+    """When many likely-equity rows are processed but the budget is small,
+    only `budget` live calls happen; the rest are deferred (cache hits would
+    still be free, but we don't pre-populate cache here).
+    """
+    sys.path.insert(0, os.path.dirname(GENERATOR))
+    import generate_watchlist_rankings as gen
+    from eodhd_fundamentals import EodhdBudget
+
+    class _Hist:
+        empty = False
+        columns = ["Close", "Volume"]
+        def __getitem__(self, k):
+            import pandas as pd
+            if k == "Close":
+                return pd.Series([10.0, 11.0, 12.0])
+            return pd.Series([1_000_000])
+    class _Stub:
+        def __init__(self, sym): pass
+        def history(self, **kw): return _Hist()
+        @property
+        def info(self): return {}
+    class _yf_mod:
+        Ticker = _Stub
+    saved_yf = sys.modules.get("yfinance")
+    sys.modules["yfinance"] = _yf_mod
+
+    saved_helper = gen.fetch_eodhd_fundamentals
+    def fake_eodhd(symbol, budget=None, **kw):
+        # Honour the budget like the real helper does.
+        if budget is not None:
+            budget.note_attempted()
+            budget.note_key_present()
+            if not budget.has_room():
+                budget.note_deferred()
+                return None
+            budget.note_live_call()
+        return {"trailingPE": 18.0, "_eodhd_symbol": f"{symbol}.US",
+                "sector": "Technology"}
+    gen.fetch_eodhd_fundamentals = fake_eodhd
+    try:
+        budget = EodhdBudget(2)
+        gate = {
+            "skipped_not_equity": 0, "skipped_known_non_equity": 0,
+            "skipped_symbol_pattern": 0, "skipped_helper_missing": 0,
+            "eligible": 0, "eligible_yfinance_equity": 0,
+            "eligible_likely_equity": 0, "reclassified_to_equity": 0,
+        }
+        for sym in ("AXTI", "SOUN", "VISN", "NBIS", "VIAV"):
+            gen.fetch_supplemental(sym, eodhd_budget=budget, gate_counts=gate)
+        assert budget.live_calls == 2, budget.as_dict()
+        assert budget.deferred == 3, budget.as_dict()
+        assert gate["eligible_likely_equity"] == 5, gate
+    finally:
+        gen.fetch_eodhd_fundamentals = saved_helper
+        if saved_yf is None:
+            sys.modules.pop("yfinance", None)
+        else:
+            sys.modules["yfinance"] = saved_yf
+    print("  EODHD budget respected with likely-equity rows: OK")
+
+
 def test_eodhd_disabled_when_no_module():
     """Sanity: even if the EODHD module is somehow unavailable, the watchlist
     generator must still run (the import is wrapped). This is a regression
@@ -321,6 +557,10 @@ def main():
     test_classify_instrument()
     test_supp_summary_categorization()
     test_eodhd_overlay_into_supp_row()
+    test_likely_equity_heuristic()
+    test_eodhd_attempted_for_unknown_likely_equity()
+    test_eodhd_skips_known_non_equity_via_pre_gate()
+    test_eodhd_budget_respected_with_likely_equity()
     test_eodhd_disabled_when_no_module()
     test_eodhd_budget_metadata_in_output()
     test_eodhd_enrichment_disabled_flag()
