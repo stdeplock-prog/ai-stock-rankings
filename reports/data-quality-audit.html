@@ -18,13 +18,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Data Quality Audit</h1>
-<p class="meta">Generated 2026-05-04T17:19:51Z &middot; Overall: <span class="badge">FAIL</span></p>
+<p class="meta">Generated 2026-05-04T18:23:51Z &middot; Overall: <span class="badge">FAIL</span></p>
 
 <div class="section"><h2>Rankings<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-05-04 12:19 PM CDT&quot;,
+  &quot;as_of&quot;: &quot;2026-05-04 01:23 PM CDT&quot;,
   &quot;open_date&quot;: &quot;2026-05-04&quot;,
-  &quot;is_open_run&quot;: true,
+  &quot;is_open_run&quot;: false,
   &quot;universe&quot;: &quot;SP500 + NDX100 + Russell1000 (~1400 tickers)&quot;,
   &quot;row_count&quot;: 100,
   &quot;missing_market_cap&quot;: 1,
@@ -35,9 +35,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   },
   &quot;closes_short_count&quot;: 0,
   &quot;mov_distribution&quot;: {
-    &quot;positive&quot;: 57,
-    &quot;negative&quot;: 39,
-    &quot;zero&quot;: 4,
+    &quot;positive&quot;: 24,
+    &quot;negative&quot;: 22,
+    &quot;zero&quot;: 54,
     &quot;missing&quot;: 0
   },
   &quot;score_missing&quot;: {
@@ -51,12 +51,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>row_count</td><td class="OK">OK</td><td>100 rows</td></tr>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-04 12:19 PM CDT (age 0.0h)</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-04 01:23 PM CDT (age 0.0h)</td></tr>
 <tr><td>missing_market_cap</td><td class="OK">OK</td><td>1/100 (1%)</td></tr>
 <tr><td>missing_sector</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>missing_industry</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>sparkline_short</td><td class="OK">OK</td><td>0/100 (0%) (rows with closes length &lt; 5)</td></tr>
-<tr><td>mov_distribution</td><td class="OK">OK</td><td>+57 / -39 / 0=4 / missing=0</td></tr>
+<tr><td>mov_distribution</td><td class="OK">OK</td><td>+24 / -22 / 0=54 / missing=0</td></tr>
 <tr><td>score_missing_ai_score</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>score_missing_fundamental</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>score_missing_technical</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
@@ -66,7 +66,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </tbody></table></div>
 <div class="section"><h2>Watchlist<span class="FAIL">FAIL</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-05-04 12:19 PM CDT&quot;,
+  &quot;as_of&quot;: &quot;2026-05-04 01:23 PM CDT&quot;,
   &quot;row_count&quot;: 141,
   &quot;unavailable_count&quot;: 2,
   &quot;unavailable_sample&quot;: [
@@ -115,13 +115,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;supp_missing_fundamental&quot;: 74
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>watchlist_freshness</td><td class="OK">OK</td><td>as_of 2026-05-04 12:19 PM CDT (age 0.0h)</td></tr>
+<tr><td>watchlist_freshness</td><td class="OK">OK</td><td>as_of 2026-05-04 01:23 PM CDT (age 0.0h)</td></tr>
 <tr><td>supp_full_fundamentals</td><td class="FAIL">FAIL</td><td>only 0/74 (0%) full fundamentals — yfinance enrichment broken</td></tr>
 <tr><td>unavailable_spike</td><td class="OK">OK</td><td>2/143 unavailable (1%)</td></tr>
 <tr><td>supp_missing_market_cap</td><td class="FAIL">FAIL</td><td>74/74 (100%)</td></tr>
 <tr><td>supp_missing_fundamental</td><td class="FAIL">FAIL</td><td>74/74 (100%)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Tasks<span class="WARN">WARN</span></h2>
+<div class="section"><h2>Tasks<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;task_count&quot;: 7,
   &quot;status_counts&quot;: {
@@ -136,15 +136,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     &quot;close-recap&quot;,
     &quot;weekly-rebalance&quot;
   ],
-  &quot;stale_report_ids&quot;: [
-    &quot;benchmark-review&quot;
-  ],
+  &quot;stale_report_ids&quot;: [],
   &quot;tasks&quot;: [
     {
       &quot;id&quot;: &quot;market-risk-monitor&quot;,
       &quot;name&quot;: &quot;Market Risk Monitor&quot;,
       &quot;status&quot;: &quot;warn&quot;,
-      &quot;last_run&quot;: &quot;2026-05-04 12:19 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-05-04 01:23 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-05-05 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -152,7 +150,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;options-earnings-watchlist&quot;,
       &quot;name&quot;: &quot;Options &amp; Earnings Watchlist&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-05-04 12:19 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-05-04 01:23 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-05-05 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -160,7 +158,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;benchmark-review&quot;,
       &quot;name&quot;: &quot;Benchmark Review&quot;,
       &quot;status&quot;: &quot;warn&quot;,
-      &quot;last_run&quot;: &quot;2026-05-01 03:32 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-05-04 12:19 PM CDT&quot;,
       &quot;next_run&quot;: &quot;\u2014&quot;,
       &quot;has_report&quot;: true
     },
@@ -200,6 +198,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>tasks_status</td><td class="OK">OK</td><td>4/7 Not Run</td></tr>
-<tr><td>stale_report_metadata</td><td class="WARN">WARN</td><td>report task(s) with last_run &gt;24h before rankings as_of: benchmark-review</td></tr>
+<tr><td>stale_report_metadata</td><td class="OK">OK</td><td>no stale report metadata</td></tr>
 </tbody></table></div>
 </body></html>
