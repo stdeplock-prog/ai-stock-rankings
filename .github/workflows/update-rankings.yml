@@ -271,19 +271,33 @@ jobs:
         if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/export_to_json.py
 
-      # EODHD_API_KEY is only injected on the morning slot (or manual dispatch)
-      # so live EODHD fundamentals fetches happen at most once per ticker per
-      # day. Midday/close runs read the on-disk cache populated by the morning
-      # run (see 02_Code/Python/Data_Fetch/eodhd_fundamentals.py: use_cache
-      # short-circuits before the API key check). If the secret is missing
-      # entirely, the helper returns None and the watchlist falls through to
-      # yfinance-only — same behavior as before this enrichment existed.
+      # EODHD live calls are gated by EODHD_ENRICHMENT_ENABLED, only set on
+      # the morning slot or a manual dispatch so live fundamentals fetches
+      # happen at most once per ticker per day. Midday/close runs read the
+      # on-disk cache populated by the morning run (see
+      # 02_Code/Python/Data_Fetch/eodhd_fundamentals.py: use_cache
+      # short-circuits before the API key check) and rely on EODHD_MAX_
+      # FUNDAMENTAL_CALLS=0 to refuse any uncached live call.
+      #
+      # The API key itself is injected unconditionally — earlier we tried
+      # ${{ (cond) && secrets.X || '' }} on the env line and the watchlist
+      # step received an empty string in production despite the env block
+      # showing "EODHD_API_KEY: ***" in the logs (run 25336931497, 2026-05-04
+      # workflow_dispatch: zero live_calls/cache_hits/deferred for 12 supp
+      # equities). Conditional expressions on env values are fragile when
+      # combined with secret masking; gating via a plain boolean instead
+      # keeps the secret reference unambiguous and the gate observable.
       - name: Generate watchlist rankings JSON (CSV + TradingView union)
         if: steps.gate.outputs.proceed == 'true'
         run: python 02_Code/Python/Scoring_Engine/generate_watchlist_rankings.py
         continue-on-error: true
         env:
-          EODHD_API_KEY: ${{ (github.event_name == 'workflow_dispatch' || steps.gate.outputs.slot == 'morning') && secrets.EODHD_API_KEY || '' }}
+          EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
+          # Boolean gate replaces the previous conditional-secret pattern.
+          # When 'false', the script forces EODHD_MAX_FUNDAMENTAL_CALLS=0 so
+          # no live API traffic is generated, regardless of whether the key
+          # is set. Cache hits remain free.
+          EODHD_ENRICHMENT_ENABLED: ${{ (github.event_name == 'workflow_dispatch' || steps.gate.outputs.slot == 'morning') && 'true' || 'false' }}
           # Hard cap on live EODHD fundamentals calls per run. Cache hits are
           # always allowed; this only bounds network traffic. Sized for the
           # free EODHD plan's daily fundamentals quota with headroom for

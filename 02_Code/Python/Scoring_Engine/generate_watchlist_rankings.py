@@ -308,7 +308,7 @@ def _classify_instrument(symbol, info):
     return "unknown"
 
 
-def fetch_supplemental(ticker_for_yf, eodhd_budget=None):
+def fetch_supplemental(ticker_for_yf, eodhd_budget=None, gate_counts=None):
     """Fetch fields via yfinance for a ticker outside the main pipeline.
 
     Mirrors the FUND_FIELDS set from 02_Code/Python/Data_Fetch/fetch_ohlcv.py
@@ -380,7 +380,15 @@ def fetch_supplemental(ticker_for_yf, eodhd_budget=None):
         eodhd_used = False
         eodhd_symbol_used = None
         eodhd_deferred = False
+        if kind != "equity":
+            if gate_counts is not None:
+                gate_counts["skipped_not_equity"] += 1
+        elif fetch_eodhd_fundamentals is None:
+            if gate_counts is not None:
+                gate_counts["skipped_helper_missing"] += 1
         if kind == "equity" and fetch_eodhd_fundamentals is not None:
+            if gate_counts is not None:
+                gate_counts["eligible"] += 1
             missing_signal = all(fundamentals.get(k) is None for k in
                                  ("trailingPE", "trailingEps", "revenueGrowth",
                                   "earningsGrowth", "profitMargins"))
@@ -738,7 +746,35 @@ def main():
         max_live_calls = int(os.environ.get("EODHD_MAX_FUNDAMENTAL_CALLS", "15"))
     except ValueError:
         max_live_calls = 15
+
+    # Boolean gate from the workflow. Defaults to "true" so local invocations
+    # (and CI environments without the new variable) keep prior behavior:
+    # respect the API-key presence and the call budget. Setting this to a
+    # falsey value forces the budget to zero so no live calls are made,
+    # regardless of whether the key is present. Cache hits remain free.
+    enabled_raw = os.environ.get("EODHD_ENRICHMENT_ENABLED", "true").strip().lower()
+    eodhd_enabled = enabled_raw in ("1", "true", "yes", "on")
+    if not eodhd_enabled:
+        max_live_calls = 0
+
     eodhd_budget = EodhdBudget(max_live_calls) if EodhdBudget is not None else None
+
+    # Pre-flight visibility on the EODHD enrichment gate. Logs the boolean
+    # without ever leaking the secret value. If key_present is False at the
+    # end of the run, the budget snapshot will also reflect skipped_no_key
+    # so the failure mode is unambiguous in the persisted JSON.
+    eodhd_key_in_env = bool(os.environ.get("EODHD_API_KEY", ""))
+    print(f"EODHD enrichment: enabled={eodhd_enabled} "
+          f"key_present={eodhd_key_in_env} "
+          f"max_live_calls={max_live_calls} "
+          f"helper_loaded={fetch_eodhd_fundamentals is not None}")
+    # Track per-row gating reasons that don't reach the helper at all so the
+    # final summary explains every supp row's outcome.
+    eodhd_gate_counts = {
+        "skipped_not_equity": 0,
+        "skipped_helper_missing": 0,
+        "eligible": 0,
+    }
 
     # Build rows. We rank later by AI_Score, then assign 1..N.
     pending = []  # list of dicts before ranking
@@ -759,7 +795,8 @@ def main():
 
         # 2) supplemental yfinance fetch for non-pipeline tickers
         if allow_supplemental:
-            fetched = fetch_supplemental(normalized, eodhd_budget=eodhd_budget)
+            fetched = fetch_supplemental(normalized, eodhd_budget=eodhd_budget,
+                                          gate_counts=eodhd_gate_counts)
             if fetched:
                 pending.append(row_from_supplemental(0, raw_sym, fetched))
                 source_counts["supplemental_yfinance"] += 1
@@ -849,6 +886,11 @@ def main():
             # exhaustion. Use this to audit whether a given run touched the
             # free-plan quota ceiling.
             **(eodhd_budget.as_dict() if eodhd_budget is not None else {}),
+            # Gating breakdown for the EODHD enrichment path. Together with
+            # the budget snapshot above, this fully accounts for every supp
+            # equity decision and lets future debugging answer "why was the
+            # call skipped" without re-running the pipeline.
+            "eodhd_gate":          eodhd_gate_counts,
         },
         "unavailable": unavailable,
         "rows":        rows,
@@ -863,6 +905,9 @@ def main():
     print(f"  data source counts: {source_counts}")
     if unavailable:
         print(f"  unavailable inputs: {[u['input'] for u in unavailable]}")
+    if eodhd_budget is not None:
+        print(f"  EODHD budget:       {eodhd_budget.as_dict()}")
+        print(f"  EODHD gate:         {eodhd_gate_counts}")
 
 
 if __name__ == "__main__":

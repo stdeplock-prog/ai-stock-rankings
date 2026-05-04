@@ -243,6 +243,64 @@ def test_eodhd_budget_metadata_in_output():
           f"deferred={sm['eodhd_deferred']} (OK)")
 
 
+def test_eodhd_enrichment_disabled_flag():
+    """EODHD_ENRICHMENT_ENABLED=false must force max_live_calls to 0 even
+    when EODHD_MAX_FUNDAMENTAL_CALLS is positive AND a key is in env. This
+    is the gate the workflow uses on midday/close runs to keep the live
+    quota intact while still allowing cache hits.
+
+    Conversely, leaving the flag unset preserves prior behavior (budget
+    honored as configured). The flag is the single source of truth for the
+    "is this run allowed to make live EODHD calls" question — no more
+    fragile conditional secret expressions in step env.
+    """
+    env = os.environ.copy()
+    env["WATCHLIST_DISABLE_SUPPLEMENTAL"] = "1"
+    env["EODHD_MAX_FUNDAMENTAL_CALLS"] = "15"
+    env["EODHD_ENRICHMENT_ENABLED"] = "false"
+    env["EODHD_API_KEY"] = "fake_should_not_be_used"
+    res = subprocess.run([sys.executable, GENERATOR],
+                         capture_output=True, text=True, env=env, cwd=REPO_ROOT)
+    if res.returncode != 0:
+        fail(f"generator exited {res.returncode}\nstderr={res.stderr}")
+    with open(OUTPUT) as f:
+        data = json.load(f)
+    sm = data["source_meta"]
+    # When disabled, configured budget collapses to 0 — the live-call gate
+    # below it then refuses every uncached symbol via the deferred path.
+    assert sm["eodhd_budget"] == 0, sm
+    assert sm["eodhd_live_calls"] == 0
+    # The pre-flight log line must announce the disabled state so future
+    # debugging can see the flag without having to guess the env.
+    assert "enabled=False" in res.stdout, res.stdout
+    print("  EODHD_ENRICHMENT_ENABLED=false forces budget=0: OK")
+
+
+def test_eodhd_observability_keys_in_output():
+    """source_meta must carry the new observability counters so the JSON
+    alone explains why a run made zero live calls. Pre-fix: a run could
+    legitimately produce live=cache=deferred=0 without any way to tell
+    'no key' from 'no eligible symbols' from 'all 401s'."""
+    env = os.environ.copy()
+    env["WATCHLIST_DISABLE_SUPPLEMENTAL"] = "1"
+    env["EODHD_ENRICHMENT_ENABLED"] = "true"
+    res = subprocess.run([sys.executable, GENERATOR],
+                         capture_output=True, text=True, env=env, cwd=REPO_ROOT)
+    if res.returncode != 0:
+        fail(f"generator exited {res.returncode}\nstderr={res.stderr}")
+    with open(OUTPUT) as f:
+        data = json.load(f)
+    sm = data["source_meta"]
+    for k in ("eodhd_key_present", "eodhd_attempted", "eodhd_skipped_no_key",
+              "eodhd_skipped_no_symbol", "eodhd_skipped_http_error",
+              "eodhd_skipped_request_error", "eodhd_gate"):
+        assert k in sm, f"source_meta missing {k!r}: {sorted(sm.keys())}"
+    gate = sm["eodhd_gate"]
+    for k in ("skipped_not_equity", "skipped_helper_missing", "eligible"):
+        assert k in gate, f"eodhd_gate missing {k!r}: {sorted(gate.keys())}"
+    print("  EODHD observability keys in output: OK")
+
+
 def test_eodhd_disabled_when_no_module():
     """Sanity: even if the EODHD module is somehow unavailable, the watchlist
     generator must still run (the import is wrapped). This is a regression
@@ -265,6 +323,8 @@ def main():
     test_eodhd_overlay_into_supp_row()
     test_eodhd_disabled_when_no_module()
     test_eodhd_budget_metadata_in_output()
+    test_eodhd_enrichment_disabled_flag()
+    test_eodhd_observability_keys_in_output()
     test_generator_runs()
     print("All tests passed.")
 

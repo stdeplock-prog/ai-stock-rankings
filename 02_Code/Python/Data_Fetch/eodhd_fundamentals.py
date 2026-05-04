@@ -221,22 +221,41 @@ class EodhdBudget:
     object lets callers cap the number of live (network) calls per run
     while still allowing unlimited cache hits.
 
-    Counters intentionally split:
-      * cache_hits — payload served from disk cache, no quota cost
-      * live_calls — actual network fetches that succeeded with a payload
-      * deferred — uncached symbols skipped because the live budget was
-        already exhausted; these rows should be flagged so the audit
-        trail makes the gap visible instead of silently producing None
+    Counters intentionally split. Every call to fetch_eodhd_fundamentals
+    must increment exactly one of these so the as_dict() snapshot fully
+    accounts for every attempted symbol — silent None returns made it
+    impossible to tell "no key" from "all 404" in production logs.
+
+      * attempted    — every fetch_eodhd_fundamentals() entry
+      * cache_hits   — payload served from disk cache, no quota cost
+      * live_calls   — actual network fetches that returned 200 + payload
+      * deferred     — uncached symbols skipped because the live budget
+                       was already exhausted (key was present)
+      * skipped_no_key  — uncached miss with no API key in env
+      * skipped_no_symbol — symbol normalized to None (crypto/blank)
+      * skipped_http_error — non-200 response from the API
+      * skipped_request_error — network/parse failure raised by request_fn
+      * key_present  — True iff the helper saw a non-empty API key on at
+                       least one call (set by the helper)
     """
 
     def __init__(self, max_live_calls: int):
         self.max_live_calls = max(0, int(max_live_calls))
+        self.attempted = 0
         self.cache_hits = 0
         self.live_calls = 0
         self.deferred = 0
+        self.skipped_no_key = 0
+        self.skipped_no_symbol = 0
+        self.skipped_http_error = 0
+        self.skipped_request_error = 0
+        self.key_present = False
 
     def has_room(self) -> bool:
         return self.live_calls < self.max_live_calls
+
+    def note_attempted(self) -> None:
+        self.attempted += 1
 
     def note_cache_hit(self) -> None:
         self.cache_hits += 1
@@ -247,12 +266,33 @@ class EodhdBudget:
     def note_deferred(self) -> None:
         self.deferred += 1
 
+    def note_no_key(self) -> None:
+        self.skipped_no_key += 1
+
+    def note_no_symbol(self) -> None:
+        self.skipped_no_symbol += 1
+
+    def note_http_error(self) -> None:
+        self.skipped_http_error += 1
+
+    def note_request_error(self) -> None:
+        self.skipped_request_error += 1
+
+    def note_key_present(self) -> None:
+        self.key_present = True
+
     def as_dict(self) -> dict:
         return {
-            "eodhd_budget":      self.max_live_calls,
-            "eodhd_cache_hits":  self.cache_hits,
-            "eodhd_live_calls":  self.live_calls,
-            "eodhd_deferred":    self.deferred,
+            "eodhd_budget":              self.max_live_calls,
+            "eodhd_key_present":         self.key_present,
+            "eodhd_attempted":           self.attempted,
+            "eodhd_cache_hits":          self.cache_hits,
+            "eodhd_live_calls":          self.live_calls,
+            "eodhd_deferred":            self.deferred,
+            "eodhd_skipped_no_key":      self.skipped_no_key,
+            "eodhd_skipped_no_symbol":   self.skipped_no_symbol,
+            "eodhd_skipped_http_error":  self.skipped_http_error,
+            "eodhd_skipped_request_error": self.skipped_request_error,
         }
 
 
@@ -284,8 +324,13 @@ def fetch_eodhd_fundamentals(symbol: str,
       dict mapped via map_eodhd_payload(), augmented with `_eodhd_symbol`
       so callers can record what was actually queried, or None.
     """
+    if budget is not None:
+        budget.note_attempted()
+
     eodhd_sym = normalize_symbol_for_eodhd(symbol)
     if not eodhd_sym:
+        if budget is not None:
+            budget.note_no_symbol()
         return None
 
     # Cache hit short-circuits both API-key and network checks. This is what
@@ -303,7 +348,11 @@ def fetch_eodhd_fundamentals(symbol: str,
 
     key = api_key if api_key is not None else os.environ.get("EODHD_API_KEY", "")
     if not key:
+        if budget is not None:
+            budget.note_no_key()
         return None
+    if budget is not None:
+        budget.note_key_present()
 
     # Live-call budget gate. Check AFTER the cache-hit short-circuit (so cache
     # hits are always free) and AFTER the api_key check (no key means no
@@ -318,6 +367,8 @@ def fetch_eodhd_fundamentals(symbol: str,
             import requests
             request_fn = requests.get
         except Exception:
+            if budget is not None:
+                budget.note_request_error()
             return None
 
     url = f"{EODHD_BASE}/fundamentals/{eodhd_sym}"
@@ -325,20 +376,31 @@ def fetch_eodhd_fundamentals(symbol: str,
         resp = request_fn(url, params={"api_token": key, "fmt": "json"}, timeout=30)
     except Exception as e:
         print(f"  EODHD fundamentals request failed for {eodhd_sym}: {e}")
+        if budget is not None:
+            budget.note_request_error()
         return None
 
     status = getattr(resp, "status_code", None)
     if status != 200:
         # 404 and 401 both legitimately produce None — let the caller fall
         # through to yfinance / metadata-only without flagging as failure.
+        # Logged + counted so a run with all-401s is distinguishable from
+        # "no key" or "no eligible symbols".
+        print(f"  EODHD fundamentals HTTP {status} for {eodhd_sym}")
+        if budget is not None:
+            budget.note_http_error()
         return None
 
     try:
         payload = resp.json()
     except Exception as e:
         print(f"  EODHD fundamentals JSON parse failed for {eodhd_sym}: {e}")
+        if budget is not None:
+            budget.note_request_error()
         return None
     if not isinstance(payload, dict) or not payload:
+        if budget is not None:
+            budget.note_request_error()
         return None
 
     if use_cache:

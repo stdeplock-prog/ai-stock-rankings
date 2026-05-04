@@ -267,11 +267,120 @@ def test_budget_zero_defers_all_uncached(tmp_cache):
     snapshot = budget.as_dict()
     assert snapshot == {
         "eodhd_budget": 0,
+        "eodhd_key_present": True,
+        "eodhd_attempted": 1,
         "eodhd_cache_hits": 0,
         "eodhd_live_calls": 0,
         "eodhd_deferred": 1,
+        "eodhd_skipped_no_key": 0,
+        "eodhd_skipped_no_symbol": 0,
+        "eodhd_skipped_http_error": 0,
+        "eodhd_skipped_request_error": 0,
     }, snapshot
     print("  budget=0 defers all uncached, no network: OK")
+
+
+def test_observability_no_key_path(tmp_cache):
+    """Every helper entry must increment exactly one accounting counter so
+    a run with zero live calls is unambiguously explained by the snapshot.
+    The pre-fix bug: 12 supp equities entered the helper with no key, all
+    returned None, but live_calls / cache_hits / deferred were ALL zero —
+    indistinguishable from "the gate was never reached".
+    """
+    budget = ef.EodhdBudget(max_live_calls=15)
+    out = ef.fetch_eodhd_fundamentals("AAPL", api_key="", use_cache=True,
+                                       budget=budget)
+    assert out is None
+    snapshot = budget.as_dict()
+    assert snapshot["eodhd_attempted"] == 1, snapshot
+    assert snapshot["eodhd_skipped_no_key"] == 1, snapshot
+    assert snapshot["eodhd_key_present"] is False, snapshot
+    assert snapshot["eodhd_live_calls"] == 0
+    assert snapshot["eodhd_deferred"] == 0
+    print("  observability: no-key path counted: OK")
+
+
+def test_observability_http_error_path(tmp_cache):
+    """A 401/404 must increment skipped_http_error, not deferred or live_calls,
+    AND must mark key_present so the auditor can tell 'all 401s' from
+    'no key'."""
+    def fake_get(url, params=None, timeout=None):
+        return _fake_response(401, {})
+    budget = ef.EodhdBudget(max_live_calls=15)
+    out = ef.fetch_eodhd_fundamentals("WHATEVER", api_key="k", use_cache=False,
+                                       request_fn=fake_get, budget=budget)
+    assert out is None
+    snapshot = budget.as_dict()
+    assert snapshot["eodhd_attempted"] == 1
+    assert snapshot["eodhd_skipped_http_error"] == 1
+    assert snapshot["eodhd_key_present"] is True
+    assert snapshot["eodhd_live_calls"] == 0
+    print("  observability: http-error path counted: OK")
+
+
+def test_observability_no_symbol_path(tmp_cache):
+    """Crypto / blank symbols hit the no_symbol counter rather than vanishing
+    silently."""
+    budget = ef.EodhdBudget(max_live_calls=15)
+    out = ef.fetch_eodhd_fundamentals("BTC-USD", api_key="k", use_cache=True,
+                                       budget=budget)
+    assert out is None
+    snapshot = budget.as_dict()
+    assert snapshot["eodhd_attempted"] == 1
+    assert snapshot["eodhd_skipped_no_symbol"] == 1
+    print("  observability: no-symbol path counted: OK")
+
+
+def test_observability_full_account(tmp_cache):
+    """A mix of paths must produce a snapshot whose attempted == sum of all
+    terminal counters. This is the invariant that makes the snapshot a
+    useful audit log."""
+    payload = {"General": {"Name": "X"}, "Highlights": {"PERatio": 10.0}}
+    def ok_get(url, params=None, timeout=None):
+        return _fake_response(200, payload)
+    def err_get(url, params=None, timeout=None):
+        return _fake_response(404, {})
+
+    budget = ef.EodhdBudget(max_live_calls=2)
+    # 1 cache hit (pre-populate)
+    os.makedirs(ef.CACHE_DIR, exist_ok=True)
+    with open(os.path.join(ef.CACHE_DIR, "PRE.US.json"), "w") as f:
+        json.dump(payload, f)
+    ef.fetch_eodhd_fundamentals("PRE", api_key="k", use_cache=True,
+                                 request_fn=ok_get, budget=budget)
+    # 2 live successes
+    ef.fetch_eodhd_fundamentals("ZA", api_key="k", use_cache=True,
+                                 request_fn=ok_get, budget=budget)
+    ef.fetch_eodhd_fundamentals("ZB", api_key="k", use_cache=True,
+                                 request_fn=ok_get, budget=budget)
+    # 1 deferred (budget full)
+    ef.fetch_eodhd_fundamentals("ZC", api_key="k", use_cache=True,
+                                 request_fn=ok_get, budget=budget)
+    # 1 no-symbol
+    ef.fetch_eodhd_fundamentals("BTC-USD", api_key="k", use_cache=True,
+                                 budget=budget)
+    # 1 no-key (with separate budget so we can reach this branch)
+    budget2 = ef.EodhdBudget(max_live_calls=10)
+    ef.fetch_eodhd_fundamentals("XYZ", api_key="", use_cache=True,
+                                 budget=budget2)
+
+    s1 = budget.as_dict()
+    terminal = (s1["eodhd_cache_hits"] + s1["eodhd_live_calls"] +
+                s1["eodhd_deferred"] + s1["eodhd_skipped_no_key"] +
+                s1["eodhd_skipped_no_symbol"] + s1["eodhd_skipped_http_error"] +
+                s1["eodhd_skipped_request_error"])
+    assert terminal == s1["eodhd_attempted"], s1
+    assert s1["eodhd_cache_hits"] == 1
+    assert s1["eodhd_live_calls"] == 2
+    assert s1["eodhd_deferred"] == 1
+    assert s1["eodhd_skipped_no_symbol"] == 1
+    assert s1["eodhd_attempted"] == 5
+
+    s2 = budget2.as_dict()
+    assert s2["eodhd_attempted"] == 1
+    assert s2["eodhd_skipped_no_key"] == 1
+    assert s2["eodhd_key_present"] is False
+    print("  observability: attempted == sum of terminal counters: OK")
 
 
 def test_cache_makes_test_runnable_without_key(tmp_cache):
@@ -334,6 +443,10 @@ def main():
     _run_with_tmp_cache(test_budget_cache_hits_are_free)
     _run_with_tmp_cache(test_budget_no_key_does_not_count_deferred)
     _run_with_tmp_cache(test_budget_zero_defers_all_uncached)
+    _run_with_tmp_cache(test_observability_no_key_path)
+    _run_with_tmp_cache(test_observability_http_error_path)
+    _run_with_tmp_cache(test_observability_no_symbol_path)
+    _run_with_tmp_cache(test_observability_full_account)
     print("All eodhd_fundamentals tests passed.")
 
 
