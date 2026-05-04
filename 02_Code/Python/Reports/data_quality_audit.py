@@ -244,6 +244,23 @@ def audit_watchlist(payload: dict | None) -> dict:
     section["metrics"]["supp_summary"] = supp
     section["metrics"]["supp_by_kind"] = source_meta.get("supp_by_kind") or {}
     section["metrics"]["supp_by_enrichment"] = source_meta.get("supp_by_enrichment") or {}
+    # yfinance .info cache provenance — distinguishes "yfinance was rate-
+    # limited but cache covered us" from "fundamentals genuinely missing".
+    yfc = source_meta.get("yfinance_info_cache") or {}
+    section["metrics"]["yfinance_info_cache"] = yfc
+    section["metrics"]["supp_info_sources"] = source_meta.get("supp_info_sources") or {}
+    section["metrics"]["supp_metadata_stale"] = source_meta.get("supp_metadata_stale", 0)
+    if yfc:
+        fb = int(yfc.get("fallback_to_cache") or 0)
+        rl = int(yfc.get("rate_limit_or_empty") or 0)
+        if fb > 0:
+            section["checks"].append(_check(
+                "yfinance_cache_fallback", "WARN" if rl > fb else "OK",
+                f"{fb} SUPP rows served from yfinance cache fallback (rate-limit/empty: {rl})"))
+        else:
+            section["checks"].append(_check(
+                "yfinance_cache_fallback", "OK",
+                f"no cache fallbacks; live network={yfc.get('network_success', 0)}"))
 
     # SUPP full-fundamentals proportion check
     supp_total = supp.get("total")

@@ -289,6 +289,8 @@
         <a href="./reports/benchmark-review.html" id="benchReviewLink" style="color:var(--muted);text-decoration:none">Benchmark review</a>
         <span style="color:var(--muted)"> &middot; </span>
         <a href="./reports/scoring-parity-review.html" id="scoringParityLink" style="color:var(--muted);text-decoration:none">Scoring parity</a>
+        <span style="color:var(--muted)"> &middot; </span>
+        <a href="./reports/schedule-reliability.html" id="scheduleReliabilityLink" style="color:var(--muted);text-decoration:none">Schedule reliability</a>
       </div>
     </div>
 
@@ -625,6 +627,21 @@
       } catch (_e) { /* ignore */ }
     }
 
+    async function decorateScheduleReliabilityLink() {
+      try {
+        const r = await fetch('./data/reports/schedule_reliability.json', { cache: 'no-store' });
+        if (!r.ok) return;
+        const j = await r.json();
+        const a = document.getElementById('scheduleReliabilityLink');
+        if (!a || !j || !j.overall) return;
+        const color = j.overall === 'OK' ? '#3c8c3c'
+                    : j.overall === 'WARN' ? '#b88a00'
+                    : '#c0392b';
+        a.style.color = color;
+        a.textContent = `Schedule reliability: ${j.overall}`;
+      } catch (_e) { /* ignore */ }
+    }
+
     function render(rows) {
       const tb = document.getElementById('tbody');
 
@@ -741,6 +758,7 @@
         await renderTasks();
         decorateAuditLink();
         decorateScoringParityLink();
+        decorateScheduleReliabilityLink();
         applySearch();
       } catch (e) {
         document.getElementById('errMsg').textContent = `Error loading dashboard: ${e.message}`;

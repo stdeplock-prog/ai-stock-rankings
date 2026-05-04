@@ -219,10 +219,46 @@ jobs:
           fi
 
       - name: Set up Python 3.11
-        if: steps.gate.outputs.proceed == 'true'
+        # Set up Python on every firing — we need it even when proceed=false
+        # so that skip records can be appended to workflow_runs.jsonl.
         uses: actions/setup-python@v6
         with:
           python-version: '3.11'
+
+      # Record the gate decision into data/reports/workflow_runs.jsonl on
+      # every firing (proceed=true OR proceed=false). The schedule
+      # reliability report uses this to spot dropped morning slots like
+      # the May 4 2026 incident. No external dependencies — stdlib only.
+      - name: Record run gate (skip path)
+        if: steps.gate.outputs.proceed != 'true'
+        env:
+          SR_EVENT_NAME: ${{ github.event_name }}
+          SR_SLOT: ${{ steps.gate.outputs.slot }}
+          SR_PROCEEDED: 'false'
+          SR_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SR_COMMIT_SHA: ${{ github.sha }}
+          SR_SKIP_REASON: ${{ steps.gate.outputs.slot }}
+        run: |
+          python 02_Code/Python/Reports/schedule_reliability.py --record-run
+
+      # Skip-only commit: when proceed=false the heavy pipeline is not
+      # running, but we still want the JSONL update committed so the
+      # reliability report has visibility into delivered skips. This is a
+      # tiny, safe commit that avoids the "no changes" path.
+      - name: Commit skip-only run record
+        if: steps.gate.outputs.proceed != 'true' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/reports/workflow_runs.jsonl 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No JSONL changes to commit (skip path)."
+            exit 0
+          fi
+          git commit -m "[auto] schedule reliability skip record $(date -u '+%Y-%m-%d %H:%M') UTC"
+          git fetch origin main
+          git pull --rebase origin main || true
+          git push origin HEAD:main || true
 
       - name: Install dependencies
         if: steps.gate.outputs.proceed == 'true'
@@ -356,6 +392,35 @@ jobs:
         run: python 02_Code/Python/Reports/benchmark_review.py
         continue-on-error: true
 
+      # Record the run on the proceed path before the reliability report is
+      # generated so the report sees the current run in its JSONL input.
+      # rankings.json was just rewritten by the export step above, so we
+      # can pull as_of/open_date directly from it.
+      - name: Record run gate (proceed path)
+        if: steps.gate.outputs.proceed == 'true'
+        env:
+          SR_EVENT_NAME: ${{ github.event_name }}
+          SR_SLOT: ${{ steps.gate.outputs.slot }}
+          SR_PROCEEDED: 'true'
+          SR_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SR_COMMIT_SHA: ${{ github.sha }}
+        run: |
+          set -e
+          AS_OF=$(python -c "import json,sys; d=json.load(open('data/rankings.json')); print(d.get('as_of','') or '')" 2>/dev/null || echo "")
+          OPEN_DATE=$(python -c "import json,sys; d=json.load(open('data/rankings.json')); print(d.get('open_date','') or '')" 2>/dev/null || echo "")
+          export SR_AS_OF="$AS_OF"
+          export SR_OPEN_DATE="$OPEN_DATE"
+          python 02_Code/Python/Reports/schedule_reliability.py --record-run
+
+      # Schedule reliability report — reads workflow_runs.jsonl plus the
+      # current rankings.json to produce a calendar of recent slot deliveries
+      # and freshness signals. continue-on-error keeps a transient failure
+      # from blocking the rankings commit.
+      - name: Generate schedule reliability report
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/schedule_reliability.py
+        continue-on-error: true
+
       - name: Commit and push updated data files
         if: steps.gate.outputs.proceed == 'true' && github.ref == 'refs/heads/main'
         run: |
@@ -374,11 +439,15 @@ jobs:
           git add data/reports/benchmark_review.json 2>/dev/null || true
           git add data/reports/benchmark_snapshots.jsonl 2>/dev/null || true
           git add data/reports/scoring_parity_review.json 2>/dev/null || true
+          git add data/reports/schedule_reliability.json 2>/dev/null || true
+          git add data/reports/workflow_runs.jsonl 2>/dev/null || true
+          git add data/cache/yfinance_info 2>/dev/null || true
           git add reports/market-risk-monitor.html 2>/dev/null || true
           git add reports/options-watchlist.html 2>/dev/null || true
           git add reports/data-quality-audit.html 2>/dev/null || true
           git add reports/benchmark-review.html 2>/dev/null || true
           git add reports/scoring-parity-review.html 2>/dev/null || true
+          git add reports/schedule-reliability.html 2>/dev/null || true
           # tasks.json is stamped by the daily report scripts (last_run /
           # next_run / status / summary). If we don't stage it here, the later
           # `git pull --rebase` aborts with "unstaged changes".

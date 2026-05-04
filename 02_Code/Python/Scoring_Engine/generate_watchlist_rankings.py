@@ -43,6 +43,10 @@ try:
 except Exception:
     fetch_eodhd_fundamentals = None  # type: ignore
     EodhdBudget = None  # type: ignore
+try:
+    import yfinance_info_cache as yf_cache  # noqa: E402
+except Exception:
+    yf_cache = None  # type: ignore
 
 SOURCES_FILE   = os.path.join(REPO_ROOT, "data", "watchlist_sources.json")
 RANKINGS_CSV   = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs", "rankings.csv")
@@ -380,7 +384,8 @@ def _classify_instrument(symbol, info):
     return "unknown"
 
 
-def fetch_supplemental(ticker_for_yf, eodhd_budget=None, gate_counts=None):
+def fetch_supplemental(ticker_for_yf, eodhd_budget=None, gate_counts=None,
+                        cache_counters=None, run_url=None):
     """Fetch fields via yfinance for a ticker outside the main pipeline.
 
     Mirrors the FUND_FIELDS set from 02_Code/Python/Data_Fetch/fetch_ohlcv.py
@@ -391,6 +396,11 @@ def fetch_supplemental(ticker_for_yf, eodhd_budget=None, gate_counts=None):
 
     Returns dict with price/closes plus a `fundamentals` sub-dict and an
     `instrument_kind` classification, or None on failure.
+
+    cache_counters: optional dict for the watchlist source_meta to track
+    how many SUPP rows hit the persistent yfinance .info cache vs. went
+    live vs. fell back after a rate-limit. The cache survives runs so
+    SUPP rows stay populated across yfinance rate-limit episodes.
     """
     try:
         import yfinance as yf
@@ -413,11 +423,36 @@ def fetch_supplemental(ticker_for_yf, eodhd_budget=None, gate_counts=None):
             vol_millions = round(float(hist["Volume"].dropna().iloc[-1]) / 1_000_000, 1)
         except Exception:
             vol_millions = 0
+
+        # .info via persistent cache. yfinance.info is the rate-limit hot
+        # spot; on the May 4 2026 incident we saw ~64 SUPP fundamentals
+        # collapse to 0 in a single run because every .info came back
+        # empty. The cache layer (yfinance_info_cache) returns a fresh
+        # entry without calling the network when one is available, and
+        # falls back to a recent cached payload when yfinance comes back
+        # blank. Either way, a single bad day doesn't wipe the watchlist.
         info = {}
-        try:
-            info = t.info or {}
-        except Exception:
-            info = {}
+        info_source = "yfinance"
+        cache_age_days = None
+        metadata_stale = False
+        if yf_cache is not None:
+            def _live(_sym):
+                try:
+                    return t.info or {}
+                except Exception:
+                    return {}
+            res = yf_cache.get_info(ticker_for_yf, fetcher=_live,
+                                     counters=cache_counters,
+                                     run_url=run_url)
+            info = res.get("info") or {}
+            info_source = res.get("source") or "yfinance"
+            cache_age_days = res.get("cache_age_days")
+            metadata_stale = bool(res.get("metadata_stale"))
+        else:
+            try:
+                info = t.info or {}
+            except Exception:
+                info = {}
 
         # Same fundamental field set the main pipeline persists, so dashboard
         # rows look the same regardless of origin. Missing fields stay None.
@@ -556,6 +591,12 @@ def fetch_supplemental(ticker_for_yf, eodhd_budget=None, gate_counts=None):
             "eodhd_symbol":    eodhd_symbol_used,
             "eodhd_deferred":  eodhd_deferred,
             "instrument_kind": kind,
+            # yfinance .info cache provenance — exposes when a row was
+            # served from the persistent cache so audits can distinguish
+            # genuinely missing data from a yfinance rate-limit episode.
+            "info_source":     info_source,
+            "cache_age_days":  cache_age_days,
+            "metadata_stale":  metadata_stale,
         }
     except Exception as e:
         print(f"  yfinance fetch failed for {ticker_for_yf}: {e}")
@@ -799,6 +840,14 @@ def row_from_supplemental(rank, raw_sym, fetched):
         "instrument_kind":  kind,
         "enrichment_source": enrichment_source,
         "data_source":      "supplemental_yfinance",
+        # yfinance .info cache provenance for this row. info_source is
+        # one of: yfinance / yfinance_fresh_cache / yfinance_cache_fallback /
+        # yfinance_empty. metadata_stale=True means the cache served data
+        # older than the freshness threshold (caller may surface "stale"
+        # badge on the dashboard). cache_age_days is None for live fetches.
+        "info_source":      fetched.get("info_source"),
+        "cache_age_days":   fetched.get("cache_age_days"),
+        "metadata_stale":   bool(fetched.get("metadata_stale")),
     }
 
 
@@ -881,6 +930,13 @@ def main():
         "reclassified_to_equity": 0,
     }
 
+    # yfinance .info cache hit/miss/fallback counters. Surfaced under
+    # source_meta.yfinance_info_cache so the data-quality audit can
+    # distinguish "genuinely missing data" from "yfinance was rate-limited
+    # but cache covered us" — the latter should not WARN on supp coverage.
+    yf_cache_counters: dict[str, int] = {}
+    run_url = os.environ.get("GITHUB_RUN_URL", "") or None
+
     # Build rows. We rank later by AI_Score, then assign 1..N.
     pending = []  # list of dicts before ranking
     for raw_sym in combined:
@@ -901,7 +957,9 @@ def main():
         # 2) supplemental yfinance fetch for non-pipeline tickers
         if allow_supplemental:
             fetched = fetch_supplemental(normalized, eodhd_budget=eodhd_budget,
-                                          gate_counts=eodhd_gate_counts)
+                                          gate_counts=eodhd_gate_counts,
+                                          cache_counters=yf_cache_counters,
+                                          run_url=run_url)
             if fetched:
                 pending.append(row_from_supplemental(0, raw_sym, fetched))
                 source_counts["supplemental_yfinance"] += 1
@@ -935,6 +993,8 @@ def main():
     # technical-only / unavailable.
     supp_kind_counts = {}
     supp_enrich_counts = {}
+    supp_info_source_counts: dict[str, int] = {}
+    supp_metadata_stale = 0
     # Higher-level summary aimed at the watchlist UI (option #4).
     supp_summary = {
         "total":           0,
@@ -962,6 +1022,10 @@ def main():
             supp_summary["technical_only"] += 1
         if r.get("eodhd_fundamentals"):
             supp_summary["eodhd_enriched"] += 1
+        info_src = r.get("info_source") or "unknown"
+        supp_info_source_counts[info_src] = supp_info_source_counts.get(info_src, 0) + 1
+        if r.get("metadata_stale"):
+            supp_metadata_stale += 1
     supp_summary["unavailable"] = len(unavailable)
 
     central_now = get_central_now()
@@ -996,6 +1060,13 @@ def main():
             # equity decision and lets future debugging answer "why was the
             # call skipped" without re-running the pipeline.
             "eodhd_gate":          eodhd_gate_counts,
+            # yfinance .info persistent cache accounting. Use this to
+            # distinguish "genuinely missing fundamentals" from "yfinance
+            # rate-limited and we served cached metadata" — the latter
+            # should not raise an alert on SUPP coverage drops.
+            "yfinance_info_cache": yf_cache_counters,
+            "supp_info_sources":   supp_info_source_counts,
+            "supp_metadata_stale": supp_metadata_stale,
         },
         "unavailable": unavailable,
         "rows":        rows,

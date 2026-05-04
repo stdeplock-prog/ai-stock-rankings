@@ -1,0 +1,180 @@
+{
+  "generated_at": "2026-05-04T21:02:20Z",
+  "generated_at_chicago": "2026-05-04 04:02 PM CDT",
+  "overall": "FAIL",
+  "sections": {
+    "calendar": {
+      "checks": [
+        {
+          "name": "missing_slots",
+          "status": "FAIL",
+          "message": "6 expected slot(s) missing in last 5 weekdays \u2014 investigate GH Actions delivery",
+          "data": {}
+        },
+        {
+          "name": "duplicate_slots",
+          "status": "WARN",
+          "message": "6 day-slot pair(s) had multiple proceed events \u2014 slot-level idempotency may be misfiring",
+          "data": {}
+        },
+        {
+          "name": "history_source",
+          "status": "WARN",
+          "message": "workflow_runs.jsonl missing \u2014 calendar derived from git log fallback",
+          "data": {}
+        }
+      ],
+      "metrics": {
+        "calendar": {
+          "rows": [
+            {
+              "date": "2026-04-28",
+              "slot_hits": {
+                "morning": 0,
+                "midday": 0,
+                "close": 3
+              },
+              "missing": [
+                "morning",
+                "midday"
+              ],
+              "duplicate": [
+                "close"
+              ]
+            },
+            {
+              "date": "2026-04-29",
+              "slot_hits": {
+                "morning": 0,
+                "midday": 1,
+                "close": 1
+              },
+              "missing": [
+                "morning"
+              ],
+              "duplicate": []
+            },
+            {
+              "date": "2026-04-30",
+              "slot_hits": {
+                "morning": 2,
+                "midday": 0,
+                "close": 3
+              },
+              "missing": [
+                "midday"
+              ],
+              "duplicate": [
+                "morning",
+                "close"
+              ]
+            },
+            {
+              "date": "2026-05-01",
+              "slot_hits": {
+                "morning": 2,
+                "midday": 3,
+                "close": 0
+              },
+              "missing": [
+                "close"
+              ],
+              "duplicate": [
+                "morning",
+                "midday"
+              ]
+            },
+            {
+              "date": "2026-05-04",
+              "slot_hits": {
+                "morning": 0,
+                "midday": 3,
+                "close": 1
+              },
+              "missing": [
+                "morning"
+              ],
+              "duplicate": [
+                "midday"
+              ]
+            }
+          ],
+          "missing_count": 6,
+          "duplicate_count": 6,
+          "lookback_days": 5
+        }
+      },
+      "status": "FAIL"
+    },
+    "recency": {
+      "checks": [
+        {
+          "name": "rankings_freshness",
+          "status": "OK",
+          "message": "as_of 2026-05-04 03:43 PM CDT (age 0.3h)",
+          "data": {}
+        },
+        {
+          "name": "last_run_event",
+          "status": "OK",
+          "message": "latest run: event=git slot=close at 2026-05-04 15:44",
+          "data": {}
+        }
+      ],
+      "metrics": {
+        "chicago_now": "2026-05-04 16:02",
+        "is_weekend": false,
+        "expected_slot_now": "close",
+        "rankings_as_of": "2026-05-04 03:43 PM CDT",
+        "rankings_age_hours": 0.32,
+        "last_run": {
+          "ts_utc": "2026-05-04T20:44:35Z",
+          "ts_chicago": "2026-05-04 15:44",
+          "chicago_date": "2026-05-04",
+          "event_name": "git",
+          "slot": "close",
+          "proceeded": true,
+          "commit_sha": "f599ebc6edb8f10a237291c86af3312c56f7e9c2",
+          "source": "git_log_fallback"
+        }
+      },
+      "status": "OK"
+    },
+    "skip_pattern": {
+      "checks": [
+        {
+          "name": "skip_volume",
+          "status": "OK",
+          "message": "0 skip records in 14d (64 proceeded)",
+          "data": {}
+        }
+      ],
+      "metrics": {
+        "proceed_14d": 64,
+        "skip_14d": 0,
+        "skip_reasons_14d": {}
+      },
+      "status": "OK"
+    },
+    "event_mix": {
+      "checks": [
+        {
+          "name": "event_mix",
+          "status": "OK",
+          "message": "schedule=0 dispatch=0 other=64",
+          "data": {}
+        }
+      ],
+      "metrics": {
+        "proceed_14d_by_event": {
+          "schedule": 0,
+          "workflow_dispatch": 0,
+          "other": 64
+        }
+      },
+      "status": "OK"
+    }
+  },
+  "history_records": 72,
+  "history_source": "git_log_fallback"
+}
