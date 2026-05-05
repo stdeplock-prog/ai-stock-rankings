@@ -1,0 +1,163 @@
+{
+  "generated_at": "2026-05-05T19:26:50Z",
+  "generated_at_chicago": "2026-05-05 02:26 PM CDT",
+  "overall": "WARN",
+  "sections": {
+    "data_freshness": {
+      "checks": [
+        {
+          "name": "rankings_freshness",
+          "status": "OK",
+          "message": "as_of 2026-05-05 12:32 PM CDT (age 1.9h, weekend=False)"
+        },
+        {
+          "name": "today_live",
+          "status": "OK",
+          "message": "data is from today (Chicago)"
+        }
+      ],
+      "metrics": {
+        "as_of": "2026-05-05 12:32 PM CDT",
+        "open_date": "2026-05-05",
+        "row_count": 100,
+        "is_weekend": false,
+        "chicago_now": "2026-05-05 14:26",
+        "rankings_age_hours": 1.91,
+        "today_live": true
+      },
+      "status": "OK"
+    },
+    "data_quality": {
+      "checks": [
+        {
+          "name": "data_quality_overall",
+          "status": "OK",
+          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+        }
+      ],
+      "metrics": {
+        "overall": "OK",
+        "generated_at": "2026-05-05T17:32:33Z",
+        "by_section": {
+          "rankings": "OK",
+          "watchlist": "OK",
+          "tasks": "OK"
+        },
+        "critical_section_fail": false
+      },
+      "status": "OK"
+    },
+    "schedule_reliability": {
+      "checks": [
+        {
+          "name": "schedule_reliability",
+          "status": "WARN",
+          "message": "schedule reliability FAIL/recovered: today satisfied, 10 missing in lookback"
+        }
+      ],
+      "metrics": {
+        "overall_raw": "FAIL",
+        "missing_count": 10,
+        "lookback_days": 5,
+        "today_missing": [],
+        "today_satisfied": true,
+        "last_run_event": "workflow_dispatch",
+        "last_run_slot": "manual",
+        "last_run_ts_chicago": "2026-05-05 12:32",
+        "recovered": true,
+        "overall_effective": "WARN"
+      },
+      "status": "WARN"
+    },
+    "watchlist": {
+      "checks": [
+        {
+          "name": "supp_coverage",
+          "status": "OK",
+          "message": "SUPP 65/76 full fundamentals; price_only=9 tech_only=2"
+        },
+        {
+          "name": "yfinance_cache",
+          "status": "OK",
+          "message": "yfinance cache hits=45 misses=31"
+        }
+      ],
+      "metrics": {
+        "supp_summary": {
+          "total": 76,
+          "full_fundamentals": 65,
+          "eodhd_enriched": 0,
+          "metadata_only": 0,
+          "price_only": 9,
+          "technical_only": 2,
+          "unavailable": 1
+        },
+        "yfinance_info_cache": {
+          "cache_hit_fresh": 45,
+          "cache_miss": 31,
+          "network_call": 31,
+          "fallback_to_cache": 0,
+          "rate_limit_or_empty": 0,
+          "network_success": 31
+        },
+        "unavailable_count": 1,
+        "scored": 143,
+        "supp_degraded_pct": 0.145
+      },
+      "status": "OK"
+    },
+    "benchmark": {
+      "checks": [
+        {
+          "name": "benchmark_snapshots",
+          "status": "OK",
+          "message": "3 snapshot(s); \u22651 horizon has forward results"
+        }
+      ],
+      "metrics": {
+        "snapshots_kept": 3,
+        "horizons": [
+          "1d",
+          "3d",
+          "5d",
+          "10d",
+          "20d"
+        ],
+        "any_horizon_completed": true,
+        "findings_warn": 5,
+        "findings_fail": 0
+      },
+      "status": "OK"
+    },
+    "parity": {
+      "checks": [
+        {
+          "name": "scoring_parity",
+          "status": "WARN",
+          "message": "parity overall=FAIL; blocker fields=['low_risk']"
+        }
+      ],
+      "metrics": {
+        "overall": "FAIL",
+        "cross_group_parity_status": "FAIL",
+        "fail_fields": [
+          "low_risk"
+        ]
+      },
+      "status": "WARN"
+    }
+  },
+  "inputs": {
+    "rankings_present": true,
+    "watchlist_present": true,
+    "data_quality_present": true,
+    "schedule_reliability_present": true,
+    "benchmark_present": true,
+    "parity_present": true
+  },
+  "action_items": [
+    "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: today satisfied, 10 missing in lookback",
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['low_risk']"
+  ],
+  "summary": "Fresh 12:32 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
+}

@@ -414,6 +414,17 @@ jobs:
         run: python 02_Code/Python/Reports/schedule_reliability.py
         continue-on-error: true
 
+      # Midday Health Check — operational rollup that consumes the other
+      # reports' artifacts and writes a single OK/WARN/FAIL summary plus
+      # action items. Runs on EVERY proceeded slot (not just morning) so
+      # the dashboard's task table reflects the current state of the
+      # pipeline rather than the morning snapshot. Must run last so the
+      # other reports' JSONs already exist on disk when it reads them.
+      - name: Generate midday health check
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/midday_health_check.py
+        continue-on-error: true
+
       - name: Commit and push updated data files
         if: steps.gate.outputs.proceed == 'true' && github.ref == 'refs/heads/main'
         run: |
@@ -433,6 +444,7 @@ jobs:
           git add data/reports/benchmark_snapshots.jsonl 2>/dev/null || true
           git add data/reports/scoring_parity_review.json 2>/dev/null || true
           git add data/reports/schedule_reliability.json 2>/dev/null || true
+          git add data/reports/midday_health_check.json 2>/dev/null || true
           git add data/reports/workflow_runs.jsonl 2>/dev/null || true
           git add data/cache/yfinance_info 2>/dev/null || true
           git add reports/market-risk-monitor.html 2>/dev/null || true
@@ -441,6 +453,7 @@ jobs:
           git add reports/benchmark-review.html 2>/dev/null || true
           git add reports/scoring-parity-review.html 2>/dev/null || true
           git add reports/schedule-reliability.html 2>/dev/null || true
+          git add reports/midday-health-check.html 2>/dev/null || true
           # tasks.json is stamped by the daily report scripts (last_run /
           # next_run / status / summary). If we don't stage it here, the later
           # `git pull --rebase` aborts with "unstaged changes".
