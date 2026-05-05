@@ -374,6 +374,16 @@ jobs:
         run: python 02_Code/Python/Reports/scoring_parity_review.py
         continue-on-error: true
 
+      # Low-Risk Drift Review — diagnostic report that explains *why* the
+      # parity review's low_risk gap exists (selection bias vs data gap vs
+      # formula issue). Reads scoring_parity_review.json for context, so it
+      # must run AFTER the parity review. Read-only, no network. Runs before
+      # the midday health check so both can read its JSON output.
+      - name: Generate low-risk drift review
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/low_risk_drift_review.py
+        continue-on-error: true
+
       # Benchmark Review — model-validation report comparing leader buckets
       # against momentum/trend, sector concentration, SPY/QQQ/IWM context,
       # and a forward-performance snapshot scaffold. Reads existing artifacts
@@ -443,6 +453,7 @@ jobs:
           git add data/reports/benchmark_review.json 2>/dev/null || true
           git add data/reports/benchmark_snapshots.jsonl 2>/dev/null || true
           git add data/reports/scoring_parity_review.json 2>/dev/null || true
+          git add data/reports/low_risk_drift_review.json 2>/dev/null || true
           git add data/reports/schedule_reliability.json 2>/dev/null || true
           git add data/reports/midday_health_check.json 2>/dev/null || true
           git add data/reports/workflow_runs.jsonl 2>/dev/null || true
@@ -452,6 +463,7 @@ jobs:
           git add reports/data-quality-audit.html 2>/dev/null || true
           git add reports/benchmark-review.html 2>/dev/null || true
           git add reports/scoring-parity-review.html 2>/dev/null || true
+          git add reports/low-risk-drift-review.html 2>/dev/null || true
           git add reports/schedule-reliability.html 2>/dev/null || true
           git add reports/midday-health-check.html 2>/dev/null || true
           # tasks.json is stamped by the daily report scripts (last_run /
