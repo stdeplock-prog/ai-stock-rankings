@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-05T16:07:10Z",
-  "overall": "WARN",
+  "generated_at": "2026-05-05T17:32:33Z",
+  "overall": "OK",
   "sections": {
     "rankings": {
       "present": true,
@@ -14,13 +14,13 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-05 11:06 AM CDT (age 0.0h)",
+          "message": "as_of 2026-05-05 12:32 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "missing_market_cap",
           "status": "OK",
-          "message": "1/100 (1%)",
+          "message": "0/100 (0%)",
           "data": {}
         },
         {
@@ -44,7 +44,7 @@
         {
           "name": "mov_distribution",
           "status": "OK",
-          "message": "+72 / -25 / 0=3 / missing=0",
+          "message": "+13 / -51 / 0=36 / missing=0",
           "data": {}
         },
         {
@@ -85,12 +85,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-05 11:06 AM CDT",
+        "as_of": "2026-05-05 12:32 PM CDT",
         "open_date": "2026-05-05",
-        "is_open_run": true,
+        "is_open_run": false,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "row_count": 100,
-        "missing_market_cap": 1,
+        "missing_market_cap": 0,
         "missing_sector": 0,
         "missing_industry": 0,
         "closes_length_distribution": {
@@ -98,9 +98,9 @@
         },
         "closes_short_count": 0,
         "mov_distribution": {
-          "positive": 72,
-          "negative": 25,
-          "zero": 3,
+          "positive": 13,
+          "negative": 51,
+          "zero": 36,
           "missing": 0
         },
         "score_missing": {
@@ -120,50 +120,45 @@
         {
           "name": "watchlist_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-05 11:07 AM CDT (age 0.0h)",
+          "message": "as_of 2026-05-05 12:32 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "yfinance_cache_fallback",
           "status": "OK",
-          "message": "no cache fallbacks; live network=0",
+          "message": "no cache fallbacks; live network=31",
           "data": {}
         },
         {
           "name": "supp_full_fundamentals",
-          "status": "WARN",
-          "message": "only 39/74 (53%) full fundamentals \u2014 yfinance enrichment degraded",
+          "status": "OK",
+          "message": "65/76 (86%) full fundamentals",
           "data": {}
         },
         {
           "name": "unavailable_spike",
           "status": "OK",
-          "message": "2/143 unavailable (1%)",
+          "message": "1/144 unavailable (1%)",
           "data": {}
         },
         {
           "name": "supp_missing_market_cap",
-          "status": "WARN",
-          "message": "34/74 (46%)",
+          "status": "OK",
+          "message": "7/76 (9%)",
           "data": {}
         },
         {
           "name": "supp_missing_fundamental",
-          "status": "WARN",
-          "message": "35/74 (47%)",
+          "status": "OK",
+          "message": "11/76 (14%)",
           "data": {}
         }
       ],
       "metrics": {
-        "as_of": "2026-05-05 11:07 AM CDT",
-        "row_count": 141,
-        "unavailable_count": 2,
+        "as_of": "2026-05-05 12:32 PM CDT",
+        "row_count": 143,
+        "unavailable_count": 1,
         "unavailable_sample": [
-          {
-            "input": "000660.KS",
-            "source": "tradingview",
-            "reason": "not in main rankings and supplemental fetch failed or disabled"
-          },
           {
             "input": "CBRS",
             "source": "csv",
@@ -171,55 +166,54 @@
           }
         ],
         "by_source_label": {
-          "tradingview": 68,
-          "csv": 44,
-          "both": 29
+          "tradingview": 69,
+          "both": 29,
+          "csv": 45
         },
         "by_data_source": {
-          "supplemental_yfinance": 74,
+          "supplemental_yfinance": 76,
           "main_pipeline": 67
         },
         "supp_summary": {
-          "total": 74,
-          "full_fundamentals": 39,
+          "total": 76,
+          "full_fundamentals": 65,
           "eodhd_enriched": 0,
           "metadata_only": 0,
-          "price_only": 7,
-          "technical_only": 28,
-          "unavailable": 2
+          "price_only": 9,
+          "technical_only": 2,
+          "unavailable": 1
         },
         "supp_by_kind": {
-          "unknown": 27,
-          "equity": 39,
-          "foreign": 1,
-          "etf": 5,
+          "foreign": 2,
+          "equity": 65,
+          "etf": 7,
           "crypto": 2
         },
         "supp_by_enrichment": {
-          "yfinance_partial": 28,
-          "yfinance_fundamentals": 39,
-          "yfinance_price_only": 7
+          "yfinance_partial": 2,
+          "yfinance_fundamentals": 65,
+          "yfinance_price_only": 9
         },
         "yfinance_info_cache": {
           "cache_hit_fresh": 45,
-          "cache_miss": 29,
-          "network_call": 29,
+          "cache_miss": 31,
+          "network_call": 31,
           "fallback_to_cache": 0,
-          "rate_limit_or_empty": 29,
-          "network_success": 0
+          "rate_limit_or_empty": 0,
+          "network_success": 31
         },
         "supp_info_sources": {
-          "yfinance_empty": 29,
+          "yfinance": 31,
           "yfinance_fresh_cache": 45
         },
         "supp_metadata_stale": 0,
-        "unavailable_ratio": 0.014,
-        "supp_rows_inspected": 74,
-        "supp_missing_market_cap": 34,
-        "supp_missing_sector": 28,
-        "supp_missing_fundamental": 35
+        "unavailable_ratio": 0.0069,
+        "supp_rows_inspected": 76,
+        "supp_missing_market_cap": 7,
+        "supp_missing_sector": 0,
+        "supp_missing_fundamental": 11
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "tasks": {
       "present": true,
@@ -258,7 +252,7 @@
             "id": "market-risk-monitor",
             "name": "Market Risk Monitor",
             "status": "warn",
-            "last_run": "2026-05-05 11:07 AM CDT",
+            "last_run": "2026-05-05 12:32 PM CDT",
             "next_run": "2026-05-06 08:45 AM CDT",
             "has_report": true
           },
@@ -266,7 +260,7 @@
             "id": "options-earnings-watchlist",
             "name": "Options & Earnings Watchlist",
             "status": "OK",
-            "last_run": "2026-05-05 11:07 AM CDT",
+            "last_run": "2026-05-05 12:32 PM CDT",
             "next_run": "2026-05-06 08:45 AM CDT",
             "has_report": true
           },
@@ -274,7 +268,7 @@
             "id": "benchmark-review",
             "name": "Benchmark Review",
             "status": "warn",
-            "last_run": "2026-05-04 04:31 PM CDT",
+            "last_run": "2026-05-05 11:06 AM CDT",
             "next_run": "\u2014",
             "has_report": true
           },
@@ -282,7 +276,7 @@
             "id": "schedule-reliability",
             "name": "Schedule Reliability",
             "status": "fail",
-            "last_run": "2026-05-04 04:31 PM CDT",
+            "last_run": "2026-05-05 11:07 AM CDT",
             "next_run": "\u2014",
             "has_report": true
           },
