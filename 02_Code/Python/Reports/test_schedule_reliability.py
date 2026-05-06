@@ -189,6 +189,109 @@ def test_append_run_record_drops_old():
         tmp.cleanup()
 
 
+def _sections_with_today(today_str: str, *, hits: dict, missing: list,
+                         missing_count: int, age_h: float = 0.5,
+                         is_weekend: bool = False,
+                         last_event: str = "schedule") -> dict:
+    """Build a minimal sections dict for compute_effective_overall tests."""
+    return {
+        "calendar": {"metrics": {"calendar": {
+            "rows": [
+                {"date": "2026-04-29",
+                 "slot_hits": {"morning": 0, "midday": 0, "close": 0},
+                 "missing": ["morning", "midday", "close"]},
+                {"date": today_str, "slot_hits": hits, "missing": missing},
+            ],
+            "missing_count": missing_count, "duplicate_count": 0,
+            "lookback_days": 5,
+        }}},
+        "recency": {"metrics": {
+            "rankings_age_hours": age_h,
+            "is_weekend": is_weekend,
+            "last_run": {"event_name": last_event, "slot": "morning",
+                         "ts_chicago": today_str + " 09:00"},
+        }},
+    }
+
+
+def test_compute_effective_recovered_when_today_satisfied_and_fresh():
+    today = sr._to_chicago(sr._now_utc()).date().strftime("%Y-%m-%d")
+    secs = _sections_with_today(today,
+                                 hits={"morning": 1, "midday": 1, "close": 1},
+                                 missing=[], missing_count=3, age_h=0.2)
+    eff = sr.compute_effective_overall("FAIL", secs)
+    assert eff["effective"] == "WARN", eff
+    assert eff["recovered"] is True
+    assert "satisfied" in eff["reason"].lower()
+
+
+def test_compute_effective_active_fail_when_today_missing():
+    today = sr._to_chicago(sr._now_utc()).date().strftime("%Y-%m-%d")
+    secs = _sections_with_today(today,
+                                 hits={"morning": 0, "midday": 0, "close": 0},
+                                 missing=["morning", "midday", "close"],
+                                 missing_count=3, age_h=0.5)
+    eff = sr.compute_effective_overall("FAIL", secs)
+    assert eff["effective"] == "FAIL", eff
+    assert eff["recovered"] is False
+
+
+def test_compute_effective_active_fail_when_data_stale():
+    today = sr._to_chicago(sr._now_utc()).date().strftime("%Y-%m-%d")
+    secs = _sections_with_today(today,
+                                 hits={"morning": 1, "midday": 1, "close": 1},
+                                 missing=[], missing_count=3,
+                                 age_h=10.0)  # weekday => >= 6.0h is stale
+    eff = sr.compute_effective_overall("FAIL", secs)
+    assert eff["effective"] == "FAIL", eff
+    assert eff["recovered"] is False
+    assert "stale" in eff["reason"].lower()
+
+
+def test_compute_effective_passes_through_when_raw_ok_or_warn():
+    today = sr._to_chicago(sr._now_utc()).date().strftime("%Y-%m-%d")
+    secs = _sections_with_today(today,
+                                 hits={"morning": 1, "midday": 1, "close": 1},
+                                 missing=[], missing_count=0)
+    assert sr.compute_effective_overall("OK", secs)["effective"] == "OK"
+    assert sr.compute_effective_overall("WARN", secs)["effective"] == "WARN"
+
+
+def test_build_report_emits_overall_raw_and_effective():
+    """Build a minimal report end-to-end and confirm both fields land."""
+    today = sr._to_chicago(sr._now_utc()).date().strftime("%Y-%m-%d")
+    # Stub out IO so build_report doesn't read the real repo's history.
+    saved = (sr.RUNS_JSONL, sr.load_rankings)
+    try:
+        tmp = tempfile.TemporaryDirectory()
+        sr.RUNS_JSONL = Path(tmp.name) / "workflow_runs.jsonl"
+        sr.RUNS_JSONL.parent.mkdir(parents=True, exist_ok=True)
+        # Three slot hits today, two prior weekdays empty -> raw FAIL,
+        # effective WARN (recovered).
+        runs = [_record(today, s, ts_utc=sr._now_utc().strftime("%Y-%m-%dT%H:%M:%SZ"))
+                for s in ("morning", "midday", "close")]
+        sr.RUNS_JSONL.write_text("\n".join(json.dumps(r) for r in runs) + "\n")
+        # Stub rankings as fresh
+        sr.load_rankings = lambda: {  # type: ignore[assignment]
+            "as_of": (sr._to_chicago(sr._now_utc())).strftime("%Y-%m-%d ")
+                     + "09:00 AM " + ("CDT" if sr._to_chicago(sr._now_utc()).utcoffset().total_seconds() == -5 * 3600 else "CST")
+        }
+        report = sr.build_report()
+        assert "overall_raw" in report
+        assert "overall_effective" in report
+        # If today is satisfied and fresh, FAIL raw downgrades to WARN.
+        if report["overall_raw"] == "FAIL":
+            assert report["overall_effective"] in ("WARN", "FAIL"), report
+            if report["overall_effective"] == "WARN":
+                assert report["effective"]["recovered"] is True
+    finally:
+        sr.RUNS_JSONL, sr.load_rankings = saved
+        try:
+            tmp.cleanup()
+        except Exception:
+            pass
+
+
 def test_render_html_contains_calendar_and_overall():
     # Build a minimal report.
     runs = [_record("2026-05-04", s) for s in ("morning", "midday", "close")]
@@ -204,12 +307,45 @@ def test_render_html_contains_calendar_and_overall():
         "generated_at": "2026-05-04T20:00:00Z",
         "generated_at_chicago": "2026-05-04 03:00 PM CDT",
         "overall": "OK",
+        "overall_raw": "OK",
+        "overall_effective": "OK",
+        "effective": {"effective": "OK", "recovered": False,
+                      "reason": "all good"},
         "sections": sections,
     }
     html = sr._render_html(report)
     assert "Schedule Reliability" in html
     assert "Recent Slot Delivery" in html
     assert "morning" in html
+    # Both raw + effective surfaced in header.
+    assert "Effective" in html and "Raw history" in html
+
+
+def test_render_html_shows_recovered_banner():
+    sections = {
+        "calendar": {"checks": [], "metrics": {"calendar": {
+            "rows": [{"date": "2026-05-06",
+                      "slot_hits": {"morning": 1, "midday": 1, "close": 1},
+                      "missing": []}],
+            "missing_count": 3, "lookback_days": 5,
+        }}, "status": "FAIL"},
+        "recency": {"checks": [], "metrics": {
+            "rankings_age_hours": 0.2, "is_weekend": False,
+        }, "status": "OK"},
+    }
+    report = {
+        "generated_at": "2026-05-06T20:00:00Z",
+        "generated_at_chicago": "2026-05-06 03:00 PM CDT",
+        "overall": "FAIL",
+        "overall_raw": "FAIL",
+        "overall_effective": "WARN",
+        "effective": {"effective": "WARN", "recovered": True,
+                      "reason": "today satisfied, history has misses"},
+        "sections": sections,
+    }
+    html = sr._render_html(report)
+    assert "Recovered" in html, html[:500]
+    assert "today satisfied" in html
 
 
 def main():

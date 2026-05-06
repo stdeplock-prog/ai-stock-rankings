@@ -296,6 +296,157 @@ def test_build_report_with_realistic_split():
     assert report["cross_group_parity"]["status"] == "OK"
 
 
+# ---------- low_risk selection-bias demote ----------
+
+
+def _drift_report(verdict="selection_bias", max_abs_delta=0.0,
+                  formula_triggered=False, data_gap_triggered=False,
+                  shared_count=4, differing_count=0,
+                  confidence="medium") -> dict:
+    """Helper: minimal low_risk_drift_review.json shape."""
+    return {
+        "verdict": {
+            "verdict": verdict,
+            "confidence": confidence,
+            "formula_flag": {"triggered": formula_triggered, "severity": "OK"},
+            "data_gap_flag": {"triggered": data_gap_triggered},
+            "selection_bias_flag": {"triggered": verdict == "selection_bias"},
+        },
+        "overlap_main_vs_watchlist": {
+            "shared_count": shared_count,
+            "differing_count": differing_count,
+            "max_abs_delta": max_abs_delta,
+        },
+    }
+
+
+def test_low_risk_bias_known_when_drift_says_selection_bias():
+    bias = spr.low_risk_bias_known(_drift_report())
+    assert bias["is_known_bias"] is True, bias
+    assert "selection bias" in bias["reason"].lower()
+
+
+def test_low_risk_bias_not_known_without_drift_report():
+    bias = spr.low_risk_bias_known(None)
+    assert bias["is_known_bias"] is False, bias
+
+
+def test_low_risk_bias_not_known_when_formula_flag_triggered():
+    bias = spr.low_risk_bias_known(_drift_report(formula_triggered=True))
+    assert bias["is_known_bias"] is False, bias
+
+
+def test_low_risk_bias_not_known_when_same_ticker_diverges():
+    bias = spr.low_risk_bias_known(_drift_report(max_abs_delta=0.6))
+    assert bias["is_known_bias"] is False, bias
+
+
+def test_low_risk_bias_not_known_for_data_gap_or_formula_verdict():
+    bias = spr.low_risk_bias_known(_drift_report(verdict="data_gap"))
+    assert bias["is_known_bias"] is False, bias
+    bias = spr.low_risk_bias_known(_drift_report(verdict="formula_issue"))
+    assert bias["is_known_bias"] is False, bias
+
+
+def test_cross_group_parity_demotes_low_risk_fail_when_known_bias():
+    # Big low_risk drift would normally FAIL (>=1.5), but known_bias drops
+    # the row to WARN and tags the entry.
+    main_cov = {"distributions": {f: {"mean": 5.0} for f in spr.SCORE_FIELDS}}
+    wlm_cov = {"distributions": {f: {"mean": 5.0} for f in spr.SCORE_FIELDS}}
+    wlm_cov["distributions"]["low_risk"] = {"mean": 2.5}  # -2.5 delta
+    cross = spr.cross_group_parity({
+        "main_rankings": main_cov,
+        "watchlist_main_pipeline": wlm_cov,
+    }, drift=_drift_report())
+    lr = cross["by_field"]["low_risk"]
+    assert lr["status"] == "WARN", lr
+    assert lr.get("known_bias") is True, lr
+    assert lr.get("raw_status") == "FAIL", lr
+    # No other field should have FAIL, so the rollup is WARN, not FAIL.
+    assert cross["status"] == "WARN", cross
+    assert cross["low_risk_bias"]["is_known_bias"] is True
+
+
+def test_cross_group_parity_keeps_fail_when_other_field_diverges():
+    # ai_score diverges by 2.0 (FAIL) — this is a real parity blocker and
+    # must remain FAIL even if low_risk is also drifting and bias is known.
+    main_cov = {"distributions": {f: {"mean": 5.0} for f in spr.SCORE_FIELDS}}
+    wlm_cov = {"distributions": {f: {"mean": 5.0} for f in spr.SCORE_FIELDS}}
+    wlm_cov["distributions"]["low_risk"] = {"mean": 2.5}
+    wlm_cov["distributions"]["ai_score"] = {"mean": 7.0}
+    cross = spr.cross_group_parity({
+        "main_rankings": main_cov,
+        "watchlist_main_pipeline": wlm_cov,
+    }, drift=_drift_report())
+    assert cross["status"] == "FAIL", cross
+    assert cross["by_field"]["ai_score"]["status"] == "FAIL"
+    # low_risk still demoted individually
+    assert cross["by_field"]["low_risk"]["status"] == "WARN"
+
+
+def test_cross_group_parity_keeps_low_risk_fail_when_formula_diverges():
+    # Same-ticker formula divergence => bias not known => low_risk stays FAIL.
+    main_cov = {"distributions": {f: {"mean": 5.0} for f in spr.SCORE_FIELDS}}
+    wlm_cov = {"distributions": {f: {"mean": 5.0} for f in spr.SCORE_FIELDS}}
+    wlm_cov["distributions"]["low_risk"] = {"mean": 2.5}
+    cross = spr.cross_group_parity({
+        "main_rankings": main_cov,
+        "watchlist_main_pipeline": wlm_cov,
+    }, drift=_drift_report(formula_triggered=True, max_abs_delta=1.2))
+    lr = cross["by_field"]["low_risk"]
+    assert lr["status"] == "FAIL", lr
+    assert not lr.get("known_bias"), lr
+    assert cross["status"] == "FAIL", cross
+
+
+def test_build_report_low_risk_bias_known_only_warn():
+    """Low-risk-only parity FAIL with selection_bias drift -> overall WARN."""
+    rankings = {"as_of": "2026-05-04 12:00 PM CDT", "rows": [
+        {"ticker": f"T{i}", "ai_score": 6.0, "fundamental": 6.0,
+         "technical": 6.0, "sentiment": 6.0, "low_risk": 7.5,
+         "swing_score": 6.0}
+        for i in range(50)
+    ]}
+    watchlist = {"as_of": "2026-05-04 12:00 PM CDT", "rows": [
+        {"ticker": f"M{i}", "ai_score": 6.0, "fundamental": 6.0,
+         "technical": 6.0, "sentiment": 6.0,
+         "low_risk": 5.0,  # -2.5 delta vs main; would FAIL without bias
+         "swing_score": 6.0,
+         "data_source": "main_pipeline"}
+        for i in range(20)
+    ]}
+    report = spr.build_report(rankings, watchlist, drift=_drift_report())
+    assert report["low_risk_bias_known"] is True
+    cgp = report["cross_group_parity"]
+    assert cgp["status"] == "WARN", cgp
+    assert cgp["by_field"]["low_risk"]["known_bias"] is True
+    # Overall is at most WARN when only low_risk drifted and bias is known.
+    assert report["overall"] in ("OK", "WARN"), report["overall"]
+
+
+def test_build_report_real_formula_issue_still_fail():
+    """Same-ticker per-ticker divergence (drift verdict NOT selection_bias)
+    must keep low_risk FAIL and overall FAIL."""
+    rankings = {"as_of": "2026-05-04 12:00 PM CDT", "rows": [
+        {"ticker": f"T{i}", "ai_score": 6.0, "fundamental": 6.0,
+         "technical": 6.0, "sentiment": 6.0, "low_risk": 7.5,
+         "swing_score": 6.0}
+        for i in range(50)
+    ]}
+    watchlist = {"as_of": "2026-05-04 12:00 PM CDT", "rows": [
+        {"ticker": f"M{i}", "ai_score": 6.0, "fundamental": 6.0,
+         "technical": 6.0, "sentiment": 6.0, "low_risk": 5.0,
+         "swing_score": 6.0, "data_source": "main_pipeline"}
+        for i in range(20)
+    ]}
+    drift = _drift_report(verdict="formula_issue", formula_triggered=True,
+                          max_abs_delta=1.5)
+    report = spr.build_report(rankings, watchlist, drift=drift)
+    assert report["low_risk_bias_known"] is False
+    assert report["cross_group_parity"]["status"] == "FAIL"
+    assert report["overall"] == "FAIL"
+
+
 def test_render_html_smoke():
     report = {
         "generated_at": "2026-05-04T17:00:00Z",

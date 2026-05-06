@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-06T15:23:42Z",
-  "generated_at_chicago": "2026-05-06 10:23 AM CDT",
+  "generated_at": "2026-05-06T16:54:13Z",
+  "generated_at_chicago": "2026-05-06 11:54 AM CDT",
   "overall": "WARN",
   "sections": {
     "data_freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-06 10:23 AM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-05-06 10:23 AM CDT (age 1.5h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -21,8 +21,8 @@
         "open_date": "2026-05-06",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-05-06 10:23",
-        "rankings_age_hours": 0.01,
+        "chicago_now": "2026-05-06 11:54",
+        "rankings_age_hours": 1.52,
         "today_live": true
       },
       "status": "OK"
@@ -134,15 +134,17 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=FAIL; blocker fields=['low_risk']"
+          "message": "parity overall=WARN; low_risk drift explained by selection bias (['low_risk'])"
         }
       ],
       "metrics": {
-        "overall": "FAIL",
-        "cross_group_parity_status": "FAIL",
-        "fail_fields": [
+        "overall": "WARN",
+        "cross_group_parity_status": "WARN",
+        "fail_fields": [],
+        "known_bias_fields": [
           "low_risk"
-        ]
+        ],
+        "low_risk_bias_known": true
       },
       "status": "WARN"
     }
@@ -157,7 +159,7 @@
   },
   "action_items": [
     "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: today satisfied, 7 missing in lookback",
-    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['low_risk']"
+    "[WARN] parity.scoring_parity: parity overall=WARN; low_risk drift explained by selection bias (['low_risk'])"
   ],
   "summary": "Fresh 10:23 AM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
 }

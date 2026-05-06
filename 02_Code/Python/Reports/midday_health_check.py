@@ -256,10 +256,13 @@ def analyze_data_quality(dq: dict | None) -> dict:
 def analyze_schedule_reliability(sr_rep: dict | None) -> dict:
     """Roll up schedule_reliability.json with recovery awareness.
 
-    A FAIL overall driven entirely by *historical* missing slots while
-    today is fully covered (latest run via workflow_dispatch or all of
-    today's slots hit) is downgraded to WARN — the operational state is
-    actively recovered, not currently broken.
+    The schedule_reliability report itself now exposes both `overall`
+    (raw, history-aware) and `overall_effective` (current operational
+    state — FAIL downgraded to WARN when today's slot is satisfied via
+    watchdog/manual rescue and live data is fresh). This function prefers
+    the report's own `overall_effective` when present and falls back to
+    the inline recovery heuristic for older JSONs that pre-date that
+    field.
     """
     section = {"checks": [], "metrics": {}, "status": "WARN"}
     if not isinstance(sr_rep, dict):
@@ -294,28 +297,45 @@ def analyze_schedule_reliability(sr_rep: dict | None) -> dict:
     section["metrics"]["last_run_slot"] = last_run.get("slot")
     section["metrics"]["last_run_ts_chicago"] = last_run.get("ts_chicago")
 
-    recovered = (
-        raw == "FAIL"
-        and section["metrics"]["today_satisfied"]
-        and (last_run.get("event_name") == "workflow_dispatch"
-             or missing_count > 0)  # historical misses only
-    )
-    section["metrics"]["recovered"] = recovered
-
-    if raw == "OK":
-        effective = "OK"
-        msg = "schedule reliability OK"
-    elif raw == "WARN":
-        effective = "WARN"
-        msg = "schedule reliability WARN"
-    elif recovered:
-        effective = "WARN"
-        msg = (f"schedule reliability FAIL/recovered: today satisfied, "
-               f"{missing_count} missing in lookback")
+    # Prefer the schedule report's own effective overall when it provides
+    # one. Falls back to the legacy heuristic for backward compatibility.
+    report_effective = sr_rep.get("overall_effective")
+    if isinstance(report_effective, str) and report_effective.upper() in LEVEL_RANK:
+        effective = report_effective.upper()
+        recovered = raw == "FAIL" and effective != "FAIL"
+        if effective == "OK":
+            msg = "schedule reliability OK"
+        elif effective == "WARN" and raw == "FAIL":
+            msg = (f"schedule reliability FAIL/recovered: today satisfied, "
+                   f"{missing_count} missing in lookback")
+        elif effective == "WARN":
+            msg = "schedule reliability WARN"
+        else:
+            msg = (f"schedule reliability FAIL: today_missing={today_missing}, "
+                   f"history_missing={missing_count}")
     else:
-        effective = "FAIL"
-        msg = (f"schedule reliability FAIL: today_missing={today_missing}, "
-               f"history_missing={missing_count}")
+        recovered = (
+            raw == "FAIL"
+            and section["metrics"]["today_satisfied"]
+            and (last_run.get("event_name") == "workflow_dispatch"
+                 or missing_count > 0)  # historical misses only
+        )
+        if raw == "OK":
+            effective = "OK"
+            msg = "schedule reliability OK"
+        elif raw == "WARN":
+            effective = "WARN"
+            msg = "schedule reliability WARN"
+        elif recovered:
+            effective = "WARN"
+            msg = (f"schedule reliability FAIL/recovered: today satisfied, "
+                   f"{missing_count} missing in lookback")
+        else:
+            effective = "FAIL"
+            msg = (f"schedule reliability FAIL: today_missing={today_missing}, "
+                   f"history_missing={missing_count}")
+
+    section["metrics"]["recovered"] = recovered
     section["metrics"]["overall_effective"] = effective
     section["checks"].append({
         "name": "schedule_reliability",
@@ -448,7 +468,15 @@ def analyze_benchmark(bench: dict | None) -> dict:
 
 
 def analyze_parity(par: dict | None) -> dict:
-    """Scoring parity overall and key blockers."""
+    """Scoring parity overall and key blockers.
+
+    When the parity report flags `low_risk_bias_known=True` and the only
+    cross-group FAIL fields are the known selection-bias rows
+    (already demoted to WARN inside parity), the rollup message reads as
+    "low_risk drift explained by selection bias" rather than "parity
+    blocker fields=['low_risk']" — the underlying drift number is preserved
+    in the parity report itself.
+    """
     section = {"checks": [], "metrics": {}, "status": "OK"}
     if not isinstance(par, dict):
         section["checks"].append({
@@ -467,21 +495,44 @@ def analyze_parity(par: dict | None) -> dict:
         k for k, v in by_field.items()
         if isinstance(v, dict) and (v.get("status") or "").upper() == "FAIL"
     ]
+    # Fields whose FAIL has been demoted to WARN under known_bias=True (these
+    # are explained, not active blockers — surface separately).
+    known_bias_fields = [
+        k for k, v in by_field.items()
+        if isinstance(v, dict) and v.get("known_bias")
+    ]
     section["metrics"]["fail_fields"] = blockers
+    section["metrics"]["known_bias_fields"] = known_bias_fields
+    section["metrics"]["low_risk_bias_known"] = bool(
+        par.get("low_risk_bias_known")
+    )
+
     # Parity FAIL is treated as WARN by the health rollup — it's an advisory,
     # not a stop-the-line condition (most parity FAILs are by-design SUPP gaps).
     if overall == "FAIL":
+        if blockers:
+            msg = f"parity overall=FAIL; blocker fields={blockers}"
+        elif known_bias_fields:
+            msg = (f"parity overall=FAIL; only remaining drift is "
+                   f"{known_bias_fields} explained by selection bias")
+        else:
+            msg = "parity overall=FAIL"
         section["checks"].append({
             "name": "scoring_parity",
             "status": "WARN",
-            "message": (f"parity overall=FAIL; blocker fields={blockers}"
-                        if blockers else "parity overall=FAIL"),
+            "message": msg,
         })
     elif overall == "WARN":
+        if known_bias_fields and not blockers:
+            msg = (f"parity overall=WARN; "
+                   f"low_risk drift explained by selection bias "
+                   f"({known_bias_fields})")
+        else:
+            msg = "parity overall=WARN"
         section["checks"].append({
             "name": "scoring_parity",
             "status": "WARN",
-            "message": "parity overall=WARN",
+            "message": msg,
         })
     else:
         section["checks"].append({

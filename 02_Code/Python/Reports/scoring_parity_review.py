@@ -39,9 +39,14 @@ HTML_REPORTS_DIR = REPO_ROOT / "reports"
 
 RANKINGS_FILE = DATA_DIR / "rankings.json"
 WATCHLIST_FILE = DATA_DIR / "watchlist_rankings.json"
+LOW_RISK_DRIFT_FILE = DATA_REPORTS_DIR / "low_risk_drift_review.json"
 
 JSON_OUTPUT = DATA_REPORTS_DIR / "scoring_parity_review.json"
 HTML_OUTPUT = HTML_REPORTS_DIR / "scoring-parity-review.html"
+
+# Threshold below which same-ticker low_risk divergence is treated as "no
+# formula divergence" — matches low_risk_drift_review.SAME_TICKER_DIFF_WARN.
+SAME_TICKER_LR_TOLERANCE = 0.2
 
 SCORE_FIELDS = (
     "ai_score",
@@ -268,24 +273,90 @@ def parity_verdicts(group_coverage: dict) -> dict:
 # ---------- Cross-group parity verdicts ----------
 
 
-def cross_group_parity(group_coverage: dict) -> dict:
+def low_risk_bias_known(drift: dict | None) -> dict:
+    """Decide whether the previously-computed low_risk_drift_review verdict
+    explains low_risk distribution drift as selection bias rather than a
+    formula/data bug. Returns a small dict the caller can attach to the
+    cross-group parity output.
+
+    Conditions for "known selection bias":
+      * drift report exists and verdict.verdict == "selection_bias"
+      * formula_flag.triggered is False AND max_abs_delta on shared tickers
+        is below SAME_TICKER_LR_TOLERANCE (no per-ticker formula divergence)
+      * data_gap_flag.triggered is False
+    """
+    if not isinstance(drift, dict):
+        return {"is_known_bias": False, "reason": "drift report not available"}
+    verdict = (drift.get("verdict") or {})
+    v = verdict.get("verdict")
+    formula = (verdict.get("formula_flag") or {})
+    data_gap = (verdict.get("data_gap_flag") or {})
+    overlap = (drift.get("overlap_main_vs_watchlist") or {})
+    max_abs = overlap.get("max_abs_delta") or 0.0
+    if v != "selection_bias":
+        return {
+            "is_known_bias": False,
+            "reason": f"drift verdict is '{v}', not selection_bias",
+            "drift_verdict": v,
+        }
+    if formula.get("triggered"):
+        return {
+            "is_known_bias": False,
+            "reason": "formula_flag triggered in drift report",
+            "drift_verdict": v,
+        }
+    if data_gap.get("triggered"):
+        return {
+            "is_known_bias": False,
+            "reason": "data_gap_flag triggered in drift report",
+            "drift_verdict": v,
+        }
+    if max_abs >= SAME_TICKER_LR_TOLERANCE:
+        return {
+            "is_known_bias": False,
+            "reason": (f"same-ticker max |Δ| {max_abs} >= "
+                       f"{SAME_TICKER_LR_TOLERANCE}"),
+            "drift_verdict": v,
+        }
+    return {
+        "is_known_bias": True,
+        "reason": (
+            "low_risk drift explained by selection bias "
+            "(watchlist universe is more speculative / higher-volatility)"
+        ),
+        "drift_verdict": v,
+        "drift_confidence": verdict.get("confidence"),
+        "shared_ticker_max_abs_delta": max_abs,
+        "shared_count": overlap.get("shared_count"),
+        "differing_count": overlap.get("differing_count"),
+    }
+
+
+def cross_group_parity(group_coverage: dict, drift: dict | None = None) -> dict:
     """Compare distribution alignment between main_rankings and watchlist
     main_pipeline. These two are expected to share semantics; large
     distribution drift would suggest weights or pipeline drift.
 
     SUPP is intentionally NOT compared here — it is partial-by-design.
+
+    When `drift` (low_risk_drift_review.json) marks the gap as a known
+    selection bias with no per-ticker formula divergence, the low_risk
+    component is demoted from FAIL to WARN and tagged with
+    `known_bias=True`. The numeric drift is preserved on the row so the
+    HTML stays transparent — only the severity changes.
     """
     main = group_coverage.get("main_rankings", {})
     wlm = group_coverage.get("watchlist_main_pipeline", {})
     main_d = main.get("distributions") or {}
     wlm_d = wlm.get("distributions") or {}
-    drift: dict = {}
+    bias = low_risk_bias_known(drift)
+    drift_by_field: dict = {}
     rollup = "OK"
     for f in SCORE_FIELDS:
         a = main_d.get(f) or {}
         b = wlm_d.get(f) or {}
         if a.get("mean") is None or b.get("mean") is None:
-            drift[f] = {
+            drift_by_field[f] = {
                 "status": "WARN",
                 "message": "missing distribution in one of the groups",
                 "main_mean": a.get("mean"),
@@ -298,13 +369,13 @@ def cross_group_parity(group_coverage: dict) -> dict:
         # Scores are on a 0-10 scale; >1.0 mean drift between two universes
         # that are supposed to score with the same engine is a meaningful gap.
         if abs_delta >= 1.5:
-            status = "FAIL"
+            raw_status = "FAIL"
         elif abs_delta >= 0.75:
-            status = "WARN"
+            raw_status = "WARN"
         else:
-            status = "OK"
-        drift[f] = {
-            "status": status,
+            raw_status = "OK"
+        entry = {
+            "status": raw_status,
             "message": (
                 f"mean delta watchlist_main - main = {delta:+.2f} "
                 f"(main={a['mean']}, wlm={b['mean']})"
@@ -313,8 +384,30 @@ def cross_group_parity(group_coverage: dict) -> dict:
             "watchlist_main_mean": b["mean"],
             "delta": delta,
         }
-        rollup = _worst(rollup, status)
-    return {"status": rollup, "by_field": drift}
+        if f == "low_risk" and bias.get("is_known_bias") and raw_status == "FAIL":
+            # Known selection bias: demote to WARN. Preserve the raw drift
+            # number and mark the entry so the HTML can render the
+            # explanation without hiding the gap.
+            entry["raw_status"] = "FAIL"
+            entry["status"] = "WARN"
+            entry["known_bias"] = True
+            entry["bias_reason"] = bias.get("reason")
+            entry["message"] = (
+                f"mean delta watchlist_main - main = {delta:+.2f} "
+                f"(main={a['mean']}, wlm={b['mean']}) — explained by "
+                f"selection bias (drift verdict: "
+                f"{bias.get('drift_verdict')}, confidence: "
+                f"{bias.get('drift_confidence')}); same-ticker max |Δ| = "
+                f"{bias.get('shared_ticker_max_abs_delta')} on "
+                f"{bias.get('shared_count')} shared tickers"
+            )
+        drift_by_field[f] = entry
+        rollup = _worst(rollup, entry["status"])
+    return {
+        "status": rollup,
+        "by_field": drift_by_field,
+        "low_risk_bias": bias,
+    }
 
 
 # ---------- Examples / spotlight ----------
@@ -382,9 +475,13 @@ def recommendations(group_coverage: dict, group_verdicts: dict, cross: dict) -> 
         )
 
     if cross.get("status") in ("WARN", "FAIL"):
+        # Skip already-explained low_risk drift; surface the worst remaining
+        # field (the one a human should actually investigate).
         worst_field = None
         worst_delta = 0.0
         for f, info in cross["by_field"].items():
+            if f == "low_risk" and info.get("known_bias"):
+                continue
             d = info.get("delta")
             if d is not None and abs(d) > abs(worst_delta):
                 worst_field = f
@@ -397,6 +494,15 @@ def recommendations(group_coverage: dict, group_verdicts: dict, cross: dict) -> 
                 f"produce near-identical means; gap suggests universe mix or "
                 f"weight drift."
             )
+
+    bias = cross.get("low_risk_bias") or {}
+    if bias.get("is_known_bias"):
+        out.append(
+            "low_risk drift between main_rankings and watchlist_main_pipeline "
+            "is a known selection-bias finding (watchlist universe is more "
+            "speculative / higher-volatility). Surfaced as WARN, not FAIL — "
+            "no action required on the scoring formula."
+        )
 
     main_v = group_verdicts.get("main_rankings", {}).get("status", "OK")
     wlm_v = group_verdicts.get("watchlist_main_pipeline", {}).get("status", "OK")
@@ -417,11 +523,11 @@ def recommendations(group_coverage: dict, group_verdicts: dict, cross: dict) -> 
 # ---------- Top-level build ----------
 
 
-def build_report(rankings, watchlist) -> dict:
+def build_report(rankings, watchlist, drift=None) -> dict:
     groups = split_groups(rankings, watchlist)
     group_coverage = {g: coverage(rows) for g, rows in groups.items()}
     group_verdicts = parity_verdicts(group_coverage)
-    cross = cross_group_parity(group_coverage)
+    cross = cross_group_parity(group_coverage, drift=drift)
     examples = supp_examples(groups["watchlist_supp"])
     recs = recommendations(group_coverage, group_verdicts, cross)
 
@@ -440,12 +546,16 @@ def build_report(rankings, watchlist) -> dict:
         "inputs": {
             "rankings_present": rankings is not None,
             "watchlist_present": watchlist is not None,
+            "drift_present": drift is not None,
             "rankings_as_of": (rankings or {}).get("as_of"),
             "watchlist_as_of": (watchlist or {}).get("as_of"),
         },
         "groups": group_coverage,
         "verdicts": group_verdicts,
         "cross_group_parity": cross,
+        "low_risk_bias_known": bool(
+            (cross.get("low_risk_bias") or {}).get("is_known_bias")
+        ),
         "supp_examples": examples,
         "recommendations": recs,
     }
@@ -532,11 +642,34 @@ th,td{{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-ali
     parts.append(f'<div class="section"><h2>Cross-group parity '
                  f'(main_rankings vs watchlist_main_pipeline) '
                  f'<span class="{cross["status"]}">{cross["status"]}</span></h2>')
+    bias = cross.get("low_risk_bias") or {}
+    if bias.get("is_known_bias"):
+        parts.append(
+            '<p style="background:#fff8e1;border:1px solid #f0d27a;'
+            'padding:8px 10px;border-radius:6px;margin:0 0 8px;font-size:13px">'
+            '<strong>Known selection bias on low_risk:</strong> '
+            + escape(str(bias.get("reason") or "")) + '. Same-ticker max |Δ| = '
+            + escape(str(bias.get("shared_ticker_max_abs_delta")))
+            + ' across ' + escape(str(bias.get("shared_count")))
+            + ' shared tickers (no formula divergence). '
+            + 'low_risk row demoted from FAIL to WARN; raw drift preserved below.'
+            '</p>'
+        )
     parts.append('<table><thead><tr><th>Score</th><th>Status</th><th>Detail</th></tr></thead><tbody>')
     for f, info in cross["by_field"].items():
+        status_label = info.get("status", "OK")
+        if info.get("known_bias"):
+            label_html = (f'<span class="{escape(status_label)}">'
+                          f'{escape(status_label)}</span> '
+                          f'<span style="font-size:11px;color:#8a6d3b;'
+                          f'background:#fff3cd;padding:1px 6px;border-radius:8px;'
+                          f'margin-left:4px">KNOWN_BIAS</span>')
+        else:
+            label_html = (f'<span class="{escape(status_label)}">'
+                          f'{escape(status_label)}</span>')
         parts.append(
             f'<tr><td>{escape(f)}</td>'
-            f'<td class="{escape(info["status"])}">{escape(info["status"])}</td>'
+            f'<td>{label_html}</td>'
             f'<td>{escape(info.get("message", ""))}</td></tr>'
         )
     parts.append('</tbody></table></div>')
@@ -619,10 +752,12 @@ th,td{{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-ali
 def main() -> int:
     rankings = _load_json(RANKINGS_FILE)
     watchlist = _load_json(WATCHLIST_FILE)
+    drift = _load_json(LOW_RISK_DRIFT_FILE)
     rankings = rankings if isinstance(rankings, dict) else None
     watchlist = watchlist if isinstance(watchlist, dict) else None
+    drift = drift if isinstance(drift, dict) else None
 
-    report = build_report(rankings, watchlist)
+    report = build_report(rankings, watchlist, drift=drift)
 
     DATA_REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     HTML_REPORTS_DIR.mkdir(parents=True, exist_ok=True)

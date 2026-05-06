@@ -218,6 +218,29 @@ def parity_fail_low_risk() -> dict:
     }
 
 
+def parity_low_risk_known_bias() -> dict:
+    """Parity report shaped as it lands once low_risk drift is recognised
+    as selection bias: low_risk row demoted to WARN with known_bias=True,
+    overall demoted from FAIL to WARN, and `low_risk_bias_known` flag set."""
+    return {
+        "overall": "WARN",
+        "low_risk_bias_known": True,
+        "cross_group_parity": {
+            "status": "WARN",
+            "by_field": {
+                "low_risk": {
+                    "status": "WARN", "raw_status": "FAIL",
+                    "known_bias": True,
+                    "message": "delta -2.28 — explained by selection bias",
+                },
+            },
+            "low_risk_bias": {"is_known_bias": True,
+                              "reason": "selection bias", "drift_verdict": "selection_bias"},
+        },
+        "verdicts": {},
+    }
+
+
 # ------------------- analyzer-level tests -------------------
 
 
@@ -307,6 +330,109 @@ def test_parity_fail_demoted_to_warn():
     sec = mhc.analyze_parity(parity_fail_low_risk())
     assert sec["status"] == "WARN", sec
     assert "low_risk" in sec["metrics"]["fail_fields"]
+
+
+def test_parity_low_risk_known_bias_message_explains_not_blocker():
+    """When low_risk_bias_known=True and low_risk is the only parity
+    issue (already demoted to WARN inside parity), the rollup message
+    should mention selection bias and NOT call low_risk a 'blocker'."""
+    sec = mhc.analyze_parity(parity_low_risk_known_bias())
+    assert sec["status"] == "WARN", sec
+    assert sec["metrics"]["low_risk_bias_known"] is True
+    assert "low_risk" in sec["metrics"]["known_bias_fields"]
+    assert sec["metrics"]["fail_fields"] == [], sec["metrics"]
+    msg = sec["checks"][0]["message"]
+    assert "selection bias" in msg.lower(), msg
+    assert "blocker" not in msg.lower(), msg
+
+
+def test_parity_low_risk_known_bias_with_real_blocker_keeps_blocker_message():
+    """If a different field is genuinely FAIL (not low_risk), parity
+    should still surface that field as a blocker."""
+    par = parity_low_risk_known_bias()
+    par["overall"] = "FAIL"  # something else really is a blocker
+    par["cross_group_parity"]["status"] = "FAIL"
+    par["cross_group_parity"]["by_field"]["ai_score"] = {
+        "status": "FAIL", "message": "delta +2.1"
+    }
+    sec = mhc.analyze_parity(par)
+    assert "ai_score" in sec["metrics"]["fail_fields"]
+    msg = sec["checks"][0]["message"]
+    assert "ai_score" in msg, msg
+
+
+def test_schedule_uses_report_provided_effective():
+    """When the schedule report supplies overall_effective, midday should
+    prefer it over the inline heuristic."""
+    today = _today_chi_date_str()
+    sr_rep = {
+        "overall": "FAIL",
+        "overall_raw": "FAIL",
+        "overall_effective": "WARN",
+        "effective": {"effective": "WARN", "recovered": True,
+                      "reason": "today satisfied"},
+        "sections": {
+            "calendar": {"metrics": {"calendar": {
+                "rows": [{"date": today,
+                          "slot_hits": {"morning": 1, "midday": 1, "close": 1},
+                          "missing": []}],
+                "missing_count": 3, "duplicate_count": 0, "lookback_days": 5,
+            }}},
+            "recency": {"metrics": {"last_run": {
+                "event_name": "schedule",  # not workflow_dispatch — prior
+                                            # heuristic would NOT recover here
+                "ts_chicago": today + " 12:32",
+            }}},
+        },
+    }
+    sec = mhc.analyze_schedule_reliability(sr_rep)
+    assert sec["status"] == "WARN", sec
+    assert sec["metrics"]["overall_effective"] == "WARN"
+    assert sec["metrics"]["recovered"] is True
+
+
+def test_schedule_falls_back_to_heuristic_for_old_reports():
+    """Old schedule_reliability.json without overall_effective should still
+    work via the legacy recovery heuristic."""
+    today = _today_chi_date_str()
+    sr_rep = {
+        "overall": "FAIL",
+        "sections": {
+            "calendar": {"metrics": {"calendar": {
+                "rows": [{"date": today,
+                          "slot_hits": {"morning": 1, "midday": 1, "close": 1},
+                          "missing": []}],
+                "missing_count": 3, "duplicate_count": 0, "lookback_days": 5,
+            }}},
+            "recency": {"metrics": {"last_run": {
+                "event_name": "workflow_dispatch",
+                "ts_chicago": today + " 12:32",
+            }}},
+        },
+    }
+    sec = mhc.analyze_schedule_reliability(sr_rep)
+    assert sec["status"] == "WARN", sec
+    assert sec["metrics"]["recovered"] is True
+
+
+def test_schedule_active_failure_when_today_missing():
+    today = _today_chi_date_str()
+    sr_rep = {
+        "overall": "FAIL",
+        "overall_raw": "FAIL",
+        "overall_effective": "FAIL",
+        "sections": {
+            "calendar": {"metrics": {"calendar": {
+                "rows": [{"date": today,
+                          "slot_hits": {"morning": 0, "midday": 0, "close": 0},
+                          "missing": ["morning", "midday", "close"]}],
+                "missing_count": 3, "duplicate_count": 0, "lookback_days": 5,
+            }}},
+            "recency": {"metrics": {"last_run": {}}},
+        },
+    }
+    sec = mhc.analyze_schedule_reliability(sr_rep)
+    assert sec["status"] == "FAIL", sec
 
 
 # ------------------- end-to-end via build_report -------------------

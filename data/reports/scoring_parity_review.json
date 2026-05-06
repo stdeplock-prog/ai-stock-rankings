@@ -1,9 +1,10 @@
 {
-  "generated_at": "2026-05-06T15:23:39Z",
-  "overall": "FAIL",
+  "generated_at": "2026-05-06T16:54:12Z",
+  "overall": "WARN",
   "inputs": {
     "rankings_present": true,
     "watchlist_present": true,
+    "drift_present": true,
     "rankings_as_of": "2026-05-06 10:23 AM CDT",
     "watchlist_as_of": "2026-05-06 10:23 AM CDT"
   },
@@ -521,7 +522,7 @@
     }
   },
   "cross_group_parity": {
-    "status": "FAIL",
+    "status": "WARN",
     "by_field": {
       "ai_score": {
         "status": "WARN",
@@ -552,11 +553,14 @@
         "delta": -1.436
       },
       "low_risk": {
-        "status": "FAIL",
-        "message": "mean delta watchlist_main - main = -2.28 (main=7.683, wlm=5.4015)",
+        "status": "WARN",
+        "message": "mean delta watchlist_main - main = -2.28 (main=7.683, wlm=5.4015) \u2014 explained by selection bias (drift verdict: selection_bias, confidence: medium); same-ticker max |\u0394| = 0.0 on 4 shared tickers",
         "main_mean": 7.683,
         "watchlist_main_mean": 5.4015,
-        "delta": -2.2815
+        "delta": -2.2815,
+        "raw_status": "FAIL",
+        "known_bias": true,
+        "bias_reason": "low_risk drift explained by selection bias (watchlist universe is more speculative / higher-volatility)"
       },
       "swing_score": {
         "status": "WARN",
@@ -565,8 +569,18 @@
         "watchlist_main_mean": 5.7701,
         "delta": -1.0559
       }
+    },
+    "low_risk_bias": {
+      "is_known_bias": true,
+      "reason": "low_risk drift explained by selection bias (watchlist universe is more speculative / higher-volatility)",
+      "drift_verdict": "selection_bias",
+      "drift_confidence": "medium",
+      "shared_ticker_max_abs_delta": 0.0,
+      "shared_count": 4,
+      "differing_count": 0
     }
   },
+  "low_risk_bias_known": true,
   "supp_examples": [
     {
       "ticker": "000660.KS",
@@ -741,6 +755,7 @@
   ],
   "recommendations": [
     "EODHD fundamentals on SUPP rows is 0 \u2014 confirm `EODHD_API_KEY` secret is populated in CI before treating SUPP fundamentals as live.",
-    "Investigate score drift between main_rankings and watchlist_main_pipeline on `low_risk` (mean delta -2.28). Same scoring engine should produce near-identical means; gap suggests universe mix or weight drift."
+    "Investigate score drift between main_rankings and watchlist_main_pipeline on `sentiment` (mean delta -1.44). Same scoring engine should produce near-identical means; gap suggests universe mix or weight drift.",
+    "low_risk drift between main_rankings and watchlist_main_pipeline is a known selection-bias finding (watchlist universe is more speculative / higher-volatility). Surfaced as WARN, not FAIL \u2014 no action required on the scoring formula."
   ]
 }

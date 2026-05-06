@@ -440,9 +440,91 @@ def _build_overall(sections: dict) -> str:
     return level
 
 
+# How fresh "today" must be for an effective downgrade. Mirrors the
+# weekday WARN threshold used in analyze_recency.
+EFFECTIVE_FRESH_HOURS_WEEKDAY = 6.0
+EFFECTIVE_FRESH_HOURS_WEEKEND = 72.0
+
+
+def compute_effective_overall(raw: str, sections: dict) -> dict:
+    """Decide the *current operational* overall vs the raw history rollup.
+
+    Raw `overall` reflects the worst section status — including historical
+    misses that have already been recovered by manual/watchdog rescue.
+    `overall_effective` answers a different question: "is the pipeline
+    healthy right now?" If today's expected slots are satisfied and the
+    live data is fresh, FAIL downgrades to WARN (recovered). Genuine
+    active failures — today's slot still missing past its window, or
+    rankings stale — keep the FAIL.
+
+    Returns a dict with `effective`, `recovered`, `today_satisfied`,
+    `today_missing`, and a short `reason` string.
+    """
+    cal = (sections.get("calendar") or {}).get("metrics", {}).get("calendar") or {}
+    rows = cal.get("rows") or []
+    missing_count = cal.get("missing_count", 0)
+
+    chi_today_str = _to_chicago(_now_utc()).date().strftime("%Y-%m-%d")
+    today_row = next((r for r in rows if r.get("date") == chi_today_str), None)
+    today_missing = list((today_row or {}).get("missing") or [])
+    today_satisfied = today_row is not None and not today_missing
+
+    rec = sections.get("recency") or {}
+    rec_metrics = rec.get("metrics") or {}
+    last_run = rec_metrics.get("last_run") or {}
+    age_h = rec_metrics.get("rankings_age_hours")
+    is_weekend = bool(rec_metrics.get("is_weekend"))
+    fresh_warn = (EFFECTIVE_FRESH_HOURS_WEEKEND if is_weekend
+                  else EFFECTIVE_FRESH_HOURS_WEEKDAY)
+    is_fresh = isinstance(age_h, (int, float)) and age_h < fresh_warn
+
+    out = {
+        "effective": raw,
+        "recovered": False,
+        "today_satisfied": today_satisfied,
+        "today_missing": today_missing,
+        "rankings_age_hours": age_h,
+        "rankings_fresh": is_fresh,
+        "last_run_event": last_run.get("event_name"),
+        "missing_count": missing_count,
+        "reason": "",
+    }
+
+    if raw == "OK":
+        out["reason"] = "no historical misses; pipeline healthy"
+        return out
+    if raw == "WARN":
+        out["reason"] = "minor historical issues; current state OK"
+        return out
+
+    # raw == "FAIL"
+    if today_satisfied and is_fresh:
+        out["effective"] = "WARN"
+        out["recovered"] = True
+        out["reason"] = (
+            f"today's slot satisfied (no missing) and live data fresh "
+            f"(age {age_h}h < {fresh_warn}h); {missing_count} historical "
+            f"miss(es) remain in lookback"
+        )
+    elif today_satisfied and not is_fresh:
+        out["reason"] = (
+            f"today's slot satisfied but live data stale "
+            f"(age {age_h}h >= {fresh_warn}h)"
+        )
+    else:
+        out["reason"] = (
+            f"today still missing {today_missing}; "
+            f"{missing_count} historical miss(es) in lookback"
+        )
+    return out
+
+
 def _render_html(report: dict) -> str:
-    overall = report["overall"]
-    color = {"OK": "#3c8c3c", "WARN": "#b88a00", "FAIL": "#c0392b"}[overall]
+    raw = report.get("overall_raw") or report["overall"]
+    effective = report.get("overall_effective") or raw
+    color_eff = {"OK": "#3c8c3c", "WARN": "#b88a00", "FAIL": "#c0392b"}[effective]
+    color_raw = {"OK": "#3c8c3c", "WARN": "#b88a00", "FAIL": "#c0392b"}[raw]
+    eff_meta = report.get("effective") or {}
     parts: list[str] = []
     parts.append(f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>Schedule Reliability</title>
@@ -451,7 +533,9 @@ body{{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
      max-width:980px;margin:24px auto;padding:0 16px;color:#1a1a1a;}}
 h1{{margin:0 0 4px}} .meta{{color:#666;font-size:13px;margin-bottom:18px}}
 .badge{{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:{color}}}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:{color_eff}}}
+.badge-raw{{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:{color_raw};margin-left:6px}}
 .section{{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}}
 .section h2{{margin:0 0 10px;font-size:18px;display:flex;justify-content:space-between;align-items:center}}
 table{{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px}}
@@ -465,11 +549,27 @@ th,td{{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-ali
 .calendar td.dup{{background:#fff3cd;color:#8a6d3b}}
 .calendar td.future{{background:#f3f3f3;color:#999}}
 .back{{font-size:13px}}
+.banner{{background:#fff8e1;border:1px solid #f0d27a;padding:10px 12px;
+        border-radius:6px;margin:0 0 12px;font-size:13px}}
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Schedule Reliability</h1>
-<p class="meta">Generated {escape(report["generated_at"])} &middot; Overall: <span class="badge">{overall}</span></p>
+<p class="meta">Generated {escape(report["generated_at"])} &middot; Effective: <span class="badge">{effective}</span> &middot; Raw history: <span class="badge-raw">{raw}</span></p>
 """)
+    if eff_meta.get("recovered"):
+        parts.append(
+            '<p class="banner"><strong>Recovered.</strong> '
+            + escape(str(eff_meta.get("reason") or ""))
+            + '. Effective state is WARN; raw history remains FAIL because '
+              'past missed slots are preserved for transparency.</p>'
+        )
+    elif raw == "FAIL" and effective == "FAIL":
+        parts.append(
+            '<p class="banner" style="background:#fdecea;border-color:#e6a8a0;color:#7a2018">'
+            '<strong>Active failure.</strong> '
+            + escape(str(eff_meta.get("reason") or ""))
+            + '</p>'
+        )
 
     # Slot calendar (visual)
     cal = report["sections"].get("calendar", {})
@@ -533,16 +633,24 @@ def _stamp_task_if_present(report: dict) -> None:
     changed = False
     for row in tasks:
         if isinstance(row, dict) and row.get("id") == "schedule-reliability":
-            overall = report["overall"]
+            raw = report.get("overall_raw") or report["overall"]
+            effective = report.get("overall_effective") or raw
             row["last_run"] = report.get("generated_at_chicago") or row.get("last_run") or "—"
-            row["status"] = ("OK" if overall == "OK"
-                             else ("warn" if overall == "WARN" else "fail"))
+            row["status"] = ("OK" if effective == "OK"
+                             else ("warn" if effective == "WARN" else "fail"))
             cal = report.get("sections", {}).get("calendar", {}).get("metrics", {}).get("calendar", {})
             missing = cal.get("missing_count")
-            row["summary"] = (
-                f"Reliability: {overall}; missing slots last "
-                f"{cal.get('lookback_days', LOOKBACK_TRADING_DAYS)}d = {missing}"
-            )
+            if raw == "FAIL" and effective != "FAIL":
+                row["summary"] = (
+                    f"Reliability: {effective} (raw {raw}/recovered); "
+                    f"missing slots last "
+                    f"{cal.get('lookback_days', LOOKBACK_TRADING_DAYS)}d = {missing}"
+                )
+            else:
+                row["summary"] = (
+                    f"Reliability: {effective}; missing slots last "
+                    f"{cal.get('lookback_days', LOOKBACK_TRADING_DAYS)}d = {missing}"
+                )
             row["report_url"] = "./reports/schedule-reliability.html"
             changed = True
     if changed:
@@ -632,10 +740,15 @@ def build_report() -> dict:
     }
 
     chi_str = chi_now.strftime("%Y-%m-%d %I:%M %p ") + ("CDT" if chi_now.utcoffset().total_seconds() == -5 * 3600 else "CST")
+    raw_overall = _build_overall(sections)
+    eff = compute_effective_overall(raw_overall, sections)
     report = {
         "generated_at": now_utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "generated_at_chicago": chi_str,
-        "overall": _build_overall(sections),
+        "overall": raw_overall,
+        "overall_raw": raw_overall,
+        "overall_effective": eff["effective"],
+        "effective": eff,
         "sections": sections,
         "history_records": len(runs),
         "history_source": "git_log_fallback" if used_fallback else "jsonl",
