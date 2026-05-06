@@ -26,9 +26,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Schedule Reliability</h1>
-<p class="meta">Generated 2026-05-06T17:18:40Z &middot; Effective: <span class="badge">WARN</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
+<p class="meta">Generated 2026-05-06T18:38:39Z &middot; Effective: <span class="badge">WARN</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
 
-<p class="banner"><strong>Recovered.</strong> today&#x27;s slot satisfied (no missing) and live data fresh (age 0.01h &lt; 6.0h); 7 historical miss(es) remain in lookback. Effective state is WARN; raw history remains FAIL because past missed slots are preserved for transparency.</p>
+<p class="banner"><strong>Recovered.</strong> today&#x27;s slot satisfied (no missing) and live data fresh (age 0.03h &lt; 6.0h); 7 historical miss(es) remain in lookback. Effective state is WARN; raw history remains FAIL because past missed slots are preserved for transparency.</p>
 <div class="section calendar"><h2>Recent Slot Delivery</h2>
 <table><thead><tr><th>Date</th>
 <th>morning</th>
@@ -57,7 +57,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </tr>
 <tr><td>2026-05-06</td>
 <td class="hit">✓</td>
-<td class="future">—</td>
+<td class="hit">✓</td>
 <td class="future">—</td>
 </tr>
 </tbody></table></div>
@@ -125,7 +125,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
         &quot;date&quot;: &quot;2026-05-06&quot;,
         &quot;slot_hits&quot;: {
           &quot;morning&quot;: 1,
-          &quot;midday&quot;: 0,
+          &quot;midday&quot;: 1,
           &quot;close&quot;: 0
         },
         &quot;missing&quot;: [],
@@ -140,35 +140,35 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>missing_slots</td><td class="FAIL">FAIL</td><td>7 expected slot(s) missing in last 5 weekdays — investigate GH Actions delivery</td></tr>
 <tr><td>duplicate_slots</td><td class="WARN">WARN</td><td>4 day-slot pair(s) had multiple proceed events — slot-level idempotency may be misfiring</td></tr>
-<tr><td>history_source</td><td class="OK">OK</td><td>history loaded from workflow_runs.jsonl (26 records)</td></tr>
+<tr><td>history_source</td><td class="OK">OK</td><td>history loaded from workflow_runs.jsonl (27 records)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Recency<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;chicago_now&quot;: &quot;2026-05-06 12:18&quot;,
+  &quot;chicago_now&quot;: &quot;2026-05-06 13:38&quot;,
   &quot;is_weekend&quot;: false,
-  &quot;expected_slot_now&quot;: null,
-  &quot;rankings_as_of&quot;: &quot;2026-05-06 12:18 PM CDT&quot;,
-  &quot;rankings_age_hours&quot;: 0.01,
+  &quot;expected_slot_now&quot;: &quot;midday&quot;,
+  &quot;rankings_as_of&quot;: &quot;2026-05-06 01:37 PM CDT&quot;,
+  &quot;rankings_age_hours&quot;: 0.03,
   &quot;last_run&quot;: {
-    &quot;ts_utc&quot;: &quot;2026-05-06T17:18:40Z&quot;,
-    &quot;ts_chicago&quot;: &quot;2026-05-06 12:18&quot;,
+    &quot;ts_utc&quot;: &quot;2026-05-06T18:38:39Z&quot;,
+    &quot;ts_chicago&quot;: &quot;2026-05-06 13:38&quot;,
     &quot;chicago_date&quot;: &quot;2026-05-06&quot;,
     &quot;event_name&quot;: &quot;workflow_dispatch&quot;,
     &quot;slot&quot;: &quot;manual&quot;,
     &quot;proceeded&quot;: true,
-    &quot;as_of&quot;: &quot;2026-05-06 12:18 PM CDT&quot;,
+    &quot;as_of&quot;: &quot;2026-05-06 01:37 PM CDT&quot;,
     &quot;open_date&quot;: &quot;2026-05-06&quot;,
-    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/25449141360&quot;,
-    &quot;commit_sha&quot;: &quot;628d17b44bb18f35b9b000402886b95df811b33d&quot;
+    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/25452406282&quot;,
+    &quot;commit_sha&quot;: &quot;e5a394cc71dd3bc2d17ab4a9362b0d57e12e8514&quot;
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-06 12:18 PM CDT (age 0.0h)</td></tr>
-<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=workflow_dispatch slot=manual at 2026-05-06 12:18</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-06 01:37 PM CDT (age 0.0h)</td></tr>
+<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=workflow_dispatch slot=manual at 2026-05-06 13:38</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Skip Pattern<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;proceed_14d&quot;: 8,
+  &quot;proceed_14d&quot;: 9,
   &quot;skip_14d&quot;: 18,
   &quot;skip_reasons_14d&quot;: {
     &quot;midday&quot;: 9,
@@ -176,17 +176,17 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>skip_volume</td><td class="OK">OK</td><td>18 skip records in 14d (8 proceeded)</td></tr>
+<tr><td>skip_volume</td><td class="OK">OK</td><td>18 skip records in 14d (9 proceeded)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Event Mix<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;proceed_14d_by_event&quot;: {
     &quot;schedule&quot;: 19,
-    &quot;workflow_dispatch&quot;: 7,
+    &quot;workflow_dispatch&quot;: 8,
     &quot;other&quot;: 0
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>event_mix</td><td class="OK">OK</td><td>schedule=19 dispatch=7 other=0</td></tr>
+<tr><td>event_mix</td><td class="OK">OK</td><td>schedule=19 dispatch=8 other=0</td></tr>
 </tbody></table></div>
 </body></html>
