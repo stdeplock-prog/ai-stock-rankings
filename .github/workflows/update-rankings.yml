@@ -424,6 +424,19 @@ jobs:
         run: python 02_Code/Python/Reports/schedule_reliability.py
         continue-on-error: true
 
+      # Market Open Scan — morning briefing rollup. Like the midday
+      # health check, it consumes the other reports' JSON artifacts and
+      # runs on every proceeded slot so the dashboard reflects the current
+      # operational state. Must run AFTER data quality / schedule reliability
+      # / market risk / benchmark reports have written their JSON, but BEFORE
+      # the midday health check (the briefing is part of the morning health
+      # picture). continue-on-error so a transient failure cannot block the
+      # commit.
+      - name: Generate market open scan
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/market_open_scan.py
+        continue-on-error: true
+
       # Midday Health Check — operational rollup that consumes the other
       # reports' artifacts and writes a single OK/WARN/FAIL summary plus
       # action items. Runs on EVERY proceeded slot (not just morning) so
@@ -455,6 +468,7 @@ jobs:
           git add data/reports/scoring_parity_review.json 2>/dev/null || true
           git add data/reports/low_risk_drift_review.json 2>/dev/null || true
           git add data/reports/schedule_reliability.json 2>/dev/null || true
+          git add data/reports/market_open_scan.json 2>/dev/null || true
           git add data/reports/midday_health_check.json 2>/dev/null || true
           git add data/reports/workflow_runs.jsonl 2>/dev/null || true
           git add data/cache/yfinance_info 2>/dev/null || true
@@ -465,6 +479,7 @@ jobs:
           git add reports/scoring-parity-review.html 2>/dev/null || true
           git add reports/low-risk-drift-review.html 2>/dev/null || true
           git add reports/schedule-reliability.html 2>/dev/null || true
+          git add reports/market-open-scan.html 2>/dev/null || true
           git add reports/midday-health-check.html 2>/dev/null || true
           # tasks.json is stamped by the daily report scripts (last_run /
           # next_run / status / summary). If we don't stage it here, the later
