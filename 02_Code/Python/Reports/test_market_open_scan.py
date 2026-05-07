@@ -282,6 +282,45 @@ def test_extract_movers_handles_empty():
     movers = mos.extract_rankings_movers({"rows": []})
     assert movers["top_10"] == []
     assert movers["top_gainers"] == []
+    # New-entry list defaults to empty when no prior snapshot is supplied.
+    assert movers["new_top10_entries"] == []
+    assert movers["prior_top10_compared_against"] is None
+
+
+def test_extract_movers_detects_new_top10_entries():
+    rk = fresh_rankings(rows=12)
+    # Tickers present in fresh_rankings top10 are T0..T9. Pretend the
+    # prior trading day's main_top10 was T1..T8 + two outsiders, so T0
+    # and T9 are *new* top10 entries today.
+    prior = {"T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "OLD1", "OLD2"}
+    movers = mos.extract_rankings_movers(
+        rk, prior_top_tickers=prior, prior_as_of_date="2026-04-30"
+    )
+    new_tickers = {e["ticker"] for e in movers["new_top10_entries"]}
+    assert "T0" in new_tickers
+    assert "T9" in new_tickers
+    assert "T5" not in new_tickers  # T5 was in the prior set
+    assert movers["prior_top10_compared_against"] == "2026-04-30"
+
+
+def test_load_prior_snapshot_picks_strictly_earlier(tmp_path=None):
+    import tempfile as _tf
+    with _tf.TemporaryDirectory() as tmp:
+        p = Path(tmp) / "snap.jsonl"
+        p.write_text(
+            json.dumps({"as_of_date": "2026-05-01", "buckets": {}}) + "\n"
+            + json.dumps({"as_of_date": "2026-05-04", "buckets": {}}) + "\n"
+            + json.dumps({"as_of_date": "2026-05-05", "buckets": {}}) + "\n",
+            encoding="utf-8",
+        )
+        snap = mos._load_prior_snapshot(p, "2026-05-05")
+        assert snap and snap["as_of_date"] == "2026-05-04"
+        # Today equals snapshot date -> excluded
+        snap2 = mos._load_prior_snapshot(p, "2026-05-01")
+        assert snap2 is None
+        # Missing file
+        assert mos._load_prior_snapshot(Path(tmp) / "nope.jsonl",
+                                        "2026-05-05") is None
 
 
 def test_data_quality_critical_section_promotes_fail():
@@ -295,6 +334,83 @@ def test_market_risk_alert_warns():
     assert sec["status"] == "WARN"
     assert sec["metrics"]["generals_fail"]["alert"] is True
     assert "MSFT" in sec["metrics"]["generals_fail"]["below_tickers"]
+
+
+def test_collect_action_items_splits_operational_and_market():
+    """Operational sections (freshness/run_source/data_quality) and market
+    sections (rankings_changes/watchlist/market_risk) each cap separately
+    so neither can crowd out the other in the briefing list."""
+    sections = {
+        "freshness": {"status": "FAIL", "checks": [
+            {"name": "today_live", "status": "FAIL", "message": "stale"},
+        ], "metrics": {}},
+        "run_source": {"status": "WARN", "checks": [
+            {"name": "run_source", "status": "WARN", "message": "rescued"},
+        ], "metrics": {}},
+        "data_quality": {"status": "WARN", "checks": [
+            {"name": "data_quality_overall", "status": "WARN", "message": "warn"},
+        ], "metrics": {}},
+        "rankings_changes": {"status": "OK", "checks": [], "metrics": {
+            "new_top10_entries": [{"ticker": "NEWX", "rank": 1}],
+            "prior_top10_compared_against": "2026-04-30",
+            "top_gainers": [{"ticker": "AAA", "change": 5, "rank": 2}],
+            "top_losers": [{"ticker": "ZZZ", "change": -4, "rank": 99}],
+        }},
+        "watchlist": {"status": "OK", "checks": [], "metrics": {
+            "new_top10_entries": [{"ticker": "WLNEW", "rank": 1}],
+            "top_10": [{"sector": "Technology"}] * 6 + [{"sector": "Health"}] * 2,
+        }},
+        "market_risk": {"status": "WARN", "checks": [
+            {"name": "generals_fail", "status": "WARN", "message": "alert"},
+        ], "metrics": {}},
+        "benchmark": {"status": "OK", "checks": [], "metrics": {}},
+    }
+    items = mos.collect_action_items(sections, "FAIL")
+    # Operational FAIL/WARN should appear, AND market signals too.
+    assert any("freshness." in i for i in items), items
+    assert any("New top10 entries" in i for i in items), items
+    assert any("Top MOV gainer" in i for i in items), items
+    # FAIL line is properly tagged.
+    assert any(i.startswith("[FAIL]") for i in items), items
+    # Operational lines are capped so they don't crowd the briefing —
+    # at most 3 of them, even when more exist.
+    op_prefixes = tuple(f"[{lvl}] {sec}." for lvl in ("FAIL", "WARN")
+                        for sec in mos._OPERATIONAL_SECTIONS)
+    op_in_items = [i for i in items if i.startswith(op_prefixes)]
+    assert len(op_in_items) <= 3, op_in_items
+    # And the total list is bounded (scannable briefing).
+    assert len(items) <= 7, items
+
+
+def test_collect_strengths_risks_picks_top_three():
+    sections = {
+        "rankings_changes": {"metrics": {
+            "top_10": [
+                {"ticker": "S1", "ai_score": 9.1, "rank": 1, "sector": "Tech"},
+                {"ticker": "S2", "ai_score": 8.9, "rank": 2, "sector": "Health"},
+                {"ticker": "S3", "ai_score": 8.7, "rank": 3, "sector": "Energy"},
+                {"ticker": "S4", "ai_score": 8.5, "rank": 4, "sector": "Tech"},
+            ],
+            "top_losers": [
+                {"ticker": "L1", "change": -8, "rank": 50, "sector": "Tech"},
+                {"ticker": "L2", "change": -5, "rank": 60, "sector": "Health"},
+            ],
+        }},
+        "market_risk": {"metrics": {"generals_fail": {
+            "alert": True, "below_tickers": ["GE", "F"],
+        }}},
+        "watchlist": {"metrics": {"supp_summary": {
+            "total": 10, "price_only": 4, "technical_only": 2,  # 60% degraded
+        }}},
+    }
+    sr = mos.collect_strengths_risks(sections)
+    assert len(sr["strengths"]) == 3
+    assert sr["strengths"][0].startswith("S1 ")
+    # Risks: 2 losers + (alert OR supp degraded), capped at 3.
+    assert len(sr["risks"]) == 3
+    risks_blob = " | ".join(sr["risks"])
+    assert "L1" in risks_blob
+    assert "Generals Fail alert" in risks_blob
 
 
 def test_market_risk_ok_when_no_alert():

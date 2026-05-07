@@ -500,14 +500,14 @@
     }
 
     function srcPill(src, dataSource) {
+      // Origin pills (TV/CSV/BOTH) cluttered the row without adding signal a
+      // user acts on day-to-day. Source filtering and the header "Sources —"
+      // line still expose this metadata. SUPP stays — it is a data-quality
+      // indicator (supplemental yfinance fetch), not a list-origin label.
       const supp = dataSource === 'supplemental_yfinance';
-      let cls = 'src-pill ', txt = '';
-      if (src === 'both') { cls += 'src-both'; txt = 'BOTH'; }
-      else if (src === 'csv') { cls += 'src-csv'; txt = 'CSV'; }
-      else if (src === 'tradingview') { cls += 'src-tv'; txt = 'TV'; }
-      else { cls += 'src-csv'; txt = src.toUpperCase(); }
-      const suppPill = supp ? `<span class="src-pill src-supp" title="Supplemental yfinance fetch (not in main pipeline)">SUPP</span>` : '';
-      return `<span class="${cls}" title="Source list: ${src}">${txt}</span>${suppPill}`;
+      return supp
+        ? `<span class="src-pill src-supp" title="Supplemental yfinance fetch (not in main pipeline)">SUPP</span>`
+        : '';
     }
 
     function render(rows) {

@@ -58,6 +58,7 @@ DATA_QUALITY_FILE = DATA_REPORTS_DIR / "data_quality_audit.json"
 SCHEDULE_RELIABILITY_FILE = DATA_REPORTS_DIR / "schedule_reliability.json"
 MARKET_RISK_FILE = DATA_REPORTS_DIR / "market_risk_monitor.json"
 BENCHMARK_FILE = DATA_REPORTS_DIR / "benchmark_review.json"
+BENCHMARK_SNAPSHOTS_FILE = DATA_REPORTS_DIR / "benchmark_snapshots.jsonl"
 
 JSON_OUTPUT = DATA_REPORTS_DIR / "market_open_scan.json"
 HTML_OUTPUT = HTML_REPORTS_DIR / "market-open-scan.html"
@@ -121,6 +122,38 @@ def _load_json(path: Path) -> dict | None:
             return json.load(f)
     except (OSError, json.JSONDecodeError):
         return None
+
+
+def _load_prior_snapshot(path: Path, today_chi: str) -> dict | None:
+    """Read the most recent benchmark snapshot strictly before today.
+
+    Used to detect *new top10 entries* relative to the prior trading day.
+    Returns the snapshot dict (with `buckets`) or None if unavailable.
+    JSONL is small (one line per day), so a single linear scan is fine.
+    """
+    if not path.exists():
+        return None
+    latest: dict | None = None
+    latest_date: str | None = None
+    try:
+        with path.open("r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    rec = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                d = rec.get("as_of_date")
+                if not isinstance(d, str) or d >= today_chi:
+                    continue
+                if latest_date is None or d > latest_date:
+                    latest_date = d
+                    latest = rec
+    except OSError:
+        return None
+    return latest
 
 
 def _safe_change(row: dict) -> int | None:
@@ -332,21 +365,31 @@ def analyze_data_quality(dq: dict | None) -> dict:
     return section
 
 
-def extract_rankings_movers(rankings: dict | None) -> dict:
-    """Pull top 10, top MOV gainers, and top MOV losers from rankings.json.
+def extract_rankings_movers(
+    rankings: dict | None,
+    prior_top_tickers: set[str] | None = None,
+    prior_as_of_date: str | None = None,
+) -> dict:
+    """Pull top 10, top MOV gainers/losers, and (when a prior snapshot is
+    available) the set of *new* top10 entries vs the prior trading day.
 
-    `change` is the daily MOV (positions moved). Without a prior snapshot
-    we surface the MOV directly and note the limitation rather than
-    pretending we have rank-delta history. Records with non-numeric or
-    null `change` are kept out of the gainer/loser lists.
+    `change` is the daily MOV (positions moved). When a prior snapshot is
+    not available we still surface MOV gainers/losers but note that the
+    "new entries" list is empty rather than fabricating rank-delta data.
+    Records with non-numeric or null `change` are kept out of the
+    gainer/loser lists.
     """
     out: dict = {
         "top_10": [],
         "top_gainers": [],
         "top_losers": [],
+        "new_top10_entries": [],
+        "prior_top10_compared_against": prior_as_of_date,
         "mov_summary": {},
-        "limitation": ("MOV-based gainers/losers; rank-delta history "
-                       "requires saved daily snapshots."),
+        "limitation": (
+            "MOV-based gainers/losers; new-entry detection uses prior "
+            "benchmark snapshot when available."
+        ),
     }
     if not isinstance(rankings, dict):
         return out
@@ -365,6 +408,18 @@ def extract_rankings_movers(rankings: dict | None) -> dict:
         }
         for r in rows[:TOP_N] if isinstance(r, dict)
     ]
+
+    if prior_top_tickers is not None:
+        out["new_top10_entries"] = [
+            {
+                "ticker": t["ticker"],
+                "rank": t["rank"],
+                "ai_score": t.get("ai_score"),
+                "sector": t.get("sector"),
+            }
+            for t in out["top_10"]
+            if t.get("ticker") and t["ticker"] not in prior_top_tickers
+        ]
 
     with_change = [
         (r, _safe_change(r)) for r in rows
@@ -402,7 +457,25 @@ def extract_rankings_movers(rankings: dict | None) -> dict:
     return out
 
 
-def analyze_rankings_changes(rankings: dict | None) -> dict:
+def _prior_bucket_tickers(snapshot: dict | None, bucket_key: str) -> set[str]:
+    """Pull the set of tickers from `bucket_key` in a benchmark snapshot,
+    tolerating missing/empty fields. Used to compute new top10 entries.
+    """
+    if not isinstance(snapshot, dict):
+        return set()
+    bucket = ((snapshot.get("buckets") or {}).get(bucket_key) or {})
+    members = bucket.get("members") or []
+    out: set[str] = set()
+    for m in members:
+        if isinstance(m, dict) and m.get("ticker"):
+            out.add(m["ticker"])
+    return out
+
+
+def analyze_rankings_changes(
+    rankings: dict | None,
+    prior_snapshot: dict | None = None,
+) -> dict:
     section = {"checks": [], "metrics": {}, "status": "OK"}
     if not isinstance(rankings, dict):
         section["checks"].append({
@@ -411,19 +484,46 @@ def analyze_rankings_changes(rankings: dict | None) -> dict:
         })
         section["status"] = "WARN"
         return section
-    section["metrics"].update(extract_rankings_movers(rankings))
+    prior_tickers = _prior_bucket_tickers(prior_snapshot, "main_top10")
+    prior_date = prior_snapshot.get("as_of_date") if isinstance(prior_snapshot, dict) else None
+    section["metrics"].update(
+        extract_rankings_movers(
+            rankings,
+            prior_top_tickers=prior_tickers if prior_tickers else None,
+            prior_as_of_date=prior_date,
+        )
+    )
     rows = rankings.get("rows") or []
     section["checks"].append({
         "name": "top_n",
         "status": "OK" if rows else "WARN",
         "message": f"{min(len(rows), TOP_N)} top names extracted (rows={len(rows)})",
     })
-    section["status"] = section["checks"][0]["status"]
+    new_entries = section["metrics"].get("new_top10_entries") or []
+    if prior_tickers and new_entries:
+        names = ", ".join(e["ticker"] for e in new_entries)
+        section["checks"].append({
+            "name": "new_top10_entries", "status": "OK",
+            "message": f"new top10 vs {prior_date}: {names}",
+        })
+    elif prior_tickers:
+        section["checks"].append({
+            "name": "new_top10_entries", "status": "OK",
+            "message": f"top10 unchanged vs {prior_date}",
+        })
+    section["status"] = max(
+        (c["status"] for c in section["checks"]),
+        key=lambda s: LEVEL_RANK[s], default="OK")
     return section
 
 
-def analyze_watchlist(watchlist: dict | None) -> dict:
-    """Top watchlist names, top SUPP, watchlist movers, SUPP coverage."""
+def analyze_watchlist(
+    watchlist: dict | None,
+    prior_snapshot: dict | None = None,
+) -> dict:
+    """Top watchlist names, top SUPP, watchlist movers, SUPP coverage,
+    plus new top10 entries vs prior trading day when a benchmark snapshot
+    is available."""
     section = {"checks": [], "metrics": {}, "status": "OK"}
     if not isinstance(watchlist, dict):
         section["checks"].append({
@@ -445,6 +545,17 @@ def analyze_watchlist(watchlist: dict | None) -> dict:
         for r in rows[:TOP_N] if isinstance(r, dict)
     ]
     section["metrics"]["top_10"] = top
+
+    prior_wl = _prior_bucket_tickers(prior_snapshot, "watchlist_top10")
+    prior_date = prior_snapshot.get("as_of_date") if isinstance(prior_snapshot, dict) else None
+    section["metrics"]["prior_top10_compared_against"] = prior_date
+    if prior_wl:
+        section["metrics"]["new_top10_entries"] = [
+            {"ticker": t["ticker"], "rank": t["rank"], "ai_score": t.get("ai_score")}
+            for t in top if t.get("ticker") and t["ticker"] not in prior_wl
+        ]
+    else:
+        section["metrics"]["new_top10_entries"] = []
 
     supp_rows = [
         r for r in rows
@@ -640,35 +751,60 @@ def compute_overall(sections: dict) -> str:
     return overall
 
 
+_OPERATIONAL_SECTIONS = {"freshness", "run_source", "data_quality"}
+
+
 def collect_action_items(sections: dict, overall: str) -> list[str]:
-    """Top items the user should review this morning. Pulls FAIL/WARN
-    findings first, then a few standing items derived from rankings/
-    watchlist movers.
+    """Build a focused list of items the user should review this morning.
+
+    Output is split into two buckets:
+      * operational  — schedule source / recovery / data-quality issues
+      * market       — ranking, watchlist and risk-monitor signals
+
+    Each bucket caps so a single noisy area can't crowd out the other,
+    and the final list is bounded to keep the briefing scannable.
     """
-    items: list[str] = []
+    operational: list[str] = []
+    market: list[str] = []
+
     for sec_name, sec in sections.items():
+        is_op = sec_name in _OPERATIONAL_SECTIONS
         for c in sec.get("checks", []):
             level = (c.get("status") or "").upper()
-            if level in ("WARN", "FAIL"):
-                items.append(f"[{level}] {sec_name}.{c.get('name')}: {c.get('message')}")
+            if level not in ("WARN", "FAIL"):
+                continue
+            line = f"[{level}] {sec_name}.{c.get('name')}: {c.get('message')}"
+            (operational if is_op else market).append(line)
 
     rc = sections.get("rankings_changes", {}).get("metrics", {})
+    new_entries = rc.get("new_top10_entries") or []
+    if new_entries:
+        names = ", ".join(e["ticker"] for e in new_entries[:5])
+        prior_dt = rc.get("prior_top10_compared_against") or "prior"
+        market.append(
+            f"[INFO] New top10 entries vs {prior_dt}: {names}"
+        )
+
     gainers = rc.get("top_gainers") or []
     losers = rc.get("top_losers") or []
     if gainers:
         top = gainers[0]
-        items.append(
-            f"[INFO] Review top MOV gainer {top.get('ticker')} "
+        market.append(
+            f"[INFO] Top MOV gainer {top.get('ticker')} "
             f"(change={top.get('change')}, rank={top.get('rank')})"
         )
     if losers:
         top = losers[0]
-        items.append(
-            f"[INFO] Review top MOV loser {top.get('ticker')} "
+        market.append(
+            f"[INFO] Top MOV loser {top.get('ticker')} "
             f"(change={top.get('change')}, rank={top.get('rank')})"
         )
 
     wl = sections.get("watchlist", {}).get("metrics", {})
+    wl_new = wl.get("new_top10_entries") or []
+    if wl_new:
+        names = ", ".join(e["ticker"] for e in wl_new[:5])
+        market.append(f"[INFO] New watchlist top10: {names}")
     wl_top = wl.get("top_10") or []
     if wl_top:
         sectors = [r.get("sector") for r in wl_top if r.get("sector")]
@@ -676,16 +812,74 @@ def collect_action_items(sections: dict, overall: str) -> list[str]:
             from collections import Counter
             top_sector, top_count = Counter(sectors).most_common(1)[0]
             if top_count >= max(3, len(sectors) // 2):
-                items.append(
+                market.append(
                     f"[INFO] Watchlist concentration: "
                     f"{top_count}/{len(sectors)} top names in {top_sector}"
                 )
 
-    items.sort(key=lambda s: (
-        0 if s.startswith("[FAIL]") else 1 if s.startswith("[WARN]") else 2
-    ))
-    # Cap at 5: the briefing wants a focused review list, not a dump.
-    return items[:5]
+    def _rank(line: str) -> int:
+        if line.startswith("[FAIL]"):
+            return 0
+        if line.startswith("[WARN]"):
+            return 1
+        return 2
+
+    operational.sort(key=_rank)
+    market.sort(key=_rank)
+    # Cap each bucket so a noisy operational state can't drown out market
+    # signals (and vice versa); cap the total at 7 lines for scannability.
+    return (operational[:3] + market[:5])[:7]
+
+
+def collect_strengths_risks(sections: dict) -> dict:
+    """Top 3 strengths and risks to review for the morning. Strengths are
+    the highest-conviction names (top AI score in main top10). Risks come
+    from MOV losers, market_risk generals_fail tickers, and SUPP-degraded
+    counts when high.
+    """
+    strengths: list[str] = []
+    risks: list[str] = []
+
+    rc = sections.get("rankings_changes", {}).get("metrics", {}) or {}
+    top10 = rc.get("top_10") or []
+    for r in top10:
+        if len(strengths) >= 3:
+            break
+        ai = r.get("ai_score")
+        if ai is None:
+            continue
+        strengths.append(
+            f"{r.get('ticker')} (AI {ai}, rank {r.get('rank')}, "
+            f"{r.get('sector') or '—'})"
+        )
+
+    losers = rc.get("top_losers") or []
+    for r in losers[:3]:
+        risks.append(
+            f"{r.get('ticker')} MOV {r.get('change')} "
+            f"(rank {r.get('rank')}, {r.get('sector') or '—'})"
+        )
+
+    mr = sections.get("market_risk", {}).get("metrics", {}) or {}
+    gen = mr.get("generals_fail") or {}
+    if gen.get("alert"):
+        below = gen.get("below_tickers") or []
+        if below and len(risks) < 3:
+            risks.append(
+                f"Generals Fail alert: {', '.join(below[:5])} below 200DMA"
+            )
+
+    wl = sections.get("watchlist", {}).get("metrics", {}) or {}
+    supp = wl.get("supp_summary") or {}
+    total = supp.get("total") or 0
+    if total:
+        degraded = (supp.get("price_only") or 0) + (supp.get("technical_only") or 0)
+        if degraded / total >= 0.5 and len(risks) < 3:
+            risks.append(
+                f"SUPP coverage degraded: {degraded}/{total} thin rows"
+            )
+
+    return {"strengths": strengths[:3], "risks": risks[:3]}
 
 
 def build_summary(report: dict) -> str:
@@ -715,11 +909,18 @@ def build_summary(report: dict) -> str:
     rc = s["rankings_changes"]["metrics"]
     top_g = rc.get("top_gainers") or []
     g_label = top_g[0]["ticker"] if top_g else "—"
+    new_top = rc.get("new_top10_entries") or []
+    new_label = (
+        f"{len(new_top)} new top10 ({new_top[0]['ticker']}…)"
+        if new_top else "Top10 stable"
+    )
 
     mr = s.get("market_risk", {}).get("metrics", {}) or {}
     gen = mr.get("generals_fail") or {}
     if gen.get("alert"):
-        risk_label = "Risk alert"
+        below = gen.get("below_count")
+        avail = gen.get("available_count")
+        risk_label = f"Risk alert {below}/{avail}<200DMA"
     elif gen.get("available_count") is not None:
         risk_label = "Risk OK"
     else:
@@ -730,6 +931,7 @@ def build_summary(report: dict) -> str:
         f"Source {src_label}",
         f"DQ {dq_status}",
         f"Top gainer {g_label}",
+        new_label,
         risk_label,
     ]
     return " · ".join(parts)
@@ -772,14 +974,89 @@ th,td{{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-ali
 
     actions = report.get("action_items") or []
     if actions:
-        parts.append('<div class="section"><h2>Action Items</h2><ul class="action">')
-        for a in actions:
-            parts.append(f"<li>{escape(a)}</li>")
-        parts.append("</ul></div>")
+        # Split visually into operational vs market lines so the user can
+        # tell schedule/recovery noise from rankings/risk action items at
+        # a glance.
+        op_prefixes = tuple(f"[{lvl}] {sec}." for lvl in ("FAIL", "WARN")
+                            for sec in _OPERATIONAL_SECTIONS)
+        op_lines = [a for a in actions if a.startswith(op_prefixes)]
+        mkt_lines = [a for a in actions if a not in op_lines]
+        parts.append('<div class="section"><h2>Action Items</h2>')
+        if op_lines:
+            parts.append('<h3>Operational</h3><ul class="action">')
+            for a in op_lines:
+                parts.append(f"<li>{escape(a)}</li>")
+            parts.append("</ul>")
+        if mkt_lines:
+            parts.append('<h3>Market &amp; Rankings</h3><ul class="action">')
+            for a in mkt_lines:
+                parts.append(f"<li>{escape(a)}</li>")
+            parts.append("</ul>")
+        parts.append("</div>")
+
+    sr = report.get("strengths_risks") or {}
+    strengths = sr.get("strengths") or []
+    risks = sr.get("risks") or []
+    if strengths or risks:
+        parts.append(
+            '<div class="section"><h2>Top Strengths &amp; Risks</h2>'
+            '<div class="movers">'
+        )
+        parts.append('<div><h3>Top Strengths</h3>')
+        if strengths:
+            parts.append('<ul class="action">')
+            for s_line in strengths:
+                parts.append(f"<li>{escape(s_line)}</li>")
+            parts.append("</ul>")
+        else:
+            parts.append("<p class='kv'>—</p>")
+        parts.append('</div><div><h3>Top Risks</h3>')
+        if risks:
+            parts.append('<ul class="action">')
+            for r_line in risks:
+                parts.append(f"<li>{escape(r_line)}</li>")
+            parts.append("</ul>")
+        else:
+            parts.append("<p class='kv'>—</p>")
+        parts.append("</div></div></div>")
+
+    # Compact risk monitor summary so the user doesn't have to scroll the
+    # raw metrics block to know whether any market-wide alarms are active.
+    mr = report["sections"].get("market_risk", {}).get("metrics", {}) or {}
+    gen = mr.get("generals_fail") or {}
+    if gen.get("available_count") is not None:
+        below = gen.get("below_count") or 0
+        avail = gen.get("available_count") or 0
+        threshold = gen.get("threshold")
+        alert_cls = "WARN" if gen.get("alert") else "OK"
+        below_tickers = gen.get("below_tickers") or []
+        below_str = ", ".join(below_tickers) if below_tickers else "none"
+        pending = mr.get("pending_indicators") or []
+        pending_str = (f" · pending: {', '.join(pending)}" if pending else "")
+        parts.append(
+            '<div class="section"><h2>Risk Monitor '
+            f'<span class="{alert_cls}">{alert_cls}</span></h2>'
+            f'<p class="kv">Generals Fail: <strong>{below}/{avail}</strong>'
+            f' below 200DMA (threshold {threshold}); below: {escape(below_str)}'
+            f'{escape(pending_str)}.</p></div>'
+        )
 
     # Rankings changes block: top 10 + gainers/losers tables.
     rc = report["sections"].get("rankings_changes", {}).get("metrics", {}) or {}
     parts.append('<div class="section"><h2>Main Rankings <span class="OK">SCAN</span></h2>')
+    new_entries = rc.get("new_top10_entries") or []
+    prior_dt = rc.get("prior_top10_compared_against")
+    if prior_dt:
+        if new_entries:
+            names = ", ".join(e["ticker"] for e in new_entries)
+            parts.append(
+                f"<p class='kv'><strong>New top10 vs {escape(prior_dt)}:</strong> "
+                f"{escape(names)}</p>"
+            )
+        else:
+            parts.append(
+                f"<p class='kv'><strong>Top10 unchanged vs {escape(prior_dt)}.</strong></p>"
+            )
     top10 = rc.get("top_10") or []
     if top10:
         parts.append("<h3>Top 10</h3><table><thead><tr>"
@@ -899,12 +1176,15 @@ def build_report() -> dict:
     mrm = _load_json(MARKET_RISK_FILE)
     bench = _load_json(BENCHMARK_FILE)
 
+    today_chi = _to_chicago(_now_utc()).date().strftime("%Y-%m-%d")
+    prior_snapshot = _load_prior_snapshot(BENCHMARK_SNAPSHOTS_FILE, today_chi)
+
     sections = {
         "freshness": analyze_freshness(rankings),
         "run_source": analyze_run_source(sr_rep),
         "data_quality": analyze_data_quality(dq),
-        "rankings_changes": analyze_rankings_changes(rankings),
-        "watchlist": analyze_watchlist(watchlist),
+        "rankings_changes": analyze_rankings_changes(rankings, prior_snapshot),
+        "watchlist": analyze_watchlist(watchlist, prior_snapshot),
         "market_risk": analyze_market_risk(mrm),
         "benchmark": analyze_benchmark(bench),
     }
@@ -929,6 +1209,7 @@ def build_report() -> dict:
         },
     }
     report["action_items"] = collect_action_items(sections, overall)
+    report["strengths_risks"] = collect_strengths_risks(sections)
     report["summary"] = build_summary(report)
     return report
 
