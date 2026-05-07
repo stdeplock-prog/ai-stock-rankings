@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-07T13:01:36Z",
-  "generated_at_chicago": "2026-05-07 08:01 AM CDT",
+  "generated_at": "2026-05-07T15:06:47Z",
+  "generated_at_chicago": "2026-05-07 10:06 AM CDT",
   "overall": "WARN",
   "sections": {
     "freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-07 08:00 AM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-05-07 10:06 AM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,14 +17,14 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-07 08:00 AM CDT",
+        "as_of": "2026-05-07 10:06 AM CDT",
         "open_date": "2026-05-07",
         "row_count": 100,
         "is_open_run": false,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-05-07 08:01",
-        "rankings_age_hours": 0.03,
+        "chicago_now": "2026-05-07 10:06",
+        "rankings_age_hours": 0.01,
         "today_live": true
       },
       "status": "OK"
@@ -34,7 +34,7 @@
         {
           "name": "run_source",
           "status": "WARN",
-          "message": "latest run: rescued morning slot (2026-05-07 08:01), history shows 4 missing slot(s)"
+          "message": "latest run: rescued morning slot (2026-05-07 10:06), history shows 4 missing slot(s)"
         }
       ],
       "metrics": {
@@ -42,7 +42,7 @@
         "overall_effective": "WARN",
         "last_run_event": "workflow_dispatch",
         "last_run_slot": "manual",
-        "last_run_ts_chicago": "2026-05-07 08:01",
+        "last_run_ts_chicago": "2026-05-07 10:06",
         "today_missing": [],
         "today_satisfied": true,
         "source": "recovered"
@@ -125,19 +125,19 @@
           },
           {
             "rank": 6,
-            "ticker": "RGA",
-            "company": "Reinsurance Group of America",
-            "ai_score": 8.3,
-            "change": 0,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 7,
             "ticker": "DELL",
             "company": "Dell Technologies",
             "ai_score": 8.3,
-            "change": 0,
+            "change": 1,
             "sector": "Technology"
+          },
+          {
+            "rank": 7,
+            "ticker": "RGA",
+            "company": "Reinsurance Group of America",
+            "ai_score": 8.3,
+            "change": -1,
+            "sector": "Financial Services"
           },
           {
             "rank": 8,
@@ -164,8 +164,90 @@
             "sector": "Healthcare"
           }
         ],
-        "top_gainers": [],
-        "top_losers": [],
+        "top_gainers": [
+          {
+            "rank": 85,
+            "ticker": "COKE",
+            "company": "Coca-Cola Consolidated",
+            "change": 16,
+            "ai_score": 7.7,
+            "sector": "Consumer Defensive"
+          },
+          {
+            "rank": 70,
+            "ticker": "JBL",
+            "company": "Jabil",
+            "change": 13,
+            "ai_score": 7.7,
+            "sector": "Technology"
+          },
+          {
+            "rank": 55,
+            "ticker": "FIVE",
+            "company": "Five Below",
+            "change": 6,
+            "ai_score": 7.8,
+            "sector": "Consumer Cyclical"
+          },
+          {
+            "rank": 62,
+            "ticker": "ECG",
+            "company": "Everus Construction Group",
+            "change": 6,
+            "ai_score": 7.8,
+            "sector": "Industrials"
+          },
+          {
+            "rank": 99,
+            "ticker": "DOC",
+            "company": "Healthpeak Properties",
+            "change": 6,
+            "ai_score": 7.6,
+            "sector": "Real Estate"
+          }
+        ],
+        "top_losers": [
+          {
+            "rank": 35,
+            "ticker": "ARW",
+            "company": "Arrow Electronics",
+            "change": -3,
+            "ai_score": 7.9,
+            "sector": "Technology"
+          },
+          {
+            "rank": 61,
+            "ticker": "CWEN-A",
+            "company": "Clearway Energy (Class A)",
+            "change": -3,
+            "ai_score": 7.8,
+            "sector": "Utilities"
+          },
+          {
+            "rank": 65,
+            "ticker": "MET",
+            "company": "MetLife",
+            "change": -3,
+            "ai_score": 7.8,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 76,
+            "ticker": "FHN",
+            "company": "First Horizon Corporation",
+            "change": -3,
+            "ai_score": 7.7,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 91,
+            "ticker": "ALLY",
+            "company": "Ally Financial",
+            "change": -3,
+            "ai_score": 7.7,
+            "sector": "Financial Services"
+          }
+        ],
         "new_top10_entries": [
           {
             "ticker": "CACC",
@@ -183,9 +265,9 @@
         "prior_top10_compared_against": "2026-05-06",
         "mov_summary": {
           "with_change": 100,
-          "positive": 0,
-          "negative": 0,
-          "zero": 100
+          "positive": 26,
+          "negative": 34,
+          "zero": 40
         },
         "limitation": "MOV-based gainers/losers; new-entry detection uses prior benchmark snapshot when available."
       },
@@ -227,6 +309,15 @@
           },
           {
             "rank": 3,
+            "ticker": "PAAS",
+            "company": "Pan American Silver Corp.",
+            "ai_score": 8.0,
+            "change": 0,
+            "sector": "Basic Materials",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 4,
             "ticker": "AME",
             "company": "Ametek",
             "ai_score": 7.9,
@@ -235,7 +326,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 4,
+            "rank": 5,
             "ticker": "EXEL",
             "company": "Exelixis",
             "ai_score": 7.9,
@@ -244,7 +335,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 5,
+            "rank": 6,
             "ticker": "AMZN",
             "company": "Amazon",
             "ai_score": 7.8,
@@ -253,7 +344,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 6,
+            "rank": 7,
             "ticker": "DAL",
             "company": "Delta Air Lines",
             "ai_score": 7.8,
@@ -262,7 +353,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 7,
+            "rank": 8,
             "ticker": "GOOG",
             "company": "Alphabet Inc. (Class C)",
             "ai_score": 7.8,
@@ -271,7 +362,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 8,
+            "rank": 9,
             "ticker": "CIEN",
             "company": "Ciena",
             "ai_score": 7.7,
@@ -280,44 +371,35 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 9,
+            "rank": 10,
             "ticker": "SCCO",
             "company": "Southern Copper",
             "ai_score": 7.7,
             "change": 0,
             "sector": "Basic Materials",
             "data_source": "main_pipeline"
-          },
-          {
-            "rank": 10,
-            "ticker": "DUOL",
-            "company": "Duolingo",
-            "ai_score": 7.6,
-            "change": 0,
-            "sector": "Technology",
-            "data_source": "main_pipeline"
           }
         ],
         "prior_top10_compared_against": "2026-05-06",
         "new_top10_entries": [
           {
-            "ticker": "EXEL",
-            "rank": 4,
-            "ai_score": 7.9
+            "ticker": "PAAS",
+            "rank": 3,
+            "ai_score": 8.0
           },
           {
-            "ticker": "DUOL",
-            "rank": 10,
-            "ai_score": 7.6
+            "ticker": "EXEL",
+            "rank": 5,
+            "ai_score": 7.9
           }
         ],
         "supp_top": [
           {
-            "ticker": "ISSC",
-            "company": "Innovative Solutions and Suppor",
-            "ai_score": 7.6,
+            "ticker": "PAAS",
+            "company": "Pan American Silver Corp.",
+            "ai_score": 8.0,
             "change": 0,
-            "sector": "Industrials"
+            "sector": "Basic Materials"
           },
           {
             "ticker": "NBIS",
@@ -327,23 +409,23 @@
             "sector": "Communication Services"
           },
           {
-            "ticker": "PAAS",
-            "company": "Pan American Silver Corp.",
+            "ticker": "ISSC",
+            "company": "Innovative Solutions and Suppor",
             "ai_score": 7.5,
             "change": 0,
-            "sector": "Basic Materials"
+            "sector": "Industrials"
           },
           {
             "ticker": "TSM",
             "company": "Taiwan Semiconductor Manufactur",
-            "ai_score": 7.4,
+            "ai_score": 7.3,
             "change": 0,
             "sector": "Technology"
           },
           {
-            "ticker": "VISN",
-            "company": "Vistance Networks, Inc.",
-            "ai_score": 7.3,
+            "ticker": "AXTI",
+            "company": "AXT Inc",
+            "ai_score": 7.2,
             "change": 0,
             "sector": "Technology"
           }
@@ -368,37 +450,35 @@
       "checks": [
         {
           "name": "generals_fail",
-          "status": "WARN",
-          "message": "Generals Fail 3/7 below 200DMA (threshold 3): MSFT, META, TSLA"
+          "status": "OK",
+          "message": "Generals Fail 2/7 below 200DMA (threshold 3)"
         },
         {
           "name": "indicator_coverage",
           "status": "OK",
-          "message": "indicators pending source: polls, adr, vix, ndr, put_call_ratio"
+          "message": "indicators pending source: polls, adr, ndr, put_call_ratio"
         }
       ],
       "metrics": {
-        "generated_at": "2026-05-07 13:01 UTC",
+        "generated_at": "2026-05-07 15:06 UTC",
         "generals_fail": {
-          "below_count": 3,
+          "below_count": 2,
           "available_count": 7,
           "threshold": 3,
-          "alert": true,
+          "alert": false,
           "below_tickers": [
             "MSFT",
-            "META",
-            "TSLA"
+            "META"
           ]
         },
         "pending_indicators": [
           "polls",
           "adr",
-          "vix",
           "ndr",
           "put_call_ratio"
         ]
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "benchmark": {
       "checks": [
@@ -410,13 +490,13 @@
         {
           "name": "benchmark_findings",
           "status": "OK",
-          "message": "5 WARN finding(s) in benchmark review (advisory)"
+          "message": "4 WARN finding(s) in benchmark review (advisory)"
         }
       ],
       "metrics": {
         "snapshots_kept": 5,
         "any_horizon_completed": true,
-        "findings_warn": 5
+        "findings_warn": 4
       },
       "status": "OK"
     }
@@ -430,10 +510,11 @@
     "benchmark_present": true
   },
   "action_items": [
-    "[WARN] run_source.run_source: latest run: rescued morning slot (2026-05-07 08:01), history shows 4 missing slot(s)",
-    "[WARN] market_risk.generals_fail: Generals Fail 3/7 below 200DMA (threshold 3): MSFT, META, TSLA",
+    "[WARN] run_source.run_source: latest run: rescued morning slot (2026-05-07 10:06), history shows 4 missing slot(s)",
     "[INFO] New top10 entries vs 2026-05-06: CACC, NBIX",
-    "[INFO] New watchlist top10: EXEL, DUOL"
+    "[INFO] Top MOV gainer COKE (change=16, rank=85)",
+    "[INFO] Top MOV loser ARW (change=-3, rank=35)",
+    "[INFO] New watchlist top10: PAAS, EXEL"
   ],
   "strengths_risks": {
     "strengths": [
@@ -442,8 +523,10 @@
       "FAF (AI 8.4, rank 3, Financial Services)"
     ],
     "risks": [
-      "Generals Fail alert: MSFT, META, TSLA below 200DMA"
+      "ARW MOV -3 (rank 35, Technology)",
+      "CWEN-A MOV -3 (rank 61, Utilities)",
+      "MET MOV -3 (rank 65, Financial Services)"
     ]
   },
-  "summary": "Live 08:00 AM CT \u00b7 Source rescued \u00b7 DQ OK \u00b7 Top gainer \u2014 \u00b7 2 new top10 (CACC\u2026) \u00b7 Risk alert 3/7<200DMA"
+  "summary": "Live 10:06 AM CT \u00b7 Source rescued \u00b7 DQ OK \u00b7 Top gainer COKE \u00b7 2 new top10 (CACC\u2026) \u00b7 Risk OK"
 }
