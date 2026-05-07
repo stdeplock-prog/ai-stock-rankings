@@ -319,6 +319,7 @@
         <span class="reports-label">Reports</span>
         <a href="./reports/data-quality-audit.html" id="dqaLink">Data quality</a>
         <a href="./reports/benchmark-review.html" id="benchReviewLink">Benchmark</a>
+        <a href="./reports/external-benchmark-review.html" id="externalBenchReviewLink">External benchmark</a>
         <a href="./reports/scoring-parity-review.html" id="scoringParityLink">Scoring parity</a>
         <a href="./reports/low-risk-drift-review.html" id="lowRiskDriftLink">Low-risk drift</a>
         <a href="./reports/ranking-diagnostics.html" id="rankingDiagnosticsLink">Diagnostics</a>
@@ -660,6 +661,10 @@
       return decorateReportLink('./data/reports/schedule_reliability.json', 'scheduleReliabilityLink', 'Schedule');
     }
 
+    async function decorateExternalBenchReviewLink() {
+      return decorateReportLink('./data/reports/external_benchmark_review.json', 'externalBenchReviewLink', 'External benchmark');
+    }
+
     function render(rows) {
       const tb = document.getElementById('tbody');
 
@@ -777,6 +782,7 @@
         decorateAuditLink();
         decorateScoringParityLink();
         decorateScheduleReliabilityLink();
+        decorateExternalBenchReviewLink();
         applySearch();
       } catch (e) {
         document.getElementById('errMsg').textContent = `Error loading dashboard: ${e.message}`;

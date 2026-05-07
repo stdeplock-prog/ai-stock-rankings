@@ -395,6 +395,18 @@ jobs:
         run: python 02_Code/Python/Reports/benchmark_review.py
         continue-on-error: true
 
+      # External Benchmark Review — diagnostic comparison against static
+      # captures from TradingView / Fidelity / E*TRADE / Zacks / MarketBeat
+      # under data/external_benchmarks/. Read-only, no network — the seeds
+      # are committed to the repo so every run regenerates from the same
+      # snapshot until the seeds are refreshed. Produces a disagreement
+      # queue and confirmations table for manual review. Does NOT alter
+      # production scores.
+      - name: Generate external benchmark review
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/external_benchmark_review.py
+        continue-on-error: true
+
       # Record the run on the proceed path before the reliability report is
       # generated so the report sees the current run in its JSONL input.
       # rankings.json was just rewritten by the export step above, so we
@@ -502,6 +514,8 @@ jobs:
           git add data/reports/data_quality_audit.json 2>/dev/null || true
           git add data/reports/benchmark_review.json 2>/dev/null || true
           git add data/reports/benchmark_snapshots.jsonl 2>/dev/null || true
+          git add data/reports/external_benchmark_review.json 2>/dev/null || true
+          git add data/reports/disagreement_queue.json 2>/dev/null || true
           git add data/reports/scoring_parity_review.json 2>/dev/null || true
           git add data/reports/low_risk_drift_review.json 2>/dev/null || true
           git add data/reports/ranking_diagnostics.json 2>/dev/null || true
@@ -516,6 +530,7 @@ jobs:
           git add reports/options-watchlist.html 2>/dev/null || true
           git add reports/data-quality-audit.html 2>/dev/null || true
           git add reports/benchmark-review.html 2>/dev/null || true
+          git add reports/external-benchmark-review.html 2>/dev/null || true
           git add reports/scoring-parity-review.html 2>/dev/null || true
           git add reports/low-risk-drift-review.html 2>/dev/null || true
           git add reports/ranking-diagnostics.html 2>/dev/null || true
