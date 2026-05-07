@@ -100,7 +100,12 @@ def load_sources():
     tv_tickers  = [t.strip().upper() for t in cfg["sources"]["tradingview"]["tickers"] if t.strip()]
     overrides_raw = cfg.get("symbol_overrides", {}) or {}
     overrides = {k.upper(): v for k, v in overrides_raw.items()}
-    return csv_tickers, tv_tickers, overrides
+    excluded_cfg = cfg.get("excluded_symbols", {}) or {}
+    excluded_explicit = {
+        t.strip().upper() for t in (excluded_cfg.get("tickers") or [])
+        if isinstance(t, str) and t.strip()
+    }
+    return csv_tickers, tv_tickers, overrides, excluded_explicit
 
 
 def normalize_symbol(sym, overrides):
@@ -108,6 +113,44 @@ def normalize_symbol(sym, overrides):
     if s in overrides:
         return overrides[s]
     return s
+
+
+def _is_krx_local_symbol(sym):
+    """KRX local listings: 6-digit-numeric heads (with optional .KS/.KQ suffix).
+    These are out-of-universe — Korean local exchange tickers, not US ADRs.
+    Checked against both raw and normalized forms so guards still fire when a
+    re-imported source feed re-introduces them."""
+    if not sym:
+        return False
+    s = sym.strip().upper()
+    if not s:
+        return False
+    head = s
+    if "." in s:
+        head, tail = s.rsplit(".", 1)
+        if tail in ("KS", "KQ"):
+            return True
+    if head.isdigit() and len(head) == 6:
+        return True
+    return False
+
+
+def is_excluded_symbol(sym, excluded_explicit):
+    """Authoritative gate for the rendered watchlist universe. A symbol is
+    excluded if either its raw form or its uppercased trimmed form appears in
+    the explicit excluded list, OR it matches a KRX-local pattern.
+
+    The pattern check is the durable defence: a re-imported TradingView CSV
+    that re-adds 005930 / 005930.KS / 000660.KS / 005935 etc. is rejected
+    even before anyone updates the explicit list."""
+    if not sym:
+        return False
+    s = sym.strip().upper()
+    if not s:
+        return False
+    if s in excluded_explicit:
+        return True
+    return _is_krx_local_symbol(s)
 
 
 def source_label(sym, csv_set, tv_set):
@@ -852,7 +895,7 @@ def row_from_supplemental(rank, raw_sym, fetched):
 
 
 def main():
-    csv_tickers, tv_tickers, overrides = load_sources()
+    csv_tickers, tv_tickers, overrides, excluded_explicit = load_sources()
 
     # Pre-canonicalize input symbols against their override targets so that
     # e.g. SOLUSD (TradingView form) and SOL-USD (yfinance form) collapse to a
@@ -861,11 +904,42 @@ def main():
         s = sym.upper()
         return overrides.get(s, s)
 
-    csv_set = {canon(t) for t in csv_tickers}
-    tv_set  = {canon(t) for t in tv_tickers}
+    csv_set_raw = {canon(t) for t in csv_tickers}
+    tv_set_raw  = {canon(t) for t in tv_tickers}
+
+    # Drop excluded symbols (KRX local listings, explicit blocklist) before
+    # they reach the scored universe. Track which ones we filtered so the
+    # source_meta can report the gate's decision for transparency.
+    def _excluded_pair(raw, canonical):
+        return is_excluded_symbol(raw, excluded_explicit) or \
+               is_excluded_symbol(canonical, excluded_explicit)
+
+    excluded_seen: dict[str, dict] = {}
+    def _filter(tickers, label):
+        kept = set()
+        for raw in tickers:
+            c = canon(raw)
+            if _excluded_pair(raw, c):
+                rec = excluded_seen.setdefault(c, {
+                    "input": raw, "canonical": c, "sources": set(),
+                    "reason": ("krx_pattern" if _is_krx_local_symbol(c) or _is_krx_local_symbol(raw)
+                               else "explicit_excluded_list"),
+                })
+                rec["sources"].add(label)
+                continue
+            kept.add(c)
+        return kept
+
+    csv_set = _filter(csv_tickers, "csv")
+    tv_set  = _filter(tv_tickers, "tradingview")
+    csv_set_pre = csv_set_raw  # before exclusion (for diagnostics)
+    tv_set_pre  = tv_set_raw
 
     # Combined unique input symbols, preserving canonical (override-applied) form.
     combined = sorted(csv_set | tv_set)
+    if excluded_seen:
+        print(f"Watchlist: excluded {len(excluded_seen)} out-of-universe symbols: "
+              f"{sorted(excluded_seen.keys())}")
     print(f"Watchlist: {len(combined)} unique input symbols "
           f"(csv={len(csv_set)}, tv={len(tv_set)}, both={len(csv_set & tv_set)})")
 
@@ -941,6 +1015,19 @@ def main():
     pending = []  # list of dicts before ranking
     for raw_sym in combined:
         normalized = normalize_symbol(raw_sym, overrides)
+        # Defense-in-depth: re-check the exclusion gate post-canonicalization.
+        # The pre-loop filter already drops these, but if a future caller hands
+        # us a pre-built combined set we still won't render KRX locals.
+        if is_excluded_symbol(raw_sym, excluded_explicit) or \
+           is_excluded_symbol(normalized, excluded_explicit):
+            excluded_seen.setdefault(raw_sym, {
+                "input": raw_sym, "canonical": normalized,
+                "sources": {source_label(raw_sym, csv_set_pre, tv_set_pre)},
+                "reason": ("krx_pattern" if _is_krx_local_symbol(raw_sym)
+                                            or _is_krx_local_symbol(normalized)
+                           else "explicit_excluded_list"),
+            })
+            continue
         # 1) main pipeline: try both raw and normalized; main pipeline tickers
         #    are usually US (no override needed) so raw is correct in most cases.
         main_key = None
@@ -973,6 +1060,18 @@ def main():
             "reason": "not in main rankings and supplemental fetch failed or disabled"
         })
         source_counts["unavailable"] += 1
+
+    # Build the persisted excluded list AFTER the pending loop so any
+    # defense-in-depth additions are reflected in source_meta.
+    excluded_list = [
+        {
+            "ticker":  v["canonical"],
+            "input":   v["input"],
+            "sources": sorted(v["sources"]),
+            "reason":  v["reason"],
+        }
+        for v in sorted(excluded_seen.values(), key=lambda x: x["canonical"])
+    ]
 
     # Sort by AI score desc, with None last
     def sort_key(r):
@@ -1044,6 +1143,13 @@ def main():
             "in_both":            len(csv_set & tv_set),
             "scored":             len(rows),
             "unavailable_count":  len(unavailable),
+            # Out-of-universe symbols filtered out before scoring. KRX local
+            # listings (e.g. 005930.KS / 000660.KS) and any tickers in the
+            # excluded_symbols list from data/watchlist_sources.json land
+            # here. The list is empty in the steady state — entries indicate
+            # a re-imported source feed re-introduced an excluded symbol.
+            "excluded_count":     len(excluded_list),
+            "excluded":           excluded_list,
             "by_data_source":     source_counts,
             "by_source_label":    src_label_counts,
             "supp_by_kind":       supp_kind_counts,

@@ -9,15 +9,21 @@
     "tradingview": {
       "label": "TradingView watchlist 203377841",
       "url": "https://www.tradingview.com/watchlists/203377841/",
-      "tickers": ["BMNR","META","NVDA","CVNA","USO","MDB","SNOW","ALAB","NBIS","005930","VEEV","AMZN","APH","EQIX","MU","DDOG","000660","DELL","TSM","APP","APA","UBER","PATH","PBR","Q","CRDO","DVN","TJX","VG","EXLS","GUSH","TOST","SOLUSD","AAPL","COHR","SCCO","CRWV","BTCUSD","DUOL","NFLX","BBAI","CENX","PLTR","IBIT","BABA","GMED","AVGO","GLD","TMO","QTUM","SLV","NVTS","DAL","STX","IREN","ACHR","XE","AGX","MTSI","SNDK","AMD","CLS","LUNMF","AME","HOOD","LITE","AZO","RKT","KLAR","UPST","SMCI","COIN","BIPC","GLW","MP","JOBY","VRT","APLD","PSIX","MRVL","SOFI","RGTI","WDC","IONQ","FIG","RKLB","AXTI","CIEN","GOOG","AREC","QBTS","SMTC","TTMI","VIAV","USAR","FTAI","QCOM","PI"]
+      "tickers": ["BMNR","META","NVDA","CVNA","USO","MDB","SNOW","ALAB","NBIS","VEEV","AMZN","APH","EQIX","MU","DDOG","DELL","TSM","APP","APA","UBER","PATH","PBR","Q","CRDO","DVN","TJX","VG","EXLS","GUSH","TOST","SOLUSD","AAPL","COHR","SCCO","CRWV","BTCUSD","DUOL","NFLX","BBAI","CENX","PLTR","IBIT","BABA","GMED","AVGO","GLD","TMO","QTUM","SLV","NVTS","DAL","STX","IREN","ACHR","XE","AGX","MTSI","SNDK","AMD","CLS","LUNMF","AME","HOOD","LITE","AZO","RKT","KLAR","UPST","SMCI","COIN","BIPC","GLW","MP","JOBY","VRT","APLD","PSIX","MRVL","SOFI","RGTI","WDC","IONQ","FIG","RKLB","AXTI","CIEN","GOOG","AREC","QBTS","SMTC","TTMI","VIAV","USAR","FTAI","QCOM","PI"]
     }
   },
   "symbol_overrides": {
     "SOLUSD": "SOL-USD",
     "BTCUSD": "BTC-USD",
     "BF-B": "BF-B",
-    "SOL-USD": "SOL-USD",
-    "005930": "005930.KS",
-    "000660": "000660.KS"
+    "SOL-USD": "SOL-USD"
+  },
+  "excluded_symbols": {
+    "description": "Symbols that must never enter the rendered watchlist universe even if they reappear in source feeds (e.g. via re-imported TradingView exports). Korean local listings (KRX) are out-of-scope for this US-focused universe; ADRs of the same companies — when available — are acceptable, but local 6-digit / .KS / .KQ tickers are not.",
+    "tickers": ["005930", "005930.KS", "005935", "005935.KS", "000660", "000660.KS"],
+    "patterns": {
+      "krx_suffix": "Symbols ending in '.KS' or '.KQ' (KRX local listings)",
+      "krx_numeric": "Bare 6-digit numeric tickers (KRX local form before suffix)"
+    }
   }
 }

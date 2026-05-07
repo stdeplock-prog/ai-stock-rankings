@@ -38,6 +38,17 @@ def test_sources_well_formed():
     overrides = cfg.get("symbol_overrides", {})
     assert overrides.get("SOLUSD") == "SOL-USD", "SOLUSD override missing"
     assert overrides.get("BTCUSD") == "BTC-USD", "BTCUSD override missing"
+    # Korean local listings (KRX) are out-of-universe — must not appear in
+    # either source list nor in the override map. ADRs (TSM/BABA/PBR) are
+    # plain US tickers with no .KS form and remain valid.
+    krx_locals = {"005930", "005935", "000660"}
+    krx_suffix_locals = {f"{s}.KS" for s in krx_locals} | {f"{s}.KQ" for s in krx_locals}
+    for t in (set(csv_t) | set(tv_t)):
+        assert t.upper() not in krx_locals and t.upper() not in krx_suffix_locals, \
+            f"KRX local ticker {t!r} must not appear in source lists"
+    for k, v in overrides.items():
+        assert v.upper() not in krx_suffix_locals, \
+            f"override target {v!r} for {k!r} must not be a KRX local listing"
     print("  sources well-formed: OK")
 
 
@@ -537,6 +548,88 @@ def test_eodhd_budget_respected_with_likely_equity():
     print("  EODHD budget respected with likely-equity rows: OK")
 
 
+def test_krx_exclusion_helpers():
+    """is_excluded_symbol / _is_krx_local_symbol must reject KRX local
+    listings (raw 6-digit, .KS, .KQ) and any explicit excluded entries,
+    while keeping plain US ADRs (TSM/BABA/PBR) and legitimate equities."""
+    sys.path.insert(0, os.path.dirname(GENERATOR))
+    from generate_watchlist_rankings import (
+        is_excluded_symbol, _is_krx_local_symbol,
+    )
+
+    # KRX patterns rejected regardless of explicit list.
+    for sym in ("005930", "000660", "005935", "005930.KS", "000660.KS",
+                "005935.KS", "123456", "012345.KQ"):
+        assert _is_krx_local_symbol(sym) is True, f"{sym!r} should match KRX pattern"
+        assert is_excluded_symbol(sym, set()) is True, f"{sym!r} should be excluded"
+
+    # US ADRs and plain US tickers MUST NOT be flagged.
+    for sym in ("TSM", "BABA", "PBR", "AAPL", "NVDA", "BMNR", "BF-B",
+                "SOL-USD", "BTC-USD", "LUNMF"):
+        assert _is_krx_local_symbol(sym) is False, f"{sym!r} should not match KRX"
+        assert is_excluded_symbol(sym, set()) is False, f"{sym!r} should be allowed"
+
+    # Explicit excluded list still wins for arbitrary additions.
+    assert is_excluded_symbol("FAKE", {"FAKE"}) is True
+    assert is_excluded_symbol("fake", {"FAKE"}) is True  # case-insensitive
+    assert is_excluded_symbol("REAL", {"FAKE"}) is False
+
+    # Empty / None inputs are not flagged.
+    assert is_excluded_symbol("", set()) is False
+    assert is_excluded_symbol(None, set()) is False
+    print("  KRX exclusion helpers: OK")
+
+
+def test_krx_excluded_from_generator_output():
+    """Even if a KRX local listing is re-introduced into watchlist_sources.json
+    (simulating a re-imported TradingView export), the generator must filter
+    it out and report it under source_meta.excluded — never in rows or
+    unavailable. This is the structural guarantee that protects the
+    rendered watchlist universe from drifting into KRX local listings.
+    """
+    import tempfile, shutil
+    sources_path = SOURCES
+    backup = SOURCES + ".bak.test"
+    shutil.copyfile(sources_path, backup)
+    try:
+        with open(sources_path) as f:
+            cfg = json.load(f)
+        # Inject Korean locals back into the TV source list to exercise the gate.
+        cfg["sources"]["tradingview"]["tickers"] = list(
+            cfg["sources"]["tradingview"]["tickers"]
+        ) + ["005930", "000660"]
+        with open(sources_path, "w") as f:
+            json.dump(cfg, f, indent=2)
+
+        env = os.environ.copy()
+        env["WATCHLIST_DISABLE_SUPPLEMENTAL"] = "1"
+        res = subprocess.run([sys.executable, GENERATOR],
+                             capture_output=True, text=True, env=env, cwd=REPO_ROOT)
+        if res.returncode != 0:
+            fail(f"generator exited {res.returncode}\nstderr={res.stderr}")
+        with open(OUTPUT) as f:
+            data = json.load(f)
+        sm = data["source_meta"]
+        assert sm.get("excluded_count", 0) >= 2, sm
+        excluded = {e["ticker"] for e in sm.get("excluded", [])}
+        # 005930 / 000660 are bare 6-digit numeric → KRX pattern.
+        assert "005930" in excluded or "000660" in excluded, excluded
+        # No row in the rendered output may carry a KRX ticker.
+        for r in data["rows"]:
+            t = (r.get("ticker") or "").upper()
+            assert not t.endswith(".KS"), f"row leaked KRX ticker {t!r}"
+            assert not (t.isdigit() and len(t) == 6), f"row leaked numeric KRX {t!r}"
+        # And nothing in unavailable should reference them either — they
+        # were filtered before the resolution step.
+        for u in data["unavailable"]:
+            t = (u.get("input") or "").upper()
+            assert not t.endswith(".KS"), f"unavailable leaked KRX {t!r}"
+            assert not (t.isdigit() and len(t) == 6), f"unavailable leaked numeric KRX {t!r}"
+    finally:
+        shutil.move(backup, sources_path)
+    print("  KRX exclusion in generator output: OK")
+
+
 def test_eodhd_disabled_when_no_module():
     """Sanity: even if the EODHD module is somehow unavailable, the watchlist
     generator must still run (the import is wrapped). This is a regression
@@ -561,6 +654,8 @@ def main():
     test_eodhd_attempted_for_unknown_likely_equity()
     test_eodhd_skips_known_non_equity_via_pre_gate()
     test_eodhd_budget_respected_with_likely_equity()
+    test_krx_exclusion_helpers()
+    test_krx_excluded_from_generator_output()
     test_eodhd_disabled_when_no_module()
     test_eodhd_budget_metadata_in_output()
     test_eodhd_enrichment_disabled_flag()
