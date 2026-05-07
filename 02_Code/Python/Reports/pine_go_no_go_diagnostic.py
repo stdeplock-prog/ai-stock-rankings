@@ -388,12 +388,17 @@ def classify_disagreement(internal_direction: str, gate_result: dict | None) -> 
                               "— internal bullish thesis confirmed by gate stack"),
             }
         if score < 0.4 or blockers:
+            if blockers and score >= 0.4:
+                rationale = (f"Pine score {score:.2f} OK but blockers fired "
+                             f"({', '.join(blockers)}) — Pine flags caution")
+            else:
+                rationale = (f"Pine score {score:.2f} weak"
+                             + (f"; blockers={blockers}" if blockers else "")
+                             + " — Pine agrees with external bearish caution")
             return {
                 "classification": "supports_external_caution",
                 "action": "downgrade-watchlist-only",
-                "rationale": (f"Pine score {score:.2f} weak"
-                              + (f"; blockers={blockers}" if blockers else "")
-                              + " — Pine agrees with external bearish caution"),
+                "rationale": rationale,
             }
         return {
             "classification": "mixed",
