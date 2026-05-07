@@ -497,6 +497,15 @@ jobs:
         run: python 02_Code/Python/Reports/weekly_rebalance_check.py
         continue-on-error: true
 
+      # Pine Go/No-Go Diagnostic — daily-OHLCV proxy of the Pine v6 gate
+      # stack. Reads the just-fetched OHLCV CSVs and the disagreement queue
+      # to surface where Pine signals support or contradict the internal
+      # bullish/bearish view. Diagnostic only — does not mutate scores.
+      - name: Generate Pine go/no-go diagnostic
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/pine_go_no_go_diagnostic.py
+        continue-on-error: true
+
       - name: Commit and push updated data files
         if: steps.gate.outputs.proceed == 'true' && github.ref == 'refs/heads/main'
         run: |
@@ -524,6 +533,7 @@ jobs:
           git add data/reports/midday_health_check.json 2>/dev/null || true
           git add data/reports/close_recap.json 2>/dev/null || true
           git add data/reports/weekly_rebalance_check.json 2>/dev/null || true
+          git add data/reports/pine_go_no_go_diagnostic.json 2>/dev/null || true
           git add data/reports/workflow_runs.jsonl 2>/dev/null || true
           git add data/cache/yfinance_info 2>/dev/null || true
           git add reports/market-risk-monitor.html 2>/dev/null || true
@@ -539,6 +549,7 @@ jobs:
           git add reports/midday-health-check.html 2>/dev/null || true
           git add reports/close-recap.html 2>/dev/null || true
           git add reports/weekly-rebalance-check.html 2>/dev/null || true
+          git add reports/pine-go-no-go-diagnostic.html 2>/dev/null || true
           # tasks.json is stamped by the daily report scripts (last_run /
           # next_run / status / summary). If we don't stage it here, the later
           # `git pull --rebase` aborts with "unstaged changes".
