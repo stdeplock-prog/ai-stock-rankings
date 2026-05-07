@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-07T02:23:42Z",
-  "generated_at_chicago": "2026-05-06 09:23 PM CDT",
+  "generated_at": "2026-05-07T11:06:37Z",
+  "generated_at_chicago": "2026-05-07 06:06 AM CDT",
   "overall": "FAIL",
   "overall_raw": "FAIL",
   "overall_effective": "WARN",
@@ -12,8 +12,8 @@
     "rankings_age_hours": 0.01,
     "rankings_fresh": true,
     "last_run_event": "workflow_dispatch",
-    "missing_count": 7,
-    "reason": "today's slot satisfied (no missing) and live data fresh (age 0.01h < 6.0h); 7 historical miss(es) remain in lookback"
+    "missing_count": 4,
+    "reason": "today's slot satisfied (no missing) and live data fresh (age 0.01h < 6.0h); 4 historical miss(es) remain in lookback"
   },
   "sections": {
     "calendar": {
@@ -21,7 +21,7 @@
         {
           "name": "missing_slots",
           "status": "FAIL",
-          "message": "7 expected slot(s) missing in last 5 weekdays \u2014 investigate GH Actions delivery",
+          "message": "4 expected slot(s) missing in last 5 weekdays \u2014 investigate GH Actions delivery",
           "data": {}
         },
         {
@@ -33,27 +33,13 @@
         {
           "name": "history_source",
           "status": "OK",
-          "message": "history loaded from workflow_runs.jsonl (30 records)",
+          "message": "history loaded from workflow_runs.jsonl (31 records)",
           "data": {}
         }
       ],
       "metrics": {
         "calendar": {
           "rows": [
-            {
-              "date": "2026-04-30",
-              "slot_hits": {
-                "morning": 0,
-                "midday": 0,
-                "close": 0
-              },
-              "missing": [
-                "morning",
-                "midday",
-                "close"
-              ],
-              "duplicate": []
-            },
             {
               "date": "2026-05-01",
               "slot_hits": {
@@ -105,9 +91,19 @@
               },
               "missing": [],
               "duplicate": []
+            },
+            {
+              "date": "2026-05-07",
+              "slot_hits": {
+                "morning": 0,
+                "midday": 0,
+                "close": 0
+              },
+              "missing": [],
+              "duplicate": []
             }
           ],
-          "missing_count": 7,
+          "missing_count": 4,
           "duplicate_count": 4,
           "lookback_days": 5
         }
@@ -119,33 +115,33 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-06 09:23 PM CDT (age 0.0h)",
+          "message": "as_of 2026-05-07 06:06 AM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "last_run_event",
           "status": "OK",
-          "message": "latest run: event=workflow_dispatch slot=manual at 2026-05-06 21:23",
+          "message": "latest run: event=workflow_dispatch slot=manual at 2026-05-07 06:06",
           "data": {}
         }
       ],
       "metrics": {
-        "chicago_now": "2026-05-06 21:23",
+        "chicago_now": "2026-05-07 06:06",
         "is_weekend": false,
         "expected_slot_now": null,
-        "rankings_as_of": "2026-05-06 09:23 PM CDT",
+        "rankings_as_of": "2026-05-07 06:06 AM CDT",
         "rankings_age_hours": 0.01,
         "last_run": {
-          "ts_utc": "2026-05-07T02:23:42Z",
-          "ts_chicago": "2026-05-06 21:23",
-          "chicago_date": "2026-05-06",
+          "ts_utc": "2026-05-07T11:06:37Z",
+          "ts_chicago": "2026-05-07 06:06",
+          "chicago_date": "2026-05-07",
           "event_name": "workflow_dispatch",
           "slot": "manual",
           "proceeded": true,
-          "as_of": "2026-05-06 09:23 PM CDT",
-          "open_date": "2026-05-06",
-          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/25471242233",
-          "commit_sha": "9f6fe4ba206e25373ddd2fe86093fff99a77b2fe"
+          "as_of": "2026-05-07 06:06 AM CDT",
+          "open_date": "2026-05-07",
+          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/25490601768",
+          "commit_sha": "e029d83828674749d9fe51942b9166ad99816255"
         }
       },
       "status": "OK"
@@ -155,12 +151,12 @@
         {
           "name": "skip_volume",
           "status": "OK",
-          "message": "18 skip records in 14d (12 proceeded)",
+          "message": "18 skip records in 14d (13 proceeded)",
           "data": {}
         }
       ],
       "metrics": {
-        "proceed_14d": 12,
+        "proceed_14d": 13,
         "skip_14d": 18,
         "skip_reasons_14d": {
           "midday": 9,
@@ -174,20 +170,20 @@
         {
           "name": "event_mix",
           "status": "OK",
-          "message": "schedule=20 dispatch=10 other=0",
+          "message": "schedule=20 dispatch=11 other=0",
           "data": {}
         }
       ],
       "metrics": {
         "proceed_14d_by_event": {
           "schedule": 20,
-          "workflow_dispatch": 10,
+          "workflow_dispatch": 11,
           "other": 0
         }
       },
       "status": "OK"
     }
   },
-  "history_records": 30,
+  "history_records": 31,
   "history_source": "jsonl"
 }
