@@ -461,6 +461,18 @@ jobs:
         run: python 02_Code/Python/Reports/midday_health_check.py
         continue-on-error: true
 
+      # Close Recap — end-of-day rollup. Consumes rankings, watchlist, and
+      # the other reports' JSON artifacts (including market_open_scan for
+      # the morning top10 baseline so it can flag intraday additions).
+      # Like the other rollups it runs on EVERY proceeded slot, but is
+      # most useful at/after the 3:35 PM CT close refresh — the task row
+      # advertises it as the close report. Must run AFTER market_open_scan
+      # and the other diagnostic JSONs are written.
+      - name: Generate close recap
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/close_recap.py
+        continue-on-error: true
+
       - name: Commit and push updated data files
         if: steps.gate.outputs.proceed == 'true' && github.ref == 'refs/heads/main'
         run: |
@@ -484,6 +496,7 @@ jobs:
           git add data/reports/schedule_reliability.json 2>/dev/null || true
           git add data/reports/market_open_scan.json 2>/dev/null || true
           git add data/reports/midday_health_check.json 2>/dev/null || true
+          git add data/reports/close_recap.json 2>/dev/null || true
           git add data/reports/workflow_runs.jsonl 2>/dev/null || true
           git add data/cache/yfinance_info 2>/dev/null || true
           git add reports/market-risk-monitor.html 2>/dev/null || true
@@ -496,6 +509,7 @@ jobs:
           git add reports/schedule-reliability.html 2>/dev/null || true
           git add reports/market-open-scan.html 2>/dev/null || true
           git add reports/midday-health-check.html 2>/dev/null || true
+          git add reports/close-recap.html 2>/dev/null || true
           # tasks.json is stamped by the daily report scripts (last_run /
           # next_run / status / summary). If we don't stage it here, the later
           # `git pull --rebase` aborts with "unstaged changes".
