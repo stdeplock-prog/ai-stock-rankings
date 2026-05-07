@@ -29,8 +29,8 @@ th{background:#f7f7f7}
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>External Benchmark Review</h1>
-<p class="meta">Generated 2026-05-07T15:49:31Z
-&middot; rankings as_of 2026-05-07 10:48 AM CDT
+<p class="meta">Generated 2026-05-07T16:53:06Z
+&middot; rankings as_of 2026-05-07 11:52 AM CDT
 &middot; <span class="badge">WARN</span></p>
 <p class="muted">Diagnostic only. 30-ticker static seed (2026-05-07). Sample size is small and not stratified by sector or market cap. Use for calibration / disagreement triage; do NOT alter scoring weights.</p>
 
@@ -43,11 +43,11 @@ th{background:#f7f7f7}
 </div></div>
 <div class="section"><h2>Agreement by source</h2>
 <table><thead><tr><th>Source</th><th>Seed</th><th>Covered</th><th>Compared</th><th>Dir agreement</th><th>Mean gap</th><th>Mean |gap|</th><th>Strong agree</th><th>Strong disagree</th></tr></thead><tbody>
-<tr><td><strong>etrade</strong></td><td>30</td><td>28</td><td>27</td><td>44.4%</td><td>0.30</td><td>0.61</td><td>11</td><td>1</td></tr>
-<tr><td><strong>fidelity</strong></td><td>30</td><td>26</td><td>25</td><td>36.0%</td><td>-0.49</td><td>1.28</td><td>7</td><td>9</td></tr>
+<tr><td><strong>etrade</strong></td><td>30</td><td>28</td><td>27</td><td>44.4%</td><td>0.31</td><td>0.63</td><td>11</td><td>1</td></tr>
+<tr><td><strong>fidelity</strong></td><td>30</td><td>26</td><td>25</td><td>36.0%</td><td>-0.48</td><td>1.28</td><td>7</td><td>9</td></tr>
 <tr><td><strong>marketbeat</strong></td><td>30</td><td>28</td><td>20</td><td>55.0%</td><td>-0.66</td><td>1.00</td><td>6</td><td>6</td></tr>
-<tr><td><strong>tradingview</strong></td><td>30</td><td>29</td><td>28</td><td>64.3%</td><td>0.46</td><td>0.67</td><td>9</td><td>2</td></tr>
-<tr><td><strong>zacks</strong></td><td>30</td><td>27</td><td>26</td><td>38.5%</td><td>-0.46</td><td>0.74</td><td>9</td><td>3</td></tr>
+<tr><td><strong>tradingview</strong></td><td>30</td><td>29</td><td>28</td><td>64.3%</td><td>0.52</td><td>0.71</td><td>9</td><td>2</td></tr>
+<tr><td><strong>zacks</strong></td><td>30</td><td>27</td><td>26</td><td>38.5%</td><td>-0.44</td><td>0.72</td><td>9</td><td>3</td></tr>
 </tbody></table>
 <p class="muted">Each row pairs one external 1..5 score against the listed primary internal score: tradingview→technical, fidelity/etrade→ai_score, zacks→ai_score, marketbeat→sentiment. gap = external − internal (1..5 scale).</p>
 </div>
@@ -55,20 +55,20 @@ th{background:#f7f7f7}
 <table><thead><tr><th>Ticker</th><th>Sector</th><th>AI</th><th>Severity</th><th>Headline source</th><th>Gap</th><th>Sources</th><th>Reason</th></tr></thead><tbody>
 <tr><td><strong>ECG</strong></td><td>Industrials</td><td>7.80</td><td class="severity-severe">severe</td><td>fidelity</td><td>-3.10</td><td><span class=tag>fidelity</span> <span class=tag>marketbeat</span> <span class=tag>zacks</span></td><td>fidelity bearish (=0.8) vs internal ai_score bullish (=3.9); gap -3.10</td></tr>
 <tr><td><strong>MDB</strong></td><td>Technology</td><td>6.70</td><td class="severity-severe">severe</td><td>fidelity</td><td>-3.20</td><td><span class=tag>fidelity</span> <span class=tag>zacks</span></td><td>fidelity bearish (=0.15) vs internal ai_score neutral (=3.35); gap -3.20</td></tr>
-<tr><td><strong>JOBY</strong></td><td>Industrials</td><td>5.90</td><td class="severity-severe">severe</td><td>fidelity</td><td>-2.65</td><td><span class=tag>fidelity</span> <span class=tag>marketbeat:target</span></td><td>fidelity bearish (=0.3) vs internal ai_score neutral (=2.95); gap -2.65</td></tr>
+<tr><td><strong>JOBY</strong></td><td>Industrials</td><td>5.60</td><td class="severity-severe">severe</td><td>fidelity</td><td>-2.50</td><td><span class=tag>fidelity</span> <span class=tag>marketbeat:target</span></td><td>fidelity bearish (=0.3) vs internal ai_score neutral (=2.8); gap -2.50</td></tr>
 <tr><td><strong>GS</strong></td><td>Financial Services</td><td>7.60</td><td class="severity-severe">severe</td><td>fidelity</td><td>-2.60</td><td><span class=tag>fidelity</span></td><td>fidelity bearish (=1.2) vs internal ai_score bullish (=3.8); gap -2.60</td></tr>
 <tr><td><strong>SMCI</strong></td><td>Technology</td><td>7.60</td><td class="severity-strong">strong</td><td>fidelity</td><td>-2.15</td><td><span class=tag>fidelity</span> <span class=tag>marketbeat</span></td><td>fidelity bearish (=1.65) vs internal ai_score bullish (=3.8); gap -2.15</td></tr>
 <tr><td><strong>BWA</strong></td><td>Consumer Cyclical</td><td>7.10</td><td class="severity-strong">strong</td><td>fidelity</td><td>-2.05</td><td><span class=tag>fidelity</span> <span class=tag>zacks</span></td><td>fidelity bearish (=1.5) vs internal ai_score bullish (=3.55); gap -2.05</td></tr>
 <tr><td><strong>RJF</strong></td><td>Financial Services</td><td>7.70</td><td class="severity-strong">strong</td><td>marketbeat</td><td>-2.00</td><td><span class=tag>marketbeat</span> <span class=tag>tradingview</span></td><td>marketbeat neutral (=3) vs internal sentiment bullish (=5.0); gap -2.00</td></tr>
 <tr><td><strong>QCOM</strong></td><td>Technology</td><td>6.20</td><td class="severity-strong">strong</td><td>marketbeat</td><td>-2.00</td><td><span class=tag>fidelity</span> <span class=tag>marketbeat</span></td><td>marketbeat neutral (=3) vs internal sentiment bullish (=5.0); gap -2.00</td></tr>
-<tr><td><strong>CVNA</strong></td><td>Consumer Cyclical</td><td>5.40</td><td class="severity-strong">strong</td><td>fidelity</td><td>-1.70</td><td><span class=tag>fidelity</span> <span class=tag>marketbeat:target</span></td><td>fidelity bearish (=1.0) vs internal ai_score neutral (=2.7); gap -1.70</td></tr>
+<tr><td><strong>CVNA</strong></td><td>Consumer Cyclical</td><td>5.50</td><td class="severity-strong">strong</td><td>fidelity</td><td>-1.75</td><td><span class=tag>fidelity</span> <span class=tag>marketbeat:target</span></td><td>fidelity bearish (=1.0) vs internal ai_score neutral (=2.75); gap -1.75</td></tr>
+<tr><td><strong>TSM</strong></td><td>Technology</td><td>7.20</td><td class="severity-strong">strong</td><td>tradingview</td><td>2.20</td><td><span class=tag>tradingview</span></td><td>tradingview bullish (=5) vs internal technical neutral (=2.8); gap +2.20</td></tr>
 <tr><td><strong>CNM</strong></td><td>Industrials</td><td>5.30</td><td class="severity-strong">strong</td><td>marketbeat</td><td>2.15</td><td><span class=tag>marketbeat</span></td><td>marketbeat bullish (=4) vs internal sentiment bearish (=1.85); gap +2.15</td></tr>
-<tr><td><strong>TSM</strong></td><td>Technology</td><td>7.30</td><td class="severity-strong">strong</td><td>tradingview</td><td>2.00</td><td><span class=tag>tradingview</span></td><td>tradingview bullish (=5) vs internal technical neutral (=3.0); gap +2.00</td></tr>
 <tr><td><strong>DVA</strong></td><td>Healthcare</td><td>7.60</td><td class="severity-strong">strong</td><td>marketbeat</td><td>-2.00</td><td><span class=tag>marketbeat</span></td><td>marketbeat neutral (=3) vs internal sentiment bullish (=5.0); gap -2.00</td></tr>
+<tr><td><strong>LUNMF</strong></td><td>Basic Materials</td><td>6.40</td><td class="severity-strong">strong</td><td>etrade</td><td>1.80</td><td><span class=tag>etrade</span></td><td>etrade bullish (=5.0) vs internal ai_score neutral (=3.2); gap +1.80</td></tr>
 <tr><td><strong>CACC</strong></td><td>Financial Services</td><td>8.30</td><td class="severity-strong">strong</td><td>fidelity</td><td>-1.80</td><td><span class=tag>fidelity</span></td><td>fidelity bearish (=2.35) vs internal ai_score bullish (=4.15); gap -1.80</td></tr>
-<tr><td><strong>LUNMF</strong></td><td>Basic Materials</td><td>6.60</td><td class="severity-strong">strong</td><td>etrade</td><td>1.70</td><td><span class=tag>etrade</span></td><td>etrade bullish (=5.0) vs internal ai_score neutral (=3.3); gap +1.70</td></tr>
 <tr><td><strong>VIAV</strong></td><td>Technology</td><td>6.30</td><td class="severity-moderate">moderate</td><td>marketbeat:target</td><td>—</td><td><span class=tag>marketbeat:target</span></td><td>marketbeat price target -24.5% vs current price (target divergence)</td></tr>
-<tr><td><strong>QBTS</strong></td><td>Technology</td><td>6.50</td><td class="severity-moderate">moderate</td><td>marketbeat:target</td><td>—</td><td><span class=tag>marketbeat:target</span></td><td>marketbeat price target +50.3% vs current price (target divergence)</td></tr>
+<tr><td><strong>QBTS</strong></td><td>Technology</td><td>6.30</td><td class="severity-moderate">moderate</td><td>marketbeat:target</td><td>—</td><td><span class=tag>marketbeat:target</span></td><td>marketbeat price target +50.3% vs current price (target divergence)</td></tr>
 </tbody></table>
 </div>
 <div class="section"><h2>Confirmations (≥2 sources agreeing)</h2>
@@ -78,15 +78,15 @@ th{background:#f7f7f7}
 <tr><td><strong>MLI</strong></td><td>Industrials</td><td>8.30</td><td class="dir-bullish">bullish</td><td><span class=tag>etrade</span> <span class=tag>fidelity</span> <span class=tag>marketbeat</span></td><td>4.50</td></tr>
 <tr><td><strong>ADI</strong></td><td>Technology</td><td>7.60</td><td class="dir-bullish">bullish</td><td><span class=tag>etrade</span> <span class=tag>zacks</span></td><td>4.08</td></tr>
 <tr><td><strong>AVGO</strong></td><td>Technology</td><td>6.90</td><td class="dir-neutral">neutral</td><td><span class=tag>marketbeat</span> <span class=tag>tradingview</span></td><td>4.00</td></tr>
-<tr><td><strong>CVNA</strong></td><td>Consumer Cyclical</td><td>5.40</td><td class="dir-neutral">neutral</td><td><span class=tag>marketbeat</span> <span class=tag>zacks</span></td><td>3.50</td></tr>
+<tr><td><strong>CVNA</strong></td><td>Consumer Cyclical</td><td>5.50</td><td class="dir-neutral">neutral</td><td><span class=tag>marketbeat</span> <span class=tag>zacks</span></td><td>3.50</td></tr>
 <tr><td><strong>DOCN</strong></td><td>Technology</td><td>6.30</td><td class="dir-neutral">neutral</td><td><span class=tag>tradingview</span> <span class=tag>zacks</span></td><td>4.00</td></tr>
 <tr><td><strong>DVA</strong></td><td>Healthcare</td><td>7.60</td><td class="dir-bullish">bullish</td><td><span class=tag>fidelity</span> <span class=tag>zacks</span></td><td>4.08</td></tr>
 <tr><td><strong>ECG</strong></td><td>Industrials</td><td>7.80</td><td class="dir-bullish">bullish</td><td><span class=tag>etrade</span> <span class=tag>tradingview</span></td><td>3.79</td></tr>
 <tr><td><strong>EWBC</strong></td><td>Financial Services</td><td>8.10</td><td class="dir-bullish">bullish</td><td><span class=tag>etrade</span> <span class=tag>fidelity</span></td><td>3.85</td></tr>
 <tr><td><strong>FSLR</strong></td><td>Technology</td><td>7.70</td><td class="dir-bullish">bullish</td><td><span class=tag>etrade</span> <span class=tag>fidelity</span></td><td>3.81</td></tr>
 <tr><td><strong>HST</strong></td><td>Real Estate</td><td>8.40</td><td class="dir-bullish">bullish</td><td><span class=tag>etrade</span> <span class=tag>fidelity</span></td><td>4.30</td></tr>
-<tr><td><strong>JOBY</strong></td><td>Industrials</td><td>5.90</td><td class="dir-neutral">neutral</td><td><span class=tag>etrade</span> <span class=tag>tradingview</span></td><td>3.50</td></tr>
-<tr><td><strong>LUNMF</strong></td><td>Basic Materials</td><td>6.60</td><td class="dir-neutral">neutral</td><td><span class=tag>tradingview</span> <span class=tag>zacks</span></td><td>3.00</td></tr>
+<tr><td><strong>JOBY</strong></td><td>Industrials</td><td>5.60</td><td class="dir-neutral">neutral</td><td><span class=tag>etrade</span> <span class=tag>tradingview</span></td><td>3.50</td></tr>
+<tr><td><strong>LUNMF</strong></td><td>Basic Materials</td><td>6.40</td><td class="dir-neutral">neutral</td><td><span class=tag>tradingview</span> <span class=tag>zacks</span></td><td>3.00</td></tr>
 <tr><td><strong>MDB</strong></td><td>Technology</td><td>6.70</td><td class="dir-neutral">neutral</td><td><span class=tag>marketbeat</span> <span class=tag>tradingview</span></td><td>3.50</td></tr>
 <tr><td><strong>QCOM</strong></td><td>Technology</td><td>6.20</td><td class="dir-neutral">neutral</td><td><span class=tag>etrade</span> <span class=tag>zacks</span></td><td>3.14</td></tr>
 </tbody></table>
