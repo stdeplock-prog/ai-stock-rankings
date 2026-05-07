@@ -424,6 +424,19 @@ jobs:
         run: python 02_Code/Python/Reports/schedule_reliability.py
         continue-on-error: true
 
+      # Ranking Diagnostics — explanation layer over the published
+      # leaders. Reads rankings/watchlist plus the sibling diagnostic
+      # JSONs (data quality, scoring parity, low-risk drift, benchmark)
+      # to flag suspicious top ranks, sector crowding, and run alternate
+      # weighting sensitivity. Read-only; no scoring changes. Must run
+      # AFTER all the upstream diagnostic JSONs are written so it can
+      # cite their verdicts. continue-on-error so a transient failure
+      # cannot block the rankings commit.
+      - name: Generate ranking diagnostics
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/ranking_diagnostics.py
+        continue-on-error: true
+
       # Market Open Scan — morning briefing rollup. Like the midday
       # health check, it consumes the other reports' JSON artifacts and
       # runs on every proceeded slot so the dashboard reflects the current
@@ -467,6 +480,7 @@ jobs:
           git add data/reports/benchmark_snapshots.jsonl 2>/dev/null || true
           git add data/reports/scoring_parity_review.json 2>/dev/null || true
           git add data/reports/low_risk_drift_review.json 2>/dev/null || true
+          git add data/reports/ranking_diagnostics.json 2>/dev/null || true
           git add data/reports/schedule_reliability.json 2>/dev/null || true
           git add data/reports/market_open_scan.json 2>/dev/null || true
           git add data/reports/midday_health_check.json 2>/dev/null || true
@@ -478,6 +492,7 @@ jobs:
           git add reports/benchmark-review.html 2>/dev/null || true
           git add reports/scoring-parity-review.html 2>/dev/null || true
           git add reports/low-risk-drift-review.html 2>/dev/null || true
+          git add reports/ranking-diagnostics.html 2>/dev/null || true
           git add reports/schedule-reliability.html 2>/dev/null || true
           git add reports/market-open-scan.html 2>/dev/null || true
           git add reports/midday-health-check.html 2>/dev/null || true
