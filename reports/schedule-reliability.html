@@ -26,7 +26,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Schedule Reliability</h1>
-<p class="meta">Generated 2026-05-06T23:39:27Z &middot; Effective: <span class="badge">WARN</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
+<p class="meta">Generated 2026-05-07T00:33:41Z &middot; Effective: <span class="badge">WARN</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
 
 <p class="banner"><strong>Recovered.</strong> today&#x27;s slot satisfied (no missing) and live data fresh (age 0.01h &lt; 6.0h); 7 historical miss(es) remain in lookback. Effective state is WARN; raw history remains FAIL because past missed slots are preserved for transparency.</p>
 <div class="section calendar"><h2>Recent Slot Delivery</h2>
@@ -140,35 +140,35 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>missing_slots</td><td class="FAIL">FAIL</td><td>7 expected slot(s) missing in last 5 weekdays — investigate GH Actions delivery</td></tr>
 <tr><td>duplicate_slots</td><td class="WARN">WARN</td><td>4 day-slot pair(s) had multiple proceed events — slot-level idempotency may be misfiring</td></tr>
-<tr><td>history_source</td><td class="OK">OK</td><td>history loaded from workflow_runs.jsonl (28 records)</td></tr>
+<tr><td>history_source</td><td class="OK">OK</td><td>history loaded from workflow_runs.jsonl (29 records)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Recency<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;chicago_now&quot;: &quot;2026-05-06 18:39&quot;,
+  &quot;chicago_now&quot;: &quot;2026-05-06 19:33&quot;,
   &quot;is_weekend&quot;: false,
   &quot;expected_slot_now&quot;: null,
-  &quot;rankings_as_of&quot;: &quot;2026-05-06 06:39 PM CDT&quot;,
+  &quot;rankings_as_of&quot;: &quot;2026-05-06 07:33 PM CDT&quot;,
   &quot;rankings_age_hours&quot;: 0.01,
   &quot;last_run&quot;: {
-    &quot;ts_utc&quot;: &quot;2026-05-06T23:39:27Z&quot;,
-    &quot;ts_chicago&quot;: &quot;2026-05-06 18:39&quot;,
+    &quot;ts_utc&quot;: &quot;2026-05-07T00:33:41Z&quot;,
+    &quot;ts_chicago&quot;: &quot;2026-05-06 19:33&quot;,
     &quot;chicago_date&quot;: &quot;2026-05-06&quot;,
-    &quot;event_name&quot;: &quot;schedule&quot;,
-    &quot;slot&quot;: &quot;close&quot;,
+    &quot;event_name&quot;: &quot;workflow_dispatch&quot;,
+    &quot;slot&quot;: &quot;manual&quot;,
     &quot;proceeded&quot;: true,
-    &quot;as_of&quot;: &quot;2026-05-06 06:39 PM CDT&quot;,
+    &quot;as_of&quot;: &quot;2026-05-06 07:33 PM CDT&quot;,
     &quot;open_date&quot;: &quot;2026-05-06&quot;,
-    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/25466279756&quot;,
-    &quot;commit_sha&quot;: &quot;1877026802d2de7ecf955028e9431b1f21195d8c&quot;
+    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/25468327354&quot;,
+    &quot;commit_sha&quot;: &quot;e154518a2694c51bae8a06f3dd75cc177fe89379&quot;
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-06 06:39 PM CDT (age 0.0h)</td></tr>
-<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=schedule slot=close at 2026-05-06 18:39</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-06 07:33 PM CDT (age 0.0h)</td></tr>
+<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=workflow_dispatch slot=manual at 2026-05-06 19:33</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Skip Pattern<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;proceed_14d&quot;: 10,
+  &quot;proceed_14d&quot;: 11,
   &quot;skip_14d&quot;: 18,
   &quot;skip_reasons_14d&quot;: {
     &quot;midday&quot;: 9,
@@ -176,17 +176,17 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>skip_volume</td><td class="OK">OK</td><td>18 skip records in 14d (10 proceeded)</td></tr>
+<tr><td>skip_volume</td><td class="OK">OK</td><td>18 skip records in 14d (11 proceeded)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Event Mix<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;proceed_14d_by_event&quot;: {
     &quot;schedule&quot;: 20,
-    &quot;workflow_dispatch&quot;: 8,
+    &quot;workflow_dispatch&quot;: 9,
     &quot;other&quot;: 0
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>event_mix</td><td class="OK">OK</td><td>schedule=20 dispatch=8 other=0</td></tr>
+<tr><td>event_mix</td><td class="OK">OK</td><td>schedule=20 dispatch=9 other=0</td></tr>
 </tbody></table></div>
 </body></html>
