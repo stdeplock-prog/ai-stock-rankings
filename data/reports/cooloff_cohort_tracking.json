@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-05-07T16:12:06Z",
+  "as_of_date": "2026-05-07",
+  "overall": "OK",
+  "caveat": "DIAGNOSTIC ONLY \u2014 production scoring formulas are NOT mutated. Tracks per-ticker forward returns of Pine cohorts to test whether overextended_bb names underperform clean-go names before promoting the blocker into LOW_RISK / SWING gating.",
+  "thresholds": {
+    "clean_go_score_min": 0.7,
+    "weak_go_score_max_excl": 0.4,
+    "horizons_trading_days": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "min_obs_for_decision": 30,
+    "snapshot_retention_days": 90,
+    "snapshot_max_rows": 500
+  },
+  "current_cohort_sizes": {
+    "clean_go": 45,
+    "overextended_bb": 13,
+    "weak_go": 3
+  },
+  "current_cohort_members": {
+    "clean_go": [
+      "AAPL",
+      "AIZ",
+      "AME",
+      "AMG",
+      "AMZN",
+      "ARW",
+      "AVT",
+      "BLK",
+      "CACC",
+      "CFG",
+      "COLB",
+      "CSCO",
+      "CVNA",
+      "DAL",
+      "EME",
+      "EWBC",
+      "FAF",
+      "FFIV",
+      "FNB",
+      "FRT",
+      "FTAI",
+      "GLW",
+      "GOOG",
+      "GS",
+      "HST",
+      "IBKR",
+      "IEX",
+      "LLYVA",
+      "LLYVK",
+      "LSCC",
+      "MLI",
+      "MS",
+      "MTSI",
+      "NDSN",
+      "NYT",
+      "PNFP",
+      "RGA",
+      "RJF",
+      "RPRX",
+      "RS",
+      "SEIC",
+      "TTWO",
+      "VIK",
+      "WST",
+      "WTFC"
+    ],
+    "overextended_bb": [
+      "BWA",
+      "CIEN",
+      "DELL",
+      "DVA",
+      "ECG",
+      "EXEL",
+      "JEF",
+      "MU",
+      "NBIX",
+      "QCOM",
+      "SMCI",
+      "SNDK",
+      "TKR"
+    ],
+    "weak_go": [
+      "EXLS",
+      "GMED",
+      "PATH"
+    ]
+  },
+  "horizon_comparison": {
+    "1d": {
+      "snapshots_completed": 0,
+      "snapshots_pending": 1,
+      "cohorts": {}
+    },
+    "3d": {
+      "snapshots_completed": 0,
+      "snapshots_pending": 1,
+      "cohorts": {}
+    },
+    "5d": {
+      "snapshots_completed": 0,
+      "snapshots_pending": 1,
+      "cohorts": {}
+    },
+    "10d": {
+      "snapshots_completed": 0,
+      "snapshots_pending": 1,
+      "cohorts": {}
+    }
+  },
+  "decision": {
+    "recommendation": "keep_advisory",
+    "ready": false,
+    "rationale": "Insufficient observations at 5d horizon (clean_go n=0, overextended_bb n=0; need >=30 in both)."
+  },
+  "snapshots_kept": 1,
+  "inputs": {
+    "pine_report_present": true,
+    "rankings_present": true,
+    "watchlist_present": true,
+    "prices_indexed": 230
+  },
+  "summary": "clean_go=45 \u00b7 overext_bb=13 \u00b7 weak_go=3 \u00b7 snaps=1 \u00b7 5d pending \u00b7 rec=keep_advisory"
+}
