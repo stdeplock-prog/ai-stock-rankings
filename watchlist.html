@@ -271,6 +271,9 @@
 
     @media (max-width: 640px) {
       .kpis { grid-template-columns: 1fr; }
+      header { padding: 10px 12px; }
+      main { padding: 12px; }
+      th, td { padding: 8px 6px; }
     }
   </style>
 </head>
@@ -292,7 +295,7 @@
           <option value="both">In both</option>
         </select>
         <input id="search" placeholder="Search ticker or company" aria-label="Search ticker or company" />
-        <button class="btn" id="favFilterBtn">Show Favorites (0)</button>
+        <button class="btn" id="favFilterBtn">Show Watchlist (0)</button>
         <button class="btn" id="refreshBtn">Reload data</button>
         <button class="btn" id="exportBtn">Export CSV</button>
       </div>
@@ -382,7 +385,7 @@
 
     function updateFavButton() {
       const btn = document.getElementById('favFilterBtn');
-      btn.textContent = showFavsOnly ? 'Show All' : `Show Favorites (${favorites.size})`;
+      btn.textContent = showFavsOnly ? 'Show All' : `Show Watchlist (${favorites.size})`;
     }
 
     function getVal(obj, ...keys) {
@@ -517,7 +520,7 @@
         const marketCap = r.marketcapdisplay || '—';
         return `
           <tr class="${fav ? 'favorited' : ''}">
-            <td><button class="star-btn ${fav ? 'active' : ''}" data-ticker="${r.ticker}" title="Toggle favorite">${fav ? '★' : '☆'}</button></td>
+            <td><button class="star-btn ${fav ? 'active' : ''}" data-ticker="${r.ticker}" title="Toggle watchlist">${fav ? '★' : '☆'}</button></td>
             <td class="num">${r.rank}</td>
             <td>${movCell(r.change)}</td>
             <td>

@@ -226,10 +226,11 @@
       overflow-x: auto;
       border: 1px solid var(--line);
       border-radius: 8px;
-      margin: 16px 0;
+      margin: 8px 0 16px;
     }
 
     .tasks-wrap table { min-width: 700px; }
+    .tasks-wrap th, .tasks-wrap td { padding: 8px 10px; }
 
     .num { white-space: nowrap; }
     .price-cell { min-width: 88px; }
@@ -239,12 +240,43 @@
     .company-cell { min-width: 190px; }
     .industry-cell { min-width: 180px; font-size: 11px; }
 
+    .reports-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 10px;
+      margin: 4px 0 0;
+      font-size: 11px;
+    }
+    .reports-bar .reports-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-right: 2px;
+    }
+    .reports-bar a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+    }
+    .reports-bar a:hover {
+      color: var(--text);
+      border-color: var(--line);
+      background: var(--panel);
+    }
+
     @media (max-width: 960px) {
       .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 640px) {
       .kpis { grid-template-columns: 1fr; }
+      header { padding: 10px 12px; }
+      main { padding: 12px; }
+      th, td { padding: 8px 6px; }
     }
   </style>
 </head>
@@ -281,20 +313,16 @@
       <div class="card"><div class="label">Watchlist</div><div class="value" id="kpiFavs">0</div></div>
     </div>
 
-    <div class="row" style="margin-bottom:6px;margin-top:8px;display:flex;justify-content:space-between;align-items:baseline">
+    <div style="margin-top:8px">
       <div class="label">Scheduled Tasks</div>
-      <div class="label" style="font-size:11px">
-        <a href="./reports/data-quality-audit.html" id="dqaLink" style="color:var(--muted);text-decoration:none">Data quality audit</a>
-        <span style="color:var(--muted)"> &middot; </span>
-        <a href="./reports/benchmark-review.html" id="benchReviewLink" style="color:var(--muted);text-decoration:none">Benchmark review</a>
-        <span style="color:var(--muted)"> &middot; </span>
-        <a href="./reports/scoring-parity-review.html" id="scoringParityLink" style="color:var(--muted);text-decoration:none">Scoring parity</a>
-        <span style="color:var(--muted)"> &middot; </span>
-        <a href="./reports/low-risk-drift-review.html" id="lowRiskDriftLink" style="color:var(--muted);text-decoration:none">Low-risk drift</a>
-        <span style="color:var(--muted)"> &middot; </span>
-        <a href="./reports/ranking-diagnostics.html" id="rankingDiagnosticsLink" style="color:var(--muted);text-decoration:none">Ranking diagnostics</a>
-        <span style="color:var(--muted)"> &middot; </span>
-        <a href="./reports/schedule-reliability.html" id="scheduleReliabilityLink" style="color:var(--muted);text-decoration:none">Schedule reliability</a>
+      <div class="reports-bar" aria-label="Diagnostic reports">
+        <span class="reports-label">Reports</span>
+        <a href="./reports/data-quality-audit.html" id="dqaLink">Data quality</a>
+        <a href="./reports/benchmark-review.html" id="benchReviewLink">Benchmark</a>
+        <a href="./reports/scoring-parity-review.html" id="scoringParityLink">Scoring parity</a>
+        <a href="./reports/low-risk-drift-review.html" id="lowRiskDriftLink">Low-risk drift</a>
+        <a href="./reports/ranking-diagnostics.html" id="rankingDiagnosticsLink">Diagnostics</a>
+        <a href="./reports/schedule-reliability.html" id="scheduleReliabilityLink">Schedule</a>
       </div>
     </div>
 
@@ -599,51 +627,37 @@
       }).join('');
     }
 
-    async function decorateAuditLink() {
-      // Best-effort: color the Data quality audit link by overall status.
-      // Silently no-ops if the file is missing (e.g. before first run).
+    function statusColor(overall) {
+      return overall === 'OK' ? '#3c8c3c'
+           : overall === 'WARN' ? '#b88a00'
+           : '#c0392b';
+    }
+
+    async function decorateReportLink(jsonPath, linkId, label) {
+      // Best-effort: color the link by overall status and tag it with the
+      // status. No-op if the file is missing (e.g. before first run).
       try {
-        const r = await fetch('./data/reports/data_quality_audit.json', { cache: 'no-store' });
+        const r = await fetch(jsonPath, { cache: 'no-store' });
         if (!r.ok) return;
         const j = await r.json();
-        const a = document.getElementById('dqaLink');
+        const a = document.getElementById(linkId);
         if (!a || !j || !j.overall) return;
-        const color = j.overall === 'OK' ? '#3c8c3c'
-                    : j.overall === 'WARN' ? '#b88a00'
-                    : '#c0392b';
-        a.style.color = color;
-        a.textContent = `Data quality audit: ${j.overall}`;
+        a.style.color = statusColor(j.overall);
+        a.title = `${label}: ${j.overall}`;
+        a.textContent = `${label} (${j.overall})`;
       } catch (_e) { /* ignore */ }
+    }
+
+    async function decorateAuditLink() {
+      return decorateReportLink('./data/reports/data_quality_audit.json', 'dqaLink', 'Data quality');
     }
 
     async function decorateScoringParityLink() {
-      try {
-        const r = await fetch('./data/reports/scoring_parity_review.json', { cache: 'no-store' });
-        if (!r.ok) return;
-        const j = await r.json();
-        const a = document.getElementById('scoringParityLink');
-        if (!a || !j || !j.overall) return;
-        const color = j.overall === 'OK' ? '#3c8c3c'
-                    : j.overall === 'WARN' ? '#b88a00'
-                    : '#c0392b';
-        a.style.color = color;
-        a.textContent = `Scoring parity: ${j.overall}`;
-      } catch (_e) { /* ignore */ }
+      return decorateReportLink('./data/reports/scoring_parity_review.json', 'scoringParityLink', 'Scoring parity');
     }
 
     async function decorateScheduleReliabilityLink() {
-      try {
-        const r = await fetch('./data/reports/schedule_reliability.json', { cache: 'no-store' });
-        if (!r.ok) return;
-        const j = await r.json();
-        const a = document.getElementById('scheduleReliabilityLink');
-        if (!a || !j || !j.overall) return;
-        const color = j.overall === 'OK' ? '#3c8c3c'
-                    : j.overall === 'WARN' ? '#b88a00'
-                    : '#c0392b';
-        a.style.color = color;
-        a.textContent = `Schedule reliability: ${j.overall}`;
-      } catch (_e) { /* ignore */ }
+      return decorateReportLink('./data/reports/schedule_reliability.json', 'scheduleReliabilityLink', 'Schedule');
     }
 
     function render(rows) {
