@@ -516,6 +516,18 @@ jobs:
         run: python 02_Code/Python/Reports/cooloff_cohort_tracking.py
         continue-on-error: true
 
+      # Disagreement Queue Review — joins the external-benchmark
+      # disagreement queue with Pine and cool-off context, attaches a
+      # suggested keep / watchlist_only / ignore / needs_more_data label
+      # (advisory only — never auto-applied), and persists prior manual
+      # decisions in disagreement_review_state.json. Must run after the
+      # external/Pine/cool-off reports are written. Diagnostic only —
+      # does not mutate scores.
+      - name: Generate disagreement queue review
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/disagreement_queue_review.py
+        continue-on-error: true
+
       - name: Commit and push updated data files
         if: steps.gate.outputs.proceed == 'true' && github.ref == 'refs/heads/main'
         run: |
@@ -546,6 +558,8 @@ jobs:
           git add data/reports/pine_go_no_go_diagnostic.json 2>/dev/null || true
           git add data/reports/cooloff_cohort_tracking.json 2>/dev/null || true
           git add data/reports/cooloff_cohort_snapshots.jsonl 2>/dev/null || true
+          git add data/reports/disagreement_queue_review.json 2>/dev/null || true
+          git add data/reports/disagreement_review_state.json 2>/dev/null || true
           git add data/reports/workflow_runs.jsonl 2>/dev/null || true
           git add data/cache/yfinance_info 2>/dev/null || true
           git add reports/market-risk-monitor.html 2>/dev/null || true
@@ -563,6 +577,7 @@ jobs:
           git add reports/weekly-rebalance-check.html 2>/dev/null || true
           git add reports/pine-go-no-go-diagnostic.html 2>/dev/null || true
           git add reports/cooloff-cohort-tracking.html 2>/dev/null || true
+          git add reports/disagreement-queue-review.html 2>/dev/null || true
           # tasks.json is stamped by the daily report scripts (last_run /
           # next_run / status / summary). If we don't stage it here, the later
           # `git pull --rebase` aborts with "unstaged changes".
