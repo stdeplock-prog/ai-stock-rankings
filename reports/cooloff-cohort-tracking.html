@@ -21,25 +21,25 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Cool-off / Overextended Cohort Tracking</h1>
-<p class="meta">Generated 2026-05-11T12:40:02Z &middot;
-   as_of 2026-05-11 &middot;
+<p class="meta">Generated 2026-05-12T20:49:50Z &middot;
+   as_of 2026-05-12 &middot;
    Overall: <span class="badge">OK</span></p>
-<div class="summary"><strong>Summary:</strong> clean_go=36 · overext_bb=16 · weak_go=3 · snaps=3 · 5d pending · rec=keep_advisory</div>
+<div class="summary"><strong>Summary:</strong> clean_go=26 · overext_bb=12 · weak_go=8 · snaps=4 · 5d pending · rec=keep_advisory</div>
 <div class="caveat"><strong>Caveat:</strong> DIAGNOSTIC ONLY — production scoring formulas are NOT mutated. Tracks per-ticker forward returns of Pine cohorts to test whether overextended_bb names underperform clean-go names before promoting the blocker into LOW_RISK / SWING gating.</div>
 <div class="recommend"><strong>Recommendation:</strong> keep_advisory<br>
 <span class="muted">Insufficient observations at 5d horizon (clean_go n=0, overextended_bb n=0; need &gt;=30 in both).</span></div>
 
 <div class='section'><h2>Current cohort sizes</h2>
 <table><thead><tr><th>Cohort</th><th>Size</th><th>Members</th></tr></thead><tbody>
-<tr><td>clean_go</td><td>36</td><td>AAPL, AIZ, ARW, AVGO, AVT, BLK, CACC, CIEN, COLB, CPAY, CSCO, DAL, ECG, EME, EXEL, FAF, FFIV, GLW, GOOG, JBL, MLI, MRNA, MS, NVDA, OHI <span class='muted'>(+11 more)</span></td></tr>
-<tr><td>overextended_bb</td><td>16</td><td>BWA, CGNX, DDOG, DELL, DVA, GEN, GWW, JEF, MDB, MNST, MTSI, MU, QCOM, SMCI, SNDK, TXRH</td></tr>
-<tr><td>weak_go</td><td>3</td><td>AME, CNM, EQIX</td></tr>
+<tr><td>clean_go</td><td>26</td><td>AAPL, AIZ, AMZN, ARW, AU, CACC, CIEN, CPAY, ECG, EME, FFIV, GS, GWW, JBL, JEF, LSCC, MDB, MLI, PTC, RS, SEIC, SMCI, TKR, V, WCC <span class='muted'>(+1 more)</span></td></tr>
+<tr><td>overextended_bb</td><td>12</td><td>BWA, DDOG, EXEL, FSLR, GEN, GLW, LITE, MTSI, MU, QCOM, TXRH, WDC</td></tr>
+<tr><td>weak_go</td><td>8</td><td>AGCO, AME, CEG, CNM, COLB, CVNA, RGA, TXT</td></tr>
 </tbody></table></div>
 <div class='section'><h2>Forward-return comparison by horizon</h2>
 <p class='kv'>Each observation is one (snapshot, ticker) pair where the horizon has elapsed (no lookahead). Pending horizons are the count of snapshots whose elapsed trading days are still below the horizon.</p>
-<table><thead><tr><th>Horizon</th><th>Cohort</th><th>n obs</th><th>mean</th><th>median</th><th>%+</th><th>snaps done / pending</th></tr></thead><tbody><tr><td>1d</td><td>clean_go</td><td>72</td><td>-1.03%</td><td>-0.43%</td><td>41.67%</td><td>2 / 1</td></tr><tr><td>1d</td><td>overextended_bb</td><td>24</td><td>0.15%</td><td>-0.21%</td><td>45.83%</td><td>2 / 1</td></tr><tr><td>1d</td><td>weak_go</td><td>7</td><td>0.16%</td><td>0.50%</td><td>57.14%</td><td>2 / 1</td></tr><tr><td>3d</td><td colspan="5" class="muted">no completed snapshots yet</td><td>0 / 3</td></tr><tr><td>5d</td><td colspan="5" class="muted">no completed snapshots yet</td><td>0 / 3</td></tr><tr><td>10d</td><td colspan="5" class="muted">no completed snapshots yet</td><td>0 / 3</td></tr></tbody></table>
+<table><thead><tr><th>Horizon</th><th>Cohort</th><th>n obs</th><th>mean</th><th>median</th><th>%+</th><th>snaps done / pending</th></tr></thead><tbody><tr><td>1d</td><td>clean_go</td><td>108</td><td>-0.50%</td><td>-0.29%</td><td>43.52%</td><td>3 / 1</td></tr><tr><td>1d</td><td>overextended_bb</td><td>39</td><td>0.37%</td><td>-0.03%</td><td>48.72%</td><td>3 / 1</td></tr><tr><td>1d</td><td>weak_go</td><td>10</td><td>0.20%</td><td>0.20%</td><td>50.00%</td><td>3 / 1</td></tr><tr><td>3d</td><td>clean_go</td><td>38</td><td>-1.83%</td><td>-1.42%</td><td>36.84%</td><td>1 / 3</td></tr><tr><td>3d</td><td>overextended_bb</td><td>12</td><td>5.04%</td><td>2.25%</td><td>75.00%</td><td>1 / 3</td></tr><tr><td>3d</td><td>weak_go</td><td>3</td><td>-5.02%</td><td>-2.52%</td><td>33.33%</td><td>1 / 3</td></tr><tr><td>5d</td><td colspan="5" class="muted">no completed snapshots yet</td><td>0 / 4</td></tr><tr><td>10d</td><td colspan="5" class="muted">no completed snapshots yet</td><td>0 / 4</td></tr></tbody></table>
 </div>
 <div class='section'><h2>Snapshot scaffold</h2>
-<p class='kv'>Snapshots tracked: 3 (retention 90 days, cap 500 rows). Min observations before promoting blocker into scoring change: 30 per cohort at 5d.</p>
+<p class='kv'>Snapshots tracked: 4 (retention 90 days, cap 500 rows). Min observations before promoting blocker into scoring change: 30 per cohort at 5d.</p>
 </div>
 </body></html>
