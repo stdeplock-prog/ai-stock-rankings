@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-14T14:54:33Z",
-  "generated_at_chicago": "2026-05-14 09:54 AM CDT",
+  "generated_at": "2026-05-14T19:48:33Z",
+  "generated_at_chicago": "2026-05-14 02:48 PM CDT",
   "overall": "OK",
   "caveat": "DAILY OHLCV ONLY: This report is a daily-bar proxy for the Pine v6 go/no-go gate stack. No true intraday VWAP, no Open Drift, no minute-bar logic. DIAGNOSTIC ONLY \u2014 rankings and scoring formulas are NOT mutated.",
   "thresholds": {
@@ -17,13 +17,13 @@
     "ma50_rise_lookback": 5
   },
   "counts": {
-    "evaluated": 80,
-    "ohlcv_missing": 8,
+    "evaluated": 78,
+    "ohlcv_missing": 9,
     "insufficient_bars": 0,
     "blocked": 9,
-    "go_normalized_ge_07": 52,
-    "go_normalized_lt_04": 6,
-    "candidates": 88
+    "go_normalized_ge_07": 51,
+    "go_normalized_lt_04": 5,
+    "candidates": 87
   },
   "highlights": {
     "cleanest_go_main": [
@@ -35,8 +35,9 @@
         "company": "eBay Inc.",
         "sector": "Consumer Cyclical",
         "ai_score": 7.8,
-        "swing_score": 6.2,
+        "swing_score": 6.3,
         "swing_tier": "B",
+        "days_to_earnings": 76,
         "evaluated": true,
         "bars": 843,
         "gates": {
@@ -143,7 +144,7 @@
         "ai_score": 7.9,
         "swing_score": 7.6,
         "swing_tier": "A",
-        "days_to_earnings": 82,
+        "days_to_earnings": 81,
         "evaluated": true,
         "bars": 843,
         "gates": {
@@ -507,58 +508,6 @@
         "blocker_count": 0
       },
       {
-        "ticker": "TKR",
-        "sources": [
-          "main"
-        ],
-        "company": "Timken Company",
-        "sector": "Industrials",
-        "ai_score": 7.8,
-        "swing_score": 7.0,
-        "swing_tier": "B",
-        "evaluated": true,
-        "bars": 843,
-        "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": true,
-          "ma50_rising": true,
-          "rsi_in_zone": true,
-          "rsi_slope_pos": false,
-          "return_20d_ok": true,
-          "rel_vol_ok": true,
-          "bar_strength": false,
-          "mfi_above_avg": false,
-          "near_20d_high": false
-        },
-        "metrics": {
-          "last_close": 115.74,
-          "sma5": 116.912,
-          "sma8": 115.1262,
-          "sma13": 112.5392,
-          "sma20": 110.724,
-          "sma50": 104.9102,
-          "rsi14": 60.4626,
-          "rsi14_3bar_ago": 65.2093,
-          "return_20d": 0.1158,
-          "rel_vol_20d": 1.372,
-          "mfi14": 49.957,
-          "high_20d": 119.7,
-          "bb_upper_20": 119.949,
-          "range_10d_pct": 0.1571
-        },
-        "blockers": [],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 8,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.8,
-        "accumulation_score": 2,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.4,
-        "blocker_count": 0
-      },
-      {
         "ticker": "VIRT",
         "sources": [
           "main"
@@ -647,7 +596,7 @@
           "rsi14_3bar_ago": 56.6382,
           "return_20d": 0.0452,
           "rel_vol_20d": 1.199,
-          "mfi14": 72.355,
+          "mfi14": 72.3553,
           "high_20d": 220.14,
           "bb_upper_20": 221.5387,
           "range_10d_pct": 0.0623
@@ -724,8 +673,9 @@
         "company": "Everus Construction Group",
         "sector": "Industrials",
         "ai_score": 8.2,
-        "swing_score": 5.8,
+        "swing_score": 6.0,
         "swing_tier": "B",
+        "days_to_earnings": 89,
         "evaluated": true,
         "bars": 386,
         "gates": {
@@ -815,6 +765,58 @@
           "high_20d": 399.04,
           "bb_upper_20": 414.6434,
           "range_10d_pct": 0.0923
+        },
+        "blockers": [],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 7,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.7,
+        "accumulation_score": 2,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.4,
+        "blocker_count": 0
+      },
+      {
+        "ticker": "GOOGL",
+        "sources": [
+          "main"
+        ],
+        "company": "Alphabet Inc. (Class A)",
+        "sector": "Communication Services",
+        "ai_score": 7.9,
+        "swing_score": 5.8,
+        "swing_tier": "B",
+        "evaluated": true,
+        "bars": 843,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": true,
+          "ma50_rising": true,
+          "rsi_in_zone": false,
+          "rsi_slope_pos": false,
+          "return_20d_ok": true,
+          "rel_vol_ok": false,
+          "bar_strength": true,
+          "mfi_above_avg": false,
+          "near_20d_high": true
+        },
+        "metrics": {
+          "last_close": 402.62,
+          "sma5": 395.48,
+          "sma8": 393.39,
+          "sma13": 382.1285,
+          "sma20": 366.8845,
+          "sma50": 328.8513,
+          "rsi14": 75.5817,
+          "rsi14_3bar_ago": 84.0341,
+          "return_20d": 0.1943,
+          "rel_vol_20d": 1.004,
+          "mfi14": 80.2915,
+          "high_20d": 402.62,
+          "bb_upper_20": 418.3035,
+          "range_10d_pct": 0.0941
         },
         "blockers": [],
         "insufficient_data_reasons": [],
@@ -1179,7 +1181,7 @@
           "rsi14_3bar_ago": 52.8349,
           "return_20d": 0.016,
           "rel_vol_20d": 1.048,
-          "mfi14": 54.7404,
+          "mfi14": 54.7389,
           "high_20d": 334.1672,
           "bb_upper_20": 333.5265,
           "range_10d_pct": 0.0613
@@ -1308,8 +1310,9 @@
         "company": "Emcor",
         "sector": "Industrials",
         "ai_score": 8.2,
-        "swing_score": 6.5,
+        "swing_score": 6.7,
         "swing_tier": "B",
+        "days_to_earnings": 76,
         "evaluated": true,
         "bars": 843,
         "gates": {
@@ -1630,6 +1633,61 @@
         "blocker_count": 1
       },
       {
+        "ticker": "EXEL",
+        "sources": [
+          "main",
+          "watchlist"
+        ],
+        "company": "Exelixis",
+        "sector": "Healthcare",
+        "ai_score": 7.8,
+        "swing_score": 6.4,
+        "swing_tier": "B",
+        "evaluated": true,
+        "bars": 843,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": true,
+          "ma50_rising": true,
+          "rsi_in_zone": true,
+          "rsi_slope_pos": true,
+          "return_20d_ok": true,
+          "rel_vol_ok": false,
+          "bar_strength": true,
+          "mfi_above_avg": true,
+          "near_20d_high": true
+        },
+        "metrics": {
+          "last_close": 51.29,
+          "sma5": 48.966,
+          "sma8": 47.765,
+          "sma13": 46.5023,
+          "sma20": 46.057,
+          "sma50": 43.9908,
+          "rsi14": 68.3797,
+          "rsi14_3bar_ago": 61.4272,
+          "return_20d": 0.1583,
+          "rel_vol_20d": 1.098,
+          "mfi14": 62.0818,
+          "high_20d": 51.29,
+          "bb_upper_20": 50.4243,
+          "range_10d_pct": 0.1556
+        },
+        "blockers": [
+          "overextended_bb (>1.5% above BB upper)"
+        ],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 9,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.9,
+        "accumulation_score": 4,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.8,
+        "blocker_count": 1
+      },
+      {
         "ticker": "GEN",
         "sources": [
           "main"
@@ -1894,7 +1952,7 @@
       "ai_score": 7.9,
       "swing_score": 7.6,
       "swing_tier": "A",
-      "days_to_earnings": 82,
+      "days_to_earnings": 81,
       "evaluated": true,
       "bars": 843,
       "gates": {
@@ -3186,7 +3244,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 5.8,
+      "ai_score": 6.0,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -3198,8 +3256,9 @@
       "company": "Duolingo",
       "sector": "Technology",
       "ai_score": 7.1,
-      "swing_score": 5.8,
+      "swing_score": 6.0,
       "swing_tier": "B",
+      "days_to_earnings": 83,
       "evaluated": true,
       "bars": 843,
       "gates": {
@@ -3304,8 +3363,9 @@
       "company": "eBay Inc.",
       "sector": "Consumer Cyclical",
       "ai_score": 7.8,
-      "swing_score": 6.2,
+      "swing_score": 6.3,
       "swing_tier": "B",
+      "days_to_earnings": 76,
       "evaluated": true,
       "bars": 843,
       "gates": {
@@ -3357,8 +3417,9 @@
       "company": "Everus Construction Group",
       "sector": "Industrials",
       "ai_score": 8.2,
-      "swing_score": 5.8,
+      "swing_score": 6.0,
       "swing_tier": "B",
+      "days_to_earnings": 89,
       "evaluated": true,
       "bars": 386,
       "gates": {
@@ -3414,8 +3475,9 @@
       "company": "Emcor",
       "sector": "Industrials",
       "ai_score": 8.2,
-      "swing_score": 6.5,
+      "swing_score": 6.7,
       "swing_tier": "B",
+      "days_to_earnings": 76,
       "evaluated": true,
       "bars": 843,
       "gates": {
@@ -3515,6 +3577,7 @@
     {
       "ticker": "EXEL",
       "sources": [
+        "main",
         "watchlist"
       ],
       "company": "Exelixis",
@@ -4153,7 +4216,7 @@
         "disagreement"
       ],
       "sector": "Industrials",
-      "ai_score": 4.4,
+      "ai_score": 4.3,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -5256,7 +5319,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 3.7,
+      "ai_score": 4.0,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -5365,6 +5428,17 @@
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.4,
       "blocker_count": 0
+    },
+    {
+      "ticker": "RY",
+      "sources": [
+        "watchlist"
+      ],
+      "company": "Royal Bank Of Canada",
+      "sector": "Financial Services",
+      "ai_score": 6.8,
+      "evaluated": false,
+      "reason": "ohlcv missing"
     },
     {
       "ticker": "SCCO",
@@ -5536,7 +5610,7 @@
       ],
       "company": "Sandisk",
       "sector": "Technology",
-      "ai_score": 7.3,
+      "ai_score": 7.4,
       "swing_score": 5.2,
       "swing_tier": "C",
       "evaluated": true,
@@ -5576,110 +5650,6 @@
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
       "go_no_go_score_normalized": 0.7,
-      "accumulation_score": 2,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.4,
-      "blocker_count": 0
-    },
-    {
-      "ticker": "SNOW",
-      "sources": [
-        "watchlist"
-      ],
-      "company": "Snowflake Inc.",
-      "sector": "Technology",
-      "ai_score": 6.8,
-      "swing_score": 5.2,
-      "swing_tier": "C",
-      "evaluated": true,
-      "bars": 843,
-      "gates": {
-        "trend_sma_aligned": true,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": false,
-        "ma50_rising": false,
-        "rsi_in_zone": false,
-        "rsi_slope_pos": false,
-        "return_20d_ok": false,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 152.37,
-        "sma5": 152.404,
-        "sma8": 148.46,
-        "sma13": 145.6292,
-        "sma20": 146.214,
-        "sma50": 154.9306,
-        "rsi14": 53.7791,
-        "rsi14_3bar_ago": 53.8849,
-        "return_20d": 0.0546,
-        "rel_vol_20d": 0.998,
-        "mfi14": 48.97,
-        "high_20d": 155.57,
-        "bb_upper_20": 157.1544,
-        "range_10d_pct": 0.1574
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 3,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.3,
-      "accumulation_score": 0,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.0,
-      "blocker_count": 0
-    },
-    {
-      "ticker": "TKR",
-      "sources": [
-        "main"
-      ],
-      "company": "Timken Company",
-      "sector": "Industrials",
-      "ai_score": 7.8,
-      "swing_score": 7.0,
-      "swing_tier": "B",
-      "evaluated": true,
-      "bars": 843,
-      "gates": {
-        "trend_sma_aligned": true,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": true,
-        "rsi_slope_pos": false,
-        "return_20d_ok": true,
-        "rel_vol_ok": true,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 115.74,
-        "sma5": 116.912,
-        "sma8": 115.1262,
-        "sma13": 112.5392,
-        "sma20": 110.724,
-        "sma50": 104.9102,
-        "rsi14": 60.4626,
-        "rsi14_3bar_ago": 65.2093,
-        "return_20d": 0.1158,
-        "rel_vol_20d": 1.372,
-        "mfi14": 49.957,
-        "high_20d": 119.7,
-        "bb_upper_20": 119.949,
-        "range_10d_pct": 0.1571
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 8,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.8,
       "accumulation_score": 2,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.4,
@@ -5890,7 +5860,7 @@
         "rsi14_3bar_ago": 52.8349,
         "return_20d": 0.016,
         "rel_vol_20d": 1.048,
-        "mfi14": 54.7404,
+        "mfi14": 54.7389,
         "high_20d": 334.1672,
         "bb_upper_20": 333.5265,
         "range_10d_pct": 0.0613
@@ -6055,8 +6025,8 @@
         "rsi14": 70.9799,
         "rsi14_3bar_ago": 76.2833,
         "return_20d": 0.3537,
-        "rel_vol_20d": 0.719,
-        "mfi14": 65.8753,
+        "rel_vol_20d": 0.721,
+        "mfi14": 65.8815,
         "high_20d": 515.83,
         "bb_upper_20": 521.0323,
         "range_10d_pct": 0.2452
@@ -6108,7 +6078,7 @@
         "rsi14_3bar_ago": 56.6382,
         "return_20d": 0.0452,
         "rel_vol_20d": 1.199,
-        "mfi14": 72.355,
+        "mfi14": 72.3553,
         "high_20d": 220.14,
         "bb_upper_20": 221.5387,
         "range_10d_pct": 0.0623
@@ -6159,8 +6129,8 @@
         "rsi14": 60.2445,
         "rsi14_3bar_ago": 74.6525,
         "return_20d": 0.1505,
-        "rel_vol_20d": 0.747,
-        "mfi14": 73.0268,
+        "rel_vol_20d": 0.748,
+        "mfi14": 73.026,
         "high_20d": 109.21,
         "bb_upper_20": 113.54,
         "range_10d_pct": 0.1764
@@ -6183,5 +6153,5 @@
     "disagreement_queue_present": true,
     "ohlcv_dir_exists": true
   },
-  "summary": "Overall OK \u00b7 cands=88 \u00b7 evaluated=80 \u00b7 missing_ohlcv=8 \u00b7 go>=.7:52 \u00b7 weak<.4:6 \u00b7 blocked=9 \u00b7 dis_supports_internal=8 \u00b7 dis_supports_external=3"
+  "summary": "Overall OK \u00b7 cands=87 \u00b7 evaluated=78 \u00b7 missing_ohlcv=9 \u00b7 go>=.7:51 \u00b7 weak<.4:5 \u00b7 blocked=9 \u00b7 dis_supports_internal=8 \u00b7 dis_supports_external=3"
 }
