@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-05-15",
+  "title": "Project Closeout Roadmap",
+  "status": "in_progress",
+  "summary": "Diagnostic stack is complete. Closeout means promoting selected diagnostics to either (a) reviewer-actionable state or (b) decommissioning, plus one cycle of manual review.",
+  "sections": [
+    {
+      "id": "diagnostics-ready",
+      "title": "Diagnostics shipped (no production score change)",
+      "items": [
+        {
+          "name": "Activity-Adjusted Review",
+          "report": "./reports/activity-adjusted-review.html",
+          "purpose": "Show how the top of the board would shift under a transparent activity overlay (liquidity / rel-vol / Pine accumulation / overextended). Now ships a top-25 entrants/drops section so the reviewer can spot promotion candidates without reading every row.",
+          "promotion_criteria": "If the entrants list is consistently higher-quality than the current top-25 in manual review across at least 3 sessions, propose folding a small (≤±5%) version of the multiplier into production. Otherwise keep diagnostic-only."
+        },
+        {
+          "name": "External Benchmark Review + Disagreement Queue Review",
+          "report": "./reports/disagreement-queue-review.html",
+          "purpose": "Surface tickers where internal scoring disagrees with external benchmark sources; carry Pine and cool-off context; suggest keep/watchlist_only/ignore/needs_more_data per row. Now exports a CSV for offline review and a starter state template.",
+          "promotion_criteria": "After one full review pass (state file no longer all-blank), measure: do reviewer 'ignore' decisions land on names that later confirm the internal view? If yes, keep diagnostic; if not, tune the gap thresholds in external_benchmark_review.py."
+        },
+        {
+          "name": "Pine Go/No-Go Diagnostic + Cool-off Cohort Tracking",
+          "report": "./reports/pine-go-no-go-diagnostic.html",
+          "purpose": "Daily-OHLCV proxy of the Pine v6 gate stack; A/B cohort tracking of overextended_bb / clean_go forward returns.",
+          "promotion_criteria": "Already production-quality as a gating overlay. Promotion is gated on the cool-off cohort showing a statistically meaningful spread over enough sessions (target: 20+ trading days)."
+        },
+        {
+          "name": "Accumulation Signal Meter v1",
+          "report": "./reports/accumulation-signal-meter.html",
+          "purpose": "Per-ticker accumulation-style score built from Pine OHLCV metrics (rel-vol, MFI, RSI zone, bar strength, near 20d high, close location). Diagnostic only; surfaces top/weak accumulation names and overlap with Pine clean-go and activity-adjusted top-25.",
+          "promotion_criteria": "Track agreement between top-25 accumulation list and the eventual reviewer-confirmed names from the disagreement queue. If 60%+ overlap on confirmed-keep decisions over a month, consider adding as a small weighted input to ai_score (would require explicit user signoff)."
+        }
+      ]
+    },
+    {
+      "id": "manual-review-steps",
+      "title": "Manual review steps for the next session",
+      "items": [
+        {
+          "step": 1,
+          "action": "Open the dashboard and click into Activity-adjusted. Compare the top-25 entrants and drops. Note any clearly-wrong activity-adjusted entries (e.g. earnings within 7d, low-quality momentum)."
+        },
+        {
+          "step": 2,
+          "action": "Open Disagreement review. Optionally download the CSV (link at the top of the report) and edit the starter template (data/reports/disagreement_review_state_template.csv) offline. For each severe row, decide keep / watchlist_only / ignore / needs_more_data."
+        },
+        {
+          "step": 3,
+          "action": "Persist decisions: edit data/reports/disagreement_review_state.json (the canonical state) to record reviewed=true, decision, and notes for each reviewed entry. The next run will preserve those edits."
+        },
+        {
+          "step": 4,
+          "action": "Open Accumulation meter. Cross-reference the top-25 with Pine clean-go and activity-adjusted top-25 (overlap sections are inline). Names that appear in all three are the highest-conviction diagnostic candidates."
+        },
+        {
+          "step": 5,
+          "action": "Open Pine go/no-go and cool-off cohorts. Verify no new overextended_bb blockers on names you decided to keep."
+        }
+      ]
+    },
+    {
+      "id": "remaining-items",
+      "title": "Remaining backlog / known scope decisions",
+      "items": [
+        {
+          "name": "Promotion vs decommission decision",
+          "description": "Decide which diagnostic(s) should be folded into the production ai_score for the next iteration, and which to leave purely diagnostic. No production scoring changes have been made in the closeout batch."
+        },
+        {
+          "name": "Disagreement state import-from-CSV",
+          "description": "Currently the CSV export is one-way (diagnostic → CSV). A reverse importer (CSV → state JSON) is intentionally not implemented to avoid silent overwrites. If wanted later, build it as an explicit standalone script that diffs against the existing JSON."
+        },
+        {
+          "name": "Accumulation meter validation",
+          "description": "Component weights are picked by inspection, not optimization. Validate by backtest against forward returns before any promotion."
+        },
+        {
+          "name": "Workflow_dispatch trigger",
+          "description": "All new reports are wired into update-rankings.yml. They will populate on the next scheduled run, or via a manual workflow_dispatch (user has explicitly chosen NOT to auto-trigger from this batch)."
+        }
+      ]
+    }
+  ],
+  "deploy_steps": [
+    "1. Review this branch's diff locally: `git log --oneline -5`",
+    "2. (Optional) Re-run reports locally: `python 02_Code/Python/Reports/activity_adjusted_review.py && python 02_Code/Python/Reports/disagreement_queue_review.py && python 02_Code/Python/Reports/accumulation_signal_meter.py`",
+    "3. Push to main (already done by the agent if push succeeded).",
+    "4. Trigger the GitHub workflow manually when convenient — Actions → 'Update rankings' → Run workflow. This will re-generate all reports against fresh data and stamp tasks.json.",
+    "5. After the workflow run, refresh the dashboard; verify the three new report links (Activity-adjusted, Accumulation meter) and the new CSV link in the Disagreement review page."
+  ]
+}

@@ -336,6 +336,72 @@ def test_render_html_produces_expected_strings():
     assert "review suggestions" in html.lower()
 
 
+# ---------- CSV export ----------
+
+
+def test_review_rows_to_csv_has_header_and_row():
+    rows = [
+        {
+            "key": "QBTS|tradingview",
+            "ticker": "QBTS",
+            "headline_severity": "severe",
+            "suggested_decision": "needs_more_data",
+            "suggested_rationale": "Mixed evidence.",
+            "internal_ai_score_0to10": 3.4,
+            "internal_ai_direction": "bearish",
+            "external_signals": [
+                {"source": "tradingview", "gap": 3.4, "severity": "severe",
+                 "direction_agrees": False},
+            ],
+            "pine_classification": "supports_external_caution",
+            "pine_score_normalized": 0.2,
+            "cooloff_blockers": ["overextended_bb"],
+            "review": {
+                "reviewed": False, "decision": "", "notes": "",
+                "follow_up_date": "", "first_seen": "2026-05-08",
+                "last_seen": "2026-05-15",
+            },
+        },
+    ]
+    text = dqr.review_rows_to_csv(rows)
+    lines = text.strip().splitlines()
+    assert lines, "expected non-empty CSV"
+    assert lines[0].startswith("ticker,key,severity,suggested_decision"), (
+        f"unexpected header: {lines[0]}"
+    )
+    assert "QBTS" in lines[1] and "needs_more_data" in lines[1]
+    assert "supports_external_caution" in lines[1]
+    assert "yes" in lines[1], "expected cooloff=yes when blockers present"
+
+
+def test_review_rows_to_csv_empty_safe():
+    text = dqr.review_rows_to_csv([])
+    lines = text.strip().splitlines()
+    assert len(lines) == 1, "empty rows should still produce header line"
+
+
+def test_review_state_template_csv_fills_suggested_when_blank():
+    rows = [
+        {
+            "key": "ABC|fidelity", "ticker": "ABC",
+            "suggested_decision": "watchlist_only",
+            "review": {"reviewed": False, "decision": "",
+                       "notes": "", "follow_up_date": ""},
+        },
+        {
+            "key": "DEF|zacks", "ticker": "DEF",
+            "suggested_decision": "keep",
+            "review": {"reviewed": True, "decision": "ignore",
+                       "notes": "manual override", "follow_up_date": ""},
+        },
+    ]
+    text = dqr.review_state_template_csv(rows)
+    lines = text.strip().splitlines()
+    assert lines[0] == "key,ticker,reviewed,decision,notes,follow_up_date"
+    assert "watchlist_only" in lines[1]
+    assert "ignore" in lines[2]
+
+
 # ---------- runner ----------
 
 

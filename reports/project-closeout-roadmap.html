@@ -1,0 +1,78 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Project Closeout Roadmap</title>
+<style>
+body{font-family:-apple-system,Helvetica,Arial,sans-serif;margin:24px auto;max-width:960px;color:#1f2937;padding:0 16px}
+h1{margin:0 0 6px}h2{font-size:17px;margin:22px 0 4px;border-bottom:1px solid #e5e7eb;padding-bottom:4px}
+h3{margin:14px 0 2px;font-size:15px}
+.muted{color:#6b7280;font-size:13px}
+ul{padding-left:20px}
+li{margin:4px 0}
+.box{border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;margin:10px 0;background:#fafafa}
+.purpose{font-size:13px;margin-top:4px}
+.promo{font-size:13px;margin-top:4px;color:#4b5563}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e5e7eb;color:#374151;margin-right:6px}
+.back{font-size:13px;margin-bottom:10px}
+ol li{margin:6px 0}
+</style></head><body>
+<p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
+<h1>Project Closeout Roadmap</h1>
+<p class="muted">Generated 2026-05-15 &middot; Status: <strong>in_progress</strong></p>
+<p>Diagnostic stack is complete. Closeout means promoting selected diagnostics to either (a) reviewer-actionable state or (b) decommissioning, plus one cycle of manual review. <strong>No production scoring formulas were changed in this batch.</strong></p>
+
+<h2>Diagnostics shipped (no production score change)</h2>
+
+<div class="box">
+<h3>Activity-Adjusted Review <span class="tag">diagnostic</span></h3>
+<p class="purpose"><a href="./activity-adjusted-review.html">Open report</a></p>
+<p class="purpose"><strong>Purpose:</strong> Show how the top of the board would shift under a transparent activity overlay (liquidity / rel-vol / Pine accumulation / overextended). Now ships a top-25 entrants/drops section so the reviewer can spot promotion candidates without reading every row.</p>
+<p class="promo"><strong>Promotion criteria:</strong> If the entrants list is consistently higher-quality than the current top-25 in manual review across at least 3 sessions, propose folding a small (≤±5%) version of the multiplier into production. Otherwise keep diagnostic-only.</p>
+</div>
+
+<div class="box">
+<h3>External Benchmark + Disagreement Queue Review <span class="tag">review workflow</span></h3>
+<p class="purpose"><a href="./disagreement-queue-review.html">Open report</a> &middot; <a href="../data/reports/disagreement_queue_review.csv">CSV export</a> &middot; <a href="../data/reports/disagreement_review_state_template.csv">starter template</a></p>
+<p class="purpose"><strong>Purpose:</strong> Surface tickers where internal scoring disagrees with external benchmark sources; carry Pine and cool-off context; suggest keep / watchlist_only / ignore / needs_more_data per row. Now exports a CSV for offline review and a starter state template.</p>
+<p class="promo"><strong>Promotion criteria:</strong> After one full review pass (state file no longer all-blank), measure: do reviewer 'ignore' decisions land on names that later confirm the internal view? If yes, keep diagnostic; if not, tune the gap thresholds in <code>external_benchmark_review.py</code>.</p>
+</div>
+
+<div class="box">
+<h3>Pine Go/No-Go Diagnostic + Cool-off Cohort Tracking <span class="tag">overlay</span></h3>
+<p class="purpose"><a href="./pine-go-no-go-diagnostic.html">Open Pine report</a> &middot; <a href="./cooloff-cohort-tracking.html">Open cohort report</a></p>
+<p class="purpose"><strong>Purpose:</strong> Daily-OHLCV proxy of the Pine v6 gate stack; A/B cohort tracking of overextended_bb / clean_go forward returns.</p>
+<p class="promo"><strong>Promotion criteria:</strong> Already production-quality as a gating overlay. Promotion is gated on the cool-off cohort showing a statistically meaningful spread over enough sessions (target: 20+ trading days).</p>
+</div>
+
+<div class="box">
+<h3>Accumulation Signal Meter v1 <span class="tag">diagnostic</span></h3>
+<p class="purpose"><a href="./accumulation-signal-meter.html">Open report</a></p>
+<p class="purpose"><strong>Purpose:</strong> Per-ticker accumulation-style score built from Pine OHLCV metrics (rel-vol, MFI, RSI zone, bar strength, near 20d high, close location). Diagnostic only; surfaces top/weak accumulation names and overlap with Pine clean-go and activity-adjusted top-25.</p>
+<p class="promo"><strong>Promotion criteria:</strong> Track agreement between top-25 accumulation list and the eventual reviewer-confirmed names from the disagreement queue. If 60%+ overlap on confirmed-keep decisions over a month, consider adding as a small weighted input to ai_score (would require explicit user signoff).</p>
+</div>
+
+<h2>Manual review steps for the next session</h2>
+<ol>
+<li>Open the dashboard and click into <strong>Activity-adjusted</strong>. Compare the top-25 entrants and drops. Note any clearly-wrong activity-adjusted entries (e.g. earnings within 7d, low-quality momentum).</li>
+<li>Open <strong>Disagreement review</strong>. Optionally download the CSV (link at the top) and edit the starter template <code>data/reports/disagreement_review_state_template.csv</code> offline. For each severe row, decide keep / watchlist_only / ignore / needs_more_data.</li>
+<li>Persist decisions: edit <code>data/reports/disagreement_review_state.json</code> (the canonical state) to record <code>reviewed=true</code>, <code>decision</code>, and <code>notes</code> for each reviewed entry. The next run will preserve those edits.</li>
+<li>Open <strong>Accumulation meter</strong>. Cross-reference the top-25 with Pine clean-go and activity-adjusted top-25 (overlap sections are inline). Names that appear in all three are the highest-conviction diagnostic candidates.</li>
+<li>Open <strong>Pine go/no-go</strong> and <strong>cool-off cohorts</strong>. Verify no new overextended_bb blockers on names you decided to keep.</li>
+</ol>
+
+<h2>Remaining backlog / known scope decisions</h2>
+<ul>
+<li><strong>Promotion vs decommission decision</strong> — decide which diagnostic(s) should be folded into the production <code>ai_score</code> for the next iteration, and which to leave purely diagnostic. No production scoring changes have been made in the closeout batch.</li>
+<li><strong>Disagreement state import-from-CSV</strong> — currently the CSV export is one-way (diagnostic → CSV). A reverse importer (CSV → state JSON) is intentionally not implemented to avoid silent overwrites.</li>
+<li><strong>Accumulation meter validation</strong> — component weights are picked by inspection, not optimization. Validate by backtest against forward returns before any promotion.</li>
+<li><strong>Workflow_dispatch trigger</strong> — all new reports are wired into <code>update-rankings.yml</code>. They will populate on the next scheduled run, or via a manual workflow_dispatch (user has explicitly chosen NOT to auto-trigger from this batch).</li>
+</ul>
+
+<h2>Deploy steps (manual)</h2>
+<ol>
+<li>Review the diff locally: <code>git log --oneline -5</code>.</li>
+<li>(Optional) Re-run reports locally: <code>python 02_Code/Python/Reports/activity_adjusted_review.py &amp;&amp; python 02_Code/Python/Reports/disagreement_queue_review.py &amp;&amp; python 02_Code/Python/Reports/accumulation_signal_meter.py</code>.</li>
+<li>Push to main (the agent will push if the working tree is clean).</li>
+<li>Trigger the GitHub workflow manually when convenient — <strong>Actions → 'Update rankings' → Run workflow</strong>. This will re-generate all reports against fresh data and stamp <code>tasks.json</code>.</li>
+<li>After the workflow run, refresh the dashboard; verify the new report links (Activity-adjusted, Accumulation meter, this roadmap) and the new CSV link in the Disagreement review page.</li>
+</ol>
+
+</body></html>

@@ -53,6 +53,10 @@ RANKINGS_FILE = DATA_DIR / "rankings.json"
 PINE_FILE = DATA_REPORTS_DIR / "pine_go_no_go_diagnostic.json"
 JSON_OUT = DATA_REPORTS_DIR / "activity_adjusted_review.json"
 HTML_OUT = HTML_REPORTS_DIR / "activity-adjusted-review.html"
+TASKS_FILE = DATA_DIR / "tasks.json"
+TASK_ID = "activity-adjusted-review"
+REPORT_URL = "./reports/activity-adjusted-review.html"
+TOP_N_COMPARE = 25
 
 
 # --- TUNING CONSTANTS -------------------------------------------------------
@@ -189,6 +193,83 @@ def compute_adjustments(rankings, pine_data):
     return enriched
 
 
+def top_n_comparison(enriched, n=TOP_N_COMPARE):
+    """Build a diagnostic comparison of current top-N vs activity-adjusted
+    top-N. Returns dict with `current_top`, `activity_top`, `entrants`
+    (in activity top, not current top) and `drops` (in current top, not
+    activity top). Each list preserves the rank ordering of its source.
+    """
+    if not enriched:
+        return {
+            "n": n,
+            "current_top": [],
+            "activity_top": [],
+            "entrants": [],
+            "drops": [],
+            "overlap_n": 0,
+        }
+    by_ai = sorted(enriched, key=lambda r: (r["ai_rank"] if r["ai_rank"] is not None else 10_000))
+    current_top = by_ai[:n]
+    activity_top = enriched[:n]  # already sorted by activity_rank
+    current_set = {r["ticker"] for r in current_top}
+    activity_set = {r["ticker"] for r in activity_top}
+    entrants = [
+        {
+            "ticker": r["ticker"],
+            "company": r.get("company"),
+            "sector": r.get("sector"),
+            "ai_rank": r["ai_rank"],
+            "activity_rank": r["activity_rank"],
+            "rank_delta": r["rank_delta"],
+            "ai_score": r["ai_score"],
+            "activity_score": r["activity_score"],
+        }
+        for r in activity_top if r["ticker"] not in current_set
+    ]
+    drops = [
+        {
+            "ticker": r["ticker"],
+            "company": r.get("company"),
+            "sector": r.get("sector"),
+            "ai_rank": r["ai_rank"],
+            "activity_rank": r["activity_rank"],
+            "rank_delta": r["rank_delta"],
+            "ai_score": r["ai_score"],
+            "activity_score": r["activity_score"],
+        }
+        for r in current_top if r["ticker"] not in activity_set
+    ]
+    overlap = len(current_set & activity_set)
+    return {
+        "n": n,
+        "current_top": [
+            {
+                "ticker": r["ticker"],
+                "company": r.get("company"),
+                "sector": r.get("sector"),
+                "ai_rank": r["ai_rank"],
+                "activity_rank": r["activity_rank"],
+                "ai_score": r["ai_score"],
+                "activity_score": r["activity_score"],
+            } for r in current_top
+        ],
+        "activity_top": [
+            {
+                "ticker": r["ticker"],
+                "company": r.get("company"),
+                "sector": r.get("sector"),
+                "ai_rank": r["ai_rank"],
+                "activity_rank": r["activity_rank"],
+                "ai_score": r["ai_score"],
+                "activity_score": r["activity_score"],
+            } for r in activity_top
+        ],
+        "entrants": entrants,
+        "drops": drops,
+        "overlap_n": overlap,
+    }
+
+
 def _verdict(enriched):
     if not enriched:
         return "FAIL", "no rows in rankings.json"
@@ -261,7 +342,145 @@ def render_html(payload):
         f"{int(OVEREXTENDED_PENALTY*100)}% when Pine flags <code>overextended_bb</code>.</li>"
         f"<li><b>Bounds</b>: total multiplier clamped to [{MIN_MULT:.2f}, {MAX_MULT:.2f}].</li></ul>"
     )
-    return head + "".join(rows_html) + legend
+
+    comp = payload.get("top_n_comparison") or {}
+    comp_html = _render_top_n_comparison(comp)
+    return head + "".join(rows_html) + comp_html + legend
+
+
+def _render_top_n_comparison(comp):
+    if not comp:
+        return ""
+    n = comp.get("n") or TOP_N_COMPARE
+    entrants = comp.get("entrants") or []
+    drops = comp.get("drops") or []
+    overlap = comp.get("overlap_n") or 0
+    activity_top = comp.get("activity_top") or []
+    current_top = comp.get("current_top") or []
+
+    def _row(r, link_rank_key):
+        rank_val = r.get(link_rank_key)
+        delta = (r.get("ai_rank") or 0) - (r.get("activity_rank") or 0)
+        cls = "up" if delta > 0 else ("down" if delta < 0 else "muted")
+        return (
+            f"<tr><td>{rank_val if rank_val is not None else '—'}</td>"
+            f"<td class=t><b>{escape(str(r.get('ticker') or ''))}</b></td>"
+            f"<td class=t>{escape(str(r.get('sector') or ''))}</td>"
+            f"<td>{r.get('ai_rank') if r.get('ai_rank') is not None else '—'}</td>"
+            f"<td>{r.get('activity_rank') if r.get('activity_rank') is not None else '—'}</td>"
+            f"<td class={cls}>{delta:+d}</td>"
+            f"<td>{(r.get('ai_score') or 0):.2f}</td>"
+            f"<td>{(r.get('activity_score') or 0):.2f}</td></tr>"
+        )
+
+    def _ticker_row(r):
+        delta = (r.get("ai_rank") or 0) - (r.get("activity_rank") or 0)
+        cls = "up" if delta > 0 else ("down" if delta < 0 else "muted")
+        return (
+            f"<tr><td class=t><b>{escape(str(r.get('ticker') or ''))}</b></td>"
+            f"<td class=t>{escape(str(r.get('company') or ''))}</td>"
+            f"<td class=t>{escape(str(r.get('sector') or ''))}</td>"
+            f"<td>{r.get('ai_rank') if r.get('ai_rank') is not None else '—'}</td>"
+            f"<td>{r.get('activity_rank') if r.get('activity_rank') is not None else '—'}</td>"
+            f"<td class={cls}>{delta:+d}</td></tr>"
+        )
+
+    def _delta_table(items, caption):
+        if not items:
+            return (f"<p class=muted>{escape(caption)}: <i>none</i></p>")
+        body = "".join(_ticker_row(r) for r in items)
+        return (
+            f"<h3 style='margin-top:14px'>{escape(caption)} ({len(items)})</h3>"
+            "<table><thead><tr><th class=t>Ticker</th><th class=t>Company</th>"
+            "<th class=t>Sector</th><th>AI rank</th><th>Act rank</th>"
+            "<th>&Delta;</th></tr></thead><tbody>"
+            f"{body}</tbody></table>"
+        )
+
+    parts = []
+    parts.append(f"<h2>Top {n}: current vs activity-adjusted</h2>")
+    parts.append(
+        f"<p class=muted>Overlap: <b>{overlap}/{n}</b> tickers in both top-{n}s. "
+        "Diagnostic only — production rank not changed.</p>"
+    )
+    parts.append(_delta_table(entrants,
+                              f"Activity-only entrants (rise into top {n})"))
+    parts.append(_delta_table(drops,
+                              f"Current-only drops (fall out of top {n})"))
+
+    # Side-by-side top-N table
+    if activity_top and current_top:
+        rows = []
+        for i in range(min(n, max(len(activity_top), len(current_top)))):
+            a = activity_top[i] if i < len(activity_top) else None
+            c = current_top[i] if i < len(current_top) else None
+            def _cell(r):
+                if not r:
+                    return "<td class=t>—</td><td>—</td>"
+                return (
+                    f"<td class=t><b>{escape(str(r.get('ticker') or ''))}</b> "
+                    f"<span class=muted>{escape(str(r.get('sector') or ''))}</span></td>"
+                    f"<td>{(r.get('activity_score') or 0):.2f}</td>"
+                )
+            rows.append(
+                f"<tr><td>{i+1}</td>"
+                f"<td class=t><b>{escape(str(c['ticker'] or '')) if c else '—'}</b> "
+                f"<span class=muted>{escape(str(c.get('sector') or '')) if c else ''}</span></td>"
+                f"<td>{(c['ai_score'] or 0):.2f}</td>"
+                + _cell(a) + "</tr>"
+            )
+        parts.append("<h3 style='margin-top:14px'>Side-by-side ranks</h3>")
+        parts.append(
+            "<table><thead><tr><th>#</th>"
+            "<th class=t>Current top</th><th>AI</th>"
+            "<th class=t>Activity top</th><th>Act</th></tr></thead><tbody>"
+            + "".join(rows) + "</tbody></table>"
+        )
+    return "".join(parts)
+
+
+def _stamp_task(payload):
+    if not TASKS_FILE.exists():
+        return
+    try:
+        from _tasks_meta import update_task  # type: ignore
+    except ImportError:
+        sys.path.insert(0, str(Path(__file__).parent))
+        try:
+            from _tasks_meta import update_task  # type: ignore
+        except ImportError:
+            return
+    verdict = (payload.get("verdict") or "INFO").upper()
+    status = "FAIL" if verdict == "FAIL" else ("warn" if verdict == "WARN" else "OK")
+    update_task(TASKS_FILE, TASK_ID,
+                status=status,
+                summary=payload.get("summary", payload.get("note", "")),
+                report_url=REPORT_URL)
+
+
+def _ensure_task_row():
+    if not TASKS_FILE.exists():
+        return
+    try:
+        data = json.loads(TASKS_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return
+    tasks = data.get("tasks") if isinstance(data, dict) else None
+    if not isinstance(tasks, list):
+        return
+    if any(isinstance(t, dict) and t.get("id") == TASK_ID for t in tasks):
+        return
+    tasks.append({
+        "id": TASK_ID,
+        "name": "Activity-Adjusted Review",
+        "schedule": "Every refresh (08:45/12:30/15:35 CT, weekdays)",
+        "last_run": "—",
+        "next_run": "—",
+        "status": "Not Run",
+        "summary": "—",
+        "report_url": REPORT_URL,
+    })
+    TASKS_FILE.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 
 
 def main():
@@ -278,10 +497,17 @@ def main():
 
     enriched = compute_adjustments(rankings, pine_data)
     verdict, note = _verdict(enriched)
+    comparison = top_n_comparison(enriched, TOP_N_COMPARE)
     payload = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
         "verdict": verdict,
         "note": note,
+        "overall": verdict,
+        "summary": (
+            f"top{TOP_N_COMPARE} overlap={comparison['overlap_n']}/{TOP_N_COMPARE} "
+            f"entrants={len(comparison['entrants'])} drops={len(comparison['drops'])} "
+            f"· {note}"
+        ),
         "constants": {
             "liquidity_pivot_dollars": LIQUIDITY_PIVOT_DOLLARS,
             "liquidity_scale_decades": LIQUIDITY_SCALE,
@@ -294,6 +520,7 @@ def main():
             "min_mult": MIN_MULT,
             "max_mult": MAX_MULT,
         },
+        "top_n_comparison": comparison,
         "rows": enriched,
     }
 
@@ -301,9 +528,15 @@ def main():
     HTML_REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     JSON_OUT.write_text(json.dumps(payload, indent=2))
     HTML_OUT.write_text(render_html(payload))
+    _ensure_task_row()
+    _stamp_task(payload)
     print(f"wrote {JSON_OUT}")
     print(f"wrote {HTML_OUT}")
     print(f"verdict: {verdict} - {note}")
+    print(
+        f"top{TOP_N_COMPARE} overlap={comparison['overlap_n']}/{TOP_N_COMPARE} "
+        f"entrants={len(comparison['entrants'])} drops={len(comparison['drops'])}"
+    )
     # Print top 10 movers for log visibility.
     movers = sorted(enriched, key=lambda r: -abs(r["rank_delta"]))[:10]
     for m in movers:

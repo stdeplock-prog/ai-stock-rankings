@@ -165,6 +165,51 @@ def test_verdict_no_movers_is_ok():
         fail(f"unexpected verdict {verdict}")
 
 
+def test_top_n_comparison_overlap_entrants_drops():
+    """Re-ranking that promotes BIG into top-2 and demotes SML out should show
+    BIG as entrant, SML as drop."""
+    rankings = {
+        "rows": [
+            {"ticker": "A1", "ai_score": 9.0, "volume_millions": 50.0,
+             "closes": [100.0], "rank": 1, "sector": "Tech"},
+            {"ticker": "SML", "ai_score": 8.5, "volume_millions": 0.05,
+             "closes": [5.0], "rank": 2, "sector": "Other"},
+            {"ticker": "BIG", "ai_score": 7.0, "volume_millions": 80.0,
+             "closes": [400.0], "rank": 3, "sector": "Tech"},
+            {"ticker": "C", "ai_score": 6.0, "volume_millions": 1.0,
+             "closes": [50.0], "rank": 4, "sector": "Health"},
+        ],
+    }
+    enriched = aar.compute_adjustments(rankings, None)
+    comp = aar.top_n_comparison(enriched, n=2)
+    if comp["n"] != 2:
+        fail(f"expected n=2 got {comp['n']}")
+    if len(comp["current_top"]) != 2 or len(comp["activity_top"]) != 2:
+        fail("expected 2 items in each top list")
+    activity_set = {r["ticker"] for r in comp["activity_top"]}
+    current_set = {r["ticker"] for r in comp["current_top"]}
+    # current top should be A1 + SML (by ai_rank 1, 2)
+    if current_set != {"A1", "SML"}:
+        fail(f"current top expected A1,SML got {current_set}")
+    # entrants present only in activity_top
+    entrant_tickers = {r["ticker"] for r in comp["entrants"]}
+    drop_tickers = {r["ticker"] for r in comp["drops"]}
+    if entrant_tickers != activity_set - current_set:
+        fail(f"entrants mismatch: {entrant_tickers}")
+    if drop_tickers != current_set - activity_set:
+        fail(f"drops mismatch: {drop_tickers}")
+    if comp["overlap_n"] != len(current_set & activity_set):
+        fail("overlap count mismatch")
+
+
+def test_top_n_comparison_empty_rows_safe():
+    comp = aar.top_n_comparison([], n=5)
+    if comp["overlap_n"] != 0:
+        fail("empty -> overlap 0")
+    if comp["entrants"] or comp["drops"]:
+        fail("empty -> no entrants/drops")
+
+
 def main():
     tests = [v for k, v in globals().items() if k.startswith("test_") and callable(v)]
     for t in tests:

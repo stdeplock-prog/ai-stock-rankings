@@ -528,6 +528,23 @@ jobs:
         run: python 02_Code/Python/Reports/disagreement_queue_review.py
         continue-on-error: true
 
+      # Activity-Adjusted Review — diagnostic-only overlay that re-ranks the
+      # published board using a small, transparent activity overlay
+      # (liquidity / rel-vol / Pine accumulation / overextended). Does NOT
+      # mutate the live ranking. Surfaces top-25 entrants/drops vs current rank.
+      - name: Generate activity-adjusted review
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/activity_adjusted_review.py
+        continue-on-error: true
+
+      # Accumulation Signal Meter — diagnostic-only score per ticker using
+      # already-computed Pine OHLCV metrics. Diagnostic only; never feeds
+      # the production rank.
+      - name: Generate accumulation signal meter
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/accumulation_signal_meter.py
+        continue-on-error: true
+
       - name: Commit and push updated data files
         if: steps.gate.outputs.proceed == 'true' && github.ref == 'refs/heads/main'
         run: |
@@ -559,6 +576,10 @@ jobs:
           git add data/reports/cooloff_cohort_tracking.json 2>/dev/null || true
           git add data/reports/cooloff_cohort_snapshots.jsonl 2>/dev/null || true
           git add data/reports/disagreement_queue_review.json 2>/dev/null || true
+          git add data/reports/disagreement_queue_review.csv 2>/dev/null || true
+          git add data/reports/activity_adjusted_review.json 2>/dev/null || true
+          git add data/reports/accumulation_signal_meter.json 2>/dev/null || true
+          git add data/reports/project_closeout_roadmap.json 2>/dev/null || true
           git add data/reports/disagreement_review_state.json 2>/dev/null || true
           git add data/reports/workflow_runs.jsonl 2>/dev/null || true
           git add data/cache/yfinance_info 2>/dev/null || true
@@ -578,6 +599,9 @@ jobs:
           git add reports/pine-go-no-go-diagnostic.html 2>/dev/null || true
           git add reports/cooloff-cohort-tracking.html 2>/dev/null || true
           git add reports/disagreement-queue-review.html 2>/dev/null || true
+          git add reports/activity-adjusted-review.html 2>/dev/null || true
+          git add reports/accumulation-signal-meter.html 2>/dev/null || true
+          git add reports/project-closeout-roadmap.html 2>/dev/null || true
           # tasks.json is stamped by the daily report scripts (last_run /
           # next_run / status / summary). If we don't stage it here, the later
           # `git pull --rebase` aborts with "unstaged changes".

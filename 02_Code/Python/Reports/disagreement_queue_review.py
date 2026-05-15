@@ -25,6 +25,8 @@ Outputs:
 
 from __future__ import annotations
 
+import csv
+import io
 import json
 import os
 import sys
@@ -45,9 +47,38 @@ STATE_FILE = DATA_REPORTS_DIR / "disagreement_review_state.json"
 
 JSON_OUTPUT = DATA_REPORTS_DIR / "disagreement_queue_review.json"
 HTML_OUTPUT = HTML_REPORTS_DIR / "disagreement-queue-review.html"
+CSV_OUTPUT = DATA_REPORTS_DIR / "disagreement_queue_review.csv"
+CSV_TEMPLATE_OUTPUT = DATA_REPORTS_DIR / "disagreement_review_state_template.csv"
 TASKS_FILE = DATA_DIR / "tasks.json"
 REPORT_URL = "./reports/disagreement-queue-review.html"
 TASK_ID = "disagreement-queue-review"
+
+CSV_REVIEW_COLUMNS = [
+    "ticker",
+    "key",
+    "severity",
+    "suggested_decision",
+    "suggested_rationale",
+    "internal_view",
+    "external_view",
+    "pine_view",
+    "cooloff",
+    "current_reviewed",
+    "current_decision",
+    "current_notes",
+    "follow_up_date",
+    "first_seen",
+    "last_seen",
+]
+
+CSV_TEMPLATE_COLUMNS = [
+    "key",
+    "ticker",
+    "reviewed",
+    "decision",
+    "notes",
+    "follow_up_date",
+]
 
 VALID_DECISIONS = {
     "", "keep", "watchlist_only", "ignore", "needs_more_data",
@@ -476,6 +507,110 @@ def build_report(*, queue_payload: dict | None,
     return report, new_state
 
 
+def _short_external_view(signals) -> str:
+    """Render external signals as a compact human-readable cell for CSV."""
+    if not isinstance(signals, list):
+        return ""
+    bits = []
+    for s in signals:
+        if not isinstance(s, dict):
+            continue
+        src = (s.get("source") or "").strip()
+        if not src:
+            continue
+        gap = s.get("gap")
+        sev = (s.get("severity") or "").strip()
+        try:
+            gap_s = f"{float(gap):+.2f}" if gap is not None else ""
+        except (TypeError, ValueError):
+            gap_s = ""
+        agree = "agree" if s.get("direction_agrees") else "disagree"
+        parts = [src]
+        if gap_s:
+            parts.append(gap_s)
+        if sev:
+            parts.append(sev)
+        parts.append(agree)
+        bits.append(":".join(parts))
+    return "; ".join(bits)
+
+
+def review_rows_to_csv(rows: list[dict]) -> str:
+    """Render the review rows as a CSV string per the columns documented in
+    the closeout roadmap. Handles missing fields safely; never raises."""
+    buf = io.StringIO()
+    writer = csv.DictWriter(buf, fieldnames=CSV_REVIEW_COLUMNS,
+                            extrasaction="ignore")
+    writer.writeheader()
+    for r in rows or []:
+        rev = r.get("review") or {}
+        pine_score = r.get("pine_score_normalized")
+        try:
+            pine_score_s = (f"{float(pine_score):.2f}"
+                            if pine_score is not None else "")
+        except (TypeError, ValueError):
+            pine_score_s = ""
+        pine_view = ""
+        if r.get("pine_classification") or pine_score_s:
+            pine_view = (r.get("pine_classification") or "").strip()
+            if pine_score_s:
+                pine_view = (
+                    f"{pine_view} (score={pine_score_s})" if pine_view
+                    else f"score={pine_score_s}"
+                )
+        cooloff = "yes" if r.get("cooloff_blockers") else "no"
+        internal_view = ""
+        ai = r.get("internal_ai_score_0to10")
+        direction = r.get("internal_ai_direction") or ""
+        try:
+            if ai is not None:
+                internal_view = f"ai={float(ai):.1f} {direction}".strip()
+        except (TypeError, ValueError):
+            internal_view = direction
+        writer.writerow({
+            "ticker": r.get("ticker") or "",
+            "key": r.get("key") or "",
+            "severity": r.get("headline_severity") or "",
+            "suggested_decision": r.get("suggested_decision") or "",
+            "suggested_rationale": r.get("suggested_rationale") or "",
+            "internal_view": internal_view,
+            "external_view": _short_external_view(r.get("external_signals")),
+            "pine_view": pine_view,
+            "cooloff": cooloff,
+            "current_reviewed": "true" if rev.get("reviewed") else "false",
+            "current_decision": rev.get("decision") or "",
+            "current_notes": (rev.get("notes") or "").replace("\n", " "),
+            "follow_up_date": rev.get("follow_up_date") or "",
+            "first_seen": rev.get("first_seen") or "",
+            "last_seen": rev.get("last_seen") or "",
+        })
+    return buf.getvalue()
+
+
+def review_state_template_csv(rows: list[dict]) -> str:
+    """Render a *starter* template CSV the reviewer can edit offline. Only
+    contains the fields the reviewer should set; the suggested decision is
+    pre-filled but the user is expected to confirm or override.
+    The full state JSON is the canonical source of truth — this is a
+    convenience to allow review without a web form."""
+    buf = io.StringIO()
+    writer = csv.DictWriter(buf, fieldnames=CSV_TEMPLATE_COLUMNS,
+                            extrasaction="ignore")
+    writer.writeheader()
+    for r in rows or []:
+        rev = r.get("review") or {}
+        writer.writerow({
+            "key": r.get("key") or "",
+            "ticker": r.get("ticker") or "",
+            "reviewed": "true" if rev.get("reviewed") else "false",
+            "decision": (rev.get("decision")
+                         or r.get("suggested_decision") or ""),
+            "notes": (rev.get("notes") or "").replace("\n", " "),
+            "follow_up_date": rev.get("follow_up_date") or "",
+        })
+    return buf.getvalue()
+
+
 def build_summary_text(report: dict) -> str:
     s = report.get("summary_counts") or {}
     parts = [
@@ -639,6 +774,9 @@ tr.sev-strong td:first-child{{border-left:3px solid #d68910}}
    as_of {escape(report.get("as_of_date",""))} &middot;
    Overall: <span class="badge">{escape(overall)}</span></p>
 <div class="summary"><strong>Summary:</strong> {escape(report.get("summary",""))}</div>
+<p class="meta">Offline review: <a href="../data/reports/disagreement_queue_review.csv">download CSV</a>
+   &middot; <a href="../data/reports/disagreement_review_state_template.csv">starter state template</a>
+   &middot; canonical state: <code>data/reports/disagreement_review_state.json</code></p>
 <div class="caveat"><strong>Review suggestions, not financial advice:</strong>
    {escape(report.get("caveat",""))}</div>
 """)
@@ -758,6 +896,15 @@ def main() -> int:
     JSON_OUTPUT.write_text(
         json.dumps(report, indent=2, default=str) + "\n", encoding="utf-8")
     HTML_OUTPUT.write_text(_render_html(report), encoding="utf-8")
+    CSV_OUTPUT.write_text(review_rows_to_csv(report.get("rows") or []),
+                          encoding="utf-8")
+    if not CSV_TEMPLATE_OUTPUT.exists():
+        # Starter template — only written once so the reviewer's edits
+        # survive subsequent runs. Re-create manually if you want a refresh.
+        CSV_TEMPLATE_OUTPUT.write_text(
+            review_state_template_csv(report.get("rows") or []),
+            encoding="utf-8",
+        )
     save_state(state_to_disk_payload(new_state, report["generated_at"]))
     _ensure_task_row()
     _stamp_task(report)
