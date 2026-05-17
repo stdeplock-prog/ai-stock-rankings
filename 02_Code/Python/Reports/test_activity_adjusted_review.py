@@ -210,6 +210,34 @@ def test_top_n_comparison_empty_rows_safe():
         fail("empty -> no entrants/drops")
 
 
+def test_compute_adjustments_reusable_for_watchlist():
+    """compute_adjustments treats its input opaquely so the same function
+    re-ranks the watchlist independently of the main board. This keeps the
+    watchlist activity overlay scoped to the watchlist universe rather than
+    bleeding in main-board ranks."""
+    watchlist = {
+        "rows": [
+            {"ticker": "WL1", "ai_score": 8.0, "volume_millions": 50.0,
+             "closes": [200.0], "rank": 1, "sector": "Tech"},
+            {"ticker": "WL2", "ai_score": 7.5, "volume_millions": 0.05,
+             "closes": [5.0], "rank": 2, "sector": "Other"},
+        ],
+    }
+    out = aar.compute_adjustments(watchlist, None)
+    if len(out) != 2:
+        fail(f"expected 2 watchlist rows got {len(out)}")
+    ranks = sorted(r["activity_rank"] for r in out)
+    if ranks != [1, 2]:
+        fail(f"activity ranks should be 1..N within input universe, got {ranks}")
+    # The rank_delta sign convention: positive = activity overlay promotes
+    # the ticker (production rank > activity rank).
+    for r in out:
+        expected_delta = r["ai_rank"] - r["activity_rank"]
+        if r["rank_delta"] != expected_delta:
+            fail(f"rank_delta sign wrong for {r['ticker']}: "
+                 f"{r['rank_delta']} vs expected {expected_delta}")
+
+
 def main():
     tests = [v for k, v in globals().items() if k.startswith("test_") and callable(v)]
     for t in tests:

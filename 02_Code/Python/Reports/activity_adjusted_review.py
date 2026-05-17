@@ -50,6 +50,7 @@ DATA_REPORTS_DIR = DATA_DIR / "reports"
 HTML_REPORTS_DIR = REPO_ROOT / "reports"
 
 RANKINGS_FILE = DATA_DIR / "rankings.json"
+WATCHLIST_RANKINGS_FILE = DATA_DIR / "watchlist_rankings.json"
 PINE_FILE = DATA_REPORTS_DIR / "pine_go_no_go_diagnostic.json"
 JSON_OUT = DATA_REPORTS_DIR / "activity_adjusted_review.json"
 HTML_OUT = HTML_REPORTS_DIR / "activity-adjusted-review.html"
@@ -498,6 +499,18 @@ def main():
     enriched = compute_adjustments(rankings, pine_data)
     verdict, note = _verdict(enriched)
     comparison = top_n_comparison(enriched, TOP_N_COMPARE)
+
+    # Compute the same overlay for the watchlist board so the watchlist page
+    # can surface ACT rank / ACT Δ alongside production rank. Independent
+    # re-ranking inside the watchlist universe — production rank is unchanged.
+    watchlist_rows = []
+    if WATCHLIST_RANKINGS_FILE.exists():
+        try:
+            wl_rankings = json.loads(WATCHLIST_RANKINGS_FILE.read_text())
+            watchlist_rows = compute_adjustments(wl_rankings, pine_data)
+        except (OSError, json.JSONDecodeError) as exc:
+            print(f"warning: could not load watchlist rankings: {exc}", file=sys.stderr)
+
     payload = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
         "verdict": verdict,
@@ -522,6 +535,7 @@ def main():
         },
         "top_n_comparison": comparison,
         "rows": enriched,
+        "watchlist_rows": watchlist_rows,
     }
 
     DATA_REPORTS_DIR.mkdir(parents=True, exist_ok=True)
