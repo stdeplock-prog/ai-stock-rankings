@@ -240,32 +240,44 @@
     .company-cell { min-width: 190px; }
     .industry-cell { min-width: 180px; font-size: 11px; }
 
-    .reports-bar {
+    .reports-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 6px 14px;
+      margin: 4px 0 0;
+    }
+    .reports-group {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 6px 10px;
-      margin: 4px 0 0;
-      font-size: 11px;
+      gap: 4px 6px;
+      min-width: 0;
     }
-    .reports-bar .reports-label {
-      font-size: 11px;
+    .reports-group .group-label {
+      font-size: 10px;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: .08em;
-      margin-right: 2px;
+      margin-right: 4px;
+      white-space: nowrap;
     }
-    .reports-bar a {
+    .reports-group a {
       color: var(--muted);
       text-decoration: none;
-      padding: 2px 6px;
-      border-radius: 4px;
-      border: 1px solid transparent;
-    }
-    .reports-bar a:hover {
-      color: var(--text);
-      border-color: var(--line);
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
       background: var(--panel);
+      font-size: 11px;
+      line-height: 1.6;
+      white-space: nowrap;
+    }
+    .reports-group a:hover {
+      color: var(--text);
+      border-color: #3b4d6b;
+    }
+    @media (max-width: 640px) {
+      .reports-groups { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 960px) {
@@ -315,21 +327,42 @@
 
     <div style="margin-top:8px">
       <div class="label">Scheduled Tasks</div>
-      <div class="reports-bar" aria-label="Diagnostic reports">
-        <span class="reports-label">Reports</span>
-        <a href="./reports/data-quality-audit.html" id="dqaLink">Data quality</a>
-        <a href="./reports/benchmark-review.html" id="benchReviewLink">Benchmark</a>
-        <a href="./reports/external-benchmark-review.html" id="externalBenchReviewLink">External benchmark</a>
-        <a href="./reports/scoring-parity-review.html" id="scoringParityLink">Scoring parity</a>
-        <a href="./reports/low-risk-drift-review.html" id="lowRiskDriftLink">Low-risk drift</a>
-        <a href="./reports/ranking-diagnostics.html" id="rankingDiagnosticsLink">Diagnostics</a>
-        <a href="./reports/schedule-reliability.html" id="scheduleReliabilityLink">Schedule</a>
-        <a href="./reports/pine-go-no-go-diagnostic.html" id="pineGoNoGoLink">Pine go/no-go</a>
-        <a href="./reports/cooloff-cohort-tracking.html" id="cooloffCohortLink">Cool-off cohorts</a>
-        <a href="./reports/disagreement-queue-review.html" id="disagreementQueueReviewLink">Disagreement review</a>
-        <a href="./reports/activity-adjusted-review.html" id="activityAdjustedReviewLink">Activity-adjusted</a>
-        <a href="./reports/accumulation-signal-meter.html" id="accumulationSignalMeterLink">Accumulation meter</a>
-        <a href="./reports/project-closeout-roadmap.html" id="projectCloseoutRoadmapLink">Closeout roadmap</a>
+      <div class="reports-groups" aria-label="Diagnostic reports">
+        <div class="reports-group">
+          <span class="group-label">Operations</span>
+          <a href="./reports/market-open-scan.html" id="marketOpenScanLink">Market open</a>
+          <a href="./reports/midday-health-check.html" id="middayHealthCheckLink">Midday health</a>
+          <a href="./reports/close-recap.html" id="closeRecapLink">Close recap</a>
+          <a href="./reports/weekly-rebalance-check.html" id="weeklyRebalanceLink">Weekly rebalance</a>
+        </div>
+        <div class="reports-group">
+          <span class="group-label">Data quality</span>
+          <a href="./reports/data-quality-audit.html" id="dqaLink">Data quality</a>
+          <a href="./reports/schedule-reliability.html" id="scheduleReliabilityLink">Schedule</a>
+        </div>
+        <div class="reports-group">
+          <span class="group-label">Model validation</span>
+          <a href="./reports/benchmark-review.html" id="benchReviewLink">Benchmark</a>
+          <a href="./reports/scoring-parity-review.html" id="scoringParityLink">Scoring parity</a>
+          <a href="./reports/low-risk-drift-review.html" id="lowRiskDriftLink">Low-risk drift</a>
+          <a href="./reports/ranking-diagnostics.html" id="rankingDiagnosticsLink">Diagnostics</a>
+        </div>
+        <div class="reports-group">
+          <span class="group-label">Signals</span>
+          <a href="./reports/pine-go-no-go-diagnostic.html" id="pineGoNoGoLink">Pine go/no-go</a>
+          <a href="./reports/cooloff-cohort-tracking.html" id="cooloffCohortLink">Cool-off cohorts</a>
+          <a href="./reports/accumulation-signal-meter.html" id="accumulationSignalMeterLink">Accumulation meter</a>
+        </div>
+        <div class="reports-group">
+          <span class="group-label">External</span>
+          <a href="./reports/external-benchmark-review.html" id="externalBenchReviewLink">External benchmark</a>
+          <a href="./reports/disagreement-queue-review.html" id="disagreementQueueReviewLink">Disagreement review</a>
+        </div>
+        <div class="reports-group">
+          <span class="group-label">Planning</span>
+          <a href="./reports/activity-adjusted-review.html" id="activityAdjustedReviewLink">Activity-adjusted</a>
+          <a href="./reports/project-closeout-roadmap.html" id="projectCloseoutRoadmapLink">Closeout roadmap</a>
+        </div>
       </div>
     </div>
 
