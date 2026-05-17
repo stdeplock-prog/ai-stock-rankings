@@ -303,6 +303,47 @@
     .company-cell { min-width: 190px; }
     .industry-cell { min-width: 180px; font-size: 11px; }
 
+    /* Diagnostic quick-filter chips. Mirrors the main page styling so the two
+       pages read consistently. Single-select; active chip is amber-tinted. */
+    .diag-filters {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .diag-filters .diag-filter-label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-right: 2px;
+    }
+    .diag-chip {
+      background: var(--panel);
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+    .diag-chip:hover { color: var(--text); border-color: #3b4d6b; }
+    .diag-chip.active {
+      color: #fcd34d;
+      border-color: rgba(245,158,11,.6);
+      background: rgba(245,158,11,.12);
+    }
+    .diag-chip.diag-chip-all.active {
+      color: var(--text);
+      border-color: #3b4d6b;
+      background: var(--panel2);
+    }
+
     .src-pill {
       display: inline-block;
       padding: 1px 6px;
@@ -372,6 +413,18 @@
         <button class="btn" id="refreshBtn">Reload data</button>
         <button class="btn" id="exportBtn">Export CSV</button>
       </div>
+    </div>
+    <div class="diag-filters" id="diagFilters" role="group" aria-label="Diagnostic quick filters">
+      <span class="diag-filter-label">Diagnostics:</span>
+      <button class="diag-chip diag-chip-all active" data-diag="" title="Show all rows (clear diagnostic filter)">All</button>
+      <button class="diag-chip" data-diag="go" title="Show only rows where Pine GO badge is GO (clean setup)">GO</button>
+      <button class="diag-chip" data-diag="wait" title="Show rows with WAIT badge (blocker present / cool-off)">WAIT</button>
+      <button class="diag-chip" data-diag="acc-high" title="Show rows where Accumulation badge is HIGH (≥ 7)">ACC high</button>
+      <button class="diag-chip" data-diag="ext-conf" title="Show rows with external confirmation (CONF)">EXT confirmed</button>
+      <button class="diag-chip" data-diag="ext-disc" title="Show rows with external disagreement (DISC)">EXT disagreement</button>
+      <button class="diag-chip" data-diag="act-promoted" title="Show rows where activity overlay would promote them (ACT Δ &gt; 0)">ACT promoted</button>
+      <button class="diag-chip" data-diag="act-demoted" title="Show rows where activity overlay would demote them (ACT Δ &lt; 0)">ACT demoted</button>
+      <span id="diagFilterCount" class="diag-filter-label" style="margin-left:6px"></span>
     </div>
   </header>
 
@@ -458,6 +511,9 @@
     let sortKey = 'rank';
     let sortDir = 'asc';
     let showFavsOnly = false;
+    // Single-select diagnostic quick filter. Same options/semantics as the
+    // main rankings page; combines with sector/search/source/favorites.
+    let diagFilter = '';
     let favorites = new Set();
 
     function loadFavorites() {
@@ -730,6 +786,8 @@
       document.getElementById('kpiTop').textContent = rows.filter(r => Number(r.ai_score) >= 9).length;
       document.getElementById('kpiTech').textContent =
         n ? (rows.reduce((a, r) => a + (Number(r.technical) || 0), 0) / n).toFixed(2) : '0.00';
+      const cnt = document.getElementById('diagFilterCount');
+      if (cnt) cnt.textContent = diagFilter ? `(${n} row${n === 1 ? '' : 's'})` : '';
 
       document.querySelectorAll('.star-btn').forEach(btn => {
         btn.addEventListener('click', e => {
@@ -748,6 +806,21 @@
       return String(a).localeCompare(String(b));
     }
 
+    // See main rankings page for chip-to-predicate mapping; same scheme.
+    function rowMatchesDiag(r) {
+      switch (diagFilter) {
+        case '': return true;
+        case 'go':           return (goByTicker[r.ticker]  || {}).label === 'GO';
+        case 'wait':         return (goByTicker[r.ticker]  || {}).label === 'WAIT';
+        case 'acc-high':     return (accByTicker[r.ticker] || {}).label === 'HIGH';
+        case 'ext-conf':     return (extByTicker[r.ticker] || {}).label === 'CONF';
+        case 'ext-disc':     return (extByTicker[r.ticker] || {}).label === 'DISC';
+        case 'act-promoted': return Number(r.rank_delta) > 0;
+        case 'act-demoted':  return Number(r.rank_delta) < 0;
+        default: return true;
+      }
+    }
+
     function applySearch() {
       const q = document.getElementById('search').value.trim().toLowerCase();
       const srcFilter = document.getElementById('sourceFilter').value;
@@ -755,6 +828,7 @@
 
       if (showFavsOnly) rows = rows.filter(r => favorites.has(r.ticker));
       if (srcFilter) rows = rows.filter(r => r.source === srcFilter);
+      if (diagFilter) rows = rows.filter(rowMatchesDiag);
       if (q) {
         rows = rows.filter(r =>
           r.ticker.toLowerCase().includes(q) ||
@@ -932,6 +1006,18 @@
       showFavsOnly = !showFavsOnly;
       updateFavButton();
       applySearch();
+    });
+
+    document.querySelectorAll('#diagFilters .diag-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const next = btn.dataset.diag || '';
+        diagFilter = (diagFilter === next && next !== '') ? '' : next;
+        document.querySelectorAll('#diagFilters .diag-chip').forEach(b => {
+          const v = b.dataset.diag || '';
+          b.classList.toggle('active', v === diagFilter);
+        });
+        applySearch();
+      });
     });
 
     document.getElementById('exportBtn').addEventListener('click', function () {
