@@ -114,6 +114,63 @@
       .col-act-delta { display: none; }
     }
 
+    /* Column group separators. A subtle left border marks where one logical
+       group of columns ends and the next begins; the group-row above the
+       header labels each band. */
+    .group-row th {
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 6px 10px;
+      cursor: default;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .group-row th.group-core { color: #93a4bd; }
+    .group-row th.group-prod { color: #a7f3d0; background: rgba(16,185,129,.06); }
+    .group-row th.group-diag {
+      color: #fcd34d;
+      background: rgba(245,158,11,.06);
+      font-style: italic;
+    }
+    .group-row th .group-hint {
+      font-style: normal;
+      opacity: .7;
+      margin-left: 4px;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 10px;
+    }
+
+    /* The first cell of each group (other than Core) gets a divider so the
+       boundary is visible even when the group row scrolls out of view. */
+    th.group-start, td.group-start {
+      border-left: 1px solid #2c3a52;
+    }
+    th.group-start-prod, td.group-start-prod {
+      border-left: 2px solid rgba(16,185,129,.45);
+    }
+    th.group-start-diag, td.group-start-diag {
+      border-left: 2px solid rgba(245,158,11,.5);
+    }
+
+    /* Diagnostic cells get a faint background tint so the band reads
+       distinctly even on long horizontal scrolls. */
+    td.cell-diag { background: rgba(245,158,11,.035); }
+    tr:hover td.cell-diag { background: rgba(245,158,11,.07); }
+    tr.favorited td.cell-diag { background: rgba(245,158,11,.10); }
+
+    /* Numeric score cells: green/yellow/red tinting for the production
+       sub-scores (Fund/Tech/Sent/Risk) so signal is readable without
+       drowning the row in color. Applied via the score-* helper classes. */
+    .score-pos { color: #6ee7b7; font-weight: 600; }
+    .score-mid { color: var(--text); }
+    .score-neg { color: #fca5a5; font-weight: 600; }
+    .score-na  { color: var(--muted); }
+
     th, td {
       padding: 10px;
       border-bottom: 1px solid var(--line);
@@ -399,26 +456,31 @@
     <div class="table-wrap">
       <table>
         <thead>
+          <tr class="group-row" aria-hidden="false">
+            <th colspan="9" class="group-core" title="Identity, market, and price columns">Core</th>
+            <th colspan="8" class="group-prod group-start-prod" title="Columns that feed the production AI rank and ranking model">Production scoring</th>
+            <th colspan="2" class="group-diag group-start-diag" title="Diagnostic overlays. These DO NOT affect the production rank — they are shown for analysis only.">Diagnostics <span class="group-hint">(non-scoring)</span></th>
+          </tr>
           <tr>
-            <th style="width:40px"></th>
-            <th data-k="rank">Rank</th>
+            <th style="width:40px" title="Watchlist toggle"></th>
+            <th data-k="rank" title="Production rank">Rank</th>
             <th style="width:60px" data-k="change" title="Rank change vs prior run">MOV</th>
-            <th data-k="activity_rank" title="Activity-adjusted rank (diagnostic). Liquidity + rel-vol + Pine accumulation overlay applied to AI score. Production rank unchanged.">ACT</th>
-            <th class="col-act-delta" data-k="rank_delta" title="Production Rank minus ACT Rank. Positive means activity overlay promotes this ticker (e.g. Rank 15 → ACT 2 = +13).">ACT Δ</th>
             <th data-k="ticker">Ticker</th>
             <th data-k="company">Company</th>
             <th data-k="marketcap_sort">Mkt Cap</th>
-            <th data-k="ai_score">AI</th>
-            <th data-k="swing_score">SWING</th>
-            <th data-k="change_vs_open">vs Open</th>
-            <th data-k="fundamental">Fund</th>
-            <th data-k="technical">Tech</th>
-            <th data-k="sentiment">Sent</th>
-            <th data-k="low_risk">Risk</th>
-            <th data-k="volume_millions">Vol (M)</th>
             <th data-k="price">Price</th>
             <th>Spark</th>
             <th data-k="industry">Industry</th>
+            <th data-k="ai_score" class="group-start-prod" title="AI composite score (drives production rank)">AI</th>
+            <th data-k="swing_score" title="Swing score / tier — production signal">SWING</th>
+            <th data-k="change_vs_open" title="Intraday change vs open">vs Open</th>
+            <th data-k="fundamental" title="Fundamental sub-score (production input)">Fund</th>
+            <th data-k="technical" title="Technical sub-score (production input)">Tech</th>
+            <th data-k="sentiment" title="Sentiment sub-score (production input)">Sent</th>
+            <th data-k="low_risk" title="Low-risk sub-score (production input)">Risk</th>
+            <th data-k="volume_millions" title="Volume in millions">Vol (M)</th>
+            <th data-k="activity_rank" class="group-start-diag" title="Diagnostic: activity-adjusted rank (liquidity + rel-vol + Pine accumulation overlay applied to AI score). DOES NOT change production rank.">ACT</th>
+            <th class="col-act-delta" data-k="rank_delta" title="Diagnostic: Production Rank minus ACT Rank. Positive means activity overlay would promote this ticker (e.g. Rank 15 → ACT 2 = +13). DOES NOT change production rank.">ACT Δ</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -583,6 +645,22 @@
     function fmt(v, d = 1) {
       const n = Number(v);
       return Number.isFinite(n) ? n.toFixed(d) : '—';
+    }
+
+    // Color a 0-10 production sub-score so the row scans quickly: green for
+    // strong signal, red for weak, neutral mid. Threshold matches the AI
+    // pill convention (>=7 / >=4) so the visual story stays consistent.
+    function scoreClass(v) {
+      const n = Number(v);
+      if (!Number.isFinite(n)) return 'score-na';
+      if (n >= 7) return 'score-pos';
+      if (n < 4)  return 'score-neg';
+      return 'score-mid';
+    }
+
+    function scoreCell(v, d = 1) {
+      const cls = scoreClass(v);
+      return `<span class="${cls}">${fmt(v, d)}</span>`;
     }
 
     function fmtPrice(v) {
@@ -763,22 +841,22 @@
             <td><button class="star-btn ${fav ? 'active' : ''}" data-ticker="${r.ticker}" title="Toggle watchlist">${fav ? '★' : '☆'}</button></td>
             <td class="num">${r.rank}</td>
             <td>${movCell(r.change)}</td>
-            <td>${actCell(r.activity_rank)}</td>
-            <td class="col-act-delta">${actDeltaCell(r.rank_delta)}</td>
             <td><a class="ticker-link" href="https://finance.yahoo.com/quote/${encodeURIComponent(r.ticker)}" target="_blank" rel="noopener noreferrer">${r.ticker}</a></td>
             <td class="company-cell">${r.company}</td>
             <td class="num">${marketCap}</td>
-            <td><span class="pill ${aiPill(r.ai_score)}">${fmt(r.ai_score)}</span></td>
-            <td>${swingBadgeHTML(r.swing_score, r.swing_tier)}</td>
-            <td class="num">${chg(r.change_vs_open)}</td>
-            <td class="num">${fmt(r.fundamental)}</td>
-            <td class="num">${fmt(r.technical)}</td>
-            <td class="num">${fmt(r.sentiment)}</td>
-            <td class="num">${fmt(r.low_risk)}</td>
-            <td class="num">${fmt(r.volume_millions)}</td>
             <td class="num price-cell">${fmtPrice(r.price)}</td>
             <td class="spark-cell">${drawSparkline(r.closes)}</td>
             <td class="industry-cell">${r.industry}<br><span class="muted">${r.sector}</span></td>
+            <td class="group-start-prod"><span class="pill ${aiPill(r.ai_score)}">${fmt(r.ai_score)}</span></td>
+            <td>${swingBadgeHTML(r.swing_score, r.swing_tier)}</td>
+            <td class="num">${chg(r.change_vs_open)}</td>
+            <td class="num">${scoreCell(r.fundamental)}</td>
+            <td class="num">${scoreCell(r.technical)}</td>
+            <td class="num">${scoreCell(r.sentiment)}</td>
+            <td class="num">${scoreCell(r.low_risk)}</td>
+            <td class="num">${fmt(r.volume_millions)}</td>
+            <td class="num cell-diag group-start-diag">${actCell(r.activity_rank)}</td>
+            <td class="num cell-diag col-act-delta">${actDeltaCell(r.rank_delta)}</td>
           </tr>
         `;
       }).join('');
@@ -932,14 +1010,18 @@
 
     document.getElementById('exportBtn').addEventListener('click', function () {
       const rows = state.rows;
+      // CSV groups columns the same way the table does: Core, then Production
+      // scoring inputs, then Diagnostics. Keep all columns so downstream
+      // consumers don't break.
       const csv = [
-        'Rank,ActRank,ActDelta,Ticker,Company,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,Price,Sector,Industry',
+        'Rank,Ticker,Company,Price,Sector,Industry,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,ActRank,ActDelta',
         ...rows.map(r => [
           r.rank,
-          r.activity_rank == null ? '' : r.activity_rank,
-          r.rank_delta == null ? '' : r.rank_delta,
           r.ticker,
           `"${String(r.company).replaceAll('"', '""')}"`,
+          r.price,
+          `"${String(r.sector).replaceAll('"', '""')}"`,
+          `"${String(r.industry).replaceAll('"', '""')}"`,
           r.ai_score,
           r.swing_score,
           r.change_vs_open,
@@ -948,9 +1030,8 @@
           r.sentiment,
           r.low_risk,
           r.volume_millions,
-          r.price,
-          `"${String(r.sector).replaceAll('"', '""')}"`,
-          `"${String(r.industry).replaceAll('"', '""')}"`
+          r.activity_rank == null ? '' : r.activity_rank,
+          r.rank_delta == null ? '' : r.rank_delta
         ].join(','))
       ].join('\n');
 
