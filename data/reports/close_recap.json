@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-15T22:01:29Z",
-  "generated_at_chicago": "2026-05-15 05:01 PM CDT",
+  "generated_at": "2026-05-17T18:27:16Z",
+  "generated_at_chicago": "2026-05-17 01:27 PM CDT",
   "overall": "WARN",
   "sections": {
     "freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-15 05:01 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-05-17 01:26 PM CDT (age 0.0h, weekend=True)"
         },
         {
           "name": "today_live",
@@ -17,16 +17,16 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-15 05:01 PM CDT",
-        "open_date": "2026-05-15",
+        "as_of": "2026-05-17 01:26 PM CDT",
+        "open_date": "2026-05-17",
         "row_count": 100,
-        "is_open_run": false,
+        "is_open_run": true,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
-        "is_weekend": false,
-        "chicago_now": "2026-05-15 17:01",
-        "rankings_age_hours": 0.01,
+        "is_weekend": true,
+        "chicago_now": "2026-05-17 13:27",
+        "rankings_age_hours": 0.02,
         "today_live": true,
-        "close_slot_satisfied": true
+        "close_slot_satisfied": false
       },
       "status": "OK"
     },
@@ -35,18 +35,18 @@
         {
           "name": "run_source",
           "status": "WARN",
-          "message": "latest run: rescued slot (2026-05-15 17:01), history shows 8 missing slot(s)"
+          "message": "latest run: manual workflow_dispatch (2026-05-17 13:27)"
         }
       ],
       "metrics": {
         "overall_raw": "FAIL",
-        "overall_effective": "WARN",
-        "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-05-15 17:01",
+        "overall_effective": "FAIL",
+        "last_run_event": "workflow_dispatch",
+        "last_run_slot": "manual",
+        "last_run_ts_chicago": "2026-05-17 13:27",
         "today_missing": [],
-        "today_satisfied": true,
-        "source": "recovered",
+        "today_satisfied": false,
+        "source": "manual",
         "close_slot_missing": false
       },
       "status": "WARN"
@@ -55,20 +55,20 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+          "status": "WARN",
+          "message": "overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN"
         }
       ],
       "metrics": {
-        "overall": "OK",
+        "overall": "WARN",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
-          "tasks": "OK"
+          "tasks": "WARN"
         },
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "rankings_recap": {
       "checks": [
@@ -80,251 +80,241 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-05-14: AFL, AVT, OKE"
-        },
-        {
-          "name": "sector_concentration",
-          "status": "WARN",
-          "message": "top10 dominated by Technology (4/10 = 40%)"
+          "message": "new top10 vs 2026-05-15: GOOG, OHI, CACC"
         }
       ],
       "metrics": {
         "top_10": [
           {
             "rank": 1,
-            "ticker": "DELL",
-            "company": "Dell Technologies",
+            "ticker": "ARW",
+            "company": "Arrow Electronics",
             "ai_score": 8.6,
-            "change": 0,
+            "change": 3,
             "sector": "Technology"
           },
           {
             "rank": 2,
-            "ticker": "HALO",
-            "company": "Halozyme",
+            "ticker": "CPAY",
+            "company": "Corpay",
             "ai_score": 8.5,
-            "change": 0,
-            "sector": "Healthcare"
+            "change": 1,
+            "sector": "Technology"
           },
           {
             "rank": 3,
-            "ticker": "CPAY",
-            "company": "Corpay",
-            "ai_score": 8.4,
-            "change": 0,
+            "ticker": "DELL",
+            "company": "Dell Technologies",
+            "ai_score": 8.5,
+            "change": -2,
             "sector": "Technology"
           },
           {
             "rank": 4,
-            "ticker": "ARW",
-            "company": "Arrow Electronics",
-            "ai_score": 8.4,
-            "change": 0,
-            "sector": "Technology"
+            "ticker": "AFL",
+            "company": "Aflac",
+            "ai_score": 8.3,
+            "change": 3,
+            "sector": "Financial Services"
           },
           {
             "rank": 5,
             "ticker": "SCCO",
             "company": "Southern Copper",
-            "ai_score": 8.4,
+            "ai_score": 8.3,
             "change": 0,
             "sector": "Basic Materials"
           },
           {
             "rank": 6,
-            "ticker": "INCY",
-            "company": "Incyte",
-            "ai_score": 8.3,
-            "change": 0,
-            "sector": "Healthcare"
-          },
-          {
-            "rank": 7,
-            "ticker": "AFL",
-            "company": "Aflac",
-            "ai_score": 8.3,
-            "change": 0,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 8,
-            "ticker": "AVT",
-            "company": "Avnet",
-            "ai_score": 8.3,
-            "change": 0,
-            "sector": "Technology"
-          },
-          {
-            "rank": 9,
-            "ticker": "ECG",
-            "company": "Everus Construction Group",
-            "ai_score": 8.2,
-            "change": 0,
-            "sector": "Industrials"
-          },
-          {
-            "rank": 10,
             "ticker": "OKE",
             "company": "Oneok",
             "ai_score": 8.2,
-            "change": 1,
+            "change": 5,
             "sector": "Energy"
+          },
+          {
+            "rank": 7,
+            "ticker": "GOOG",
+            "company": "Alphabet Inc. (Class C)",
+            "ai_score": 8.1,
+            "change": 14,
+            "sector": "Communication Services"
+          },
+          {
+            "rank": 8,
+            "ticker": "HALO",
+            "company": "Halozyme",
+            "ai_score": 8.1,
+            "change": -6,
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 9,
+            "ticker": "OHI",
+            "company": "Omega Healthcare Investors",
+            "ai_score": 8.1,
+            "change": 9,
+            "sector": "Real Estate"
+          },
+          {
+            "rank": 10,
+            "ticker": "CACC",
+            "company": "Credit Acceptance",
+            "ai_score": 8.1,
+            "change": 2,
+            "sector": "Financial Services"
           }
         ],
         "top_gainers": [
           {
-            "rank": 89,
-            "ticker": "FTAI",
-            "company": "FTAI Aviation",
-            "change": 5,
+            "rank": 70,
+            "ticker": "MIDD",
+            "company": "Middleby",
+            "change": 379,
             "ai_score": 7.5,
             "sector": "Industrials"
           },
           {
-            "rank": 99,
-            "ticker": "IEX",
-            "company": "IDEX Corporation",
-            "change": 5,
+            "rank": 84,
+            "ticker": "AMAT",
+            "company": "Applied Materials",
+            "change": 342,
             "ai_score": 7.4,
-            "sector": "Industrials"
+            "sector": "Technology"
           },
           {
-            "rank": 68,
-            "ticker": "HWM",
-            "company": "Howmet Aerospace",
-            "change": 4,
-            "ai_score": 7.6,
-            "sector": "Industrials"
-          },
-          {
-            "rank": 54,
-            "ticker": "CW",
-            "company": "Curtiss-Wright",
-            "change": 3,
+            "rank": 46,
+            "ticker": "EOG",
+            "company": "EOG Resources",
+            "change": 206,
             "ai_score": 7.7,
-            "sector": "Industrials"
+            "sector": "Energy"
           },
           {
-            "rank": 88,
-            "ticker": "LYV",
-            "company": "Live Nation Entertainment",
-            "change": 2,
+            "rank": 65,
+            "ticker": "AR",
+            "company": "Antero Resources",
+            "change": 199,
             "ai_score": 7.5,
-            "sector": "Communication Services"
+            "sector": "Energy"
+          },
+          {
+            "rank": 52,
+            "ticker": "DUOL",
+            "company": "Duolingo",
+            "change": 114,
+            "ai_score": 7.6,
+            "sector": "Technology"
           }
         ],
         "top_losers": [
           {
-            "rank": 92,
-            "ticker": "STLD",
-            "company": "Steel Dynamics",
-            "change": -4,
+            "rank": 76,
+            "ticker": "INCY",
+            "company": "Incyte",
+            "change": -70,
+            "ai_score": 7.4,
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 93,
+            "ticker": "COLB",
+            "company": "Columbia Banking System",
+            "change": -65,
+            "ai_score": 7.3,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 85,
+            "ticker": "AMG",
+            "company": "Affiliated Managers Group",
+            "change": -60,
+            "ai_score": 7.4,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 72,
+            "ticker": "AU",
+            "company": "AngloGold Ashanti",
+            "change": -57,
             "ai_score": 7.5,
             "sector": "Basic Materials"
           },
           {
-            "rank": 78,
-            "ticker": "AAON",
-            "company": "AAON",
-            "change": -2,
-            "ai_score": 7.5,
+            "rank": 44,
+            "ticker": "ECG",
+            "company": "Everus Construction Group",
+            "change": -35,
+            "ai_score": 7.7,
             "sector": "Industrials"
-          },
-          {
-            "rank": 86,
-            "ticker": "SNDK",
-            "company": "Sandisk",
-            "change": -2,
-            "ai_score": 7.5,
-            "sector": "Technology"
-          },
-          {
-            "rank": 91,
-            "ticker": "KO",
-            "company": "Coca-Cola Company (The)",
-            "change": -2,
-            "ai_score": 7.5,
-            "sector": "Consumer Defensive"
-          },
-          {
-            "rank": 93,
-            "ticker": "BAM",
-            "company": "Brookfield Asset Management",
-            "change": -2,
-            "ai_score": 7.5,
-            "sector": "Financial Services"
           }
         ],
         "new_top10_entries": [
           {
-            "ticker": "AFL",
+            "ticker": "GOOG",
             "rank": 7,
-            "ai_score": 8.3,
-            "sector": "Financial Services"
+            "ai_score": 8.1,
+            "sector": "Communication Services"
           },
           {
-            "ticker": "AVT",
-            "rank": 8,
-            "ai_score": 8.3,
-            "sector": "Technology"
+            "ticker": "OHI",
+            "rank": 9,
+            "ai_score": 8.1,
+            "sector": "Real Estate"
           },
           {
-            "ticker": "OKE",
+            "ticker": "CACC",
             "rank": 10,
-            "ai_score": 8.2,
-            "sector": "Energy"
+            "ai_score": 8.1,
+            "sector": "Financial Services"
           }
         ],
         "exited_top10_entries": [
-          "ARMK",
-          "BLK",
-          "EME"
+          "AVT",
+          "ECG",
+          "INCY"
         ],
         "intraday_new_entries": [],
-        "prior_top10_compared_against": "2026-05-14",
+        "prior_top10_compared_against": "2026-05-15",
         "mov_summary": {
           "with_change": 100,
-          "positive": 20,
-          "negative": 24,
-          "zero": 56
+          "positive": 74,
+          "negative": 23,
+          "zero": 3
         },
         "sector_concentration": {
           "top_sector": "Technology",
-          "top_count": 4,
+          "top_count": 3,
           "of": 10,
-          "pct": 0.4,
-          "warn": true
+          "pct": 0.3,
+          "warn": false
         },
         "limitation": "MOV-based gainers/losers; new/exited entries vs prior benchmark snapshot; intraday entries vs market_open_scan."
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "watchlist": {
       "checks": [
         {
           "name": "supp_coverage",
           "status": "OK",
-          "message": "SUPP 65/74 full fundamentals; price_only=9 tech_only=0"
-        },
-        {
-          "name": "watchlist_unavailable",
-          "status": "WARN",
-          "message": "1 watchlist ticker(s) unavailable: "
+          "message": "SUPP 66/75 full fundamentals; price_only=9 tech_only=0"
         },
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=56 misses=18"
+          "message": "yfinance cache hits=0 misses=75"
         }
       ],
       "metrics": {
-        "row_count": 141,
+        "row_count": 142,
         "top_10": [
           {
             "rank": 1,
             "ticker": "DELL",
             "company": "Dell Technologies",
-            "ai_score": 8.6,
+            "ai_score": 8.5,
             "change": 0,
             "sector": "Technology",
             "data_source": "main_pipeline"
@@ -333,7 +323,7 @@
             "rank": 2,
             "ticker": "SCCO",
             "company": "Southern Copper",
-            "ai_score": 8.4,
+            "ai_score": 8.3,
             "change": 0,
             "sector": "Basic Materials",
             "data_source": "main_pipeline"
@@ -342,31 +332,13 @@
             "rank": 3,
             "ticker": "GOOG",
             "company": "Alphabet Inc. (Class C)",
-            "ai_score": 8.0,
+            "ai_score": 8.1,
             "change": 0,
             "sector": "Communication Services",
             "data_source": "main_pipeline"
           },
           {
             "rank": 4,
-            "ticker": "AAPL",
-            "company": "Apple Inc.",
-            "ai_score": 7.7,
-            "change": 0,
-            "sector": "Technology",
-            "data_source": "main_pipeline"
-          },
-          {
-            "rank": 5,
-            "ticker": "DAL",
-            "company": "Delta Air Lines",
-            "ai_score": 7.7,
-            "change": 0,
-            "sector": "Industrials",
-            "data_source": "main_pipeline"
-          },
-          {
-            "rank": 6,
             "ticker": "EXEL",
             "company": "Exelixis",
             "ai_score": 7.7,
@@ -375,51 +347,74 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 7,
+            "rank": 5,
+            "ticker": "DUOL",
+            "company": "Duolingo",
+            "ai_score": 7.6,
+            "change": 0,
+            "sector": "Technology",
+            "data_source": "main_pipeline"
+          },
+          {
+            "rank": 6,
             "ticker": "TTWO",
             "company": "Take-Two Interactive",
-            "ai_score": 7.7,
+            "ai_score": 7.6,
             "change": 0,
             "sector": "Communication Services",
             "data_source": "main_pipeline"
           },
           {
+            "rank": 7,
+            "ticker": "AAPL",
+            "company": "Apple Inc.",
+            "ai_score": 7.5,
+            "change": 0,
+            "sector": "Technology",
+            "data_source": "main_pipeline"
+          },
+          {
             "rank": 8,
-            "ticker": "CIEN",
-            "company": "Ciena",
-            "ai_score": 7.6,
+            "ticker": "GLW",
+            "company": "Corning Inc.",
+            "ai_score": 7.5,
             "change": 0,
             "sector": "Technology",
             "data_source": "main_pipeline"
           },
           {
             "rank": 9,
-            "ticker": "GLW",
-            "company": "Corning Inc.",
-            "ai_score": 7.6,
+            "ticker": "MU",
+            "company": "Micron Technology",
+            "ai_score": 7.5,
             "change": 0,
             "sector": "Technology",
             "data_source": "main_pipeline"
           },
           {
             "rank": 10,
-            "ticker": "FTAI",
-            "company": "FTAI Aviation",
+            "ticker": "SNDK",
+            "company": "Sandisk",
             "ai_score": 7.5,
             "change": 0,
-            "sector": "Industrials",
+            "sector": "Technology",
             "data_source": "main_pipeline"
           }
         ],
-        "prior_top10_compared_against": "2026-05-14",
+        "prior_top10_compared_against": "2026-05-15",
         "new_top10_entries": [
           {
-            "ticker": "TTWO",
-            "rank": 7,
-            "ai_score": 7.7
+            "ticker": "DUOL",
+            "rank": 5,
+            "ai_score": 7.6
           },
           {
-            "ticker": "FTAI",
+            "ticker": "MU",
+            "rank": 9,
+            "ai_score": 7.5
+          },
+          {
+            "ticker": "SNDK",
             "rank": 10,
             "ai_score": 7.5
           }
@@ -427,19 +422,19 @@
         "top_gainers": [],
         "top_losers": [],
         "supp_summary": {
-          "total": 74,
-          "full_fundamentals": 65,
+          "total": 75,
+          "full_fundamentals": 66,
           "eodhd_enriched": 0,
           "metadata_only": 0,
           "price_only": 9,
           "technical_only": 0,
-          "unavailable": 1
+          "unavailable": 0
         },
-        "unavailable_count": 1,
+        "unavailable_count": 0,
         "unavailable_tickers": [],
-        "supp_degraded_pct": 0.122
+        "supp_degraded_pct": 0.12
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "market_risk": {
       "checks": [
@@ -451,11 +446,11 @@
         {
           "name": "indicator_coverage",
           "status": "OK",
-          "message": "indicators pending source: polls, adr, vix, ndr, put_call_ratio"
+          "message": "indicators pending source: polls, adr, ndr, put_call_ratio"
         }
       ],
       "metrics": {
-        "generated_at": "2026-05-15 19:25 UTC",
+        "generated_at": "2026-05-17 18:27 UTC",
         "generals_fail": {
           "below_count": 2,
           "available_count": 7,
@@ -469,7 +464,6 @@
         "pending_indicators": [
           "polls",
           "adr",
-          "vix",
           "ndr",
           "put_call_ratio"
         ]
@@ -481,19 +475,19 @@
         {
           "name": "diagnostics_overall",
           "status": "WARN",
-          "message": "diagnostics overall=WARN; 1 suspicious top rank(s)"
+          "message": "diagnostics overall=FAIL; 1 suspicious top rank(s)"
         }
       ],
       "metrics": {
-        "overall": "WARN",
+        "overall": "FAIL",
         "suspicious_count": 1,
         "suspicious_top": [
           {
-            "ticker": "EXEL",
+            "ticker": "MU",
             "group": "watchlist_top10",
-            "rank": 6,
+            "rank": 9,
             "reasons": [
-              "weak LOW_RISK (4.9)"
+              "weak LOW_RISK (3.4)"
             ]
           }
         ],
@@ -502,28 +496,28 @@
             "status": "WARN",
             "n": 10,
             "top_sector": "Technology",
-            "top_count": 4,
-            "top_share": 0.4,
+            "top_count": 3,
+            "top_share": 0.3,
             "distribution": {
-              "Technology": 4,
-              "Healthcare": 2,
+              "Technology": 3,
+              "Financial Services": 2,
               "Basic Materials": 1,
-              "Financial Services": 1,
-              "Industrials": 1,
-              "Energy": 1
+              "Energy": 1,
+              "Communication Services": 1,
+              "Healthcare": 1,
+              "Real Estate": 1
             }
           },
           "watchlist_top10": {
-            "status": "WARN",
+            "status": "FAIL",
             "n": 10,
             "top_sector": "Technology",
-            "top_count": 4,
-            "top_share": 0.4,
+            "top_count": 6,
+            "top_share": 0.6,
             "distribution": {
-              "Technology": 4,
+              "Technology": 6,
               "Basic Materials": 1,
               "Communication Services": 2,
-              "Industrials": 2,
               "Healthcare": 1
             }
           }
@@ -536,19 +530,19 @@
         {
           "name": "benchmark_snapshots",
           "status": "OK",
-          "message": "11 snapshot(s); \u22651 horizon has forward results"
+          "message": "12 snapshot(s); \u22651 horizon has forward results"
         },
         {
           "name": "benchmark_findings",
           "status": "OK",
-          "message": "5 WARN finding(s) in benchmark review (advisory)"
+          "message": "3 WARN finding(s) in benchmark review (advisory)"
         }
       ],
       "metrics": {
-        "snapshots_kept": 11,
+        "snapshots_kept": 12,
         "any_horizon_completed": true,
         "bucket_performance": {},
-        "findings_warn": 5
+        "findings_warn": 3
       },
       "status": "OK"
     },
@@ -581,12 +575,13 @@
     "prior_snapshot_present": true
   },
   "action_items": [
-    "[WARN] run_source.run_source: latest run: rescued slot (2026-05-15 17:01), history shows 8 missing slot(s)",
-    "[WARN] rankings_recap.sector_concentration: top10 dominated by Technology (4/10 = 40%)",
-    "[WARN] watchlist.watchlist_unavailable: 1 watchlist ticker(s) unavailable: ",
-    "[WARN] diagnostics.diagnostics_overall: diagnostics overall=WARN; 1 suspicious top rank(s)",
-    "[INFO] New top10 vs 2026-05-14: AFL, AVT, OKE",
-    "[INFO] Exited top10 since 2026-05-14: ARMK, BLK, EME"
+    "[WARN] run_source.run_source: latest run: manual workflow_dispatch (2026-05-17 13:27)",
+    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN",
+    "[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 1 suspicious top rank(s)",
+    "[INFO] New top10 vs 2026-05-15: GOOG, OHI, CACC",
+    "[INFO] Exited top10 since 2026-05-15: AVT, ECG, INCY",
+    "[INFO] Top MOV gainer MIDD (change=379, rank=70)",
+    "[INFO] Top MOV loser INCY (change=-70, rank=76)"
   ],
-  "summary": "Close 05:01 PM CT \u00b7 Source rescued \u00b7 DQ OK \u00b7 \u2191FTAI \u2193STLD \u00b7 3 new top10 (AFL\u2026) \u00b7 Risk OK"
+  "summary": "Live 01:26 PM CT \u00b7 Source manual \u00b7 DQ WARN \u00b7 \u2191MIDD \u2193INCY \u00b7 3 new top10 (GOOG\u2026) \u00b7 Risk OK"
 }
