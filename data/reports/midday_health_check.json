@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-05-17T18:27:16Z",
-  "generated_at_chicago": "2026-05-17 01:27 PM CDT",
-  "overall": "FAIL",
+  "generated_at": "2026-05-18T14:27:57Z",
+  "generated_at_chicago": "2026-05-18 09:27 AM CDT",
+  "overall": "WARN",
   "sections": {
     "data_freshness": {
       "checks": [
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-17 01:26 PM CDT (age 0.0h, weekend=True)"
+          "message": "as_of 2026-05-18 09:27 AM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,11 +17,11 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-17 01:26 PM CDT",
-        "open_date": "2026-05-17",
+        "as_of": "2026-05-18 09:27 AM CDT",
+        "open_date": "2026-05-18",
         "row_count": 100,
-        "is_weekend": true,
-        "chicago_now": "2026-05-17 13:27",
+        "is_weekend": false,
+        "chicago_now": "2026-05-18 09:27",
         "rankings_age_hours": 0.02,
         "today_live": true
       },
@@ -31,43 +31,43 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "WARN",
-          "message": "overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN"
+          "status": "OK",
+          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
-        "overall": "WARN",
-        "generated_at": "2026-05-17T18:27:14Z",
+        "overall": "OK",
+        "generated_at": "2026-05-18T14:27:55Z",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
-          "tasks": "WARN"
+          "tasks": "OK"
         },
         "critical_section_fail": false
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "schedule_reliability": {
       "checks": [
         {
           "name": "schedule_reliability",
-          "status": "FAIL",
-          "message": "schedule reliability FAIL: today_missing=[], history_missing=8"
+          "status": "WARN",
+          "message": "schedule reliability FAIL/recovered: today satisfied, 5 missing in lookback"
         }
       ],
       "metrics": {
         "overall_raw": "FAIL",
-        "missing_count": 8,
+        "missing_count": 5,
         "lookback_days": 5,
         "today_missing": [],
-        "today_satisfied": false,
+        "today_satisfied": true,
         "last_run_event": "workflow_dispatch",
         "last_run_slot": "manual",
-        "last_run_ts_chicago": "2026-05-17 13:27",
-        "recovered": false,
-        "overall_effective": "FAIL"
+        "last_run_ts_chicago": "2026-05-18 09:27",
+        "recovered": true,
+        "overall_effective": "WARN"
       },
-      "status": "FAIL"
+      "status": "WARN"
     },
     "watchlist": {
       "checks": [
@@ -79,7 +79,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=0 misses=75"
+          "message": "yfinance cache hits=75 misses=0"
         }
       ],
       "metrics": {
@@ -93,12 +93,12 @@
           "unavailable": 0
         },
         "yfinance_info_cache": {
-          "cache_hit_fresh": 0,
-          "cache_miss": 75,
-          "network_call": 75,
+          "cache_hit_fresh": 75,
+          "cache_miss": 0,
+          "network_call": 0,
           "fallback_to_cache": 0,
           "rate_limit_or_empty": 0,
-          "network_success": 75
+          "network_success": 0
         },
         "unavailable_count": 0,
         "scored": 142,
@@ -111,11 +111,11 @@
         {
           "name": "benchmark_snapshots",
           "status": "OK",
-          "message": "12 snapshot(s); \u22651 horizon has forward results"
+          "message": "13 snapshot(s); \u22651 horizon has forward results"
         }
       ],
       "metrics": {
-        "snapshots_kept": 12,
+        "snapshots_kept": 13,
         "horizons": [
           "1d",
           "3d",
@@ -124,7 +124,7 @@
           "20d"
         ],
         "any_horizon_completed": true,
-        "findings_warn": 3,
+        "findings_warn": 4,
         "findings_fail": 0
       },
       "status": "OK"
@@ -160,9 +160,8 @@
     "parity_present": true
   },
   "action_items": [
-    "[FAIL] schedule_reliability.schedule_reliability: schedule reliability FAIL: today_missing=[], history_missing=8",
-    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN",
+    "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: today satisfied, 5 missing in lookback",
     "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['sentiment']"
   ],
-  "summary": "Fresh 01:26 PM CT \u00b7 Data quality WARN \u00b7 Watchlist OK \u00b7 Schedule FAIL \u00b7 Benchmark active"
+  "summary": "Fresh 09:27 AM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
 }
