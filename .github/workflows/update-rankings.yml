@@ -625,11 +625,11 @@ jobs:
   # Only deploy when the pipeline actually ran; otherwise the
   # gated-out twin would redeploy unchanged content (or fail).
   # -------------------------------------------------------
-  deploy-pages: 
-   if: github.ref == 'refs/heads/main'
-  needs: update-rankings
-  runs-on: ubuntu-latest
-  environment:
+  deploy-pages:
+    if: github.ref == 'refs/heads/main'
+    needs: update-rankings
+    runs-on: ubuntu-latest
+    environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
