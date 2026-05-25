@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-25T16:32:33Z",
-  "generated_at_chicago": "2026-05-25 11:32 AM CDT",
+  "generated_at": "2026-05-25T19:23:03Z",
+  "generated_at_chicago": "2026-05-25 02:23 PM CDT",
   "overall": "OK",
   "caveat": "DAILY OHLCV ONLY: This report is a daily-bar proxy for the Pine v6 go/no-go gate stack. No true intraday VWAP, no Open Drift, no minute-bar logic. DIAGNOSTIC ONLY \u2014 rankings and scoring formulas are NOT mutated.",
   "thresholds": {
@@ -20,7 +20,7 @@
     "evaluated": 77,
     "ohlcv_missing": 12,
     "insufficient_bars": 0,
-    "blocked": 2,
+    "blocked": 4,
     "go_normalized_ge_07": 44,
     "go_normalized_lt_04": 6,
     "candidates": 89
@@ -193,8 +193,9 @@
         "company": "Corpay",
         "sector": "Technology",
         "ai_score": 8.6,
-        "swing_score": 6.7,
+        "swing_score": 6.9,
         "swing_tier": "B",
+        "days_to_earnings": 72,
         "evaluated": true,
         "bars": 850,
         "gates": {
@@ -246,8 +247,9 @@
         "company": "Delta Air Lines",
         "sector": "Industrials",
         "ai_score": 7.8,
-        "swing_score": 6.5,
-        "swing_tier": "B",
+        "swing_score": 7.2,
+        "swing_tier": "A",
+        "days_to_earnings": 44,
         "evaluated": true,
         "bars": 850,
         "gates": {
@@ -298,8 +300,9 @@
         "company": "First Solar",
         "sector": "Technology",
         "ai_score": 8.0,
-        "swing_score": 5.4,
-        "swing_tier": "C",
+        "swing_score": 5.5,
+        "swing_tier": "B",
+        "days_to_earnings": 66,
         "evaluated": true,
         "bars": 850,
         "gates": {
@@ -664,8 +667,9 @@
         "company": "Columbia Banking System",
         "sector": "Financial Services",
         "ai_score": 7.8,
-        "swing_score": 6.6,
+        "swing_score": 6.8,
         "swing_tier": "B",
+        "days_to_earnings": 66,
         "evaluated": true,
         "bars": 850,
         "gates": {
@@ -716,8 +720,9 @@
         "company": "Dominion Energy",
         "sector": "Utilities",
         "ai_score": 7.8,
-        "swing_score": 7.0,
-        "swing_tier": "B",
+        "swing_score": 7.1,
+        "swing_tier": "A",
+        "days_to_earnings": 65,
         "evaluated": true,
         "bars": 850,
         "gates": {
@@ -768,8 +773,9 @@
         "company": "DT Midstream",
         "sector": "Energy",
         "ai_score": 7.7,
-        "swing_score": 7.3,
+        "swing_score": 7.5,
         "swing_tier": "A",
+        "days_to_earnings": 65,
         "evaluated": true,
         "bars": 850,
         "gates": {
@@ -822,8 +828,9 @@
         "company": "Incyte",
         "sector": "Healthcare",
         "ai_score": 7.7,
-        "swing_score": 6.9,
-        "swing_tier": "B",
+        "swing_score": 7.1,
+        "swing_tier": "A",
+        "days_to_earnings": 63,
         "evaluated": true,
         "bars": 850,
         "gates": {
@@ -932,8 +939,9 @@
         "company": "Halozyme",
         "sector": "Healthcare",
         "ai_score": 8.1,
-        "swing_score": 7.0,
-        "swing_tier": "B",
+        "swing_score": 7.1,
+        "swing_tier": "A",
+        "days_to_earnings": 71,
         "evaluated": true,
         "bars": 850,
         "gates": {
@@ -1089,8 +1097,9 @@
         "company": "Costco",
         "sector": "Consumer Defensive",
         "ai_score": 7.9,
-        "swing_score": 7.6,
+        "swing_score": 7.7,
         "swing_tier": "A",
+        "days_to_earnings": 3,
         "evaluated": true,
         "bars": 850,
         "gates": {
@@ -1123,7 +1132,9 @@
           "bb_upper_20": 1083.7117,
           "range_10d_pct": 0.1083
         },
-        "blockers": [],
+        "blockers": [
+          "earnings_near (3d)"
+        ],
         "insufficient_data_reasons": [],
         "go_no_go_score": 5,
         "go_no_go_gates_evaluated": 10,
@@ -1131,7 +1142,7 @@
         "accumulation_score": 1,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.2,
-        "blocker_count": 0
+        "blocker_count": 1
       },
       {
         "ticker": "LLYVA",
@@ -1352,6 +1363,61 @@
     ],
     "blocked_main": [
       {
+        "ticker": "COST",
+        "sources": [
+          "main"
+        ],
+        "company": "Costco",
+        "sector": "Consumer Defensive",
+        "ai_score": 7.9,
+        "swing_score": 7.7,
+        "swing_tier": "A",
+        "days_to_earnings": 3,
+        "evaluated": true,
+        "bars": 850,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": true,
+          "ma50_rising": true,
+          "rsi_in_zone": false,
+          "rsi_slope_pos": false,
+          "return_20d_ok": false,
+          "rel_vol_ok": false,
+          "bar_strength": false,
+          "mfi_above_avg": true,
+          "near_20d_high": false
+        },
+        "metrics": {
+          "last_close": 1028.24,
+          "sma5": 1064.698,
+          "sma8": 1055.8462,
+          "sma13": 1037.2861,
+          "sma20": 1026.2518,
+          "sma50": 1007.0096,
+          "rsi14": 50.4035,
+          "rsi14_3bar_ago": 75.2472,
+          "return_20d": 0.0184,
+          "rel_vol_20d": 1.055,
+          "mfi14": 61.7755,
+          "high_20d": 1094.3199,
+          "bb_upper_20": 1083.7117,
+          "range_10d_pct": 0.1083
+        },
+        "blockers": [
+          "earnings_near (3d)"
+        ],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 5,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.5,
+        "accumulation_score": 1,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.2,
+        "blocker_count": 1
+      },
+      {
         "ticker": "DELL",
         "sources": [
           "main",
@@ -1360,8 +1426,9 @@
         "company": "Dell Technologies",
         "sector": "Technology",
         "ai_score": 8.5,
-        "swing_score": 5.3,
+        "swing_score": 5.4,
         "swing_tier": "C",
+        "days_to_earnings": 3,
         "evaluated": true,
         "bars": 850,
         "gates": {
@@ -1395,7 +1462,8 @@
           "range_10d_pct": 0.2407
         },
         "blockers": [
-          "overextended_bb (>1.5% above BB upper)"
+          "overextended_bb (>1.5% above BB upper)",
+          "earnings_near (3d)"
         ],
         "insufficient_data_reasons": [],
         "go_no_go_score": 9,
@@ -1404,7 +1472,7 @@
         "accumulation_score": 3,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.6,
-        "blocker_count": 1
+        "blocker_count": 2
       }
     ],
     "disagreement_supports_internal": [
@@ -2167,8 +2235,9 @@
       "company": "Cognex Corporation",
       "sector": "Technology",
       "ai_score": 6.9,
-      "swing_score": 5.7,
+      "swing_score": 5.9,
       "swing_tier": "B",
+      "days_to_earnings": 65,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2219,8 +2288,9 @@
       "company": "Ciena",
       "sector": "Technology",
       "ai_score": 7.1,
-      "swing_score": 4.7,
+      "swing_score": 4.8,
       "swing_tier": "C",
+      "days_to_earnings": 9,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2253,7 +2323,9 @@
         "bb_upper_20": 613.8654,
         "range_10d_pct": 0.1721
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (9d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
@@ -2261,7 +2333,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "CNM",
@@ -2325,8 +2397,9 @@
       "company": "Columbia Banking System",
       "sector": "Financial Services",
       "ai_score": 7.8,
-      "swing_score": 6.6,
+      "swing_score": 6.8,
       "swing_tier": "B",
+      "days_to_earnings": 66,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2377,8 +2450,9 @@
       "company": "Costco",
       "sector": "Consumer Defensive",
       "ai_score": 7.9,
-      "swing_score": 7.6,
+      "swing_score": 7.7,
       "swing_tier": "A",
+      "days_to_earnings": 3,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2411,7 +2485,9 @@
         "bb_upper_20": 1083.7117,
         "range_10d_pct": 0.1083
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (3d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 5,
       "go_no_go_gates_evaluated": 10,
@@ -2419,7 +2495,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "CPAY",
@@ -2429,8 +2505,9 @@
       "company": "Corpay",
       "sector": "Technology",
       "ai_score": 8.6,
-      "swing_score": 6.7,
+      "swing_score": 6.9,
       "swing_tier": "B",
+      "days_to_earnings": 72,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2535,8 +2612,9 @@
       "company": "Dominion Energy",
       "sector": "Utilities",
       "ai_score": 7.8,
-      "swing_score": 7.0,
-      "swing_tier": "B",
+      "swing_score": 7.1,
+      "swing_tier": "A",
+      "days_to_earnings": 65,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2588,8 +2666,9 @@
       "company": "Delta Air Lines",
       "sector": "Industrials",
       "ai_score": 7.8,
-      "swing_score": 6.5,
-      "swing_tier": "B",
+      "swing_score": 7.2,
+      "swing_tier": "A",
+      "days_to_earnings": 44,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2640,8 +2719,9 @@
       "company": "Datadog",
       "sector": "Technology",
       "ai_score": 7.0,
-      "swing_score": 5.3,
+      "swing_score": 5.5,
       "swing_tier": "C",
+      "days_to_earnings": 72,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2693,8 +2773,9 @@
       "company": "Dell Technologies",
       "sector": "Technology",
       "ai_score": 8.5,
-      "swing_score": 5.3,
+      "swing_score": 5.4,
       "swing_tier": "C",
+      "days_to_earnings": 3,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2728,7 +2809,8 @@
         "range_10d_pct": 0.2407
       },
       "blockers": [
-        "overextended_bb (>1.5% above BB upper)"
+        "overextended_bb (>1.5% above BB upper)",
+        "earnings_near (3d)"
       ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 9,
@@ -2737,7 +2819,7 @@
       "accumulation_score": 3,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.6,
-      "blocker_count": 1
+      "blocker_count": 2
     },
     {
       "ticker": "DOCN",
@@ -2757,8 +2839,9 @@
       "company": "DT Midstream",
       "sector": "Energy",
       "ai_score": 7.7,
-      "swing_score": 7.3,
+      "swing_score": 7.5,
       "swing_tier": "A",
+      "days_to_earnings": 65,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2863,8 +2946,9 @@
       "company": "eBay Inc.",
       "sector": "Consumer Cyclical",
       "ai_score": 7.7,
-      "swing_score": 6.7,
+      "swing_score": 6.8,
       "swing_tier": "B",
+      "days_to_earnings": 65,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2915,8 +2999,9 @@
       "company": "Evercore",
       "sector": "Financial Services",
       "ai_score": 8.1,
-      "swing_score": 6.8,
+      "swing_score": 7.0,
       "swing_tier": "B",
+      "days_to_earnings": 64,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -2968,8 +3053,9 @@
       "company": "East West Bancorp",
       "sector": "Financial Services",
       "ai_score": 7.7,
-      "swing_score": 6.7,
-      "swing_tier": "B",
+      "swing_score": 7.4,
+      "swing_tier": "A",
+      "days_to_earnings": 57,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3025,8 +3111,9 @@
       "company": "Exelixis",
       "sector": "Healthcare",
       "ai_score": 7.7,
-      "swing_score": 7.2,
+      "swing_score": 7.3,
       "swing_tier": "A",
+      "days_to_earnings": 71,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3131,8 +3218,9 @@
       "company": "First Industrial Realty Trust",
       "sector": "Real Estate",
       "ai_score": 8.3,
-      "swing_score": 7.3,
+      "swing_score": 8.1,
       "swing_tier": "A",
+      "days_to_earnings": 58,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3194,8 +3282,9 @@
       "company": "Federal Realty Investment Trust",
       "sector": "Real Estate",
       "ai_score": 8.4,
-      "swing_score": 7.1,
+      "swing_score": 7.2,
       "swing_tier": "A",
+      "days_to_earnings": 71,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3246,8 +3335,9 @@
       "company": "First Solar",
       "sector": "Technology",
       "ai_score": 8.0,
-      "swing_score": 5.4,
-      "swing_tier": "C",
+      "swing_score": 5.5,
+      "swing_tier": "B",
+      "days_to_earnings": 66,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3298,8 +3388,9 @@
       "company": "FTAI Aviation",
       "sector": "Industrials",
       "ai_score": 6.9,
-      "swing_score": 6.3,
+      "swing_score": 6.4,
       "swing_tier": "B",
+      "days_to_earnings": 64,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3350,8 +3441,9 @@
       "company": "Gen Digital",
       "sector": "Technology",
       "ai_score": 7.7,
-      "swing_score": 5.2,
+      "swing_score": 5.4,
       "swing_tier": "C",
+      "days_to_earnings": 73,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3402,8 +3494,9 @@
       "company": "Corning Inc.",
       "sector": "Technology",
       "ai_score": 7.1,
-      "swing_score": 5.0,
+      "swing_score": 5.2,
       "swing_tier": "C",
+      "days_to_earnings": 63,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3454,8 +3547,9 @@
       "company": "Globus Medical",
       "sector": "Healthcare",
       "ai_score": 7.7,
-      "swing_score": 6.3,
+      "swing_score": 6.5,
       "swing_tier": "B",
+      "days_to_earnings": 73,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3506,8 +3600,9 @@
       "company": "Alphabet Inc. (Class C)",
       "sector": "Communication Services",
       "ai_score": 7.6,
-      "swing_score": 6.5,
-      "swing_tier": "B",
+      "swing_score": 7.2,
+      "swing_tier": "A",
+      "days_to_earnings": 59,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3559,8 +3654,9 @@
       "company": "Goldman Sachs",
       "sector": "Financial Services",
       "ai_score": 8.1,
-      "swing_score": 6.4,
-      "swing_tier": "B",
+      "swing_score": 7.1,
+      "swing_tier": "A",
+      "days_to_earnings": 49,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3616,8 +3712,9 @@
       "company": "W. W. Grainger",
       "sector": "Industrials",
       "ai_score": 7.8,
-      "swing_score": 7.2,
+      "swing_score": 7.4,
       "swing_tier": "A",
+      "days_to_earnings": 70,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3668,8 +3765,9 @@
       "company": "Halozyme",
       "sector": "Healthcare",
       "ai_score": 8.1,
-      "swing_score": 7.0,
-      "swing_tier": "B",
+      "swing_score": 7.1,
+      "swing_tier": "A",
+      "days_to_earnings": 71,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3720,8 +3818,9 @@
       "company": "Hilton Worldwide",
       "sector": "Consumer Cyclical",
       "ai_score": 7.7,
-      "swing_score": 7.6,
+      "swing_score": 7.7,
       "swing_tier": "A",
+      "days_to_earnings": 64,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -3772,8 +3871,9 @@
       "company": "Incyte",
       "sector": "Healthcare",
       "ai_score": 7.7,
-      "swing_score": 6.9,
-      "swing_tier": "B",
+      "swing_score": 7.1,
+      "swing_tier": "A",
+      "days_to_earnings": 63,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -5569,8 +5669,9 @@
       "company": "Timken Company",
       "sector": "Industrials",
       "ai_score": 7.8,
-      "swing_score": 6.7,
+      "swing_score": 6.8,
       "swing_tier": "B",
+      "days_to_earnings": 64,
       "evaluated": true,
       "bars": 850,
       "gates": {
@@ -5758,5 +5859,5 @@
     "disagreement_queue_present": true,
     "ohlcv_dir_exists": true
   },
-  "summary": "Overall OK \u00b7 cands=89 \u00b7 evaluated=77 \u00b7 missing_ohlcv=12 \u00b7 go>=.7:44 \u00b7 weak<.4:6 \u00b7 blocked=2 \u00b7 dis_supports_internal=7 \u00b7 dis_supports_external=4"
+  "summary": "Overall OK \u00b7 cands=89 \u00b7 evaluated=77 \u00b7 missing_ohlcv=12 \u00b7 go>=.7:44 \u00b7 weak<.4:6 \u00b7 blocked=4 \u00b7 dis_supports_internal=7 \u00b7 dis_supports_external=4"
 }
