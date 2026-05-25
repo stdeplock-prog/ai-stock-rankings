@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T22:16:21Z",
-  "generated_at_chicago": "2026-05-22 05:16 PM CDT",
+  "generated_at": "2026-05-25T16:32:33Z",
+  "generated_at_chicago": "2026-05-25 11:32 AM CDT",
   "overall": "WARN",
   "sections": {
     "data_freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-22 05:16 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-05-25 11:31 AM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,12 +17,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-22 05:16 PM CDT",
-        "open_date": "2026-05-22",
+        "as_of": "2026-05-25 11:31 AM CDT",
+        "open_date": "2026-05-25",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-05-22 17:16",
-        "rankings_age_hours": 0.01,
+        "chicago_now": "2026-05-25 11:32",
+        "rankings_age_hours": 0.03,
         "today_live": true
       },
       "status": "OK"
@@ -31,21 +31,21 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+          "status": "WARN",
+          "message": "overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN"
         }
       ],
       "metrics": {
-        "overall": "OK",
-        "generated_at": "2026-05-22T22:16:20Z",
+        "overall": "WARN",
+        "generated_at": "2026-05-25T16:32:31Z",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
-          "tasks": "OK"
+          "tasks": "WARN"
         },
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "schedule_reliability": {
       "checks": [
@@ -62,8 +62,8 @@
         "today_missing": [],
         "today_satisfied": true,
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-05-22 17:16",
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-05-25 11:32",
         "recovered": false,
         "overall_effective": "WARN"
       },
@@ -79,7 +79,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=29 misses=45"
+          "message": "yfinance cache hits=0 misses=74"
         }
       ],
       "metrics": {
@@ -93,12 +93,12 @@
           "unavailable": 1
         },
         "yfinance_info_cache": {
-          "cache_hit_fresh": 29,
-          "cache_miss": 45,
-          "network_call": 45,
-          "fallback_to_cache": 45,
-          "rate_limit_or_empty": 45,
-          "network_success": 0
+          "cache_hit_fresh": 0,
+          "cache_miss": 74,
+          "network_call": 74,
+          "fallback_to_cache": 21,
+          "rate_limit_or_empty": 21,
+          "network_success": 53
         },
         "unavailable_count": 1,
         "scored": 141,
@@ -111,11 +111,11 @@
         {
           "name": "benchmark_snapshots",
           "status": "OK",
-          "message": "17 snapshot(s); \u22651 horizon has forward results"
+          "message": "18 snapshot(s); \u22651 horizon has forward results"
         }
       ],
       "metrics": {
-        "snapshots_kept": 17,
+        "snapshots_kept": 18,
         "horizons": [
           "1d",
           "3d",
@@ -161,8 +161,9 @@
     "parity_present": true
   },
   "action_items": [
+    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN",
     "[WARN] schedule_reliability.schedule_reliability: schedule reliability WARN",
     "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['technical', 'sentiment']"
   ],
-  "summary": "Fresh 05:16 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule WARN \u00b7 Benchmark active"
+  "summary": "Fresh 11:31 AM CT \u00b7 Data quality WARN \u00b7 Watchlist OK \u00b7 Schedule WARN \u00b7 Benchmark active"
 }
