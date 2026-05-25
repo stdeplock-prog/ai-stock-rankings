@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-25T19:23:02Z",
-  "generated_at_chicago": "2026-05-25 02:23 PM CDT",
+  "generated_at": "2026-05-25T22:11:06Z",
+  "generated_at_chicago": "2026-05-25 05:11 PM CDT",
   "overall": "WARN",
   "sections": {
     "freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-25 02:22 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-05-25 05:10 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,16 +17,16 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-25 02:22 PM CDT",
+        "as_of": "2026-05-25 05:10 PM CDT",
         "open_date": "2026-05-25",
         "row_count": 100,
         "is_open_run": false,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-05-25 14:23",
+        "chicago_now": "2026-05-25 17:11",
         "rankings_age_hours": 0.02,
         "today_live": true,
-        "close_slot_satisfied": false
+        "close_slot_satisfied": true
       },
       "status": "OK"
     },
@@ -42,8 +42,8 @@
         "overall_raw": "WARN",
         "overall_effective": "WARN",
         "last_run_event": "schedule",
-        "last_run_slot": "midday",
-        "last_run_ts_chicago": "2026-05-25 14:23",
+        "last_run_slot": "close",
+        "last_run_ts_chicago": "2026-05-25 17:11",
         "today_missing": [],
         "today_satisfied": true,
         "source": "schedule_degraded",
@@ -171,8 +171,90 @@
             "sector": "Financial Services"
           }
         ],
-        "top_gainers": [],
-        "top_losers": [],
+        "top_gainers": [
+          {
+            "rank": 56,
+            "ticker": "PATH",
+            "company": "UiPath",
+            "change": 3,
+            "ai_score": 7.7,
+            "sector": "Technology"
+          },
+          {
+            "rank": 46,
+            "ticker": "V",
+            "company": "Visa Inc.",
+            "change": 2,
+            "ai_score": 7.7,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 53,
+            "ticker": "C",
+            "company": "Citigroup",
+            "change": 2,
+            "ai_score": 7.7,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 74,
+            "ticker": "GOOGL",
+            "company": "Alphabet Inc. (Class A)",
+            "change": 2,
+            "ai_score": 7.6,
+            "sector": "Communication Services"
+          },
+          {
+            "rank": 81,
+            "ticker": "WST",
+            "company": "West Pharmaceutical Services",
+            "change": 2,
+            "ai_score": 7.5,
+            "sector": "Healthcare"
+          }
+        ],
+        "top_losers": [
+          {
+            "rank": 45,
+            "ticker": "REG",
+            "company": "Regency Centers",
+            "change": -2,
+            "ai_score": 7.7,
+            "sector": "Real Estate"
+          },
+          {
+            "rank": 48,
+            "ticker": "EBAY",
+            "company": "eBay Inc.",
+            "change": -2,
+            "ai_score": 7.7,
+            "sector": "Consumer Cyclical"
+          },
+          {
+            "rank": 58,
+            "ticker": "DECK",
+            "company": "Deckers Brands",
+            "change": -2,
+            "ai_score": 7.7,
+            "sector": "Consumer Cyclical"
+          },
+          {
+            "rank": 68,
+            "ticker": "DXCM",
+            "company": "Dexcom",
+            "change": -2,
+            "ai_score": 7.6,
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 77,
+            "ticker": "AMT",
+            "company": "American Tower",
+            "change": -2,
+            "ai_score": 7.6,
+            "sector": "Real Estate"
+          }
+        ],
         "new_top10_entries": [
           {
             "ticker": "DELL",
@@ -216,9 +298,9 @@
         "prior_top10_compared_against": "2026-05-22",
         "mov_summary": {
           "with_change": 100,
-          "positive": 0,
-          "negative": 0,
-          "zero": 100
+          "positive": 23,
+          "negative": 22,
+          "zero": 55
         },
         "sector_concentration": {
           "top_sector": "Financial Services",
@@ -241,7 +323,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=53 misses=22"
+          "message": "yfinance cache hits=75 misses=0"
         }
       ],
       "metrics": {
@@ -408,13 +490,29 @@
         {
           "name": "diagnostics_overall",
           "status": "WARN",
-          "message": "diagnostics overall=WARN; 4 suspicious top rank(s)"
+          "message": "diagnostics overall=WARN; 6 suspicious top rank(s)"
         }
       ],
       "metrics": {
         "overall": "WARN",
-        "suspicious_count": 4,
+        "suspicious_count": 6,
         "suspicious_top": [
+          {
+            "ticker": "DELL",
+            "group": "main_top10",
+            "rank": 2,
+            "reasons": [
+              "weak SWING (4.9)"
+            ]
+          },
+          {
+            "ticker": "DELL",
+            "group": "watchlist_top10",
+            "rank": 1,
+            "reasons": [
+              "weak SWING (4.9)"
+            ]
+          },
           {
             "ticker": "SCCO",
             "group": "watchlist_top10",
@@ -438,15 +536,6 @@
             "reasons": [
               "weak SENT (5.0)",
               "negative MOV (-1.9%)"
-            ]
-          },
-          {
-            "ticker": "SMCI",
-            "group": "watchlist_top10",
-            "rank": 8,
-            "reasons": [
-              "weak LOW_RISK (4.8)",
-              "weak SWING (4.4)"
             ]
           }
         ],
@@ -535,10 +624,10 @@
   "action_items": [
     "[WARN] run_source.run_source: schedule degraded: today_missing=[], history_missing=2",
     "[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (4/10 = 40%)",
-    "[WARN] diagnostics.diagnostics_overall: diagnostics overall=WARN; 4 suspicious top rank(s)",
+    "[WARN] diagnostics.diagnostics_overall: diagnostics overall=WARN; 6 suspicious top rank(s)",
     "[INFO] New top10 vs 2026-05-22: DELL, ROST, MS, FR, EVR",
     "[INFO] Exited top10 since 2026-05-22: FSLR, GS, HALO, OKE, PTC",
-    "[INFO] Diagnostics flagged: SCCO, GMED, GOOG"
+    "[INFO] Top MOV gainer PATH (change=3, rank=56)"
   ],
-  "summary": "Live 02:22 PM CT \u00b7 Source schedule degraded \u00b7 DQ OK \u00b7 \u2191\u2014 \u2193\u2014 \u00b7 5 new top10 (DELL\u2026) \u00b7 Risk OK"
+  "summary": "Close 05:10 PM CT \u00b7 Source schedule degraded \u00b7 DQ OK \u00b7 \u2191PATH \u2193REG \u00b7 5 new top10 (DELL\u2026) \u00b7 Risk OK"
 }

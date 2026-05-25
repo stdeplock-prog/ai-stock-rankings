@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-25T19:23:02Z",
-  "generated_at_chicago": "2026-05-25 02:23 PM CDT",
+  "generated_at": "2026-05-25T22:11:06Z",
+  "generated_at_chicago": "2026-05-25 05:11 PM CDT",
   "overall": "WARN",
   "sections": {
     "freshness": {
@@ -8,12 +8,12 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-25 02:22 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-05-25 05:10 PM CDT (age 0.0h, weekend=False)"
         }
       ],
       "metrics": {
-        "rankings_as_of": "2026-05-25 02:22 PM CDT",
-        "watchlist_as_of": "2026-05-25 02:23 PM CDT",
+        "rankings_as_of": "2026-05-25 05:10 PM CDT",
+        "watchlist_as_of": "2026-05-25 05:11 PM CDT",
         "open_date": "2026-05-25",
         "row_count": 100,
         "is_weekend": false,
@@ -191,28 +191,28 @@
           },
           {
             "rank": 11,
-            "ticker": "OKE",
-            "company": "Oneok",
-            "ai_score": 8.1,
-            "sector": "Energy",
-            "change": 0,
-            "fundamental": 8.2,
-            "technical": 8.3,
-            "sentiment": 7.0,
-            "low_risk": 8.0,
-            "data_source": null
-          },
-          {
-            "rank": 12,
             "ticker": "PTC",
             "company": "PTC Inc.",
             "ai_score": 8.1,
             "sector": "Technology",
-            "change": 0,
+            "change": 1,
             "fundamental": 8.9,
             "technical": 6.5,
             "sentiment": 8.8,
             "low_risk": 8.4,
+            "data_source": null
+          },
+          {
+            "rank": 12,
+            "ticker": "OKE",
+            "company": "Oneok",
+            "ai_score": 8.1,
+            "sector": "Energy",
+            "change": -1,
+            "fundamental": 8.2,
+            "technical": 8.3,
+            "sentiment": 7.0,
+            "low_risk": 8.0,
             "data_source": null
           },
           {
@@ -243,28 +243,28 @@
           },
           {
             "rank": 15,
-            "ticker": "OHI",
-            "company": "Omega Healthcare Investors",
-            "ai_score": 8.0,
-            "sector": "Real Estate",
-            "change": 0,
-            "fundamental": 8.2,
-            "technical": 8.4,
-            "sentiment": 8.6,
-            "low_risk": 6.5,
-            "data_source": null
-          },
-          {
-            "rank": 16,
             "ticker": "BRX",
             "company": "Brixmor Property Group",
             "ai_score": 8.0,
             "sector": "Real Estate",
-            "change": 0,
+            "change": 1,
             "fundamental": 7.5,
             "technical": 8.6,
             "sentiment": 8.1,
             "low_risk": 8.7,
+            "data_source": null
+          },
+          {
+            "rank": 16,
+            "ticker": "OHI",
+            "company": "Omega Healthcare Investors",
+            "ai_score": 8.0,
+            "sector": "Real Estate",
+            "change": -1,
+            "fundamental": 8.2,
+            "technical": 8.4,
+            "sentiment": 8.6,
+            "low_risk": 6.5,
             "data_source": null
           },
           {
@@ -321,28 +321,28 @@
           },
           {
             "rank": 21,
-            "ticker": "KMI",
-            "company": "Kinder Morgan",
-            "ai_score": 7.9,
-            "sector": "Energy",
-            "change": 0,
-            "fundamental": 8.0,
-            "technical": 8.3,
-            "sentiment": 8.3,
-            "low_risk": 6.5,
-            "data_source": null
-          },
-          {
-            "rank": 22,
             "ticker": "MLI",
             "company": "Mueller Industries",
             "ai_score": 7.9,
             "sector": "Industrials",
-            "change": 0,
+            "change": 1,
             "fundamental": 8.7,
             "technical": 6.8,
             "sentiment": 6.2,
             "low_risk": 8.8,
+            "data_source": null
+          },
+          {
+            "rank": 22,
+            "ticker": "KMI",
+            "company": "Kinder Morgan",
+            "ai_score": 7.9,
+            "sector": "Energy",
+            "change": -1,
+            "fundamental": 8.0,
+            "technical": 8.3,
+            "sentiment": 8.3,
+            "low_risk": 6.5,
             "data_source": null
           },
           {
@@ -1486,9 +1486,9 @@
             "mean_return": 0.0098
           }
         ],
-        "spy_return_21d": null,
-        "main_top25_window_return": null,
-        "watchlist_top25_window_return": null
+        "spy_return_21d": 0.0525,
+        "main_top25_window_return": 0.0449,
+        "watchlist_top25_window_return": 0.052
       },
       "status": "WARN"
     },
@@ -1497,13 +1497,29 @@
         {
           "name": "suspicious_ranks",
           "status": "WARN",
-          "message": "4 suspicious top rank(s) flagged"
+          "message": "6 suspicious top rank(s) flagged"
         }
       ],
       "metrics": {
         "overall": "WARN",
-        "suspicious_count": 4,
+        "suspicious_count": 6,
         "suspicious_top": [
+          {
+            "ticker": "DELL",
+            "group": "main_top10",
+            "rank": 2,
+            "reasons": [
+              "weak SWING (4.9)"
+            ]
+          },
+          {
+            "ticker": "DELL",
+            "group": "watchlist_top10",
+            "rank": 1,
+            "reasons": [
+              "weak SWING (4.9)"
+            ]
+          },
           {
             "ticker": "SCCO",
             "group": "watchlist_top10",
@@ -1644,6 +1660,10 @@
         "reason": "exited main top10 vs prior snapshot"
       },
       {
+        "ticker": "DELL",
+        "reason": "diagnostics flagged (main_top10 #2): weak SWING (4.9)"
+      },
+      {
         "ticker": "GMED",
         "reason": "diagnostics flagged (watchlist_top10 #5): weak SENT (2.1)"
       },
@@ -1668,7 +1688,7 @@
     "[WARN] schedule.schedule_effective: schedule effective=WARN (raw=WARN)",
     "[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 16/25 (64%)",
     "[WARN] benchmark_context.lagging_buckets: 7 bucket/horizon pairs with negative avg_mean_return",
-    "[WARN] diagnostics.suspicious_ranks: 4 suspicious top rank(s) flagged",
+    "[WARN] diagnostics.suspicious_ranks: 6 suspicious top rank(s) flagged",
     "[INFO] main_top10 new entries: FRT, BNY, ROST, MS, FR",
     "[INFO] main_top10 exited: CACC, GOOG, HALO, OHI, OKE",
     "[INFO] watchlist_top10 new entries: DAL, GMED, PATH, SMCI, TJX",
@@ -1676,5 +1696,5 @@
     "[INFO] supp_top10 new entries: RGTI, AXTI, VISN, CLS",
     "[INFO] supp_top10 exited: FIG, GUSH, LUNMF, USO"
   ],
-  "summary": "Overall WARN \u00b7 snaps=18 \u00b7 main top10 \u0394 +6/-6 \u00b7 sector Financial Services 28% \u00b7 bench lag=7 \u00b7 adds=12 trims=8"
+  "summary": "Overall WARN \u00b7 snaps=18 \u00b7 main top10 \u0394 +6/-6 \u00b7 sector Financial Services 28% \u00b7 bench lag=7 \u00b7 adds=12 trims=9"
 }
