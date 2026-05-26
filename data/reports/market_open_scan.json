@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-05-25T22:11:06Z",
-  "generated_at_chicago": "2026-05-25 05:11 PM CDT",
-  "overall": "WARN",
+  "generated_at": "2026-05-26T17:37:25Z",
+  "generated_at_chicago": "2026-05-26 12:37 PM CDT",
+  "overall": "FAIL",
   "sections": {
     "freshness": {
       "checks": [
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-25 05:10 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-05-26 12:36 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,13 +17,13 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-25 05:10 PM CDT",
-        "open_date": "2026-05-25",
+        "as_of": "2026-05-26 12:36 PM CDT",
+        "open_date": "2026-05-26",
         "row_count": 100,
-        "is_open_run": false,
+        "is_open_run": true,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-05-25 17:11",
+        "chicago_now": "2026-05-26 12:37",
         "rankings_age_hours": 0.02,
         "today_live": true
       },
@@ -33,21 +33,23 @@
       "checks": [
         {
           "name": "run_source",
-          "status": "WARN",
-          "message": "schedule degraded: today_missing=[], history_missing=2"
+          "status": "FAIL",
+          "message": "schedule degraded: today_missing=['midday'], history_missing=3"
         }
       ],
       "metrics": {
-        "overall_raw": "WARN",
-        "overall_effective": "WARN",
+        "overall_raw": "FAIL",
+        "overall_effective": "FAIL",
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-05-25 17:11",
-        "today_missing": [],
-        "today_satisfied": true,
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-05-26 12:37",
+        "today_missing": [
+          "midday"
+        ],
+        "today_satisfied": false,
         "source": "schedule_degraded"
       },
-      "status": "WARN"
+      "status": "FAIL"
     },
     "data_quality": {
       "checks": [
@@ -78,7 +80,7 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-05-22: DELL, ROST, MS, FR, EVR"
+          "message": "top10 unchanged vs 2026-05-25"
         }
       ],
       "metrics": {
@@ -167,125 +169,94 @@
         "top_gainers": [
           {
             "rank": 56,
-            "ticker": "PATH",
-            "company": "UiPath",
-            "change": 3,
+            "ticker": "CB",
+            "company": "Chubb Limited",
+            "change": 4,
             "ai_score": 7.7,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 64,
+            "ticker": "CSCO",
+            "company": "Cisco",
+            "change": 4,
+            "ai_score": 7.6,
             "sector": "Technology"
           },
           {
-            "rank": 46,
-            "ticker": "V",
-            "company": "Visa Inc.",
-            "change": 2,
-            "ai_score": 7.7,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 53,
-            "ticker": "C",
-            "company": "Citigroup",
-            "change": 2,
-            "ai_score": 7.7,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 74,
-            "ticker": "GOOGL",
-            "company": "Alphabet Inc. (Class A)",
-            "change": 2,
-            "ai_score": 7.6,
-            "sector": "Communication Services"
-          },
-          {
-            "rank": 81,
-            "ticker": "WST",
-            "company": "West Pharmaceutical Services",
-            "change": 2,
+            "rank": 82,
+            "ticker": "DVA",
+            "company": "DaVita",
+            "change": 4,
             "ai_score": 7.5,
             "sector": "Healthcare"
+          },
+          {
+            "rank": 92,
+            "ticker": "ZM",
+            "company": "Zoom Communications",
+            "change": 4,
+            "ai_score": 7.5,
+            "sector": "Technology"
+          },
+          {
+            "rank": 23,
+            "ticker": "COST",
+            "company": "Costco",
+            "change": 3,
+            "ai_score": 7.9,
+            "sector": "Consumer Defensive"
           }
         ],
         "top_losers": [
           {
-            "rank": 45,
-            "ticker": "REG",
-            "company": "Regency Centers",
-            "change": -2,
+            "rank": 97,
+            "ticker": "STLD",
+            "company": "Steel Dynamics",
+            "change": -7,
+            "ai_score": 7.5,
+            "sector": "Basic Materials"
+          },
+          {
+            "rank": 52,
+            "ticker": "AVT",
+            "company": "Avnet",
+            "change": -5,
             "ai_score": 7.7,
-            "sector": "Real Estate"
-          },
-          {
-            "rank": 48,
-            "ticker": "EBAY",
-            "company": "eBay Inc.",
-            "change": -2,
-            "ai_score": 7.7,
-            "sector": "Consumer Cyclical"
-          },
-          {
-            "rank": 58,
-            "ticker": "DECK",
-            "company": "Deckers Brands",
-            "change": -2,
-            "ai_score": 7.7,
-            "sector": "Consumer Cyclical"
-          },
-          {
-            "rank": 68,
-            "ticker": "DXCM",
-            "company": "Dexcom",
-            "change": -2,
-            "ai_score": 7.6,
-            "sector": "Healthcare"
-          },
-          {
-            "rank": 77,
-            "ticker": "AMT",
-            "company": "American Tower",
-            "change": -2,
-            "ai_score": 7.6,
-            "sector": "Real Estate"
-          }
-        ],
-        "new_top10_entries": [
-          {
-            "ticker": "DELL",
-            "rank": 2,
-            "ai_score": 8.5,
             "sector": "Technology"
           },
           {
-            "ticker": "ROST",
-            "rank": 7,
-            "ai_score": 8.3,
+            "rank": 83,
+            "ticker": "SN",
+            "company": "SharkNinja",
+            "change": -5,
+            "ai_score": 7.5,
             "sector": "Consumer Cyclical"
           },
           {
-            "ticker": "MS",
-            "rank": 8,
-            "ai_score": 8.3,
-            "sector": "Financial Services"
+            "rank": 26,
+            "ticker": "SCCO",
+            "company": "Southern Copper",
+            "change": -3,
+            "ai_score": 7.9,
+            "sector": "Basic Materials"
           },
           {
-            "ticker": "FR",
-            "rank": 9,
-            "ai_score": 8.3,
-            "sector": "Real Estate"
-          },
-          {
-            "ticker": "EVR",
-            "rank": 10,
-            "ai_score": 8.1,
-            "sector": "Financial Services"
+            "rank": 62,
+            "ticker": "PATH",
+            "company": "UiPath",
+            "change": -3,
+            "ai_score": 7.6,
+            "sector": "Technology"
           }
         ],
-        "prior_top10_compared_against": "2026-05-22",
+        "new_top10_entries": [],
+        "prior_top10_compared_against": "2026-05-25",
         "mov_summary": {
           "with_change": 100,
-          "positive": 23,
-          "negative": 22,
-          "zero": 55
+          "positive": 32,
+          "negative": 26,
+          "zero": 42
         },
         "limitation": "MOV-based gainers/losers; new-entry detection uses prior benchmark snapshot when available."
       },
@@ -301,7 +272,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=75 misses=0"
+          "message": "yfinance cache hits=22 misses=53"
         }
       ],
       "metrics": {
@@ -354,20 +325,20 @@
           },
           {
             "rank": 6,
-            "ticker": "PATH",
-            "company": "UiPath",
-            "ai_score": 7.7,
-            "change": 0,
-            "sector": "Technology",
-            "data_source": "main_pipeline"
-          },
-          {
-            "rank": 7,
             "ticker": "GOOG",
             "company": "Alphabet Inc. (Class C)",
             "ai_score": 7.6,
             "change": 0,
             "sector": "Communication Services",
+            "data_source": "main_pipeline"
+          },
+          {
+            "rank": 7,
+            "ticker": "PATH",
+            "company": "UiPath",
+            "ai_score": 7.6,
+            "change": 0,
+            "sector": "Technology",
             "data_source": "main_pipeline"
           },
           {
@@ -398,19 +369,8 @@
             "data_source": "main_pipeline"
           }
         ],
-        "prior_top10_compared_against": "2026-05-22",
-        "new_top10_entries": [
-          {
-            "ticker": "PATH",
-            "rank": 6,
-            "ai_score": 7.7
-          },
-          {
-            "ticker": "TJX",
-            "rank": 9,
-            "ai_score": 7.5
-          }
-        ],
+        "prior_top10_compared_against": "2026-05-25",
+        "new_top10_entries": [],
         "supp_top": [
           {
             "ticker": "RGTI",
@@ -420,15 +380,15 @@
             "sector": "Technology"
           },
           {
-            "ticker": "AXTI",
-            "company": "AXT Inc",
-            "ai_score": 7.3,
+            "ticker": "TSM",
+            "company": "Taiwan Semiconductor Manufactur",
+            "ai_score": 7.2,
             "change": 0,
             "sector": "Technology"
           },
           {
-            "ticker": "TSM",
-            "company": "Taiwan Semiconductor Manufactur",
+            "ticker": "VISN",
+            "company": "Vistance Networks, Inc.",
             "ai_score": 7.1,
             "change": 0,
             "sector": "Technology"
@@ -441,11 +401,11 @@
             "sector": "Technology"
           },
           {
-            "ticker": "RY",
-            "company": "Royal Bank Of Canada",
+            "ticker": "AXTI",
+            "company": "AXT Inc",
             "ai_score": 6.9,
             "change": 0,
-            "sector": "Financial Services"
+            "sector": "Technology"
           }
         ],
         "top_gainers": [],
@@ -474,11 +434,11 @@
         {
           "name": "indicator_coverage",
           "status": "OK",
-          "message": "indicators pending source: polls, adr, vix, ndr, put_call_ratio"
+          "message": "indicators pending source: polls, adr, ndr, put_call_ratio"
         }
       ],
       "metrics": {
-        "generated_at": "2026-05-25 16:32 UTC",
+        "generated_at": "2026-05-26 17:37 UTC",
         "generals_fail": {
           "below_count": 2,
           "available_count": 7,
@@ -492,7 +452,6 @@
         "pending_indicators": [
           "polls",
           "adr",
-          "vix",
           "ndr",
           "put_call_ratio"
         ]
@@ -504,7 +463,7 @@
         {
           "name": "benchmark_snapshots",
           "status": "OK",
-          "message": "18 snapshot(s); \u22651 horizon has forward results"
+          "message": "19 snapshot(s); \u22651 horizon has forward results"
         },
         {
           "name": "benchmark_findings",
@@ -513,7 +472,7 @@
         }
       ],
       "metrics": {
-        "snapshots_kept": 18,
+        "snapshots_kept": 19,
         "any_horizon_completed": true,
         "findings_warn": 5
       },
@@ -529,11 +488,9 @@
     "benchmark_present": true
   },
   "action_items": [
-    "[WARN] run_source.run_source: schedule degraded: today_missing=[], history_missing=2",
-    "[INFO] New top10 entries vs 2026-05-22: DELL, ROST, MS, FR, EVR",
-    "[INFO] Top MOV gainer PATH (change=3, rank=56)",
-    "[INFO] Top MOV loser REG (change=-2, rank=45)",
-    "[INFO] New watchlist top10: PATH, TJX"
+    "[FAIL] run_source.run_source: schedule degraded: today_missing=['midday'], history_missing=3",
+    "[INFO] Top MOV gainer CB (change=4, rank=56)",
+    "[INFO] Top MOV loser STLD (change=-7, rank=97)"
   ],
   "strengths_risks": {
     "strengths": [
@@ -542,10 +499,10 @@
       "FRT (AI 8.4, rank 3, Real Estate)"
     ],
     "risks": [
-      "REG MOV -2 (rank 45, Real Estate)",
-      "EBAY MOV -2 (rank 48, Consumer Cyclical)",
-      "DECK MOV -2 (rank 58, Consumer Cyclical)"
+      "STLD MOV -7 (rank 97, Basic Materials)",
+      "AVT MOV -5 (rank 52, Technology)",
+      "SN MOV -5 (rank 83, Consumer Cyclical)"
     ]
   },
-  "summary": "Live 05:10 PM CT \u00b7 Source schedule degraded \u00b7 DQ OK \u00b7 Top gainer PATH \u00b7 5 new top10 (DELL\u2026) \u00b7 Risk OK"
+  "summary": "Live 12:36 PM CT \u00b7 Source schedule degraded \u00b7 DQ OK \u00b7 Top gainer CB \u00b7 Top10 stable \u00b7 Risk OK"
 }
