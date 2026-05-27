@@ -1,29 +1,27 @@
 {
-  "generated_at": "2026-05-26T22:30:43Z",
-  "generated_at_chicago": "2026-05-26 05:30 PM CDT",
-  "overall": "FAIL",
-  "overall_raw": "FAIL",
-  "overall_effective": "FAIL",
+  "generated_at": "2026-05-27T17:16:01Z",
+  "generated_at_chicago": "2026-05-27 12:16 PM CDT",
+  "overall": "WARN",
+  "overall_raw": "WARN",
+  "overall_effective": "WARN",
   "effective": {
-    "effective": "FAIL",
+    "effective": "WARN",
     "recovered": false,
-    "today_satisfied": false,
-    "today_missing": [
-      "midday"
-    ],
-    "rankings_age_hours": 0.01,
+    "today_satisfied": true,
+    "today_missing": [],
+    "rankings_age_hours": 0.02,
     "rankings_fresh": true,
     "last_run_event": "schedule",
-    "missing_count": 3,
-    "reason": "today still missing ['midday']; 3 historical miss(es) in lookback"
+    "missing_count": 1,
+    "reason": "minor historical issues; current state OK"
   },
   "sections": {
     "calendar": {
       "checks": [
         {
           "name": "missing_slots",
-          "status": "FAIL",
-          "message": "3 expected slot(s) missing in last 5 weekdays \u2014 investigate GH Actions delivery",
+          "status": "WARN",
+          "message": "1 expected slot(s) missing in last 5 weekdays",
           "data": {}
         },
         {
@@ -35,26 +33,13 @@
         {
           "name": "history_source",
           "status": "OK",
-          "message": "history loaded from workflow_runs.jsonl (66 records)",
+          "message": "history loaded from workflow_runs.jsonl (67 records)",
           "data": {}
         }
       ],
       "metrics": {
         "calendar": {
           "rows": [
-            {
-              "date": "2026-05-20",
-              "slot_hits": {
-                "morning": 0,
-                "midday": 0,
-                "close": 1
-              },
-              "missing": [
-                "morning",
-                "midday"
-              ],
-              "duplicate": []
-            },
             {
               "date": "2026-05-21",
               "slot_hits": {
@@ -96,47 +81,57 @@
                 "midday"
               ],
               "duplicate": []
+            },
+            {
+              "date": "2026-05-27",
+              "slot_hits": {
+                "morning": 1,
+                "midday": 0,
+                "close": 0
+              },
+              "missing": [],
+              "duplicate": []
             }
           ],
-          "missing_count": 3,
+          "missing_count": 1,
           "duplicate_count": 0,
           "lookback_days": 5
         }
       },
-      "status": "FAIL"
+      "status": "WARN"
     },
     "recency": {
       "checks": [
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-26 05:30 PM CDT (age 0.0h)",
+          "message": "as_of 2026-05-27 12:15 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "last_run_event",
           "status": "OK",
-          "message": "latest run: event=schedule slot=close at 2026-05-26 17:30",
+          "message": "latest run: event=schedule slot=morning at 2026-05-27 12:16",
           "data": {}
         }
       ],
       "metrics": {
-        "chicago_now": "2026-05-26 17:30",
+        "chicago_now": "2026-05-27 12:16",
         "is_weekend": false,
-        "expected_slot_now": "close",
-        "rankings_as_of": "2026-05-26 05:30 PM CDT",
-        "rankings_age_hours": 0.01,
+        "expected_slot_now": null,
+        "rankings_as_of": "2026-05-27 12:15 PM CDT",
+        "rankings_age_hours": 0.02,
         "last_run": {
-          "ts_utc": "2026-05-26T22:30:43Z",
-          "ts_chicago": "2026-05-26 17:30",
-          "chicago_date": "2026-05-26",
+          "ts_utc": "2026-05-27T17:16:01Z",
+          "ts_chicago": "2026-05-27 12:16",
+          "chicago_date": "2026-05-27",
           "event_name": "schedule",
-          "slot": "close",
+          "slot": "morning",
           "proceeded": true,
-          "as_of": "2026-05-26 05:30 PM CDT",
-          "open_date": "2026-05-26",
-          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/26477961518",
-          "commit_sha": "fb22a75a158027cc11ddab05d36f16f2983f2fd3"
+          "as_of": "2026-05-27 12:15 PM CDT",
+          "open_date": "2026-05-27",
+          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/26525642121",
+          "commit_sha": "d329e8f859c6353e28b2265a844ce01e8cef9436"
         }
       },
       "status": "OK"
@@ -162,20 +157,20 @@
         {
           "name": "event_mix",
           "status": "OK",
-          "message": "schedule=21 dispatch=5 other=0",
+          "message": "schedule=22 dispatch=4 other=0",
           "data": {}
         }
       ],
       "metrics": {
         "proceed_14d_by_event": {
-          "schedule": 21,
-          "workflow_dispatch": 5,
+          "schedule": 22,
+          "workflow_dispatch": 4,
           "other": 0
         }
       },
       "status": "OK"
     }
   },
-  "history_records": 66,
+  "history_records": 67,
   "history_source": "jsonl"
 }

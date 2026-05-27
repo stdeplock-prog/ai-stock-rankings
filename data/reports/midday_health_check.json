@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-05-26T22:30:43Z",
-  "generated_at_chicago": "2026-05-26 05:30 PM CDT",
-  "overall": "FAIL",
+  "generated_at": "2026-05-27T17:16:02Z",
+  "generated_at_chicago": "2026-05-27 12:16 PM CDT",
+  "overall": "WARN",
   "sections": {
     "data_freshness": {
       "checks": [
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-26 05:30 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-05-27 12:15 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,12 +17,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-26 05:30 PM CDT",
-        "open_date": "2026-05-26",
+        "as_of": "2026-05-27 12:15 PM CDT",
+        "open_date": "2026-05-27",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-05-26 17:30",
-        "rankings_age_hours": 0.01,
+        "chicago_now": "2026-05-27 12:16",
+        "rankings_age_hours": 0.02,
         "today_live": true
       },
       "status": "OK"
@@ -37,7 +37,7 @@
       ],
       "metrics": {
         "overall": "OK",
-        "generated_at": "2026-05-26T22:30:42Z",
+        "generated_at": "2026-05-27T17:16:00Z",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
@@ -51,25 +51,23 @@
       "checks": [
         {
           "name": "schedule_reliability",
-          "status": "FAIL",
-          "message": "schedule reliability FAIL: today_missing=['midday'], history_missing=3"
+          "status": "WARN",
+          "message": "schedule reliability WARN"
         }
       ],
       "metrics": {
-        "overall_raw": "FAIL",
-        "missing_count": 3,
+        "overall_raw": "WARN",
+        "missing_count": 1,
         "lookback_days": 5,
-        "today_missing": [
-          "midday"
-        ],
-        "today_satisfied": false,
+        "today_missing": [],
+        "today_satisfied": true,
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-05-26 17:30",
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-05-27 12:16",
         "recovered": false,
-        "overall_effective": "FAIL"
+        "overall_effective": "WARN"
       },
-      "status": "FAIL"
+      "status": "WARN"
     },
     "watchlist": {
       "checks": [
@@ -113,11 +111,11 @@
         {
           "name": "benchmark_snapshots",
           "status": "OK",
-          "message": "19 snapshot(s); \u22651 horizon has forward results"
+          "message": "20 snapshot(s); \u22651 horizon has forward results"
         }
       ],
       "metrics": {
-        "snapshots_kept": 19,
+        "snapshots_kept": 20,
         "horizons": [
           "1d",
           "3d",
@@ -136,15 +134,14 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=FAIL; blocker fields=['technical', 'sentiment']"
+          "message": "parity overall=FAIL; blocker fields=['technical']"
         }
       ],
       "metrics": {
         "overall": "FAIL",
         "cross_group_parity_status": "FAIL",
         "fail_fields": [
-          "technical",
-          "sentiment"
+          "technical"
         ],
         "known_bias_fields": [
           "low_risk"
@@ -163,8 +160,8 @@
     "parity_present": true
   },
   "action_items": [
-    "[FAIL] schedule_reliability.schedule_reliability: schedule reliability FAIL: today_missing=['midday'], history_missing=3",
-    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['technical', 'sentiment']"
+    "[WARN] schedule_reliability.schedule_reliability: schedule reliability WARN",
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['technical']"
   ],
-  "summary": "Fresh 05:30 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL \u00b7 Benchmark active"
+  "summary": "Fresh 12:15 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule WARN \u00b7 Benchmark active"
 }
