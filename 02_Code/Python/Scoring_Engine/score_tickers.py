@@ -1,10 +1,16 @@
-# score_tickers.py  v4.0.1
+# score_tickers.py  v4.1
 # Scores all tickers using TECHNICAL + FUNDAMENTAL data
 # Changes v3.1:
 #  - Revised weights: 30% Technical, 45% Fundamental, 10% Sentiment, 15% Risk#   - Earnings momentum replaces raw earningsGrowth in fundamental
 #   - Short interest flag added (flag only, not scored)
 #   - Insider buying flag added (flag only, not scored)
 #   - Growth quality multiplier: penalises low/negative revenue growth
+# Changes v4.1:
+#   - Sentiment now blends RSI (>=50% weight) with analyst rating + price-target
+#     upside from data/processed/catalysts.csv when available. Missing external
+#     signals shift weight back to RSI (no penalty for missing data), so output
+#     is identical to the legacy RSI-only formula when catalysts.csv is absent.
+#   - rsi_sentiment + sentiment_source persisted as audit fields.
 # Output: data/processed/scoring_outputs/rankings.csv
 import pandas as pd
 import numpy as np
@@ -13,16 +19,31 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from industry_sector_map import resolve_sector
+from sentiment_components import (
+    rsi_sentiment as _rsi_sent,
+    analyst_sentiment as _analyst_sent,
+    upside_sentiment as _upside_sent,
+    news_sentiment as _news_sent,
+    blended_sentiment as _blend_sent,
+)
 
 REPO_ROOT       = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 INDICATORS_DIR  = os.path.join(REPO_ROOT, "data", "processed", "technical_indicators")
 FUNDAMENTALS    = os.path.join(REPO_ROOT, "data", "processed", "fundamentals.csv")
+CATALYSTS_FILE  = os.path.join(REPO_ROOT, "data", "processed", "catalysts.csv")
 UNIVERSE_FILE   = os.path.join(REPO_ROOT, "data", "reference", "master_universe.csv")
 OUTPUT_DIR      = os.path.join(REPO_ROOT, "data", "processed", "scoring_outputs")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 universe = pd.read_csv(UNIVERSE_FILE)
 fund_df  = pd.read_csv(FUNDAMENTALS)
+# catalysts.csv is produced by fetch_catalysts.py. In the workflow it runs
+# *after* score_tickers, so on the very first run of a clean tree the file
+# may be absent — the sentiment helpers fall back to RSI-only in that case.
+if os.path.exists(CATALYSTS_FILE):
+    catalysts_df = pd.read_csv(CATALYSTS_FILE).set_index("Ticker", drop=False)
+else:
+    catalysts_df = pd.DataFrame(columns=["Ticker"]).set_index("Ticker", drop=False)
 print(f"Scoring {len(universe)} tickers...\n")
 
 results = []
@@ -139,7 +160,29 @@ for _, row in universe.iterrows():
                 insider_flag = False
 
         # SENTIMENT
-        sentiment = min(10, max(0, (rsi - 30) / 4))
+        # Legacy RSI-only sentiment kept as audit field. Final Sentiment is a
+        # blend of RSI (>=50% weight) with analyst rating + price-target
+        # upside drawn from catalysts.csv. Missing external signals shift
+        # weight back to RSI rather than penalising the ticker, so the
+        # output collapses to the legacy formula when catalysts data is
+        # absent or sparse for a given ticker.
+        rsi_sent_val = _rsi_sent(rsi)
+        cat_rating  = None
+        cat_upside  = None
+        cat_news    = None
+        cat_nanalys = None
+        if ticker in catalysts_df.index:
+            cat_row     = catalysts_df.loc[ticker]
+            cat_rating  = cat_row.get("analyst_rating_mean")
+            cat_upside  = cat_row.get("price_target_upside_pct")
+            cat_news    = cat_row.get("news_sent_score_30d")
+            cat_nanalys = cat_row.get("num_analysts")
+        analyst_sent_val = _analyst_sent(cat_rating, cat_nanalys)
+        upside_sent_val  = _upside_sent(cat_upside,  cat_nanalys)
+        news_sent_val    = _news_sent(cat_news)
+        sentiment, sentiment_source = _blend_sent(
+            rsi_sent_val, analyst_sent_val, upside_sent_val, news_sent_val
+        )
 
         # RISK
         beta_val = fund_row.iloc[0].get("beta") if not fund_row.empty else 1.0
@@ -200,6 +243,11 @@ for _, row in universe.iterrows():
             "Technical":      round(technical  / 10, 2),
             "Fundamental":    round(fundamental / 10, 2),
             "Sentiment":      round(sentiment, 2),
+            "RSI_Sentiment":  round(rsi_sent_val, 2),
+            "Analyst_Sentiment": round(analyst_sent_val, 2) if analyst_sent_val is not None else None,
+            "Upside_Sentiment":  round(upside_sent_val, 2) if upside_sent_val is not None else None,
+            "News_Sentiment":    round(news_sent_val, 2) if news_sent_val is not None else None,
+            "Sentiment_Source":  sentiment_source,
             "Risk":           round(risk, 2),
             "RSI":            round(rsi, 2),
             "MACD_Hist":      round(macd_hist, 4),
