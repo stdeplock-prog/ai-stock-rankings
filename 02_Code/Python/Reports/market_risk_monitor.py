@@ -4,18 +4,22 @@ data/reports/market_risk_monitor.json.
 Indicators:
   - VIX (yfinance ^VIX)
   - "When the Generals Fail" — count of leading 7 S&P 500 stocks below 200DMA
-  - POLLS / ADR / NDR / Put-Call Ratio: Source needed (no committed feed)
+  - Put/Call Ratio: Cboe daily market statistics (market-wide, risk context only)
+  - POLLS / ADR / NDR: Source needed (no committed feed)
 
 Pass/warn coloring:
   - VIX >= 20 = warn (elevated)
   - Generals Fail >= 3 below 200DMA = warn
   - POLLS >= 18 = warn
+  - Equity P/C extremes: conservative WARN at <= 0.40 (speculative complacency)
+    or >= 1.20 (fear/hedging). Anything in between = OK / risk context only.
 """
 
 from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from datetime import datetime, timedelta, timezone
 from html import escape
@@ -87,6 +91,117 @@ def _build_vix():
     }
 
 
+CBOE_DAILY_STATS_URL = "https://www.cboe.com/us/options/market_statistics/daily/"
+
+# Series we surface from the Cboe daily stats page. Keys are the JSON field
+# names; values are the human-readable label on the Cboe page (matched
+# case-insensitively).
+_CBOE_SERIES = [
+    ("total", "TOTAL PUT/CALL RATIO"),
+    ("equity", "EQUITY PUT/CALL RATIO"),
+    ("index", "INDEX PUT/CALL RATIO"),
+    ("etp", "EXCHANGE TRADED PRODUCTS PUT/CALL RATIO"),
+    ("vix", "CBOE VOLATILITY INDEX (VIX) PUT/CALL RATIO"),
+    ("spx", "SPX + SPXW PUT/CALL RATIO"),
+]
+
+
+def _parse_cboe_html(html: str) -> dict:
+    """Extract put/call ratios from Cboe daily stats HTML.
+
+    The page renders each ratio as adjacent table cells:
+        <td ...>TOTAL PUT/CALL RATIO</td><td ...>0.83</td>
+    We match label -> next numeric value robustly via regex.
+    """
+    ratios: dict[str, float] = {}
+    for key, label in _CBOE_SERIES:
+        # Match the label text, then the first numeric value appearing in a
+        # following <td> within ~400 chars. Tolerant of attribute changes.
+        pat = re.compile(
+            re.escape(label) + r"\s*</td>\s*<td[^>]*>\s*([0-9]+\.[0-9]+)\s*</td>",
+            re.IGNORECASE,
+        )
+        m = pat.search(html)
+        if m:
+            try:
+                ratios[key] = float(m.group(1))
+            except ValueError:
+                pass
+    return ratios
+
+
+def _fetch_cboe_html(timeout: float = 10.0) -> str | None:
+    """Fetch the Cboe daily stats page. Returns HTML text or None on error."""
+    try:
+        import urllib.request
+        req = urllib.request.Request(
+            CBOE_DAILY_STATS_URL,
+            headers={"User-Agent": "Mozilla/5.0 (compatible; ai-stock-rankings/1.0)"},
+        )
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return resp.read().decode("utf-8", errors="replace")
+    except Exception:
+        return None
+
+
+def _classify_equity_pc(value: float) -> tuple[str, bool, str]:
+    """Conservative interpretation of equity P/C ratio.
+
+    Returns (status_label, alert_bool, kind) where kind is 'pass'|'warn'.
+    Thresholds intentionally wide to avoid overfitting on a single day.
+    """
+    if value <= 0.40:
+        return ("Low — speculative", True, "warn")
+    if value >= 1.20:
+        return ("High — defensive", True, "warn")
+    return ("Neutral range", False, "pass")
+
+
+def _build_put_call(html: str | None = None) -> dict:
+    """Build the put/call indicator payload from Cboe daily stats.
+
+    Accepts an optional pre-fetched HTML string to make testing trivial.
+    """
+    fetched_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    if html is None:
+        html = _fetch_cboe_html()
+    if not html:
+        return {
+            "value": None,
+            "status": "source_needed",
+            "note": "Cboe daily stats fetch failed. Market-wide put/call unavailable.",
+            "source": CBOE_DAILY_STATS_URL,
+            "fetched_at": fetched_at,
+        }
+    ratios = _parse_cboe_html(html)
+    if not ratios:
+        return {
+            "value": None,
+            "status": "source_needed",
+            "note": "Cboe daily stats parse failed. Page format may have changed.",
+            "source": CBOE_DAILY_STATS_URL,
+            "fetched_at": fetched_at,
+        }
+    equity = ratios.get("equity")
+    if equity is not None:
+        label, alert, _kind = _classify_equity_pc(equity)
+    else:
+        label, alert = "Equity ratio missing", False
+    return {
+        "ratios": ratios,
+        "value": equity,  # headline value = equity P/C
+        "status": "warn" if alert else "ok",
+        "alert": alert,
+        "label": label,
+        "note": (
+            "Market-wide context only (not per-ticker). Equity P/C extremes: "
+            "<= 0.40 speculative complacency; >= 1.20 fear/hedging."
+        ),
+        "source": CBOE_DAILY_STATS_URL,
+        "fetched_at": fetched_at,
+    }
+
+
 def _placeholder(label: str, threshold: str | None = None):
     return {
         "value": None,
@@ -105,7 +220,7 @@ def build_report():
             "adr": _placeholder("ADR Indicator"),
             "vix": _build_vix(),
             "ndr": _placeholder("NDR Indicator"),
-            "put_call_ratio": _placeholder("Put/Call Ratio"),
+            "put_call_ratio": _build_put_call(),
             "generals_fail": _build_generals_fail(),
         },
     }
@@ -195,14 +310,60 @@ def render_html(payload: dict) -> str:
         ndr.get("note", ""),
     )
 
-    # Put/Call Ratio
+    # Put/Call Ratio — Cboe daily market statistics
     pcr = ind["put_call_ratio"]
-    pcr_row = _signal_row(
-        "Put/Call Ratio",
-        '<span style="color:#9ca3af">—</span>',
-        _pill("Source needed", "info"),
-        pcr.get("note", ""),
-    )
+    if pcr.get("status") == "source_needed":
+        pcr_row = _signal_row(
+            "Put/Call Ratio (Cboe)",
+            '<span style="color:#9ca3af">—</span>',
+            _pill("Source needed", "info"),
+            pcr.get("note", ""),
+        )
+        pcr_table_html = ""
+    else:
+        ratios = pcr.get("ratios", {})
+        equity = pcr.get("value")
+        if equity is None:
+            head_html = '<span style="color:#9ca3af">—</span>'
+            head_pill = _pill("No equity value", "info")
+        else:
+            head_html = f'{equity:.2f}'
+            kind = "warn" if pcr.get("alert") else "pass"
+            head_pill = _pill(pcr.get("label", ""), kind)
+        pcr_row = _signal_row(
+            "Equity Put/Call (Cboe)",
+            head_html,
+            head_pill,
+            pcr.get("note", ""),
+        )
+        # Detail table of all ratios we extracted.
+        labels = {
+            "total": "Total",
+            "equity": "Equity",
+            "index": "Index",
+            "etp": "ETP",
+            "vix": "VIX",
+            "spx": "SPX + SPXW",
+        }
+        rows = []
+        for key in ("total", "equity", "index", "etp", "vix", "spx"):
+            if key in ratios:
+                rows.append(
+                    f"<tr><td>{escape(labels[key])}</td>"
+                    f"<td>{ratios[key]:.2f}</td></tr>"
+                )
+        src = escape(pcr.get("source", ""))
+        fetched_at = escape(pcr.get("fetched_at", ""))
+        pcr_table_html = f"""
+    <section>
+      <h2>Put/Call Ratios — Cboe Daily</h2>
+      <table>
+        <thead><tr><th>Series</th><th>Ratio</th></tr></thead>
+        <tbody>{''.join(rows)}</tbody>
+      </table>
+      <div class="note">Market-wide risk context only — not used in per-ticker scoring. Source: <a href="{src}">Cboe daily market statistics</a>. Fetched {fetched_at}.</div>
+    </section>
+    """
 
     # Generals Fail
     gf = ind["generals_fail"]
@@ -273,7 +434,7 @@ def render_html(payload: dict) -> str:
       {ndr_row}
       {pcr_row}
     </section>
-
+    {pcr_table_html}
     <section>
       <h2>When the Generals Fail — Leading 7 vs 200DMA</h2>
       <div class="signal-row">
@@ -330,6 +491,14 @@ def _summary_from_payload(payload: dict) -> tuple[str, str]:
         parts.append(f"VIX {vix['value']:.2f} {label}")
     else:
         parts.append("VIX unavailable")
+
+    pcr = ind["put_call_ratio"]
+    if pcr.get("status") != "source_needed" and pcr.get("value") is not None:
+        if pcr.get("alert"):
+            alert = True
+        parts.append(
+            f"Equity P/C {pcr['value']:.2f} ({pcr.get('label', '').lower()})"
+        )
 
     sn = [name for name, key in [
         ("POLLS", "polls"),
