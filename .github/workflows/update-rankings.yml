@@ -485,6 +485,17 @@ jobs:
         run: python 02_Code/Python/Reports/close_recap.py
         continue-on-error: true
 
+      # Rank vs Close Tracker — appends a daily snapshot of (rank, close,
+      # close-change) per ticker and renders a wide table across the most
+      # recent ~30 trading-day snapshots. Diagnostic only — never mutates
+      # scoring. Read-only with respect to rankings.json. Runs on every
+      # proceeded slot; re-runs within the same trading day overwrite that
+      # day's snapshot rather than duplicating it.
+      - name: Generate rank-vs-close tracker
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/rank_close_tracker.py
+        continue-on-error: true
+
       # Weekly Rebalance Check — decision-support rollup that consumes
       # benchmark snapshots (for entrant/exit detection across the last
       # ~5-7 trading days), benchmark_review, ranking_diagnostics, and
@@ -586,6 +597,8 @@ jobs:
           git add data/reports/market_open_scan.json 2>/dev/null || true
           git add data/reports/midday_health_check.json 2>/dev/null || true
           git add data/reports/close_recap.json 2>/dev/null || true
+          git add data/reports/rank_close_tracker.json 2>/dev/null || true
+          git add data/reports/rank_close_snapshots.jsonl 2>/dev/null || true
           git add data/reports/weekly_rebalance_check.json 2>/dev/null || true
           git add data/reports/pine_go_no_go_diagnostic.json 2>/dev/null || true
           git add data/reports/cooloff_cohort_tracking.json 2>/dev/null || true
@@ -611,6 +624,7 @@ jobs:
           git add reports/market-open-scan.html 2>/dev/null || true
           git add reports/midday-health-check.html 2>/dev/null || true
           git add reports/close-recap.html 2>/dev/null || true
+          git add reports/rank-close-tracker.html 2>/dev/null || true
           git add reports/weekly-rebalance-check.html 2>/dev/null || true
           git add reports/pine-go-no-go-diagnostic.html 2>/dev/null || true
           git add reports/cooloff-cohort-tracking.html 2>/dev/null || true
