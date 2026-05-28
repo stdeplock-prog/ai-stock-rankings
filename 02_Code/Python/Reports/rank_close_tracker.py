@@ -64,9 +64,7 @@ TASKS_FILE = DATA_DIR / "tasks.json"
 REPORT_URL = "./reports/rank-close-tracker.html"
 
 # Retention: keep this many of the most recent trading-day snapshots.
-# 30 is enough for a month of close-state history without bloating the
-# repo, and matches the rolling window the benchmark snapshots use.
-MAX_SNAPSHOTS = 30
+MAX_SNAPSHOTS = 10
 
 
 # ----------------- helpers -----------------
