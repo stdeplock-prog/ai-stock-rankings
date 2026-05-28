@@ -437,6 +437,7 @@
       </div>
       <div class="controls">
         <a class="ticker-link" href="./watchlist.html" style="padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);text-decoration:none;font-size:13px">Watchlist →</a>
+        <a class="ticker-link" href="./diagnostics.html" title="Model validation, signal, and scoring-review reports" style="padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);text-decoration:none;font-size:13px">Diagnostics →</a>
         <select id="universe" title="Preset sort. Click any column header to override.">
           <option value="top-ai-score">Top AI Score</option>
           <option value="top-most-traded">Most Traded</option>
@@ -473,13 +474,15 @@
 
     <div style="margin-top:8px">
       <div class="label">Scheduled Tasks</div>
-      <div class="reports-groups" aria-label="Diagnostic reports">
+      <div class="reports-groups" aria-label="Operational reports">
         <div class="reports-group">
           <span class="group-label">Operations</span>
           <a href="./reports/market-open-scan.html" id="marketOpenScanLink">Market open</a>
           <a href="./reports/midday-health-check.html" id="middayHealthCheckLink">Midday health</a>
           <a href="./reports/close-recap.html" id="closeRecapLink">Close recap</a>
           <a href="./reports/weekly-rebalance-check.html" id="weeklyRebalanceLink">Weekly rebalance</a>
+          <a href="./reports/market-risk-monitor.html" id="marketRiskMonitorLink">Market risk</a>
+          <a href="./reports/options-watchlist.html" id="optionsWatchlistLink">Options watchlist</a>
         </div>
         <div class="reports-group">
           <span class="group-label">Data quality</span>
@@ -487,27 +490,8 @@
           <a href="./reports/schedule-reliability.html" id="scheduleReliabilityLink">Schedule</a>
         </div>
         <div class="reports-group">
-          <span class="group-label">Model validation</span>
-          <a href="./reports/benchmark-review.html" id="benchReviewLink">Benchmark</a>
-          <a href="./reports/scoring-parity-review.html" id="scoringParityLink">Scoring parity</a>
-          <a href="./reports/low-risk-drift-review.html" id="lowRiskDriftLink">Low-risk drift</a>
-          <a href="./reports/ranking-diagnostics.html" id="rankingDiagnosticsLink">Diagnostics</a>
-        </div>
-        <div class="reports-group">
-          <span class="group-label">Signals</span>
-          <a href="./reports/pine-go-no-go-diagnostic.html" id="pineGoNoGoLink">Pine go/no-go</a>
-          <a href="./reports/cooloff-cohort-tracking.html" id="cooloffCohortLink">Cool-off cohorts</a>
-          <a href="./reports/accumulation-signal-meter.html" id="accumulationSignalMeterLink">Accumulation meter</a>
-        </div>
-        <div class="reports-group">
-          <span class="group-label">External</span>
-          <a href="./reports/external-benchmark-review.html" id="externalBenchReviewLink">External benchmark</a>
-          <a href="./reports/disagreement-queue-review.html" id="disagreementQueueReviewLink">Disagreement review</a>
-        </div>
-        <div class="reports-group">
-          <span class="group-label">Planning</span>
-          <a href="./reports/activity-adjusted-review.html" id="activityAdjustedReviewLink">Activity-adjusted</a>
-          <a href="./reports/project-closeout-roadmap.html" id="projectCloseoutRoadmapLink">Closeout roadmap</a>
+          <span class="group-label">More</span>
+          <a href="./diagnostics.html" id="diagnosticsPageLink" title="Model validation, signals, external benchmarks, and planning reports">Diagnostics &amp; scoring reviews →</a>
         </div>
       </div>
     </div>
@@ -972,16 +956,24 @@
       return decorateReportLink('./data/reports/data_quality_audit.json', 'dqaLink', 'Data quality');
     }
 
-    async function decorateScoringParityLink() {
-      return decorateReportLink('./data/reports/scoring_parity_review.json', 'scoringParityLink', 'Scoring parity');
-    }
-
     async function decorateScheduleReliabilityLink() {
       return decorateReportLink('./data/reports/schedule_reliability.json', 'scheduleReliabilityLink', 'Schedule');
     }
 
-    async function decorateExternalBenchReviewLink() {
-      return decorateReportLink('./data/reports/external_benchmark_review.json', 'externalBenchReviewLink', 'External benchmark');
+    async function decorateMarketOpenScanLink() {
+      return decorateReportLink('./data/reports/market_open_scan.json', 'marketOpenScanLink', 'Market open');
+    }
+
+    async function decorateMiddayHealthCheckLink() {
+      return decorateReportLink('./data/reports/midday_health_check.json', 'middayHealthCheckLink', 'Midday health');
+    }
+
+    async function decorateCloseRecapLink() {
+      return decorateReportLink('./data/reports/close_recap.json', 'closeRecapLink', 'Close recap');
+    }
+
+    async function decorateWeeklyRebalanceLink() {
+      return decorateReportLink('./data/reports/weekly_rebalance_check.json', 'weeklyRebalanceLink', 'Weekly rebalance');
     }
 
     function render(rows) {
@@ -1214,9 +1206,11 @@
         updateNextRun();
         await renderTasks();
         decorateAuditLink();
-        decorateScoringParityLink();
         decorateScheduleReliabilityLink();
-        decorateExternalBenchReviewLink();
+        decorateMarketOpenScanLink();
+        decorateMiddayHealthCheckLink();
+        decorateCloseRecapLink();
+        decorateWeeklyRebalanceLink();
         applySearch();
       } catch (e) {
         document.getElementById('errMsg').textContent = `Error loading dashboard: ${e.message}`;

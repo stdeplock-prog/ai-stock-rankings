@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diagnostics & Scoring Reviews — AI Stock Rankings</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111827;
+      --panel2: #172033;
+      --line: #243043;
+      --text: #e5eefc;
+      --muted: #93a4bd;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--panel2);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 16px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: var(--text);
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .nav-link:hover {
+      border-color: #3b4d6b;
+    }
+
+    main { padding: 16px; max-width: 1100px; margin: 0 auto; }
+
+    .label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .intro {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 12px 0 18px;
+    }
+
+    .diag-section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .diag-section h2 {
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #fcd34d;
+      margin: 0 0 4px;
+    }
+
+    .diag-section .section-blurb {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .diag-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 8px 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .diag-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 6px 0;
+      border-top: 1px solid rgba(36, 48, 67, .5);
+    }
+
+    .diag-list li:first-child,
+    .diag-list li:nth-child(2) {
+      border-top: none;
+    }
+
+    @media (max-width: 720px) {
+      .diag-list li:nth-child(2) { border-top: 1px solid rgba(36, 48, 67, .5); }
+    }
+
+    .diag-list a {
+      color: #60a5fa;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .diag-list a:hover {
+      text-decoration: underline;
+    }
+
+    .diag-list .desc {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .status-tag {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: .04em;
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      white-space: nowrap;
+      margin-left: 4px;
+      vertical-align: 1px;
+    }
+
+    .status-tag.s-ok { color: #6ee7b7; border-color: rgba(16,185,129,.45); background: rgba(16,185,129,.10); }
+    .status-tag.s-warn { color: #fcd34d; border-color: rgba(245,158,11,.45); background: rgba(245,158,11,.10); }
+    .status-tag.s-err { color: #fca5a5; border-color: rgba(239,68,68,.45);  background: rgba(239,68,68,.10); }
+
+    footer {
+      color: var(--muted);
+      font-size: 11px;
+      padding: 24px 16px;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      header { padding: 10px 12px; }
+      main { padding: 12px; }
+      .diag-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="row">
+      <div>
+        <div class="label">Scoring &amp; model reviews</div>
+        <div style="font-size:22px;font-weight:700">Diagnostics &amp; Scoring Reviews</div>
+        <div class="label" style="margin-top:4px;text-transform:none;letter-spacing:0;font-size:12px;color:var(--muted)">
+          Deep-dive reports for model validation, signal overlays, external benchmarks, and planning.
+        </div>
+      </div>
+      <div class="controls">
+        <a class="nav-link" href="./index.html">← Main Rankings</a>
+        <a class="nav-link" href="./watchlist.html">Watchlist →</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <p class="intro">
+      These reports inform how the production score is built and validated, but do not need to be reviewed daily.
+      For day-to-day operational status (market open scan, midday health, close recap, market risk, data quality)
+      see the <a href="./index.html" style="color:#60a5fa">main rankings page</a>.
+    </p>
+
+    <section class="diag-section" aria-labelledby="model-validation-heading">
+      <h2 id="model-validation-heading">Model validation</h2>
+      <div class="section-blurb">Reviews that compare scoring outputs against benchmarks, parity targets, and drift bounds.</div>
+      <ul class="diag-list">
+        <li>
+          <a href="./reports/benchmark-review.html" id="benchReviewLink">Benchmark Review</a>
+          <span class="desc">10-day benchmark performance vs main25 / wl25 baselines and concentration warnings.</span>
+        </li>
+        <li>
+          <a href="./reports/scoring-parity-review.html" id="scoringParityLink">Scoring Parity Review</a>
+          <span class="desc">Production scoring vs the parity reference across the universe.</span>
+        </li>
+        <li>
+          <a href="./reports/low-risk-drift-review.html" id="lowRiskDriftLink">Low-Risk Drift Review</a>
+          <span class="desc">Detects drift in the low-risk sub-score relative to historical distributions.</span>
+        </li>
+        <li>
+          <a href="./reports/ranking-diagnostics.html" id="rankingDiagnosticsLink">Ranking Diagnostics</a>
+          <span class="desc">Full per-ticker diagnostic dump of ranking components.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="diag-section" aria-labelledby="signals-heading">
+      <h2 id="signals-heading">Signals</h2>
+      <div class="section-blurb">Diagnostic signal overlays that feed bounded ACT / GO / ACC adjustments on top of base AI.</div>
+      <ul class="diag-list">
+        <li>
+          <a href="./reports/pine-go-no-go-diagnostic.html" id="pineGoNoGoLink">Pine Go/No-Go Diagnostic</a>
+          <span class="desc">Pine v6 gate stack — GO / WAIT / WEAK signal and contribution to the AI score.</span>
+        </li>
+        <li>
+          <a href="./reports/cooloff-cohort-tracking.html" id="cooloffCohortLink">Cool-off Cohort Tracking</a>
+          <span class="desc">Tracks cohorts coming out of WAIT cool-off and post-blocker recovery.</span>
+        </li>
+        <li>
+          <a href="./reports/accumulation-signal-meter.html" id="accumulationSignalMeterLink">Accumulation Signal Meter</a>
+          <span class="desc">Composite accumulation indicator (rel-vol + MFI + bar strength + RSI zone).</span>
+        </li>
+        <li>
+          <a href="./reports/activity-adjusted-review.html" id="activityAdjustedReviewLink">Activity-Adjusted Review</a>
+          <span class="desc">Activity overlay (ACT) — liquidity + rel-vol + Pine overlay applied to AI score.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="diag-section" aria-labelledby="external-heading">
+      <h2 id="external-heading">External benchmarks</h2>
+      <div class="section-blurb">Compares internal scoring against third-party signals to surface confirmation or disagreement.</div>
+      <ul class="diag-list">
+        <li>
+          <a href="./reports/external-benchmark-review.html" id="externalBenchReviewLink">External Benchmark Review</a>
+          <span class="desc">e-trade, Fidelity, MarketBeat, TradingView, Zacks vs internal ranking.</span>
+        </li>
+        <li>
+          <a href="./reports/disagreement-queue-review.html" id="disagreementQueueReviewLink">Disagreement Queue Review</a>
+          <span class="desc">Tickers where external sources disagree strongly with the internal model.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="diag-section" aria-labelledby="planning-heading">
+      <h2 id="planning-heading">Planning &amp; closeout</h2>
+      <div class="section-blurb">Roadmap and closeout tracking for the project.</div>
+      <ul class="diag-list">
+        <li>
+          <a href="./reports/project-closeout-roadmap.html" id="projectCloseoutRoadmapLink">Project Closeout Roadmap</a>
+          <span class="desc">Remaining work and exit criteria for the project.</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Diagnostic reports are regenerated by the same workflow that builds the main dashboard.
+  </footer>
+
+  <script>
+    function statusColor(overall) {
+      return overall === 'OK' ? '#3c8c3c'
+           : overall === 'WARN' ? '#b88a00'
+           : '#c0392b';
+    }
+
+    function statusTagClass(overall) {
+      return overall === 'OK' ? 's-ok'
+           : overall === 'WARN' ? 's-warn'
+           : 's-err';
+    }
+
+    async function decorateReportLink(jsonPath, linkId, label) {
+      try {
+        const r = await fetch(jsonPath, { cache: 'no-store' });
+        if (!r.ok) return;
+        const j = await r.json();
+        const a = document.getElementById(linkId);
+        if (!a || !j || !j.overall) return;
+        const overall = String(j.overall).toUpperCase();
+        a.style.color = statusColor(overall);
+        a.title = `${label}: ${overall}`;
+        const tag = document.createElement('span');
+        tag.className = 'status-tag ' + statusTagClass(overall);
+        tag.textContent = overall;
+        a.parentNode.insertBefore(tag, a.nextSibling);
+      } catch (_e) { /* ignore — file may not exist yet */ }
+    }
+
+    const REPORT_STATUS_SOURCES = [
+      ['./data/reports/benchmark_review.json',         'benchReviewLink',              'Benchmark Review'],
+      ['./data/reports/scoring_parity_review.json',    'scoringParityLink',            'Scoring Parity'],
+      ['./data/reports/low_risk_drift_review.json',    'lowRiskDriftLink',             'Low-Risk Drift'],
+      ['./data/reports/ranking_diagnostics.json',      'rankingDiagnosticsLink',       'Ranking Diagnostics'],
+      ['./data/reports/pine_go_no_go_diagnostic.json', 'pineGoNoGoLink',               'Pine Go/No-Go'],
+      ['./data/reports/cooloff_cohort_tracking.json',  'cooloffCohortLink',            'Cool-off Cohorts'],
+      ['./data/reports/accumulation_signal_meter.json','accumulationSignalMeterLink',  'Accumulation Meter'],
+      ['./data/reports/activity_adjusted_review.json', 'activityAdjustedReviewLink',   'Activity-Adjusted'],
+      ['./data/reports/external_benchmark_review.json','externalBenchReviewLink',      'External Benchmark'],
+      ['./data/reports/disagreement_queue_review.json','disagreementQueueReviewLink',  'Disagreement Queue'],
+      ['./data/reports/project_closeout_roadmap.json', 'projectCloseoutRoadmapLink',   'Closeout Roadmap']
+    ];
+
+    for (const [path, id, label] of REPORT_STATUS_SOURCES) {
+      decorateReportLink(path, id, label);
+    }
+  </script>
+</body>
+</html>
