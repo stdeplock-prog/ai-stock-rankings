@@ -161,6 +161,56 @@
     .status-tag.s-warn { color: #fcd34d; border-color: rgba(245,158,11,.45); background: rgba(245,158,11,.10); }
     .status-tag.s-err { color: #fca5a5; border-color: rgba(239,68,68,.45);  background: rgba(239,68,68,.10); }
 
+    .tasks-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      margin-bottom: 18px;
+    }
+
+    .tasks-wrap table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    .tasks-wrap th, .tasks-wrap td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 12px;
+      vertical-align: top;
+    }
+
+    .tasks-wrap th {
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-size: 11px;
+      background: var(--panel2);
+    }
+
+    .tasks-wrap td.name { font-weight: 600; color: var(--text); font-size: 13px; }
+    .tasks-wrap td.muted { color: var(--muted); }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .pill-ok   { color: #6ee7b7; border-color: rgba(16,185,129,.45); background: rgba(16,185,129,.10); }
+    .pill-warn { color: #fcd34d; border-color: rgba(245,158,11,.45); background: rgba(245,158,11,.10); }
+    .pill-err  { color: #fca5a5; border-color: rgba(239,68,68,.45);  background: rgba(239,68,68,.10); }
+    .pill-neutral { color: var(--muted); }
+
     footer {
       color: var(--muted);
       font-size: 11px;
@@ -199,6 +249,25 @@
       see the <a href="./index.html" style="color:#60a5fa">main rankings page</a>.
     </p>
 
+    <div class="label" style="margin-bottom:6px">Diagnostic Reviews — Last Run Status</div>
+    <div class="tasks-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:38px">#</th>
+            <th>Review</th>
+            <th>Schedule</th>
+            <th>Last Run</th>
+            <th>Status</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody id="diagTasksTbody">
+          <tr><td colspan="6" class="muted">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
     <section class="diag-section" aria-labelledby="model-validation-heading">
       <h2 id="model-validation-heading">Model validation</h2>
       <div class="section-blurb">Reviews that compare scoring outputs against benchmarks, parity targets, and drift bounds.</div>
@@ -221,7 +290,7 @@
         </li>
         <li>
           <a href="./reports/rank-close-tracker.html" id="rankCloseTrackerLink">Rank vs Close Tracker</a>
-          <span class="desc">Rolling daily snapshots of rank and close-change per ticker (dynamic universe, ~30-day window).</span>
+          <span class="desc">Rolling daily snapshots of rank and close-change per ticker (dynamic universe, 10-snapshot window).</span>
         </li>
       </ul>
     </section>
@@ -328,6 +397,77 @@
     for (const [path, id, label] of REPORT_STATUS_SOURCES) {
       decorateReportLink(path, id, label);
     }
+
+    function statusPillClass(status) {
+      const s = String(status || '').toLowerCase();
+      if (s.includes('not run') || s === 'pending' || s === 'planned' || s === 'n/a' || s === '—') return 'pill-neutral';
+      if (s.includes('ok') || s.includes('success')) return 'pill-ok';
+      if (s.includes('warn')) return 'pill-warn';
+      return 'pill-err';
+    }
+
+    function fmtVal(v) {
+      return (v === undefined || v === null || v === '') ? '—' : String(v);
+    }
+
+    function getField(obj, ...keys) {
+      for (const k of keys) {
+        if (obj && obj[k] != null && obj[k] !== '') return obj[k];
+      }
+      return undefined;
+    }
+
+    async function renderDiagnosticTasks() {
+      const tb = document.getElementById('diagTasksTbody');
+      if (!tb) return;
+      let payload;
+      try {
+        const r = await fetch('./data/tasks.json', { cache: 'no-store' });
+        if (!r.ok) throw new Error('tasks.json not available');
+        payload = await r.json();
+      } catch (_e) {
+        tb.innerHTML = '<tr><td colspan="6" class="muted">tasks.json not available.</td></tr>';
+        return;
+      }
+      const all = Array.isArray(payload) ? payload : (Array.isArray(payload && payload.tasks) ? payload.tasks : []);
+      const diag = all.filter(t => {
+        const c = String(getField(t, 'category', 'surface') || 'operational').toLowerCase();
+        return c === 'diagnostic';
+      });
+      if (!diag.length) {
+        tb.innerHTML = '<tr><td colspan="6" class="muted">No diagnostic reviews stamped yet.</td></tr>';
+        return;
+      }
+      tb.innerHTML = diag.map((t, i) => {
+        const name = fmtVal(getField(t, 'name', 'title', 'task'));
+        const schedule = fmtVal(getField(t, 'schedule', 'cron', 'frequency'));
+        const lastRun = fmtVal(getField(t, 'last_run', 'lastRun'));
+        const status = fmtVal(getField(t, 'status', 'state'));
+        const summary = fmtVal(getField(t, 'summary', 'result', 'message', 'detail'));
+        const link = getField(t, 'report_url', 'link', 'url', 'href', 'result_url');
+        const linkStr = link == null ? '' : String(link).trim();
+        const isSafeRelative = /^(?:\.{0,2}\/|reports\/|data\/)/i.test(linkStr) && !/^[a-z][a-z0-9+.-]*:/i.test(linkStr);
+        const isHttp = /^https?:\/\//i.test(linkStr);
+        let summaryCell = summary;
+        if (linkStr && (isHttp || isSafeRelative)) {
+          const safeHref = linkStr.replace(/"/g, '&quot;');
+          const target = isHttp ? ' target="_blank" rel="noopener noreferrer"' : '';
+          summaryCell = `${summary === '—' ? '' : summary + ' '}<a href="${safeHref}"${target} style="color:#60a5fa">View report →</a>`;
+        }
+        return `
+          <tr>
+            <td class="muted">${i + 1}</td>
+            <td class="name">${name}</td>
+            <td class="muted">${schedule}</td>
+            <td class="muted">${lastRun}</td>
+            <td><span class="pill ${statusPillClass(status)}">${status}</span></td>
+            <td class="muted">${summaryCell}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    renderDiagnosticTasks();
   </script>
 </body>
 </html>

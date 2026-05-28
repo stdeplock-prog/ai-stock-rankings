@@ -642,7 +642,7 @@
     </div>
 
     <div style="margin-top:8px">
-      <div class="label">Scheduled Tasks</div>
+      <div class="label">Operational Tasks</div>
       <div class="reports-groups" aria-label="Operational reports">
         <div class="reports-group">
           <span class="group-label">Operations</span>
@@ -1064,7 +1064,15 @@
     async function renderTasks() {
       const tb = document.getElementById('tasksTbody');
       const payload = await fetchFirstAvailable(DATA_CANDIDATES.tasks);
-      const tasks = Array.isArray(payload) ? payload : (Array.isArray(payload.tasks) ? payload.tasks : []);
+      const allTasks = Array.isArray(payload) ? payload : (Array.isArray(payload.tasks) ? payload.tasks : []);
+      // Main page shows operational tasks only. Diagnostic/scoring-review
+      // rows are surfaced on diagnostics.html instead. Rows without an
+      // explicit category default to operational so legacy entries keep
+      // rendering until they are categorized.
+      const tasks = allTasks.filter(t => {
+        const c = String(getVal(t, 'category', 'surface') || 'operational').toLowerCase();
+        return c === 'operational';
+      });
 
       tb.innerHTML = tasks.map((t, i) => {
         const name = getVal(t, 'name', 'title', 'task') || '—';
