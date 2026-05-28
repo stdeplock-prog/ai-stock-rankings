@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T18:17:28Z",
-  "generated_at_chicago": "2026-05-28 01:17 PM CDT",
+  "generated_at": "2026-05-28T22:42:37Z",
+  "generated_at_chicago": "2026-05-28 05:42 PM CDT",
   "overall": "WARN",
   "overall_raw": "WARN",
   "overall_effective": "WARN",
@@ -11,9 +11,9 @@
     "today_missing": [
       "morning"
     ],
-    "rankings_age_hours": 0.02,
+    "rankings_age_hours": 0.01,
     "rankings_fresh": true,
-    "last_run_event": "workflow_dispatch",
+    "last_run_event": "schedule",
     "missing_count": 2,
     "reason": "minor historical issues; current state OK"
   },
@@ -35,7 +35,7 @@
         {
           "name": "history_source",
           "status": "OK",
-          "message": "history loaded from workflow_runs.jsonl (71 records)",
+          "message": "history loaded from workflow_runs.jsonl (72 records)",
           "data": {}
         }
       ],
@@ -89,7 +89,7 @@
               "slot_hits": {
                 "morning": 0,
                 "midday": 1,
-                "close": 0
+                "close": 1
               },
               "missing": [
                 "morning"
@@ -109,33 +109,33 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-28 01:16 PM CDT (age 0.0h)",
+          "message": "as_of 2026-05-28 05:42 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "last_run_event",
           "status": "OK",
-          "message": "latest run: event=workflow_dispatch slot=manual at 2026-05-28 13:17",
+          "message": "latest run: event=schedule slot=close at 2026-05-28 17:42",
           "data": {}
         }
       ],
       "metrics": {
-        "chicago_now": "2026-05-28 13:17",
+        "chicago_now": "2026-05-28 17:42",
         "is_weekend": false,
-        "expected_slot_now": "midday",
-        "rankings_as_of": "2026-05-28 01:16 PM CDT",
-        "rankings_age_hours": 0.02,
+        "expected_slot_now": "close",
+        "rankings_as_of": "2026-05-28 05:42 PM CDT",
+        "rankings_age_hours": 0.01,
         "last_run": {
-          "ts_utc": "2026-05-28T18:17:28Z",
-          "ts_chicago": "2026-05-28 13:17",
+          "ts_utc": "2026-05-28T22:42:37Z",
+          "ts_chicago": "2026-05-28 17:42",
           "chicago_date": "2026-05-28",
-          "event_name": "workflow_dispatch",
-          "slot": "manual",
+          "event_name": "schedule",
+          "slot": "close",
           "proceeded": true,
-          "as_of": "2026-05-28 01:16 PM CDT",
+          "as_of": "2026-05-28 05:42 PM CDT",
           "open_date": "2026-05-28",
-          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/26592227528",
-          "commit_sha": "680b930341f87d41da7ac7b9c43616c3413cef15"
+          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/26605585955",
+          "commit_sha": "d6c322cd88044cc918da8f4890328878582bd256"
         }
       },
       "status": "OK"
@@ -145,12 +145,12 @@
         {
           "name": "skip_volume",
           "status": "OK",
-          "message": "0 skip records in 14d (29 proceeded)",
+          "message": "0 skip records in 14d (28 proceeded)",
           "data": {}
         }
       ],
       "metrics": {
-        "proceed_14d": 29,
+        "proceed_14d": 28,
         "skip_14d": 0,
         "skip_reasons_14d": {}
       },
@@ -161,13 +161,13 @@
         {
           "name": "event_mix",
           "status": "OK",
-          "message": "schedule=24 dispatch=5 other=0",
+          "message": "schedule=23 dispatch=5 other=0",
           "data": {}
         }
       ],
       "metrics": {
         "proceed_14d_by_event": {
-          "schedule": 24,
+          "schedule": 23,
           "workflow_dispatch": 5,
           "other": 0
         }
@@ -175,6 +175,6 @@
       "status": "OK"
     }
   },
-  "history_records": 71,
+  "history_records": 72,
   "history_source": "jsonl"
 }
