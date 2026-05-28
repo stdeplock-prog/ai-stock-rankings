@@ -1,11 +1,17 @@
-"""Activity-Adjusted Ranking Review (diagnostic).
+"""Activity-Adjusted Ranking Review.
 
 Tunes the existing `ai_score` with a transparent, sector-neutral
 activity overlay so we can see how the top of the board would shift if
 liquidity participation and momentum confirmation were rewarded and
-overextended names were nudged down. **This report does NOT mutate the
-live ranking.** It only re-reads published artifacts and emits a
-side-by-side comparison.
+overextended names were nudged down.
+
+This report is computed BEFORE the production scoring adjustment
+(``apply_production_scoring_adjustment.py``) runs. The downstream
+adjuster reads this report's ``rows`` / ``watchlist_rows`` and folds the
+activity multiplier (scaled by ACT_WEIGHT) into the production
+``ai_score``. The numbers in this report therefore reflect the overlay
+in isolation — useful for auditing the ACT component independently of
+the bundled GO/ACC adjustments applied to production rank.
 
 Why this exists
 ---------------
@@ -297,9 +303,11 @@ def render_html(payload):
         f"<h1>Activity-Adjusted Ranking Review</h1>"
         f"<p class=muted>Generated {escape(payload['generated_at'])} &middot; "
         f"verdict <b>{escape(payload['verdict'])}</b> &middot; {escape(payload['note'])}.</p>"
-        f"<p class=muted>Diagnostic only. Live <code>ai_score</code> unchanged. "
-        f"Overlay = liquidity (log dollar-vol) + rel-vol + Pine accumulation/cool-off, "
-        f"capped at &plusmn;{int((MAX_MULT-1)*100)}%.</p>"
+        f"<p class=muted>Component report. The published <code>ai_score</code> "
+        f"already folds this overlay in via the production scoring adjustment "
+        f"(scaled by ACT_WEIGHT). Numbers shown here are the ACT piece in "
+        f"isolation. Overlay = liquidity (log dollar-vol) + rel-vol + Pine "
+        f"accumulation/cool-off, capped at &plusmn;{int((MAX_MULT-1)*100)}%.</p>"
     )
     rows_html = []
     rows_html.append(

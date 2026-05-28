@@ -545,6 +545,21 @@ jobs:
         run: python 02_Code/Python/Reports/accumulation_signal_meter.py
         continue-on-error: true
 
+      # Production scoring adjustment — reads the ACT (activity_adjusted_review),
+      # GO (pine_go_no_go_diagnostic) and ACC (accumulation_signal_meter)
+      # diagnostics and applies a bounded multiplier (±15% cap) to each row's
+      # ai_score in data/rankings.json and data/watchlist_rankings.json. The
+      # pre-adjustment value is preserved as base_ai_score so the production
+      # score remains auditable. Also writes a before/after comparison artifact
+      # at data/reports/production_scoring_change_review.json.
+      #
+      # NOT marked continue-on-error: if this fails the published JSON would
+      # silently revert to base scoring, which would be confusing. Better to
+      # fail the run and have a human look.
+      - name: Apply production scoring adjustment
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Scoring_Engine/apply_production_scoring_adjustment.py
+
       - name: Commit and push updated data files
         if: steps.gate.outputs.proceed == 'true' && github.ref == 'refs/heads/main'
         run: |
@@ -579,6 +594,7 @@ jobs:
           git add data/reports/disagreement_queue_review.csv 2>/dev/null || true
           git add data/reports/activity_adjusted_review.json 2>/dev/null || true
           git add data/reports/accumulation_signal_meter.json 2>/dev/null || true
+          git add data/reports/production_scoring_change_review.json 2>/dev/null || true
           git add data/reports/project_closeout_roadmap.json 2>/dev/null || true
           git add data/reports/disagreement_review_state.json 2>/dev/null || true
           git add data/reports/workflow_runs.jsonl 2>/dev/null || true

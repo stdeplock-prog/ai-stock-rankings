@@ -537,7 +537,7 @@
           <tr class="group-row" aria-hidden="false">
             <th colspan="9" class="group-core" title="Identity, market, and price columns">Core</th>
             <th colspan="8" class="group-prod group-start-prod" title="Columns that feed the production AI rank and ranking model">Production scoring</th>
-            <th colspan="5" class="group-diag group-start-diag" title="Diagnostic overlays. These DO NOT affect the production rank — they are shown for analysis only.">Diagnostics <span class="group-hint">(non-scoring)</span></th>
+            <th colspan="5" class="group-diag group-start-diag" title="Inputs to the production score. ACT (activity overlay) / GO (Pine) / ACC (accumulation) feed a bounded ±15% adjustment on top of base AI. EXT remains diagnostic only.">Diagnostics <span class="group-hint">(scoring inputs · EXT diag-only)</span></th>
           </tr>
           <tr>
             <th style="width:40px" title="Watchlist toggle"></th>
@@ -549,7 +549,7 @@
             <th data-k="price">Price</th>
             <th>Spark</th>
             <th data-k="industry">Industry</th>
-            <th data-k="ai_score" class="group-start-prod" title="AI composite score (drives production rank)">AI</th>
+            <th data-k="ai_score" class="group-start-prod" title="Production AI score = base AI × bounded ACT/GO/ACC multiplier (capped ±15%). Drives production rank. Hover a row for base score.">AI</th>
             <th data-k="swing_score" title="Swing score / tier — production signal">SWING</th>
             <th data-k="change_vs_open" title="Intraday change vs open">vs Open</th>
             <th data-k="fundamental" title="Fundamental sub-score (production input)">Fund</th>
@@ -557,11 +557,11 @@
             <th data-k="sentiment" title="Sentiment sub-score (production input)">Sent</th>
             <th data-k="low_risk" title="Low-risk sub-score (production input)">Risk</th>
             <th data-k="volume_millions" title="Volume in millions">Vol (M)</th>
-            <th data-k="activity_rank" class="group-start-diag" title="Diagnostic: activity-adjusted rank (liquidity + rel-vol + Pine accumulation overlay applied to AI score). DOES NOT change production rank.">ACT</th>
-            <th class="col-act-delta" data-k="rank_delta" title="Diagnostic: Production Rank minus ACT Rank. Positive means activity overlay would promote this ticker (e.g. Rank 15 → ACT 2 = +13). DOES NOT change production rank.">ACT Δ</th>
-            <th title="Diagnostic: Pine v6 Go/No-Go gate stack (daily-bar proxy). GO = clean setup, no blockers, normalized score ≥ 0.7. WAIT = blocker present (overextension, cool-off, earnings, etc.). WEAK = low normalized score (&lt; 0.4). DOES NOT affect production rank.">GO</th>
-            <th title="Diagnostic: Accumulation Signal Meter (rel-vol + MFI + bar-strength + near-high + RSI zone + close-location). HIGH ≥ 7.0, LOW ≤ 3.0, MID otherwise. DOES NOT affect production rank.">ACC</th>
-            <th class="col-ext-badge" title="Diagnostic: External benchmark / disagreement queue overlay (e-trade, fidelity, marketbeat, tradingview, zacks). CONF = multi-source external confirmation. DISC = strong/severe disagreement vs internal. MIX = moderate/insufficient signal. DOES NOT affect production rank.">EXT</th>
+            <th data-k="activity_rank" class="group-start-diag" title="Activity-adjusted rank (liquidity + rel-vol + Pine accumulation overlay applied to AI score). Scaled by ACT_WEIGHT=0.6, this overlay now flows into the production AI score (bounded ±15% total).">ACT</th>
+            <th class="col-act-delta" data-k="rank_delta" title="Production Rank (pre-adjustment) minus ACT Rank. Positive = activity overlay promotes this ticker. Now contributes to the production AI score via a bounded multiplier.">ACT Δ</th>
+            <th title="Pine v6 Go/No-Go gate stack (daily-bar proxy). GO = clean setup, no blockers, normalized score ≥ 0.7 → +4% to AI. WAIT = blocker present or 0.4 ≤ norm &lt; 0.7 → −2%. WEAK = norm &lt; 0.4 → −4%. Capped within the overall ±15% bound.">GO</th>
+            <th title="Accumulation Signal Meter (rel-vol + MFI + bar-strength + near-high + RSI zone + close-location). HIGH ≥ 7.0 → +4% to AI. MID → 0. LOW ≤ 3.0 → −3%. Capped within the overall ±15% bound.">ACC</th>
+            <th class="col-ext-badge" title="Diagnostic: External benchmark / disagreement queue overlay (e-trade, fidelity, marketbeat, tradingview, zacks). CONF = multi-source external confirmation. DISC = strong/severe disagreement vs internal. MIX = moderate/insufficient signal. EXT is diagnostic only — DOES NOT affect production rank.">EXT</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -695,6 +695,8 @@
         marketcapdisplay: marketcapDisplay,
         marketcap_sort: parseMarketCap(marketcapDisplay),
         ai_score: Number(getVal(row, 'ai_score', 'aiscore')),
+        base_ai_score: getVal(row, 'base_ai_score', 'baseaiscore') != null ? Number(getVal(row, 'base_ai_score', 'baseaiscore')) : null,
+        adjustment_bump: getVal(row, 'adjustment_bump', 'adjustmentbump') != null ? Number(getVal(row, 'adjustment_bump', 'adjustmentbump')) : null,
         swing_score: getVal(row, 'swing_score', 'swingscore') != null ? Number(getVal(row, 'swing_score', 'swingscore')) : null,
         swing_tier: getVal(row, 'swing_tier', 'swingtier'),
         change: getVal(row, 'change', 'mov') != null ? Number(getVal(row, 'change', 'mov')) : 0,
@@ -807,6 +809,23 @@
     function aiPill(score) {
       const s = Number(score);
       return s >= 9 ? 'pill-high' : s >= 7 ? 'pill-med' : 'pill-low';
+    }
+
+    // Production AI pill with a tooltip exposing the pre-adjustment base
+    // score and the ACT/GO/ACC bump that produced the final value. Falls back
+    // to a plain pill when the row has no base_ai_score (legacy JSON).
+    function aiCell(r) {
+      const cls = aiPill(r.ai_score);
+      const text = fmt(r.ai_score);
+      const base = Number(r.base_ai_score);
+      const bump = Number(r.adjustment_bump);
+      if (!Number.isFinite(base) || !Number.isFinite(bump)) {
+        return `<span class="pill ${cls}">${text}</span>`;
+      }
+      const pct = (bump * 100).toFixed(1);
+      const sign = bump > 0 ? '+' : '';
+      const ttl = `Production AI ${text} = base ${base.toFixed(1)} × ${sign}${pct}% (ACT/GO/ACC adjustment, capped ±15%)`;
+      return `<span class="pill ${cls}" title="${ttl}">${text}</span>`;
     }
 
     function swingBadgeHTML(score, tier) {
@@ -983,7 +1002,7 @@
             <td class="num price-cell">${fmtPrice(r.price)}</td>
             <td class="spark-cell">${drawSparkline(r.closes)}</td>
             <td class="industry-cell">${r.industry}<br><span class="muted">${r.sector}</span></td>
-            <td class="group-start-prod"><span class="pill ${aiPill(r.ai_score)}">${fmt(r.ai_score)}</span></td>
+            <td class="group-start-prod">${aiCell(r)}</td>
             <td>${swingBadgeHTML(r.swing_score, r.swing_tier)}</td>
             <td class="num">${chg(r.change_vs_open)}</td>
             <td class="num">${scoreCell(r.fundamental)}</td>
