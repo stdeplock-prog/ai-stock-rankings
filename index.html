@@ -414,6 +414,140 @@
       .reports-groups { grid-template-columns: 1fr; }
     }
 
+    /* Market sentiment meter. Horizontal thermometer/slider rendered just
+       above the KPI cards. Five zones (Risk-off → Risk-on) coloured red /
+       orange / amber / lime / green. A small triangle marker points to the
+       computed sentiment position (0..1). Chips below the bar surface the
+       raw indicator values that fed the reading. UI-only / derived display —
+       does not feed any scoring formula. */
+    .sentiment-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin: 12px 0;
+    }
+    .sentiment-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .sentiment-title {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .sentiment-readout {
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .sentiment-readout.s-off { color: #fca5a5; }
+    .sentiment-readout.s-cau { color: #fdba74; }
+    .sentiment-readout.s-neu { color: #fcd34d; }
+    .sentiment-readout.s-con { color: #bef264; }
+    .sentiment-readout.s-on  { color: #6ee7b7; }
+    .sentiment-readout.s-na  { color: var(--muted); }
+    .sentiment-bar-wrap {
+      position: relative;
+      padding: 14px 0 22px;
+    }
+    .sentiment-bar {
+      position: relative;
+      height: 14px;
+      border-radius: 7px;
+      background: linear-gradient(
+        to right,
+        #b91c1c 0%, #b91c1c 20%,
+        #d97706 20%, #d97706 40%,
+        #ca8a04 40%, #ca8a04 60%,
+        #65a30d 60%, #65a30d 80%,
+        #15803d 80%, #15803d 100%
+      );
+      border: 1px solid var(--line);
+      overflow: visible;
+    }
+    .sentiment-zone-ticks {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .sentiment-zone-ticks span {
+      position: absolute;
+      top: -1px;
+      bottom: -1px;
+      width: 1px;
+      background: rgba(11, 18, 32, .55);
+    }
+    .sentiment-marker {
+      position: absolute;
+      top: -6px;
+      width: 0;
+      height: 0;
+      transform: translateX(-50%);
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 10px solid var(--text);
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,.6));
+      transition: left .35s ease;
+    }
+    .sentiment-marker::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: -2px;
+      width: 4px;
+      height: 16px;
+      background: var(--text);
+      border-radius: 2px;
+      box-shadow: 0 1px 1px rgba(0,0,0,.6);
+    }
+    .sentiment-labels {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      margin-top: 6px;
+      font-size: 10px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .sentiment-labels span {
+      text-align: center;
+      padding: 0 2px;
+    }
+    .sentiment-labels span.active { color: var(--text); font-weight: 700; }
+    .sentiment-chips {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .sent-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--panel2);
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .sent-chip b { color: var(--text); font-weight: 600; }
+    .sent-chip.chip-warn { border-color: rgba(245,158,11,.45); color: #fcd34d; }
+    .sent-chip.chip-bad  { border-color: rgba(239,68,68,.45);  color: #fca5a5; }
+    .sent-chip.chip-good { border-color: rgba(16,185,129,.45); color: #6ee7b7; }
+    .sentiment-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
     @media (max-width: 960px) {
       .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
@@ -423,6 +557,8 @@
       header { padding: 10px 12px; }
       main { padding: 12px; }
       th, td { padding: 8px 6px; }
+      .sentiment-labels { font-size: 9px; }
+      .sentiment-head { gap: 6px; }
     }
   </style>
 </head>
@@ -465,6 +601,39 @@
   </header>
 
   <main>
+    <!-- Market sentiment meter. Populated by loadMarketSentiment() from
+         data/reports/market_risk_monitor.json. Renders even if the data
+         is missing/malformed (shows "Insufficient data"). UI-only — does
+         not feed any scoring formula. -->
+    <div class="sentiment-card" id="sentimentCard" aria-label="Market sentiment meter">
+      <div class="sentiment-head">
+        <div>
+          <div class="sentiment-title">Market sentiment</div>
+          <div class="sentiment-readout s-na" id="sentimentReadout">Loading…</div>
+        </div>
+        <div class="sentiment-chips" id="sentimentChips"></div>
+      </div>
+      <div class="sentiment-bar-wrap">
+        <div class="sentiment-bar" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" id="sentimentBar">
+          <div class="sentiment-zone-ticks">
+            <span style="left:20%"></span>
+            <span style="left:40%"></span>
+            <span style="left:60%"></span>
+            <span style="left:80%"></span>
+          </div>
+          <div class="sentiment-marker" id="sentimentMarker" style="left:50%"></div>
+        </div>
+        <div class="sentiment-labels" id="sentimentLabels">
+          <span data-zone="off">Risk-off</span>
+          <span data-zone="cau">Cautious</span>
+          <span data-zone="neu">Neutral</span>
+          <span data-zone="con">Constructive</span>
+          <span data-zone="on">Risk-on</span>
+        </div>
+      </div>
+      <div class="sentiment-note" id="sentimentNote">Derived from Market Risk Monitor — see Market risk report for details.</div>
+    </div>
+
     <div class="kpis">
       <div class="card"><div class="label">Rows</div><div class="value" id="kpiRows">0</div></div>
       <div class="card"><div class="label">AI 9-10</div><div class="value" id="kpiTop">0</div></div>
@@ -561,7 +730,8 @@
       pineGoNoGo: ['./data/reports/pine_go_no_go_diagnostic.json'],
       accumMeter: ['./data/reports/accumulation_signal_meter.json'],
       extBenchmark: ['./data/reports/external_benchmark_review.json'],
-      disagreement: ['./data/reports/disagreement_queue.json']
+      disagreement: ['./data/reports/disagreement_queue.json'],
+      marketRisk: ['./data/reports/market_risk_monitor.json']
     };
 
     // ticker -> { activity_rank, rank_delta }. Diagnostic-only overlay; the
@@ -1179,11 +1349,175 @@
       await Promise.allSettled(tasks);
     }
 
+    // ---- Market sentiment meter --------------------------------------
+    //
+    // UI-only derived display. Reads data/reports/market_risk_monitor.json
+    // and folds the populated indicators into a single 0..1 sentiment
+    // reading, then paints a horizontal thermometer above the KPIs.
+    //
+    // Formula (transparent, additive, conservative):
+    //   * Start at 0.5 (neutral). Each populated component adjusts a delta
+    //     in [-0.5, +0.5]. Final reading = clamp(0.5 + weighted-mean(deltas), 0, 1).
+    //   * Equity put/call ratio (Cboe, weight 1.0):
+    //       <= 0.40 → -0.30 (labelled speculative / complacent, NOT bullish:
+    //                        extreme low P/C historically precedes pullbacks)
+    //       0.40..0.55 → linear from -0.10 to 0  (constructive but watch)
+    //       0.55..0.85 → 0           (neutral band)
+    //       0.85..1.20 → linear from 0  to -0.25 (defensive)
+    //       >= 1.20 → -0.40 (fear / heavy hedging)
+    //   * VIX (weight 0.8):
+    //       <= 13 → +0.30 (very calm)
+    //       13..18 → linear +0.30 → 0
+    //       18..22 → 0 (neutral / slightly cautious)
+    //       22..30 → linear 0 → -0.35
+    //       >= 30 → -0.45 (stressed)
+    //   * Generals fail (weight 0.7):
+    //       below_count / available_count → fraction of mega-caps under 200dma.
+    //       0% → +0.20, 25% → 0, ≥50% (alert) → -0.40, linear in between.
+    //
+    // If nothing is populated, reading is "Insufficient data" and the
+    // marker centers without colored interpretation.
+    function _sentEquityPCDelta(v) {
+      if (!Number.isFinite(v)) return null;
+      if (v <= 0.40) return -0.30;
+      if (v <= 0.55) return -0.10 + (v - 0.40) * (0.10 / 0.15);
+      if (v <= 0.85) return 0;
+      if (v <= 1.20) return -((v - 0.85) / 0.35) * 0.25;
+      return -0.40;
+    }
+    function _sentVixDelta(v) {
+      if (!Number.isFinite(v)) return null;
+      if (v <= 13) return 0.30;
+      if (v <= 18) return 0.30 - ((v - 13) / 5) * 0.30;
+      if (v <= 22) return 0;
+      if (v <= 30) return -((v - 22) / 8) * 0.35;
+      return -0.45;
+    }
+    function _sentGeneralsDelta(below, available) {
+      if (!Number.isFinite(below) || !Number.isFinite(available) || available <= 0) return null;
+      const frac = below / available;
+      if (frac <= 0) return 0.20;
+      if (frac <= 0.25) return 0.20 - (frac / 0.25) * 0.20;
+      if (frac <= 0.50) return -((frac - 0.25) / 0.25) * 0.40;
+      return -0.40;
+    }
+
+    function _sentZone(reading) {
+      // Map 0..1 reading to a zone index 0..4 (Risk-off → Risk-on).
+      if (!Number.isFinite(reading)) return null;
+      if (reading < 0.20) return 0;
+      if (reading < 0.40) return 1;
+      if (reading < 0.60) return 2;
+      if (reading < 0.80) return 3;
+      return 4;
+    }
+
+    const _SENT_ZONE_META = [
+      { key: 'off', label: 'Risk-off',     cls: 's-off' },
+      { key: 'cau', label: 'Cautious',     cls: 's-cau' },
+      { key: 'neu', label: 'Neutral',      cls: 's-neu' },
+      { key: 'con', label: 'Constructive', cls: 's-con' },
+      { key: 'on',  label: 'Risk-on',      cls: 's-on'  }
+    ];
+
+    function _renderSentiment(payload) {
+      const readoutEl = document.getElementById('sentimentReadout');
+      const markerEl  = document.getElementById('sentimentMarker');
+      const chipsEl   = document.getElementById('sentimentChips');
+      const labelsEl  = document.getElementById('sentimentLabels');
+      const barEl     = document.getElementById('sentimentBar');
+      if (!readoutEl || !markerEl || !chipsEl || !labelsEl || !barEl) return;
+
+      // Reset visual state.
+      chipsEl.innerHTML = '';
+      readoutEl.className = 'sentiment-readout s-na';
+      labelsEl.querySelectorAll('span').forEach(s => s.classList.remove('active'));
+
+      const ind = (payload && payload.indicators) || {};
+      const components = [];
+      const chips = [];
+
+      // Equity P/C — speculative interpretation.
+      const pcr = ind.put_call_ratio || {};
+      const equityPC = Number.isFinite(pcr.value) ? pcr.value
+        : (pcr.ratios && Number.isFinite(pcr.ratios.equity) ? pcr.ratios.equity : NaN);
+      const pcDelta = _sentEquityPCDelta(equityPC);
+      if (pcDelta != null) {
+        components.push({ delta: pcDelta, weight: 1.0 });
+        const cls = equityPC <= 0.40 ? 'chip-warn'
+                  : equityPC >= 1.20 ? 'chip-bad'
+                  : 'chip-good';
+        const lbl = (pcr.label && typeof pcr.label === 'string') ? ` · ${pcr.label}` : '';
+        chips.push(`<span class="sent-chip ${cls}" title="Cboe equity put/call ratio${lbl}">Equity P/C <b>${equityPC.toFixed(2)}</b></span>`);
+      }
+
+      // VIX.
+      const vix = ind.vix || {};
+      const vixVal = Number.isFinite(vix.value) ? vix.value : NaN;
+      const vixDelta = _sentVixDelta(vixVal);
+      if (vixDelta != null) {
+        components.push({ delta: vixDelta, weight: 0.8 });
+        const cls = vixVal >= 22 ? 'chip-bad' : (vixVal <= 13 ? 'chip-good' : '');
+        chips.push(`<span class="sent-chip ${cls}" title="CBOE Volatility Index (last close)">VIX <b>${vixVal.toFixed(2)}</b></span>`);
+      }
+
+      // Generals fail.
+      const gf = ind.generals_fail || {};
+      const below = Number.isFinite(gf.below_count) ? gf.below_count : NaN;
+      const available = Number.isFinite(gf.available_count) ? gf.available_count : NaN;
+      const gfDelta = _sentGeneralsDelta(below, available);
+      if (gfDelta != null) {
+        components.push({ delta: gfDelta, weight: 0.7 });
+        const cls = gf.alert ? 'chip-bad' : (below === 0 ? 'chip-good' : '');
+        chips.push(`<span class="sent-chip ${cls}" title="Mega-caps trading below their 200-day MA">Generals <b>${below}/${available}</b></span>`);
+      }
+
+      // No populated components → degrade gracefully.
+      if (!components.length) {
+        readoutEl.textContent = 'Insufficient data';
+        markerEl.style.left = '50%';
+        barEl.setAttribute('aria-valuenow', '50');
+        chipsEl.innerHTML = '<span class="sent-chip">No populated indicators</span>';
+        return;
+      }
+
+      // Weighted-mean of deltas; readings clamp into [0, 1].
+      let num = 0, den = 0;
+      for (const c of components) { num += c.delta * c.weight; den += c.weight; }
+      const meanDelta = den > 0 ? num / den : 0;
+      const reading = Math.max(0, Math.min(1, 0.5 + meanDelta));
+      const zoneIdx = _sentZone(reading);
+      const zone = _SENT_ZONE_META[zoneIdx] || _SENT_ZONE_META[2];
+
+      // Paint readout, marker, and zone label highlight.
+      const pct = (reading * 100).toFixed(1);
+      readoutEl.textContent = `Market sentiment: ${zone.label}`;
+      readoutEl.className = `sentiment-readout ${zone.cls}`;
+      markerEl.style.left = `${pct}%`;
+      barEl.setAttribute('aria-valuenow', pct);
+      barEl.setAttribute('aria-valuetext', zone.label);
+      const labelSpans = labelsEl.querySelectorAll('span');
+      if (labelSpans[zoneIdx]) labelSpans[zoneIdx].classList.add('active');
+
+      chipsEl.innerHTML = chips.join('');
+    }
+
+    async function loadMarketSentiment() {
+      // Best-effort. Renders "Insufficient data" if the JSON is missing or
+      // malformed; never throws into loadData().
+      try {
+        const payload = await fetchFirstAvailable(DATA_CANDIDATES.marketRisk);
+        _renderSentiment(payload || {});
+      } catch (_e) {
+        _renderSentiment({});
+      }
+    }
+
     async function loadData() {
       try {
         const data = await fetchFirstAvailable(DATA_CANDIDATES.rankings);
         const rowsRaw = Array.isArray(data.rows) ? data.rows : [];
-        await Promise.allSettled([loadActivityAdjusted(), loadDiagnosticBadges()]);
+        await Promise.allSettled([loadActivityAdjusted(), loadDiagnosticBadges(), loadMarketSentiment()]);
         state = { rows: rowsRaw.map(normalizeRow), meta: data };
         mergeActivityAdjusted(state.rows);
 
