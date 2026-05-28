@@ -1,0 +1,1073 @@
+{
+  "generated_at": "2026-05-28 03:26 UTC",
+  "verdict": "REVIEW",
+  "guardrail_flags": [
+    "top25_churn:22>18",
+    "extreme_moves:10>=50"
+  ],
+  "constants": {
+    "min_mult": 0.85,
+    "max_mult": 1.15,
+    "act_weight": 0.6,
+    "go_bump_go": 0.04,
+    "go_bump_wait": -0.02,
+    "go_bump_weak": -0.04,
+    "acc_bump_high": 0.04,
+    "acc_bump_mid": 0.0,
+    "acc_bump_low": -0.03,
+    "go_norm_clean": 0.7,
+    "go_norm_weak": 0.4,
+    "acc_high_threshold": 7.0,
+    "acc_low_threshold": 3.0,
+    "guardrail_top_n": 25,
+    "guardrail_max_movers": 18,
+    "guardrail_max_rank_delta": 50
+  },
+  "summary": {
+    "rows_processed": 100,
+    "top_n": 25,
+    "top_n_entrants": 8,
+    "top_n_drops": 8,
+    "top_n_overlap": 17,
+    "extreme_moves": 10
+  },
+  "top_before": [
+    {
+      "rank": 1,
+      "ticker": "ARW",
+      "company": "Arrow Electronics",
+      "sector": "Technology",
+      "ai_score": 8.7,
+      "base_ai_score": null
+    },
+    {
+      "rank": 2,
+      "ticker": "DELL",
+      "company": "Dell Technologies",
+      "sector": "Technology",
+      "ai_score": 8.5,
+      "base_ai_score": null
+    },
+    {
+      "rank": 3,
+      "ticker": "CPAY",
+      "company": "Corpay",
+      "sector": "Technology",
+      "ai_score": 8.4,
+      "base_ai_score": null
+    },
+    {
+      "rank": 4,
+      "ticker": "BNY",
+      "company": "BNY Mellon",
+      "sector": "Financial Services",
+      "ai_score": 8.4,
+      "base_ai_score": null
+    },
+    {
+      "rank": 5,
+      "ticker": "MS",
+      "company": "Morgan Stanley",
+      "sector": "Financial Services",
+      "ai_score": 8.4,
+      "base_ai_score": null
+    },
+    {
+      "rank": 6,
+      "ticker": "UAL",
+      "company": "United Airlines Holdings",
+      "sector": "Industrials",
+      "ai_score": 8.3,
+      "base_ai_score": null
+    },
+    {
+      "rank": 7,
+      "ticker": "FRT",
+      "company": "Federal Realty Investment Trust",
+      "sector": "Real Estate",
+      "ai_score": 8.3,
+      "base_ai_score": null
+    },
+    {
+      "rank": 8,
+      "ticker": "SCCO",
+      "company": "Southern Copper",
+      "sector": "Basic Materials",
+      "ai_score": 8.3,
+      "base_ai_score": null
+    },
+    {
+      "rank": 9,
+      "ticker": "ROST",
+      "company": "Ross Stores",
+      "sector": "Consumer Cyclical",
+      "ai_score": 8.2,
+      "base_ai_score": null
+    },
+    {
+      "rank": 10,
+      "ticker": "GS",
+      "company": "Goldman Sachs",
+      "sector": "Financial Services",
+      "ai_score": 8.2,
+      "base_ai_score": null
+    },
+    {
+      "rank": 11,
+      "ticker": "FR",
+      "company": "First Industrial Realty Trust",
+      "sector": "Real Estate",
+      "ai_score": 8.1,
+      "base_ai_score": null
+    },
+    {
+      "rank": 12,
+      "ticker": "HALO",
+      "company": "Halozyme",
+      "sector": "Healthcare",
+      "ai_score": 8.1,
+      "base_ai_score": null
+    },
+    {
+      "rank": 13,
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "sector": "Communication Services",
+      "ai_score": 8.1,
+      "base_ai_score": null
+    },
+    {
+      "rank": 14,
+      "ticker": "COLB",
+      "company": "Columbia Banking System",
+      "sector": "Financial Services",
+      "ai_score": 8.1,
+      "base_ai_score": null
+    },
+    {
+      "rank": 15,
+      "ticker": "PTC",
+      "company": "PTC Inc.",
+      "sector": "Technology",
+      "ai_score": 8.0,
+      "base_ai_score": null
+    },
+    {
+      "rank": 16,
+      "ticker": "EVR",
+      "company": "Evercore",
+      "sector": "Financial Services",
+      "ai_score": 8.0,
+      "base_ai_score": null
+    },
+    {
+      "rank": 17,
+      "ticker": "STLD",
+      "company": "Steel Dynamics",
+      "sector": "Basic Materials",
+      "ai_score": 8.0,
+      "base_ai_score": null
+    },
+    {
+      "rank": 18,
+      "ticker": "MSCI",
+      "company": "MSCI Inc.",
+      "sector": "Financial Services",
+      "ai_score": 8.0,
+      "base_ai_score": null
+    },
+    {
+      "rank": 19,
+      "ticker": "DAL",
+      "company": "Delta Air Lines",
+      "sector": "Industrials",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    },
+    {
+      "rank": 20,
+      "ticker": "SPG",
+      "company": "Simon Property Group",
+      "sector": "Real Estate",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    },
+    {
+      "rank": 21,
+      "ticker": "FSLR",
+      "company": "First Solar",
+      "sector": "Technology",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    },
+    {
+      "rank": 22,
+      "ticker": "AIZ",
+      "company": "Assurant",
+      "sector": "Financial Services",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    },
+    {
+      "rank": 23,
+      "ticker": "BRX",
+      "company": "Brixmor Property Group",
+      "sector": "Real Estate",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    },
+    {
+      "rank": 24,
+      "ticker": "AMG",
+      "company": "Affiliated Managers Group",
+      "sector": "Financial Services",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    },
+    {
+      "rank": 25,
+      "ticker": "HLT",
+      "company": "Hilton Worldwide",
+      "sector": "Consumer Cyclical",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    }
+  ],
+  "top_after": [
+    {
+      "rank": 1,
+      "ticker": "MS",
+      "company": "Morgan Stanley",
+      "sector": "Financial Services",
+      "ai_score": 9.46,
+      "base_ai_score": 8.4
+    },
+    {
+      "rank": 2,
+      "ticker": "ARW",
+      "company": "Arrow Electronics",
+      "sector": "Technology",
+      "ai_score": 9.37,
+      "base_ai_score": 8.7
+    },
+    {
+      "rank": 3,
+      "ticker": "GS",
+      "company": "Goldman Sachs",
+      "sector": "Financial Services",
+      "ai_score": 9.18,
+      "base_ai_score": 8.2
+    },
+    {
+      "rank": 4,
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "sector": "Communication Services",
+      "ai_score": 9.15,
+      "base_ai_score": 8.1
+    },
+    {
+      "rank": 5,
+      "ticker": "DELL",
+      "company": "Dell Technologies",
+      "sector": "Technology",
+      "ai_score": 9.09,
+      "base_ai_score": 8.5
+    },
+    {
+      "rank": 6,
+      "ticker": "CPAY",
+      "company": "Corpay",
+      "sector": "Technology",
+      "ai_score": 9.03,
+      "base_ai_score": 8.4
+    },
+    {
+      "rank": 7,
+      "ticker": "ROST",
+      "company": "Ross Stores",
+      "sector": "Consumer Cyclical",
+      "ai_score": 8.91,
+      "base_ai_score": 8.2
+    },
+    {
+      "rank": 8,
+      "ticker": "UAL",
+      "company": "United Airlines Holdings",
+      "sector": "Industrials",
+      "ai_score": 8.9,
+      "base_ai_score": 8.3
+    },
+    {
+      "rank": 9,
+      "ticker": "SMCI",
+      "company": "Supermicro",
+      "sector": "Technology",
+      "ai_score": 8.85,
+      "base_ai_score": 7.7
+    },
+    {
+      "rank": 10,
+      "ticker": "LLY",
+      "company": "Lilly (Eli)",
+      "sector": "Healthcare",
+      "ai_score": 8.83,
+      "base_ai_score": 7.9
+    },
+    {
+      "rank": 11,
+      "ticker": "FRT",
+      "company": "Federal Realty Investment Trust",
+      "sector": "Real Estate",
+      "ai_score": 8.81,
+      "base_ai_score": 8.3
+    },
+    {
+      "rank": 12,
+      "ticker": "SNX",
+      "company": "TD Synnex",
+      "sector": "Technology",
+      "ai_score": 8.75,
+      "base_ai_score": 7.8
+    },
+    {
+      "rank": 13,
+      "ticker": "BNY",
+      "company": "BNY Mellon",
+      "sector": "Financial Services",
+      "ai_score": 8.72,
+      "base_ai_score": 8.4
+    },
+    {
+      "rank": 14,
+      "ticker": "MSCI",
+      "company": "MSCI Inc.",
+      "sector": "Financial Services",
+      "ai_score": 8.7,
+      "base_ai_score": 8.0
+    },
+    {
+      "rank": 15,
+      "ticker": "FSLR",
+      "company": "First Solar",
+      "sector": "Technology",
+      "ai_score": 8.68,
+      "base_ai_score": 7.9
+    },
+    {
+      "rank": 16,
+      "ticker": "SCCO",
+      "company": "Southern Copper",
+      "sector": "Basic Materials",
+      "ai_score": 8.67,
+      "base_ai_score": 8.3
+    },
+    {
+      "rank": 17,
+      "ticker": "MU",
+      "company": "Micron Technology",
+      "sector": "Technology",
+      "ai_score": 8.62,
+      "base_ai_score": 7.5
+    },
+    {
+      "rank": 18,
+      "ticker": "FR",
+      "company": "First Industrial Realty Trust",
+      "sector": "Real Estate",
+      "ai_score": 8.57,
+      "base_ai_score": 8.1
+    },
+    {
+      "rank": 19,
+      "ticker": "DXCM",
+      "company": "Dexcom",
+      "sector": "Healthcare",
+      "ai_score": 8.55,
+      "base_ai_score": 7.7
+    },
+    {
+      "rank": 20,
+      "ticker": "SPG",
+      "company": "Simon Property Group",
+      "sector": "Real Estate",
+      "ai_score": 8.53,
+      "base_ai_score": 7.9
+    },
+    {
+      "rank": 21,
+      "ticker": "AAPL",
+      "company": "Apple Inc.",
+      "sector": "Technology",
+      "ai_score": 8.47,
+      "base_ai_score": 7.5
+    },
+    {
+      "rank": 22,
+      "ticker": "ARMK",
+      "company": "Aramark",
+      "sector": "Industrials",
+      "ai_score": 8.47,
+      "base_ai_score": 7.8
+    },
+    {
+      "rank": 23,
+      "ticker": "DAL",
+      "company": "Delta Air Lines",
+      "sector": "Industrials",
+      "ai_score": 8.45,
+      "base_ai_score": 7.9
+    },
+    {
+      "rank": 24,
+      "ticker": "HALO",
+      "company": "Halozyme",
+      "sector": "Healthcare",
+      "ai_score": 8.42,
+      "base_ai_score": 8.1
+    },
+    {
+      "rank": 25,
+      "ticker": "WBS",
+      "company": "Webster Bank",
+      "sector": "Financial Services",
+      "ai_score": 8.37,
+      "base_ai_score": 7.8
+    }
+  ],
+  "entrants_top_n": [
+    {
+      "rank": 9,
+      "ticker": "SMCI",
+      "company": "Supermicro",
+      "sector": "Technology",
+      "ai_score": 8.85,
+      "base_ai_score": 7.7
+    },
+    {
+      "rank": 10,
+      "ticker": "LLY",
+      "company": "Lilly (Eli)",
+      "sector": "Healthcare",
+      "ai_score": 8.83,
+      "base_ai_score": 7.9
+    },
+    {
+      "rank": 12,
+      "ticker": "SNX",
+      "company": "TD Synnex",
+      "sector": "Technology",
+      "ai_score": 8.75,
+      "base_ai_score": 7.8
+    },
+    {
+      "rank": 17,
+      "ticker": "MU",
+      "company": "Micron Technology",
+      "sector": "Technology",
+      "ai_score": 8.62,
+      "base_ai_score": 7.5
+    },
+    {
+      "rank": 19,
+      "ticker": "DXCM",
+      "company": "Dexcom",
+      "sector": "Healthcare",
+      "ai_score": 8.55,
+      "base_ai_score": 7.7
+    },
+    {
+      "rank": 21,
+      "ticker": "AAPL",
+      "company": "Apple Inc.",
+      "sector": "Technology",
+      "ai_score": 8.47,
+      "base_ai_score": 7.5
+    },
+    {
+      "rank": 22,
+      "ticker": "ARMK",
+      "company": "Aramark",
+      "sector": "Industrials",
+      "ai_score": 8.47,
+      "base_ai_score": 7.8
+    },
+    {
+      "rank": 25,
+      "ticker": "WBS",
+      "company": "Webster Bank",
+      "sector": "Financial Services",
+      "ai_score": 8.37,
+      "base_ai_score": 7.8
+    }
+  ],
+  "drops_top_n": [
+    {
+      "rank": 14,
+      "ticker": "COLB",
+      "company": "Columbia Banking System",
+      "sector": "Financial Services",
+      "ai_score": 8.1,
+      "base_ai_score": null
+    },
+    {
+      "rank": 15,
+      "ticker": "PTC",
+      "company": "PTC Inc.",
+      "sector": "Technology",
+      "ai_score": 8.0,
+      "base_ai_score": null
+    },
+    {
+      "rank": 16,
+      "ticker": "EVR",
+      "company": "Evercore",
+      "sector": "Financial Services",
+      "ai_score": 8.0,
+      "base_ai_score": null
+    },
+    {
+      "rank": 17,
+      "ticker": "STLD",
+      "company": "Steel Dynamics",
+      "sector": "Basic Materials",
+      "ai_score": 8.0,
+      "base_ai_score": null
+    },
+    {
+      "rank": 22,
+      "ticker": "AIZ",
+      "company": "Assurant",
+      "sector": "Financial Services",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    },
+    {
+      "rank": 23,
+      "ticker": "BRX",
+      "company": "Brixmor Property Group",
+      "sector": "Real Estate",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    },
+    {
+      "rank": 24,
+      "ticker": "AMG",
+      "company": "Affiliated Managers Group",
+      "sector": "Financial Services",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    },
+    {
+      "rank": 25,
+      "ticker": "HLT",
+      "company": "Hilton Worldwide",
+      "sector": "Consumer Cyclical",
+      "ai_score": 7.9,
+      "base_ai_score": null
+    }
+  ],
+  "biggest_movers": [
+    {
+      "ticker": "MU",
+      "company": "Micron Technology",
+      "sector": "Technology",
+      "before_rank": 95,
+      "after_rank": 17,
+      "rank_delta": 78,
+      "base_ai_score": 7.5,
+      "ai_score": 8.62,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "PTC",
+      "company": "PTC Inc.",
+      "sector": "Technology",
+      "before_rank": 15,
+      "after_rank": 85,
+      "rank_delta": -70,
+      "base_ai_score": 8.0,
+      "ai_score": 7.56,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "AFL",
+      "company": "Aflac",
+      "sector": "Financial Services",
+      "before_rank": 29,
+      "after_rank": 94,
+      "rank_delta": -65,
+      "base_ai_score": 7.8,
+      "ai_score": 7.45,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "LLYVK",
+      "company": "Liberty Live (Series C)",
+      "sector": "Communication Services",
+      "before_rank": 33,
+      "after_rank": 96,
+      "rank_delta": -63,
+      "base_ai_score": 7.8,
+      "ai_score": 7.42,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "AAPL",
+      "company": "Apple Inc.",
+      "sector": "Technology",
+      "before_rank": 79,
+      "after_rank": 21,
+      "rank_delta": 58,
+      "base_ai_score": 7.5,
+      "ai_score": 8.47,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "GE",
+      "company": "GE Aerospace",
+      "sector": "Industrials",
+      "before_rank": 98,
+      "after_rank": 40,
+      "rank_delta": 58,
+      "base_ai_score": 7.5,
+      "ai_score": 7.93,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "AIZ",
+      "company": "Assurant",
+      "sector": "Financial Services",
+      "before_rank": 22,
+      "after_rank": 80,
+      "rank_delta": -58,
+      "base_ai_score": 7.9,
+      "ai_score": 7.58,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "BKNG",
+      "company": "Booking Holdings",
+      "sector": "Consumer Cyclical",
+      "before_rank": 92,
+      "after_rank": 37,
+      "rank_delta": 55,
+      "base_ai_score": 7.5,
+      "ai_score": 7.97,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "EVR",
+      "company": "Evercore",
+      "sector": "Financial Services",
+      "before_rank": 16,
+      "after_rank": 67,
+      "rank_delta": -51,
+      "base_ai_score": 8.0,
+      "ai_score": 7.71,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "TXT",
+      "company": "Textron",
+      "sector": "Industrials",
+      "before_rank": 47,
+      "after_rank": 97,
+      "rank_delta": -50,
+      "base_ai_score": 7.7,
+      "ai_score": 7.37,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "C",
+      "company": "Citigroup",
+      "sector": "Financial Services",
+      "before_rank": 91,
+      "after_rank": 42,
+      "rank_delta": 49,
+      "base_ai_score": 7.5,
+      "ai_score": 7.92,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "GMED",
+      "company": "Globus Medical",
+      "sector": "Healthcare",
+      "before_rank": 56,
+      "after_rank": 99,
+      "rank_delta": -43,
+      "base_ai_score": 7.6,
+      "ai_score": 7.29,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "PLD",
+      "company": "Prologis",
+      "sector": "Real Estate",
+      "before_rank": 94,
+      "after_rank": 52,
+      "rank_delta": 42,
+      "base_ai_score": 7.5,
+      "ai_score": 7.83,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "UNP",
+      "company": "Union Pacific Corporation",
+      "sector": "Industrials",
+      "before_rank": 82,
+      "after_rank": 41,
+      "rank_delta": 41,
+      "base_ai_score": 7.5,
+      "ai_score": 7.93,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "CSCO",
+      "company": "Cisco",
+      "sector": "Technology",
+      "before_rank": 74,
+      "after_rank": 36,
+      "rank_delta": 38,
+      "base_ai_score": 7.5,
+      "ai_score": 8.02,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "RL",
+      "company": "Ralph Lauren Corporation",
+      "sector": "Consumer Cyclical",
+      "before_rank": 45,
+      "after_rank": 83,
+      "rank_delta": -38,
+      "base_ai_score": 7.7,
+      "ai_score": 7.57,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "MORN",
+      "company": "Morningstar, Inc.",
+      "sector": "Financial Services",
+      "before_rank": 55,
+      "after_rank": 93,
+      "rank_delta": -38,
+      "base_ai_score": 7.6,
+      "ai_score": 7.49,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "LLYVA",
+      "company": "Liberty Live (Series A)",
+      "sector": "Communication Services",
+      "before_rank": 57,
+      "after_rank": 95,
+      "rank_delta": -38,
+      "base_ai_score": 7.6,
+      "ai_score": 7.43,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "FITB",
+      "company": "Fifth Third Bancorp",
+      "sector": "Financial Services",
+      "before_rank": 90,
+      "after_rank": 54,
+      "rank_delta": 36,
+      "base_ai_score": 7.5,
+      "ai_score": 7.82,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "SMCI",
+      "company": "Supermicro",
+      "sector": "Technology",
+      "before_rank": 44,
+      "after_rank": 9,
+      "rank_delta": 35,
+      "base_ai_score": 7.7,
+      "ai_score": 8.85,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "FTNT",
+      "company": "Fortinet",
+      "sector": "Technology",
+      "before_rank": 80,
+      "after_rank": 46,
+      "rank_delta": 34,
+      "base_ai_score": 7.5,
+      "ai_score": 7.91,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "VVV",
+      "company": "Valvoline",
+      "sector": "Consumer Cyclical",
+      "before_rank": 32,
+      "after_rank": 65,
+      "rank_delta": -33,
+      "base_ai_score": 7.8,
+      "ai_score": 7.72,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "BRX",
+      "company": "Brixmor Property Group",
+      "sector": "Real Estate",
+      "before_rank": 23,
+      "after_rank": 53,
+      "rank_delta": -30,
+      "base_ai_score": 7.9,
+      "ai_score": 7.82,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "CACC",
+      "company": "Credit Acceptance",
+      "sector": "Financial Services",
+      "before_rank": 96,
+      "after_rank": 66,
+      "rank_delta": 30,
+      "base_ai_score": 7.5,
+      "ai_score": 7.71,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "NDAQ",
+      "company": "Nasdaq, Inc.",
+      "sector": "Financial Services",
+      "before_rank": 41,
+      "after_rank": 71,
+      "rank_delta": -30,
+      "base_ai_score": 7.7,
+      "ai_score": 7.64,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    }
+  ],
+  "extreme_moves": [
+    {
+      "ticker": "MU",
+      "company": "Micron Technology",
+      "sector": "Technology",
+      "before_rank": 95,
+      "after_rank": 17,
+      "rank_delta": 78,
+      "base_ai_score": 7.5,
+      "ai_score": 8.62,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "PTC",
+      "company": "PTC Inc.",
+      "sector": "Technology",
+      "before_rank": 15,
+      "after_rank": 85,
+      "rank_delta": -70,
+      "base_ai_score": 8.0,
+      "ai_score": 7.56,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "AFL",
+      "company": "Aflac",
+      "sector": "Financial Services",
+      "before_rank": 29,
+      "after_rank": 94,
+      "rank_delta": -65,
+      "base_ai_score": 7.8,
+      "ai_score": 7.45,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "LLYVK",
+      "company": "Liberty Live (Series C)",
+      "sector": "Communication Services",
+      "before_rank": 33,
+      "after_rank": 96,
+      "rank_delta": -63,
+      "base_ai_score": 7.8,
+      "ai_score": 7.42,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "AAPL",
+      "company": "Apple Inc.",
+      "sector": "Technology",
+      "before_rank": 79,
+      "after_rank": 21,
+      "rank_delta": 58,
+      "base_ai_score": 7.5,
+      "ai_score": 8.47,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "GE",
+      "company": "GE Aerospace",
+      "sector": "Industrials",
+      "before_rank": 98,
+      "after_rank": 40,
+      "rank_delta": 58,
+      "base_ai_score": 7.5,
+      "ai_score": 7.93,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "AIZ",
+      "company": "Assurant",
+      "sector": "Financial Services",
+      "before_rank": 22,
+      "after_rank": 80,
+      "rank_delta": -58,
+      "base_ai_score": 7.9,
+      "ai_score": 7.58,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "BKNG",
+      "company": "Booking Holdings",
+      "sector": "Consumer Cyclical",
+      "before_rank": 92,
+      "after_rank": 37,
+      "rank_delta": 55,
+      "base_ai_score": 7.5,
+      "ai_score": 7.97,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "EVR",
+      "company": "Evercore",
+      "sector": "Financial Services",
+      "before_rank": 16,
+      "after_rank": 67,
+      "rank_delta": -51,
+      "base_ai_score": 8.0,
+      "ai_score": 7.71,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    },
+    {
+      "ticker": "TXT",
+      "company": "Textron",
+      "sector": "Industrials",
+      "before_rank": 47,
+      "after_rank": 97,
+      "rank_delta": -50,
+      "base_ai_score": 7.7,
+      "ai_score": 7.37,
+      "go_label": null,
+      "acc_label": null,
+      "adjustment_bump": null
+    }
+  ],
+  "sector_distribution_top_n": [
+    {
+      "sector": "Basic Materials",
+      "before": 2,
+      "after": 1
+    },
+    {
+      "sector": "Communication Services",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "sector": "Consumer Cyclical",
+      "before": 2,
+      "after": 1
+    },
+    {
+      "sector": "Financial Services",
+      "before": 8,
+      "after": 5
+    },
+    {
+      "sector": "Healthcare",
+      "before": 1,
+      "after": 3
+    },
+    {
+      "sector": "Industrials",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "sector": "Real Estate",
+      "before": 4,
+      "after": 3
+    },
+    {
+      "sector": "Technology",
+      "before": 5,
+      "after": 8
+    }
+  ],
+  "watchlist_audit_size": 142,
+  "main_audit_size": 100
+}
