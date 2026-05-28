@@ -630,7 +630,7 @@ jobs:
 
           git commit -m "[auto] Update rankings $(date -u '+%Y-%m-%d %H:%M') UTC"
           git fetch origin main
-          git pull --rebase origin main
+          git pull --rebase -X ours origin main
           git push origin HEAD:main
 
     outputs:
