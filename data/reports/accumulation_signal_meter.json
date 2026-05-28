@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-28 03:26 UTC",
+  "generated_at": "2026-05-28 18:17 UTC",
   "verdict": "OK",
-  "note": "7 strong accumulation signals; 35 weak (<3)",
+  "note": "9 strong accumulation signals; 35 weak (<3)",
   "overall": "OK",
-  "summary": "n=75 top@7=7 weak@3=35",
+  "summary": "n=73 top@7=9 weak@3=35",
   "constants": {
     "component_weights": {
       "relvol": 0.22,
@@ -26,34 +26,36 @@
     "pine_clean_go": {
       "n_pine_clean_go": 15,
       "overlap_with_top_accum": [
-        "ARMK",
+        "AMG",
         "CPAY",
+        "DELL",
+        "EW",
         "FRT",
         "GS",
         "LLY",
         "META",
         "MSCI",
-        "SMCI",
         "SNX"
       ]
     },
     "activity_top_25": {
       "n": 25,
       "overlap_with_top_accum": [
-        "AAPL",
+        "AMG",
+        "BNY",
         "CPAY",
-        "DAL",
         "DELL",
+        "EW",
         "FRT",
         "GS",
         "LLY",
         "META",
         "MS",
         "MSCI",
-        "MU",
         "PATH",
         "SMCI",
-        "UAL"
+        "UAL",
+        "WBS"
       ]
     }
   },
@@ -78,14 +80,35 @@
       "blockers": []
     },
     {
+      "ticker": "HLT",
+      "company": "Hilton Worldwide",
+      "sector": "Consumer Cyclical",
+      "ai_rank": 44,
+      "score": 8.15,
+      "components": {
+        "relvol": 0.97,
+        "mfi": 0.525,
+        "bar_strength": 1.0,
+        "near_20d_high": 1.0,
+        "rsi_zone": 0.946,
+        "close_location": 0.434
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.9,
+      "blockers": [
+        "overextended_bb (>1.5% above BB upper)"
+      ]
+    },
+    {
       "ticker": "SNX",
       "company": "TD Synnex",
       "sector": "Technology",
-      "ai_rank": 31,
-      "score": 7.55,
+      "ai_rank": 48,
+      "score": 7.57,
       "components": {
         "relvol": 1.0,
-        "mfi": 0.64,
+        "mfi": 0.653,
         "bar_strength": 1.0,
         "near_20d_high": 1.0,
         "rsi_zone": 0.131,
@@ -100,11 +123,11 @@
       "ticker": "UAL",
       "company": "United Airlines Holdings",
       "sector": "Industrials",
-      "ai_rank": 6,
+      "ai_rank": 5,
       "score": 7.54,
       "components": {
         "relvol": 1.0,
-        "mfi": 0.415,
+        "mfi": 0.416,
         "bar_strength": 1.0,
         "near_20d_high": 1.0,
         "rsi_zone": 0.466,
@@ -118,31 +141,29 @@
       ]
     },
     {
-      "ticker": "HLT",
-      "company": "Hilton Worldwide",
-      "sector": "Consumer Cyclical",
-      "ai_rank": 25,
-      "score": 7.46,
+      "ticker": "MSCI",
+      "company": "MSCI Inc.",
+      "sector": "Financial Services",
+      "ai_rank": 22,
+      "score": 7.52,
       "components": {
         "relvol": 0.676,
-        "mfi": 0.504,
+        "mfi": 0.198,
         "bar_strength": 1.0,
         "near_20d_high": 1.0,
-        "rsi_zone": 0.946,
-        "close_location": 0.434
+        "rsi_zone": 0.939,
+        "close_location": 0.846
       },
       "n_components_present": 6,
       "missing_components": [],
       "pine_go_norm": 0.8,
-      "blockers": [
-        "overextended_bb (>1.5% above BB upper)"
-      ]
+      "blockers": []
     },
     {
       "ticker": "DAL",
       "company": "Delta Air Lines",
       "sector": "Industrials",
-      "ai_rank": 19,
+      "ai_rank": 32,
       "score": 7.41,
       "components": {
         "relvol": 1.0,
@@ -163,10 +184,10 @@
       "ticker": "SMCI",
       "company": "Supermicro",
       "sector": "Technology",
-      "ai_rank": 44,
-      "score": 7.37,
+      "ai_rank": 70,
+      "score": 7.4,
       "components": {
-        "relvol": 0.136,
+        "relvol": 0.146,
         "mfi": 0.821,
         "bar_strength": 1.0,
         "near_20d_high": 1.0,
@@ -182,11 +203,11 @@
       "ticker": "MU",
       "company": "Micron Technology",
       "sector": "Technology",
-      "ai_rank": 95,
-      "score": 7.1,
+      "ai_rank": null,
+      "score": 7.12,
       "components": {
-        "relvol": 0.746,
-        "mfi": 0.534,
+        "relvol": 0.757,
+        "mfi": 0.535,
         "bar_strength": 1.0,
         "near_20d_high": 1.0,
         "rsi_zone": 0.0,
@@ -198,52 +219,14 @@
       "blockers": []
     },
     {
-      "ticker": "MSCI",
-      "company": "MSCI Inc.",
-      "sector": "Financial Services",
-      "ai_rank": 18,
-      "score": 6.47,
-      "components": {
-        "relvol": 0.227,
-        "mfi": 0.163,
-        "bar_strength": 1.0,
-        "near_20d_high": 1.0,
-        "rsi_zone": 0.939,
-        "close_location": 0.846
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.8,
-      "blockers": []
-    },
-    {
-      "ticker": "LLY",
-      "company": "Lilly (Eli)",
-      "sector": "Healthcare",
-      "ai_rank": 26,
-      "score": 6.41,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.827,
-        "bar_strength": 1.0,
-        "near_20d_high": 1.0,
-        "rsi_zone": 0.401,
-        "close_location": 0.878
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.8,
-      "blockers": []
-    },
-    {
       "ticker": "CPAY",
       "company": "Corpay",
       "sector": "Technology",
-      "ai_rank": 3,
-      "score": 6.34,
+      "ai_rank": 2,
+      "score": 7.1,
       "components": {
-        "relvol": 0.0,
-        "mfi": 0.572,
+        "relvol": 0.33,
+        "mfi": 0.591,
         "bar_strength": 1.0,
         "near_20d_high": 1.0,
         "rsi_zone": 0.923,
@@ -255,14 +238,71 @@
       "blockers": []
     },
     {
+      "ticker": "AMG",
+      "company": "Affiliated Managers Group",
+      "sector": "Financial Services",
+      "ai_rank": 15,
+      "score": 6.82,
+      "components": {
+        "relvol": 0.909,
+        "mfi": 0.435,
+        "bar_strength": 0.0,
+        "near_20d_high": 1.0,
+        "rsi_zone": 0.926,
+        "close_location": 0.767
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.7,
+      "blockers": []
+    },
+    {
+      "ticker": "LLY",
+      "company": "Lilly (Eli)",
+      "sector": "Healthcare",
+      "ai_rank": 43,
+      "score": 6.43,
+      "components": {
+        "relvol": 0.0,
+        "mfi": 0.841,
+        "bar_strength": 1.0,
+        "near_20d_high": 1.0,
+        "rsi_zone": 0.401,
+        "close_location": 0.878
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.8,
+      "blockers": []
+    },
+    {
+      "ticker": "EW",
+      "company": "Edwards Lifesciences",
+      "sector": "Healthcare",
+      "ai_rank": 50,
+      "score": 6.04,
+      "components": {
+        "relvol": 1.0,
+        "mfi": 0.596,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.999,
+        "close_location": 0.847
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.8,
+      "blockers": []
+    },
+    {
       "ticker": "PATH",
       "company": "UiPath",
       "sector": "Technology",
-      "ai_rank": 43,
-      "score": 5.92,
+      "ai_rank": 56,
+      "score": 5.95,
       "components": {
-        "relvol": 0.559,
-        "mfi": 0.442,
+        "relvol": 0.574,
+        "mfi": 0.443,
         "bar_strength": 0.0,
         "near_20d_high": 1.0,
         "rsi_zone": 0.868,
@@ -277,11 +317,11 @@
       "ticker": "RS",
       "company": "Reliance, Inc.",
       "sector": "Basic Materials",
-      "ai_rank": 35,
-      "score": 5.85,
+      "ai_rank": 42,
+      "score": 5.88,
       "components": {
         "relvol": 0.0,
-        "mfi": 0.114,
+        "mfi": 0.131,
         "bar_strength": 1.0,
         "near_20d_high": 1.0,
         "rsi_zone": 0.83,
@@ -293,10 +333,29 @@
       "blockers": []
     },
     {
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "sector": "Communication Services",
+      "ai_rank": 11,
+      "score": 5.79,
+      "components": {
+        "relvol": 0.817,
+        "mfi": 0.074,
+        "bar_strength": 1.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.85,
+        "close_location": 0.725
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.8,
+      "blockers": []
+    },
+    {
       "ticker": "MS",
       "company": "Morgan Stanley",
       "sector": "Financial Services",
-      "ai_rank": 5,
+      "ai_rank": 6,
       "score": 5.79,
       "components": {
         "relvol": 0.653,
@@ -315,10 +374,10 @@
       "ticker": "GS",
       "company": "Goldman Sachs",
       "sector": "Financial Services",
-      "ai_rank": 10,
+      "ai_rank": 20,
       "score": 5.76,
       "components": {
-        "relvol": 0.439,
+        "relvol": 0.44,
         "mfi": 0.393,
         "bar_strength": 0.0,
         "near_20d_high": 1.0,
@@ -331,33 +390,33 @@
       "blockers": []
     },
     {
-      "ticker": "META",
-      "company": "Meta Platforms",
-      "sector": "Communication Services",
-      "ai_rank": 13,
-      "score": 5.71,
+      "ticker": "WBS",
+      "company": "Webster Bank",
+      "sector": "Financial Services",
+      "ai_rank": 28,
+      "score": 5.58,
       "components": {
-        "relvol": 0.783,
-        "mfi": 0.07,
-        "bar_strength": 1.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.85,
-        "close_location": 0.725
+        "relvol": 0.711,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 1.0,
+        "rsi_zone": 0.888,
+        "close_location": 0.786
       },
       "n_components_present": 6,
       "missing_components": [],
-      "pine_go_norm": 0.8,
+      "pine_go_norm": 0.7,
       "blockers": []
     },
     {
       "ticker": "STLD",
       "company": "Steel Dynamics",
       "sector": "Basic Materials",
-      "ai_rank": 17,
-      "score": 5.49,
+      "ai_rank": 27,
+      "score": 5.54,
       "components": {
-        "relvol": 0.67,
-        "mfi": 0.06,
+        "relvol": 0.691,
+        "mfi": 0.062,
         "bar_strength": 1.0,
         "near_20d_high": 1.0,
         "rsi_zone": 0.049,
@@ -371,33 +430,14 @@
       ]
     },
     {
-      "ticker": "AMG",
-      "company": "Affiliated Managers Group",
-      "sector": "Financial Services",
-      "ai_rank": 24,
-      "score": 5.45,
-      "components": {
-        "relvol": 0.323,
-        "mfi": 0.391,
-        "bar_strength": 0.0,
-        "near_20d_high": 1.0,
-        "rsi_zone": 0.926,
-        "close_location": 0.767
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.6,
-      "blockers": []
-    },
-    {
       "ticker": "SNOW",
       "company": "Snowflake Inc.",
       "sector": "Technology",
       "ai_rank": null,
-      "score": 5.41,
+      "score": 5.38,
       "components": {
         "relvol": 1.0,
-        "mfi": 0.368,
+        "mfi": 0.351,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
         "rsi_zone": 0.894,
@@ -409,32 +449,13 @@
       "blockers": []
     },
     {
-      "ticker": "ARMK",
-      "company": "Aramark",
-      "sector": "Industrials",
-      "ai_rank": 34,
-      "score": 5.22,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.601,
-        "bar_strength": 1.0,
-        "near_20d_high": 1.0,
-        "rsi_zone": 0.09,
-        "close_location": 0.67
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
       "ticker": "AAPL",
       "company": "Apple Inc.",
       "sector": "Technology",
-      "ai_rank": 79,
+      "ai_rank": null,
       "score": 5.11,
       "components": {
-        "relvol": 0.317,
+        "relvol": 0.319,
         "mfi": 1.0,
         "bar_strength": 0.0,
         "near_20d_high": 1.0,
@@ -450,11 +471,11 @@
       "ticker": "DELL",
       "company": "Dell Technologies",
       "sector": "Technology",
-      "ai_rank": 2,
-      "score": 4.94,
+      "ai_rank": 9,
+      "score": 5.1,
       "components": {
-        "relvol": 0.479,
-        "mfi": 0.553,
+        "relvol": 0.549,
+        "mfi": 0.557,
         "bar_strength": 0.0,
         "near_20d_high": 1.0,
         "rsi_zone": 0.0,
@@ -463,15 +484,51 @@
       "n_components_present": 6,
       "missing_components": [],
       "pine_go_norm": 0.7,
-      "blockers": [
-        "earnings_near (0d)"
-      ]
+      "blockers": []
+    },
+    {
+      "ticker": "FRT",
+      "company": "Federal Realty Investment Trust",
+      "sector": "Real Estate",
+      "ai_rank": 8,
+      "score": 4.76,
+      "components": {
+        "relvol": 0.076,
+        "mfi": 0.071,
+        "bar_strength": 1.0,
+        "near_20d_high": 1.0,
+        "rsi_zone": 0.013,
+        "close_location": 0.967
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.7,
+      "blockers": []
+    },
+    {
+      "ticker": "BNY",
+      "company": "BNY Mellon",
+      "sector": "Financial Services",
+      "ai_rank": 3,
+      "score": 4.63,
+      "components": {
+        "relvol": 0.481,
+        "mfi": 0.587,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.886,
+        "close_location": 0.792
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.6,
+      "blockers": []
     },
     {
       "ticker": "SPG",
       "company": "Simon Property Group",
       "sector": "Real Estate",
-      "ai_rank": 20,
+      "ai_rank": 23,
       "score": 4.63,
       "components": {
         "relvol": 0.189,
@@ -490,11 +547,11 @@
       "ticker": "VVV",
       "company": "Valvoline",
       "sector": "Consumer Cyclical",
-      "ai_rank": 32,
-      "score": 4.6,
+      "ai_rank": 24,
+      "score": 4.62,
       "components": {
         "relvol": 0.0,
-        "mfi": 0.551,
+        "mfi": 0.558,
         "bar_strength": 1.0,
         "near_20d_high": 0.0,
         "rsi_zone": 0.843,
@@ -506,18 +563,18 @@
       "blockers": []
     },
     {
-      "ticker": "SNDK",
-      "company": "Sandisk",
-      "sector": "Technology",
-      "ai_rank": null,
-      "score": 4.59,
+      "ticker": "LLYVA",
+      "company": "Liberty Live (Series A)",
+      "sector": "Communication Services",
+      "ai_rank": 29,
+      "score": 4.49,
       "components": {
-        "relvol": 0.0,
-        "mfi": 0.456,
+        "relvol": 1.0,
+        "mfi": 0.97,
         "bar_strength": 0.0,
-        "near_20d_high": 1.0,
-        "rsi_zone": 0.844,
-        "close_location": 0.67
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.204,
+        "close_location": 0.156
       },
       "n_components_present": 6,
       "missing_components": [],
@@ -525,29 +582,29 @@
       "blockers": []
     },
     {
-      "ticker": "FRT",
-      "company": "Federal Realty Investment Trust",
+      "ticker": "FR",
+      "company": "First Industrial Realty Trust",
       "sector": "Real Estate",
       "ai_rank": 7,
-      "score": 4.55,
+      "score": 4.3,
       "components": {
-        "relvol": 0.0,
-        "mfi": 0.043,
-        "bar_strength": 1.0,
-        "near_20d_high": 1.0,
-        "rsi_zone": 0.013,
-        "close_location": 0.967
+        "relvol": 0.787,
+        "mfi": 0.226,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.846,
+        "close_location": 0.596
       },
       "n_components_present": 6,
       "missing_components": [],
-      "pine_go_norm": 0.7,
+      "pine_go_norm": 0.8,
       "blockers": []
     },
     {
       "ticker": "GNTX",
       "company": "Gentex",
       "sector": "Consumer Cyclical",
-      "ai_rank": 30,
+      "ai_rank": 26,
       "score": 4.22,
       "components": {
         "relvol": 0.0,
@@ -563,32 +620,13 @@
       "blockers": []
     },
     {
-      "ticker": "WDC",
-      "company": "Western Digital",
-      "sector": "Technology",
-      "ai_rank": null,
-      "score": 4.16,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.415,
-        "bar_strength": 0.0,
-        "near_20d_high": 1.0,
-        "rsi_zone": 0.333,
-        "close_location": 0.944
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.6,
-      "blockers": []
-    },
-    {
       "ticker": "AMZN",
       "company": "Amazon",
       "sector": "Consumer Cyclical",
       "ai_rank": null,
-      "score": 4.11,
+      "score": 4.13,
       "components": {
-        "relvol": 0.163,
+        "relvol": 0.171,
         "mfi": 0.0,
         "bar_strength": 1.0,
         "near_20d_high": 0.0,
@@ -601,89 +639,13 @@
       "blockers": []
     },
     {
-      "ticker": "FSLR",
-      "company": "First Solar",
-      "sector": "Technology",
-      "ai_rank": 21,
-      "score": 4.11,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.678,
-        "bar_strength": 0.0,
-        "near_20d_high": 1.0,
-        "rsi_zone": 0.0,
-        "close_location": 0.928
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
-      "ticker": "WBS",
-      "company": "Webster Bank",
-      "sector": "Financial Services",
-      "ai_rank": 37,
-      "score": 4.01,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.0,
-        "bar_strength": 0.0,
-        "near_20d_high": 1.0,
-        "rsi_zone": 0.888,
-        "close_location": 0.786
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
-      "ticker": "BNY",
-      "company": "BNY Mellon",
-      "sector": "Financial Services",
-      "ai_rank": 4,
-      "score": 3.71,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.663,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.886,
-        "close_location": 0.792
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.6,
-      "blockers": []
-    },
-    {
-      "ticker": "DXCM",
-      "company": "Dexcom",
-      "sector": "Healthcare",
-      "ai_rank": 39,
-      "score": 3.7,
-      "components": {
-        "relvol": 0.007,
-        "mfi": 0.688,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.965,
-        "close_location": 0.665
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
       "ticker": "ARW",
       "company": "Arrow Electronics",
       "sector": "Technology",
       "ai_rank": 1,
-      "score": 3.35,
+      "score": 3.83,
       "components": {
-        "relvol": 0.551,
+        "relvol": 0.77,
         "mfi": 0.0,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
@@ -692,75 +654,18 @@
       },
       "n_components_present": 6,
       "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
-      "ticker": "NTRS",
-      "company": "Northern Trust",
-      "sector": "Financial Services",
-      "ai_rank": 49,
-      "score": 3.34,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.455,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.992,
-        "close_location": 0.689
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.6,
-      "blockers": []
-    },
-    {
-      "ticker": "FR",
-      "company": "First Industrial Realty Trust",
-      "sector": "Real Estate",
-      "ai_rank": 11,
-      "score": 3.33,
-      "components": {
-        "relvol": 0.3,
-        "mfi": 0.283,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.846,
-        "close_location": 0.596
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
-      "ticker": "MSA",
-      "company": "MSA Safety",
-      "sector": "Industrials",
-      "ai_rank": 27,
-      "score": 3.32,
-      "components": {
-        "relvol": 1.0,
-        "mfi": 0.061,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.264,
-        "close_location": 0.411
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.5,
+      "pine_go_norm": 0.8,
       "blockers": []
     },
     {
       "ticker": "BRX",
       "company": "Brixmor Property Group",
       "sector": "Real Estate",
-      "ai_rank": 23,
-      "score": 3.28,
+      "ai_rank": 19,
+      "score": 3.58,
       "components": {
-        "relvol": 0.0,
-        "mfi": 0.345,
+        "relvol": 0.187,
+        "mfi": 0.283,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
         "rsi_zone": 0.958,
@@ -772,13 +677,51 @@
       "blockers": []
     },
     {
+      "ticker": "MSA",
+      "company": "MSA Safety",
+      "sector": "Industrials",
+      "ai_rank": 21,
+      "score": 3.29,
+      "components": {
+        "relvol": 1.0,
+        "mfi": 0.044,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.264,
+        "close_location": 0.411
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.5,
+      "blockers": []
+    },
+    {
+      "ticker": "RF",
+      "company": "Regions Financial Corporation",
+      "sector": "Financial Services",
+      "ai_rank": 35,
+      "score": 3.25,
+      "components": {
+        "relvol": 0.607,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.847,
+        "close_location": 0.432
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.7,
+      "blockers": []
+    },
+    {
       "ticker": "TIGO",
       "company": "Millicom",
       "sector": "Communication Services",
-      "ai_rank": 38,
-      "score": 3.13,
+      "ai_rank": 39,
+      "score": 3.19,
       "components": {
-        "relvol": 0.534,
+        "relvol": 0.564,
         "mfi": 0.0,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
@@ -791,108 +734,13 @@
       "blockers": []
     },
     {
-      "ticker": "D",
-      "company": "Dominion Energy",
-      "sector": "Utilities",
-      "ai_rank": 42,
-      "score": 3.09,
-      "components": {
-        "relvol": 0.076,
-        "mfi": 0.344,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.982,
-        "close_location": 0.554
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.6,
-      "blockers": []
-    },
-    {
-      "ticker": "LSCC",
-      "company": "Lattice Semiconductor",
-      "sector": "Technology",
-      "ai_rank": null,
-      "score": 3.03,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.579,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.338,
-        "close_location": 0.99
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
-      "ticker": "CACC",
-      "company": null,
-      "sector": "Financial Services",
-      "ai_rank": 96,
-      "score": 2.99,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.399,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.977,
-        "close_location": 0.536
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
-      "ticker": "ROST",
-      "company": "Ross Stores",
-      "sector": "Consumer Cyclical",
-      "ai_rank": 9,
-      "score": 2.99,
-      "components": {
-        "relvol": 0.217,
-        "mfi": 0.0,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.969,
-        "close_location": 0.707
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
-      "ticker": "TXRH",
-      "company": "Texas Roadhouse",
-      "sector": "Consumer Cyclical",
-      "ai_rank": 48,
-      "score": 2.92,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.404,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.985,
-        "close_location": 0.479
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
       "ticker": "GEN",
       "company": "Gen Digital",
       "sector": "Technology",
-      "ai_rank": 36,
-      "score": 2.89,
+      "ai_rank": 49,
+      "score": 3.11,
       "components": {
-        "relvol": 0.0,
+        "relvol": 0.097,
         "mfi": 1.0,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
@@ -905,14 +753,90 @@
       "blockers": []
     },
     {
+      "ticker": "ROST",
+      "company": "Ross Stores",
+      "sector": "Consumer Cyclical",
+      "ai_rank": 4,
+      "score": 3.04,
+      "components": {
+        "relvol": 0.24,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.969,
+        "close_location": 0.707
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.7,
+      "blockers": []
+    },
+    {
+      "ticker": "LSCC",
+      "company": "Lattice Semiconductor",
+      "sector": "Technology",
+      "ai_rank": null,
+      "score": 3.01,
+      "components": {
+        "relvol": 0.0,
+        "mfi": 0.564,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.338,
+        "close_location": 0.99
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.7,
+      "blockers": []
+    },
+    {
+      "ticker": "HALO",
+      "company": "Halozyme",
+      "sector": "Healthcare",
+      "ai_rank": 10,
+      "score": 2.99,
+      "components": {
+        "relvol": 0.441,
+        "mfi": 0.141,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.809,
+        "close_location": 0.367
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.7,
+      "blockers": []
+    },
+    {
+      "ticker": "BPOP",
+      "company": "Popular, Inc.",
+      "sector": "Financial Services",
+      "ai_rank": 46,
+      "score": 2.93,
+      "components": {
+        "relvol": 0.341,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.905,
+        "close_location": 0.548
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.7,
+      "blockers": []
+    },
+    {
       "ticker": "CGNX",
       "company": "Cognex Corporation",
       "sector": "Technology",
       "ai_rank": null,
-      "score": 2.85,
+      "score": 2.86,
       "components": {
-        "relvol": 0.087,
-        "mfi": 0.253,
+        "relvol": 0.091,
+        "mfi": 0.252,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
         "rsi_zone": 0.986,
@@ -927,7 +851,7 @@
       "ticker": "SCCO",
       "company": "Southern Copper",
       "sector": "Basic Materials",
-      "ai_rank": 8,
+      "ai_rank": 14,
       "score": 2.77,
       "components": {
         "relvol": 0.0,
@@ -943,14 +867,33 @@
       "blockers": []
     },
     {
+      "ticker": "RL",
+      "company": "Ralph Lauren Corporation",
+      "sector": "Consumer Cyclical",
+      "ai_rank": 30,
+      "score": 2.72,
+      "components": {
+        "relvol": 0.176,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.916,
+        "close_location": 0.639
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.6,
+      "blockers": []
+    },
+    {
       "ticker": "AIZ",
       "company": "Assurant",
       "sector": "Financial Services",
-      "ai_rank": 22,
-      "score": 2.73,
+      "ai_rank": 31,
+      "score": 2.69,
       "components": {
         "relvol": 0.0,
-        "mfi": 0.407,
+        "mfi": 0.385,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
         "rsi_zone": 0.984,
@@ -962,37 +905,56 @@
       "blockers": []
     },
     {
-      "ticker": "HALO",
-      "company": "Halozyme",
-      "sector": "Healthcare",
-      "ai_rank": 12,
-      "score": 2.66,
+      "ticker": "TJX",
+      "company": "TJX Companies",
+      "sector": "Consumer Cyclical",
+      "ai_rank": 88,
+      "score": 2.6,
       "components": {
-        "relvol": 0.283,
-        "mfi": 0.154,
+        "relvol": 0.197,
+        "mfi": 0.449,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
-        "rsi_zone": 0.809,
-        "close_location": 0.367
+        "rsi_zone": 0.465,
+        "close_location": 0.441
       },
       "n_components_present": 6,
       "missing_components": [],
-      "pine_go_norm": 0.7,
+      "pine_go_norm": 0.5,
       "blockers": []
     },
     {
-      "ticker": "RF",
-      "company": "Regions Financial Corporation",
+      "ticker": "COLB",
+      "company": "Columbia Banking System",
       "sector": "Financial Services",
-      "ai_rank": 46,
-      "score": 2.65,
+      "ai_rank": 12,
+      "score": 2.58,
       "components": {
-        "relvol": 0.333,
-        "mfi": 0.0,
+        "relvol": 0.55,
+        "mfi": 0.01,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
-        "rsi_zone": 0.847,
-        "close_location": 0.432
+        "rsi_zone": 0.493,
+        "close_location": 0.409
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.6,
+      "blockers": []
+    },
+    {
+      "ticker": "EXEL",
+      "company": "Exelixis",
+      "sector": "Healthcare",
+      "ai_rank": null,
+      "score": 2.58,
+      "components": {
+        "relvol": 0.089,
+        "mfi": 0.245,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.935,
+        "close_location": 0.362
       },
       "n_components_present": 6,
       "missing_components": [],
@@ -1019,37 +981,18 @@
       "blockers": []
     },
     {
-      "ticker": "CNM",
-      "company": null,
-      "sector": "Industrials",
-      "ai_rank": null,
-      "score": 2.48,
+      "ticker": "REG",
+      "company": "Regency Centers",
+      "sector": "Real Estate",
+      "ai_rank": 45,
+      "score": 2.4,
       "components": {
         "relvol": 0.0,
-        "mfi": 0.0,
-        "bar_strength": 1.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.295,
-        "close_location": 0.36
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.4,
-      "blockers": []
-    },
-    {
-      "ticker": "EXEL",
-      "company": "Exelixis",
-      "sector": "Healthcare",
-      "ai_rank": null,
-      "score": 2.47,
-      "components": {
-        "relvol": 0.041,
-        "mfi": 0.241,
+        "mfi": 0.204,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
-        "rsi_zone": 0.935,
-        "close_location": 0.362
+        "rsi_zone": 0.836,
+        "close_location": 0.522
       },
       "n_components_present": 6,
       "missing_components": [],
@@ -1057,14 +1000,54 @@
       "blockers": []
     },
     {
+      "ticker": "LLYVK",
+      "company": "Liberty Live (Series C)",
+      "sector": "Communication Services",
+      "ai_rank": 34,
+      "score": 2.36,
+      "components": {
+        "relvol": 0.787,
+        "mfi": 0.049,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.204,
+        "close_location": 0.158
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.5,
+      "blockers": []
+    },
+    {
+      "ticker": "CIEN",
+      "company": "Ciena",
+      "sector": "Technology",
+      "ai_rank": null,
+      "score": 2.34,
+      "components": {
+        "relvol": 0.163,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.901,
+        "close_location": 0.42
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.6,
+      "blockers": [
+        "earnings_near (6d)"
+      ]
+    },
+    {
       "ticker": "MDB",
       "company": null,
       "sector": "Technology",
       "ai_rank": null,
-      "score": 2.35,
+      "score": 2.34,
       "components": {
         "relvol": 1.0,
-        "mfi": 0.063,
+        "mfi": 0.06,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
         "rsi_zone": 0.022,
@@ -1076,39 +1059,37 @@
       "blockers": []
     },
     {
-      "ticker": "CIEN",
-      "company": "Ciena",
-      "sector": "Technology",
-      "ai_rank": null,
-      "score": 2.34,
+      "ticker": "DKS",
+      "company": "Dick's Sporting Goods",
+      "sector": "Consumer Cyclical",
+      "ai_rank": 16,
+      "score": 2.2,
       "components": {
-        "relvol": 0.161,
+        "relvol": 1.0,
         "mfi": 0.0,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
-        "rsi_zone": 0.901,
-        "close_location": 0.42
+        "rsi_zone": 0.0,
+        "close_location": 0.0
       },
       "n_components_present": 6,
       "missing_components": [],
-      "pine_go_norm": 0.6,
-      "blockers": [
-        "earnings_near (7d)"
-      ]
+      "pine_go_norm": 0.4,
+      "blockers": []
     },
     {
-      "ticker": "BPOP",
-      "company": "Popular, Inc.",
+      "ticker": "PNC",
+      "company": "PNC Financial Services",
       "sector": "Financial Services",
-      "ai_rank": 50,
-      "score": 2.33,
+      "ai_rank": 18,
+      "score": 2.14,
       "components": {
-        "relvol": 0.07,
+        "relvol": 0.077,
         "mfi": 0.0,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
-        "rsi_zone": 0.905,
-        "close_location": 0.548
+        "rsi_zone": 0.847,
+        "close_location": 0.464
       },
       "n_components_present": 6,
       "missing_components": [],
@@ -1116,68 +1097,11 @@
       "blockers": []
     },
     {
-      "ticker": "RL",
-      "company": "Ralph Lauren Corporation",
-      "sector": "Consumer Cyclical",
-      "ai_rank": 45,
-      "score": 2.33,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.0,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.916,
-        "close_location": 0.639
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.6,
-      "blockers": []
-    },
-    {
-      "ticker": "TJX",
-      "company": "TJX Companies",
-      "sector": "Consumer Cyclical",
-      "ai_rank": null,
-      "score": 2.21,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.473,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.465,
-        "close_location": 0.441
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.5,
-      "blockers": []
-    },
-    {
-      "ticker": "COLB",
-      "company": "Columbia Banking System",
-      "sector": "Financial Services",
-      "ai_rank": 14,
-      "score": 2.13,
-      "components": {
-        "relvol": 0.331,
-        "mfi": 0.029,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.493,
-        "close_location": 0.409
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.6,
-      "blockers": []
-    },
-    {
       "ticker": "MTSI",
       "company": "MACOM Technology Solutions",
       "sector": "Technology",
       "ai_rank": null,
-      "score": 2.13,
+      "score": 2.12,
       "components": {
         "relvol": 0.0,
         "mfi": 0.516,
@@ -1192,51 +1116,13 @@
       "blockers": []
     },
     {
-      "ticker": "PNC",
-      "company": "PNC Financial Services",
-      "sector": "Financial Services",
-      "ai_rank": 28,
-      "score": 2.08,
-      "components": {
-        "relvol": 0.05,
-        "mfi": 0.0,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.847,
-        "close_location": 0.464
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.7,
-      "blockers": []
-    },
-    {
-      "ticker": "LLYVK",
-      "company": "Liberty Live (Series C)",
-      "sector": "Communication Services",
-      "ai_rank": 33,
-      "score": 2.06,
-      "components": {
-        "relvol": 0.64,
-        "mfi": 0.063,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.204,
-        "close_location": 0.158
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.4,
-      "blockers": []
-    },
-    {
       "ticker": "APH",
       "company": "Amphenol",
       "sector": "Technology",
-      "ai_rank": 40,
-      "score": 2.03,
+      "ai_rank": 37,
+      "score": 2.05,
       "components": {
-        "relvol": 0.037,
+        "relvol": 0.044,
         "mfi": 0.0,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
@@ -1252,7 +1138,7 @@
       "ticker": "EVR",
       "company": "Evercore",
       "sector": "Financial Services",
-      "ai_rank": 16,
+      "ai_rank": 17,
       "score": 1.95,
       "components": {
         "relvol": 0.0,
@@ -1268,14 +1154,35 @@
       "blockers": []
     },
     {
-      "ticker": "GLW",
-      "company": "Corning Inc.",
+      "ticker": "AVGO",
+      "company": "Broadcom",
       "sector": "Technology",
       "ai_rank": null,
       "score": 1.88,
       "components": {
+        "relvol": 0.216,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.837,
+        "close_location": 0.099
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.6,
+      "blockers": [
+        "earnings_near (6d)"
+      ]
+    },
+    {
+      "ticker": "GLW",
+      "company": "Corning Inc.",
+      "sector": "Technology",
+      "ai_rank": null,
+      "score": 1.87,
+      "components": {
         "relvol": 0.0,
-        "mfi": 0.164,
+        "mfi": 0.157,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
         "rsi_zone": 0.832,
@@ -1287,32 +1194,13 @@
       "blockers": []
     },
     {
-      "ticker": "AVGO",
-      "company": null,
-      "sector": "Technology",
-      "ai_rank": null,
-      "score": 1.83,
-      "components": {
-        "relvol": 0.196,
-        "mfi": 0.0,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.837,
-        "close_location": 0.099
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.6,
-      "blockers": []
-    },
-    {
       "ticker": "GOOG",
       "company": "Alphabet Inc. (Class C)",
       "sector": "Communication Services",
       "ai_rank": null,
-      "score": 1.61,
+      "score": 1.66,
       "components": {
-        "relvol": 0.084,
+        "relvol": 0.107,
         "mfi": 0.0,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
@@ -1325,14 +1213,33 @@
       "blockers": []
     },
     {
+      "ticker": "EWBC",
+      "company": null,
+      "sector": "Financial Services",
+      "ai_rank": 89,
+      "score": 1.65,
+      "components": {
+        "relvol": 0.0,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.873,
+        "close_location": 0.225
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.6,
+      "blockers": []
+    },
+    {
       "ticker": "TXT",
       "company": "Textron",
       "sector": "Industrials",
-      "ai_rank": 47,
-      "score": 1.55,
+      "ai_rank": 33,
+      "score": 1.59,
       "components": {
         "relvol": 0.0,
-        "mfi": 0.327,
+        "mfi": 0.347,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
         "rsi_zone": 0.389,
@@ -1344,13 +1251,51 @@
       "blockers": []
     },
     {
+      "ticker": "MLI",
+      "company": null,
+      "sector": "Industrials",
+      "ai_rank": 81,
+      "score": 1.57,
+      "components": {
+        "relvol": 0.26,
+        "mfi": 0.18,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.45,
+        "close_location": 0.0
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.3,
+      "blockers": []
+    },
+    {
+      "ticker": "MORN",
+      "company": "Morningstar, Inc.",
+      "sector": "Financial Services",
+      "ai_rank": 47,
+      "score": 1.45,
+      "components": {
+        "relvol": 0.0,
+        "mfi": 0.36,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.219,
+        "close_location": 0.312
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.5,
+      "blockers": []
+    },
+    {
       "ticker": "GMED",
       "company": "Globus Medical",
       "sector": "Healthcare",
-      "ai_rank": 56,
-      "score": 1.24,
+      "ai_rank": 25,
+      "score": 1.26,
       "components": {
-        "relvol": 0.566,
+        "relvol": 0.574,
         "mfi": 0.0,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
@@ -1363,32 +1308,13 @@
       "blockers": []
     },
     {
-      "ticker": "MLI",
-      "company": null,
-      "sector": "Industrials",
-      "ai_rank": 93,
-      "score": 1.08,
-      "components": {
-        "relvol": 0.0,
-        "mfi": 0.223,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.45,
-        "close_location": 0.0
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.3,
-      "blockers": []
-    },
-    {
       "ticker": "CVNA",
       "company": null,
       "sector": "Consumer Cyclical",
       "ai_rank": null,
-      "score": 0.96,
+      "score": 1.21,
       "components": {
-        "relvol": 0.176,
+        "relvol": 0.289,
         "mfi": 0.0,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
@@ -1401,17 +1327,17 @@
       "blockers": []
     },
     {
-      "ticker": "EQIX",
-      "company": null,
-      "sector": "Real Estate",
-      "ai_rank": null,
-      "score": 0.85,
+      "ticker": "AFL",
+      "company": "Aflac",
+      "sector": "Financial Services",
+      "ai_rank": 41,
+      "score": 1.18,
       "components": {
-        "relvol": 0.0,
-        "mfi": 0.217,
+        "relvol": 0.433,
+        "mfi": 0.127,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
-        "rsi_zone": 0.304,
+        "rsi_zone": 0.0,
         "close_location": 0.0
       },
       "n_components_present": 6,
@@ -1420,10 +1346,29 @@
       "blockers": []
     },
     {
+      "ticker": "KEY",
+      "company": "KeyCorp",
+      "sector": "Financial Services",
+      "ai_rank": 36,
+      "score": 0.83,
+      "components": {
+        "relvol": 0.251,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.176,
+        "close_location": 0.008
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.5,
+      "blockers": []
+    },
+    {
       "ticker": "NDAQ",
       "company": "Nasdaq, Inc.",
       "sector": "Financial Services",
-      "ai_rank": 41,
+      "ai_rank": 40,
       "score": 0.63,
       "components": {
         "relvol": 0.02,
@@ -1439,25 +1384,6 @@
       "blockers": []
     },
     {
-      "ticker": "AFL",
-      "company": "Aflac",
-      "sector": "Financial Services",
-      "ai_rank": 29,
-      "score": 0.59,
-      "components": {
-        "relvol": 0.137,
-        "mfi": 0.158,
-        "bar_strength": 0.0,
-        "near_20d_high": 0.0,
-        "rsi_zone": 0.0,
-        "close_location": 0.0
-      },
-      "n_components_present": 6,
-      "missing_components": [],
-      "pine_go_norm": 0.2,
-      "blockers": []
-    },
-    {
       "ticker": "DUOL",
       "company": "Duolingo",
       "sector": "Technology",
@@ -1465,7 +1391,7 @@
       "score": 0.43,
       "components": {
         "relvol": 0.0,
-        "mfi": 0.086,
+        "mfi": 0.087,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
         "rsi_zone": 0.182,
@@ -1477,13 +1403,32 @@
       "blockers": []
     },
     {
+      "ticker": "CFG",
+      "company": "Citizens Financial Group",
+      "sector": "Financial Services",
+      "ai_rank": 38,
+      "score": 0.38,
+      "components": {
+        "relvol": 0.0,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.21,
+        "close_location": 0.042
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.6,
+      "blockers": []
+    },
+    {
       "ticker": "PTC",
       "company": "PTC Inc.",
       "sector": "Technology",
-      "ai_rank": 15,
-      "score": 0.08,
+      "ai_rank": 13,
+      "score": 0.12,
       "components": {
-        "relvol": 0.034,
+        "relvol": 0.054,
         "mfi": 0.0,
         "bar_strength": 0.0,
         "near_20d_high": 0.0,
@@ -1493,6 +1438,25 @@
       "n_components_present": 6,
       "missing_components": [],
       "pine_go_norm": 0.2,
+      "blockers": []
+    },
+    {
+      "ticker": "NFLX",
+      "company": "Netflix",
+      "sector": "Communication Services",
+      "ai_rank": null,
+      "score": 0.0,
+      "components": {
+        "relvol": 0.0,
+        "mfi": 0.0,
+        "bar_strength": 0.0,
+        "near_20d_high": 0.0,
+        "rsi_zone": 0.0,
+        "close_location": 0.0
+      },
+      "n_components_present": 6,
+      "missing_components": [],
+      "pine_go_norm": 0.0,
       "blockers": []
     }
   ]
