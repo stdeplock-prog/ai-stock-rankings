@@ -119,19 +119,54 @@ def test_build_put_call_with_fixture():
 
 def test_build_put_call_fetch_failure_falls_back():
     # Empty html -> source_needed, mirrors fetch failure path.
-    p = mrm._build_put_call(html="")
+    p = mrm._build_put_call(html="", fetch_error="HTTPError 503")
     if p["status"] != "source_needed":
         fail(f"expected source_needed on empty html, got {p['status']}")
     if p["value"] is not None:
         fail("expected value=None on fallback")
     if p["source"] != mrm.CBOE_DAILY_STATS_URL:
         fail("source URL should still be reported on fallback")
+    if p.get("fetch_status") != "fetch_failed":
+        fail(f"expected fetch_status=fetch_failed, got {p.get('fetch_status')}")
+    if p.get("fetch_error") != "HTTPError 503":
+        fail(f"expected fetch_error to propagate, got {p.get('fetch_error')}")
 
 
 def test_build_put_call_parse_failure_falls_back():
     p = mrm._build_put_call(html="<html>unrelated</html>")
     if p["status"] != "source_needed":
         fail(f"expected source_needed on unparseable html, got {p['status']}")
+    if p.get("fetch_status") != "parse_failed":
+        fail(f"expected fetch_status=parse_failed, got {p.get('fetch_status')}")
+
+
+def test_build_put_call_success_includes_fetch_status_ok():
+    p = mrm._build_put_call(html=CBOE_FIXTURE_HTML)
+    if p.get("fetch_status") != "ok":
+        fail(f"expected fetch_status=ok on success, got {p.get('fetch_status')}")
+    if p.get("fetch_error") is not None:
+        fail(f"expected fetch_error=None on success, got {p.get('fetch_error')}")
+
+
+def test_fetch_returns_tuple_html_and_error():
+    # Smoke test that _fetch_cboe_html returns the expected tuple shape. We
+    # don't actually hit the network here — we just verify the signature
+    # tolerates monkeypatched return values by checking the type contract
+    # when given a deliberately invalid scheme via urllib (cheap network-
+    # free failure path).
+    import urllib.request
+    real_urlopen = urllib.request.urlopen
+    try:
+        def boom(*a, **k):
+            raise OSError("network disabled in test")
+        urllib.request.urlopen = boom
+        html, err = mrm._fetch_cboe_html(timeout=1.0)
+    finally:
+        urllib.request.urlopen = real_urlopen
+    if html is not None:
+        fail(f"expected html=None on raised network error, got {type(html)}")
+    if not err or "OSError" not in err:
+        fail(f"expected error string containing OSError, got {err!r}")
 
 
 def test_render_includes_put_call_table_when_ok():
@@ -251,6 +286,8 @@ TESTS = [
     test_build_put_call_with_fixture,
     test_build_put_call_fetch_failure_falls_back,
     test_build_put_call_parse_failure_falls_back,
+    test_build_put_call_success_includes_fetch_status_ok,
+    test_fetch_returns_tuple_html_and_error,
     test_render_includes_put_call_table_when_ok,
     test_render_falls_back_when_source_needed,
     test_summary_includes_equity_pc_when_present,

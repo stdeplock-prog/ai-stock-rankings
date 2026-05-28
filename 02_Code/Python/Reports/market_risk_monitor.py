@@ -130,18 +130,36 @@ def _parse_cboe_html(html: str) -> dict:
     return ratios
 
 
-def _fetch_cboe_html(timeout: float = 10.0) -> str | None:
-    """Fetch the Cboe daily stats page. Returns HTML text or None on error."""
+def _fetch_cboe_html(timeout: float = 15.0) -> tuple[str | None, str | None]:
+    """Fetch the Cboe daily stats page.
+
+    Returns (html, error). On success: (text, None). On failure:
+    (None, short error description suitable for logging/JSON metadata).
+    """
     try:
         import urllib.request
-        req = urllib.request.Request(
-            CBOE_DAILY_STATS_URL,
-            headers={"User-Agent": "Mozilla/5.0 (compatible; ai-stock-rankings/1.0)"},
-        )
+    except Exception as e:  # pragma: no cover - stdlib always present
+        return None, f"urllib.request import failed: {e}"
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+    }
+    req = urllib.request.Request(CBOE_DAILY_STATS_URL, headers=headers)
+    try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
-            return resp.read().decode("utf-8", errors="replace")
-    except Exception:
-        return None
+            status = getattr(resp, "status", 200)
+            if status != 200:
+                return None, f"HTTP {status}"
+            data = resp.read()
+            if not data:
+                return None, "empty response body"
+            return data.decode("utf-8", errors="replace"), None
+    except Exception as e:
+        return None, f"{type(e).__name__}: {e}"
 
 
 def _classify_equity_pc(value: float) -> tuple[str, bool, str]:
@@ -157,19 +175,28 @@ def _classify_equity_pc(value: float) -> tuple[str, bool, str]:
     return ("Neutral range", False, "pass")
 
 
-def _build_put_call(html: str | None = None) -> dict:
+def _build_put_call(html: str | None = None, fetch_error: str | None = None) -> dict:
     """Build the put/call indicator payload from Cboe daily stats.
 
-    Accepts an optional pre-fetched HTML string to make testing trivial.
+    Accepts an optional pre-fetched HTML string (and optional fetch_error)
+    to make testing trivial. When html is None, fetches live and records
+    the outcome in the returned dict's fetch_status/fetch_error fields so
+    downstream consumers (and the JSON artifact) can diagnose failures
+    without re-running the workflow.
     """
     fetched_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    if html is None:
-        html = _fetch_cboe_html()
+    if html is None and fetch_error is None:
+        html, fetch_error = _fetch_cboe_html()
     if not html:
         return {
             "value": None,
             "status": "source_needed",
-            "note": "Cboe daily stats fetch failed. Market-wide put/call unavailable.",
+            "fetch_status": "fetch_failed",
+            "fetch_error": fetch_error or "no html returned",
+            "note": (
+                f"Cboe daily stats fetch failed ({fetch_error or 'no html'}). "
+                "Market-wide put/call unavailable."
+            ),
             "source": CBOE_DAILY_STATS_URL,
             "fetched_at": fetched_at,
         }
@@ -178,6 +205,8 @@ def _build_put_call(html: str | None = None) -> dict:
         return {
             "value": None,
             "status": "source_needed",
+            "fetch_status": "parse_failed",
+            "fetch_error": None,
             "note": "Cboe daily stats parse failed. Page format may have changed.",
             "source": CBOE_DAILY_STATS_URL,
             "fetched_at": fetched_at,
@@ -193,6 +222,8 @@ def _build_put_call(html: str | None = None) -> dict:
         "status": "warn" if alert else "ok",
         "alert": alert,
         "label": label,
+        "fetch_status": "ok",
+        "fetch_error": None,
         "note": (
             "Market-wide context only (not per-ticker). Equity P/C extremes: "
             "<= 0.40 speculative complacency; >= 1.20 fear/hedging."
@@ -516,6 +547,21 @@ def main():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     HTML_DIR.mkdir(parents=True, exist_ok=True)
     payload = build_report()
+    pcr = payload["indicators"]["put_call_ratio"]
+    fs = pcr.get("fetch_status", "unknown")
+    if fs == "ok":
+        ratios = pcr.get("ratios", {})
+        print(
+            f"Cboe put/call fetch=ok equity={ratios.get('equity')} "
+            f"total={ratios.get('total')} index={ratios.get('index')} "
+            f"etp={ratios.get('etp')} vix={ratios.get('vix')} "
+            f"spx={ratios.get('spx')}"
+        )
+    else:
+        print(
+            f"Cboe put/call fetch={fs} error={pcr.get('fetch_error')!r}",
+            file=sys.stderr,
+        )
     (DATA_DIR / "market_risk_monitor.json").write_text(json.dumps(payload, indent=2))
     (HTML_DIR / "market-risk-monitor.html").write_text(render_html(payload))
 
