@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T18:17:29Z",
-  "generated_at_chicago": "2026-05-28 01:17 PM CDT",
+  "generated_at": "2026-05-28T23:06:00Z",
+  "generated_at_chicago": "2026-05-28 06:06 PM CDT",
   "overall": "WARN",
   "sections": {
     "freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-28 01:16 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-05-28 06:05 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,13 +17,13 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-28 01:16 PM CDT",
+        "as_of": "2026-05-28 06:05 PM CDT",
         "open_date": "2026-05-28",
         "row_count": 100,
-        "is_open_run": true,
+        "is_open_run": false,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-05-28 13:17",
+        "chicago_now": "2026-05-28 18:06",
         "rankings_age_hours": 0.02,
         "today_live": true
       },
@@ -34,20 +34,20 @@
         {
           "name": "run_source",
           "status": "WARN",
-          "message": "latest run: manual workflow_dispatch (2026-05-28 13:17)"
+          "message": "schedule degraded: today_missing=['morning'], history_missing=2"
         }
       ],
       "metrics": {
         "overall_raw": "WARN",
         "overall_effective": "WARN",
-        "last_run_event": "workflow_dispatch",
-        "last_run_slot": "manual",
-        "last_run_ts_chicago": "2026-05-28 13:17",
+        "last_run_event": "schedule",
+        "last_run_slot": "close",
+        "last_run_ts_chicago": "2026-05-28 18:05",
         "today_missing": [
           "morning"
         ],
         "today_satisfied": false,
-        "source": "manual"
+        "source": "schedule_degraded"
       },
       "status": "WARN"
     },
@@ -55,20 +55,20 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "WARN",
-          "message": "overall=WARN; sections=rankings:OK, watchlist:WARN, tasks:OK"
+          "status": "OK",
+          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
-        "overall": "WARN",
+        "overall": "OK",
         "by_section": {
           "rankings": "OK",
-          "watchlist": "WARN",
+          "watchlist": "OK",
           "tasks": "OK"
         },
         "critical_section_fail": false
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "rankings_changes": {
       "checks": [
@@ -90,7 +90,7 @@
             "ticker": "ARW",
             "company": "Arrow Electronics",
             "ai_score": 8.5,
-            "change": 6,
+            "change": 0,
             "sector": "Technology"
           },
           {
@@ -98,7 +98,7 @@
             "ticker": "CPAY",
             "company": "Corpay",
             "ai_score": 8.4,
-            "change": -1,
+            "change": 0,
             "sector": "Technology"
           },
           {
@@ -106,7 +106,7 @@
             "ticker": "BNY",
             "company": "BNY Mellon",
             "ai_score": 8.3,
-            "change": 5,
+            "change": 0,
             "sector": "Financial Services"
           },
           {
@@ -114,7 +114,7 @@
             "ticker": "ROST",
             "company": "Ross Stores",
             "ai_score": 8.3,
-            "change": 7,
+            "change": 0,
             "sector": "Consumer Cyclical"
           },
           {
@@ -122,7 +122,7 @@
             "ticker": "UAL",
             "company": "United Airlines Holdings",
             "ai_score": 8.3,
-            "change": 8,
+            "change": 0,
             "sector": "Industrials"
           },
           {
@@ -130,130 +130,130 @@
             "ticker": "MS",
             "company": "Morgan Stanley",
             "ai_score": 8.2,
-            "change": -3,
+            "change": 0,
             "sector": "Financial Services"
           },
           {
             "rank": 7,
-            "ticker": "FR",
-            "company": "First Industrial Realty Trust",
+            "ticker": "DELL",
+            "company": "Dell Technologies",
             "ai_score": 8.2,
             "change": 2,
-            "sector": "Real Estate"
+            "sector": "Technology"
           },
           {
             "rank": 8,
             "ticker": "FRT",
             "company": "Federal Realty Investment Trust",
             "ai_score": 8.2,
-            "change": -2,
+            "change": 0,
             "sector": "Real Estate"
           },
           {
             "rank": 9,
-            "ticker": "DELL",
-            "company": "Dell Technologies",
+            "ticker": "FR",
+            "company": "First Industrial Realty Trust",
             "ai_score": 8.2,
-            "change": -7,
-            "sector": "Technology"
+            "change": -2,
+            "sector": "Real Estate"
           },
           {
             "rank": 10,
             "ticker": "HALO",
             "company": "Halozyme",
             "ai_score": 8.2,
-            "change": 5,
+            "change": 0,
             "sector": "Healthcare"
           }
         ],
         "top_gainers": [
           {
-            "rank": 71,
-            "ticker": "MRP",
-            "company": "Millrose Properties",
-            "change": 292,
+            "rank": 66,
+            "ticker": "BURL",
+            "company": "Burlington Stores",
+            "change": 9,
             "ai_score": 7.6,
-            "sector": "Real Estate"
+            "sector": "Consumer Cyclical"
           },
           {
-            "rank": 93,
-            "ticker": "INGM",
-            "company": "Ingram Micro",
-            "change": 244,
-            "ai_score": 7.5,
-            "sector": "Technology"
-          },
-          {
-            "rank": 11,
-            "ticker": "META",
-            "company": "Meta Platforms",
-            "change": 190,
-            "ai_score": 8.1,
-            "sector": "Communication Services"
-          },
-          {
-            "rank": 92,
-            "ticker": "UNP",
-            "company": "Union Pacific Corporation",
-            "change": 162,
-            "ai_score": 7.5,
-            "sector": "Industrials"
-          },
-          {
-            "rank": 53,
-            "ticker": "MIDD",
-            "company": "Middleby",
-            "change": 153,
+            "rank": 56,
+            "ticker": "ARMK",
+            "company": "Aramark",
+            "change": 4,
             "ai_score": 7.7,
             "sector": "Industrials"
+          },
+          {
+            "rank": 57,
+            "ticker": "BKNG",
+            "company": "Booking Holdings",
+            "change": 4,
+            "ai_score": 7.7,
+            "sector": "Consumer Cyclical"
+          },
+          {
+            "rank": 38,
+            "ticker": "AFL",
+            "company": "Aflac",
+            "change": 3,
+            "ai_score": 7.8,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 45,
+            "ticker": "SNX",
+            "company": "TD Synnex",
+            "change": 3,
+            "ai_score": 7.7,
+            "sector": "Technology"
           }
         ],
         "top_losers": [
           {
-            "rank": 82,
-            "ticker": "OHI",
-            "company": "Omega Healthcare Investors",
-            "change": -66,
-            "ai_score": 7.5,
-            "sector": "Real Estate"
+            "rank": 62,
+            "ticker": "FSLR",
+            "company": "First Solar",
+            "change": -11,
+            "ai_score": 7.7,
+            "sector": "Technology"
           },
           {
             "rank": 81,
-            "ticker": "MLI",
-            "company": "Mueller Industries",
-            "change": -53,
+            "ticker": "SMCI",
+            "company": "Supermicro",
+            "change": -11,
             "ai_score": 7.5,
-            "sector": "Industrials"
+            "sector": "Technology"
           },
           {
-            "rank": 69,
-            "ticker": "NTRS",
-            "company": "Northern Trust",
-            "change": -50,
-            "ai_score": 7.6,
-            "sector": "Financial Services"
+            "rank": 60,
+            "ticker": "PATH",
+            "company": "UiPath",
+            "change": -4,
+            "ai_score": 7.7,
+            "sector": "Technology"
           },
           {
-            "rank": 94,
-            "ticker": "NBIX",
-            "company": "Neurocrine Biosciences",
-            "change": -49,
-            "ai_score": 7.5,
+            "rank": 40,
+            "ticker": "APH",
+            "company": "Amphenol",
+            "change": -3,
+            "ai_score": 7.8,
+            "sector": "Technology"
+          },
+          {
+            "rank": 46,
+            "ticker": "LLY",
+            "company": "Lilly (Eli)",
+            "change": -3,
+            "ai_score": 7.7,
             "sector": "Healthcare"
-          },
-          {
-            "rank": 72,
-            "ticker": "SSB",
-            "company": "SouthState Corporation",
-            "change": -46,
-            "ai_score": 7.6,
-            "sector": "Financial Services"
           }
         ],
         "new_top10_entries": [
           {
             "ticker": "FR",
-            "rank": 7,
+            "rank": 9,
             "ai_score": 8.2,
             "sector": "Real Estate"
           },
@@ -267,9 +267,9 @@
         "prior_top10_compared_against": "2026-05-27",
         "mov_summary": {
           "with_change": 100,
-          "positive": 65,
-          "negative": 34,
-          "zero": 1
+          "positive": 28,
+          "negative": 21,
+          "zero": 51
         },
         "limitation": "MOV-based gainers/losers; new-entry detection uses prior benchmark snapshot when available."
       },
@@ -280,16 +280,16 @@
         {
           "name": "supp_coverage",
           "status": "OK",
-          "message": "SUPP 61/70 full fundamentals; price_only=9 tech_only=0"
+          "message": "SUPP 65/74 full fundamentals; price_only=9 tech_only=0"
         },
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=70 misses=0"
+          "message": "yfinance cache hits=0 misses=74"
         }
       ],
       "metrics": {
-        "row_count": 137,
+        "row_count": 141,
         "top_10": [
           {
             "rank": 1,
@@ -347,6 +347,15 @@
           },
           {
             "rank": 7,
+            "ticker": "MSOS",
+            "company": "AdvisorShares Pure US Cannabis",
+            "ai_score": 7.7,
+            "change": 0,
+            "sector": "ETF",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 8,
             "ticker": "PATH",
             "company": "UiPath",
             "ai_score": 7.7,
@@ -355,42 +364,45 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 8,
+            "rank": 9,
             "ticker": "SMCI",
             "company": "Supermicro",
-            "ai_score": 7.6,
+            "ai_score": 7.5,
             "change": 0,
             "sector": "Technology",
             "data_source": "main_pipeline"
           },
           {
-            "rank": 9,
+            "rank": 10,
             "ticker": "TJX",
             "company": "TJX Companies",
             "ai_score": 7.5,
             "change": 0,
             "sector": "Consumer Cyclical",
             "data_source": "main_pipeline"
-          },
-          {
-            "rank": 10,
-            "ticker": "AAPL",
-            "company": "Apple Inc.",
-            "ai_score": 7.4,
-            "change": 0,
-            "sector": "Technology",
-            "data_source": "main_pipeline"
           }
         ],
         "prior_top10_compared_against": "2026-05-27",
         "new_top10_entries": [
           {
+            "ticker": "MSOS",
+            "rank": 7,
+            "ai_score": 7.7
+          },
+          {
             "ticker": "TJX",
-            "rank": 9,
+            "rank": 10,
             "ai_score": 7.5
           }
         ],
         "supp_top": [
+          {
+            "ticker": "MSOS",
+            "company": "AdvisorShares Pure US Cannabis",
+            "ai_score": 7.7,
+            "change": 0,
+            "sector": "ETF"
+          },
           {
             "ticker": "RGTI",
             "company": "Rigetti Computing, Inc.",
@@ -406,11 +418,11 @@
             "sector": "Technology"
           },
           {
-            "ticker": "MSOS",
-            "company": "AdvisorShares Pure US Cannabis",
-            "ai_score": 7.2,
+            "ticker": "PAAS",
+            "company": "Pan American Silver Corp.",
+            "ai_score": 7.1,
             "change": 0,
-            "sector": "ETF"
+            "sector": "Basic Materials"
           },
           {
             "ticker": "LUNMF",
@@ -418,28 +430,21 @@
             "ai_score": 7.0,
             "change": 0,
             "sector": "Basic Materials"
-          },
-          {
-            "ticker": "FRSH",
-            "company": "Freshworks Inc.",
-            "ai_score": 6.9,
-            "change": 0,
-            "sector": "Technology"
           }
         ],
         "top_gainers": [],
         "top_losers": [],
         "supp_summary": {
-          "total": 70,
-          "full_fundamentals": 61,
+          "total": 74,
+          "full_fundamentals": 65,
           "eodhd_enriched": 0,
           "metadata_only": 0,
           "price_only": 9,
           "technical_only": 0,
-          "unavailable": 5
+          "unavailable": 1
         },
-        "unavailable_count": 5,
-        "supp_degraded_pct": 0.129
+        "unavailable_count": 1,
+        "supp_degraded_pct": 0.122
       },
       "status": "OK"
     },
@@ -506,13 +511,11 @@
     "benchmark_present": true
   },
   "action_items": [
-    "[WARN] run_source.run_source: latest run: manual workflow_dispatch (2026-05-28 13:17)",
-    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:WARN, tasks:OK",
+    "[WARN] run_source.run_source: schedule degraded: today_missing=['morning'], history_missing=2",
     "[INFO] New top10 entries vs 2026-05-27: FR, HALO",
-    "[INFO] Top MOV gainer MRP (change=292, rank=71)",
-    "[INFO] Top MOV loser OHI (change=-66, rank=82)",
-    "[INFO] New watchlist top10: TJX",
-    "[INFO] Watchlist concentration: 5/10 top names in Technology"
+    "[INFO] Top MOV gainer BURL (change=9, rank=66)",
+    "[INFO] Top MOV loser FSLR (change=-11, rank=62)",
+    "[INFO] New watchlist top10: MSOS, TJX"
   ],
   "strengths_risks": {
     "strengths": [
@@ -521,10 +524,10 @@
       "BNY (AI 8.3, rank 3, Financial Services)"
     ],
     "risks": [
-      "OHI MOV -66 (rank 82, Real Estate)",
-      "MLI MOV -53 (rank 81, Industrials)",
-      "NTRS MOV -50 (rank 69, Financial Services)"
+      "FSLR MOV -11 (rank 62, Technology)",
+      "SMCI MOV -11 (rank 81, Technology)",
+      "PATH MOV -4 (rank 60, Technology)"
     ]
   },
-  "summary": "Live 01:16 PM CT \u00b7 Source manual \u00b7 DQ WARN \u00b7 Top gainer MRP \u00b7 2 new top10 (FR\u2026) \u00b7 Risk OK"
+  "summary": "Live 06:05 PM CT \u00b7 Source schedule degraded \u00b7 DQ OK \u00b7 Top gainer BURL \u00b7 2 new top10 (FR\u2026) \u00b7 Risk OK"
 }
