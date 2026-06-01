@@ -26,20 +26,15 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Schedule Reliability</h1>
-<p class="meta">Generated 2026-05-29T23:14:14Z &middot; Effective: <span class="badge">FAIL</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
+<p class="meta">Generated 2026-06-01T23:09:12Z &middot; Effective: <span class="badge">FAIL</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
 
-<p class="banner" style="background:#fdecea;border-color:#e6a8a0;color:#7a2018"><strong>Active failure.</strong> today still missing [&#x27;midday&#x27;]; 3 historical miss(es) in lookback</p>
+<p class="banner" style="background:#fdecea;border-color:#e6a8a0;color:#7a2018"><strong>Active failure.</strong> today still missing [&#x27;morning&#x27;, &#x27;midday&#x27;]; 5 historical miss(es) in lookback</p>
 <div class="section calendar"><h2>Recent Slot Delivery</h2>
 <table><thead><tr><th>Date</th>
 <th>morning</th>
 <th>midday</th>
 <th>close</th>
 </tr></thead><tbody>
-<tr><td>2026-05-25</td>
-<td class="hit">✓</td>
-<td class="hit">✓</td>
-<td class="hit">✓</td>
-</tr>
 <tr><td>2026-05-26</td>
 <td class="hit">✓</td>
 <td class="miss">missing</td>
@@ -60,21 +55,16 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <td class="miss">missing</td>
 <td class="hit">✓</td>
 </tr>
+<tr><td>2026-06-01</td>
+<td class="miss">missing</td>
+<td class="miss">missing</td>
+<td class="hit">✓</td>
+</tr>
 </tbody></table></div>
 <div class="section"><h2>Calendar<span class="FAIL">FAIL</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;calendar&quot;: {
     &quot;rows&quot;: [
-      {
-        &quot;date&quot;: &quot;2026-05-25&quot;,
-        &quot;slot_hits&quot;: {
-          &quot;morning&quot;: 1,
-          &quot;midday&quot;: 1,
-          &quot;close&quot;: 1
-        },
-        &quot;missing&quot;: [],
-        &quot;duplicate&quot;: []
-      },
       {
         &quot;date&quot;: &quot;2026-05-26&quot;,
         &quot;slot_hits&quot;: {
@@ -120,60 +110,73 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
           &quot;midday&quot;
         ],
         &quot;duplicate&quot;: []
+      },
+      {
+        &quot;date&quot;: &quot;2026-06-01&quot;,
+        &quot;slot_hits&quot;: {
+          &quot;morning&quot;: 0,
+          &quot;midday&quot;: 0,
+          &quot;close&quot;: 1
+        },
+        &quot;missing&quot;: [
+          &quot;morning&quot;,
+          &quot;midday&quot;
+        ],
+        &quot;duplicate&quot;: []
       }
     ],
-    &quot;missing_count&quot;: 3,
+    &quot;missing_count&quot;: 5,
     &quot;duplicate_count&quot;: 0,
     &quot;lookback_days&quot;: 5
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>missing_slots</td><td class="FAIL">FAIL</td><td>3 expected slot(s) missing in last 5 weekdays — investigate GH Actions delivery</td></tr>
+<tr><td>missing_slots</td><td class="FAIL">FAIL</td><td>5 expected slot(s) missing in last 5 weekdays — investigate GH Actions delivery</td></tr>
 <tr><td>duplicate_slots</td><td class="OK">OK</td><td>no duplicate slot proceeds detected</td></tr>
-<tr><td>history_source</td><td class="OK">OK</td><td>history loaded from workflow_runs.jsonl (74 records)</td></tr>
+<tr><td>history_source</td><td class="OK">OK</td><td>history loaded from workflow_runs.jsonl (75 records)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Recency<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;chicago_now&quot;: &quot;2026-05-29 18:14&quot;,
+  &quot;chicago_now&quot;: &quot;2026-06-01 18:09&quot;,
   &quot;is_weekend&quot;: false,
   &quot;expected_slot_now&quot;: &quot;close&quot;,
-  &quot;rankings_as_of&quot;: &quot;2026-05-29 06:14 PM CDT&quot;,
-  &quot;rankings_age_hours&quot;: 0.0,
+  &quot;rankings_as_of&quot;: &quot;2026-06-01 06:08 PM CDT&quot;,
+  &quot;rankings_age_hours&quot;: 0.02,
   &quot;last_run&quot;: {
-    &quot;ts_utc&quot;: &quot;2026-05-29T23:14:14Z&quot;,
-    &quot;ts_chicago&quot;: &quot;2026-05-29 18:14&quot;,
-    &quot;chicago_date&quot;: &quot;2026-05-29&quot;,
+    &quot;ts_utc&quot;: &quot;2026-06-01T23:09:12Z&quot;,
+    &quot;ts_chicago&quot;: &quot;2026-06-01 18:09&quot;,
+    &quot;chicago_date&quot;: &quot;2026-06-01&quot;,
     &quot;event_name&quot;: &quot;schedule&quot;,
     &quot;slot&quot;: &quot;close&quot;,
     &quot;proceeded&quot;: true,
-    &quot;as_of&quot;: &quot;2026-05-29 06:14 PM CDT&quot;,
-    &quot;open_date&quot;: &quot;2026-05-29&quot;,
-    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/26665913355&quot;,
-    &quot;commit_sha&quot;: &quot;ecb7bf7de0b9e87f80786db362ff3470cc799127&quot;
+    &quot;as_of&quot;: &quot;2026-06-01 06:08 PM CDT&quot;,
+    &quot;open_date&quot;: &quot;2026-06-01&quot;,
+    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/26786727955&quot;,
+    &quot;commit_sha&quot;: &quot;a333bf0d534cb5f7ca11a6492606a079fed38278&quot;
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-05-29 06:14 PM CDT (age 0.0h)</td></tr>
-<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=schedule slot=close at 2026-05-29 18:14</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-01 06:08 PM CDT (age 0.0h)</td></tr>
+<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=schedule slot=close at 2026-06-01 18:09</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Skip Pattern<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;proceed_14d&quot;: 27,
+  &quot;proceed_14d&quot;: 24,
   &quot;skip_14d&quot;: 0,
   &quot;skip_reasons_14d&quot;: {}
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>skip_volume</td><td class="OK">OK</td><td>0 skip records in 14d (27 proceeded)</td></tr>
+<tr><td>skip_volume</td><td class="OK">OK</td><td>0 skip records in 14d (24 proceeded)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Event Mix<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;proceed_14d_by_event&quot;: {
-    &quot;schedule&quot;: 23,
-    &quot;workflow_dispatch&quot;: 4,
+    &quot;schedule&quot;: 22,
+    &quot;workflow_dispatch&quot;: 2,
     &quot;other&quot;: 0
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>event_mix</td><td class="OK">OK</td><td>schedule=23 dispatch=4 other=0</td></tr>
+<tr><td>event_mix</td><td class="OK">OK</td><td>schedule=22 dispatch=2 other=0</td></tr>
 </tbody></table></div>
 </body></html>
