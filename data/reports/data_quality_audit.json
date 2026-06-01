@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-29T23:14:13Z",
-  "overall": "OK",
+  "generated_at": "2026-06-01T23:31:43Z",
+  "overall": "WARN",
   "sections": {
     "rankings": {
       "present": true,
@@ -14,7 +14,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-29 06:14 PM CDT (age 0.0h)",
+          "message": "as_of 2026-06-01 06:31 PM CDT (age 0.0h)",
           "data": {}
         },
         {
@@ -44,7 +44,7 @@
         {
           "name": "mov_distribution",
           "status": "OK",
-          "message": "+42 / -39 / 0=19 / missing=0",
+          "message": "+57 / -36 / 0=7 / missing=0",
           "data": {}
         },
         {
@@ -85,9 +85,9 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-05-29 06:14 PM CDT",
-        "open_date": "2026-05-29",
-        "is_open_run": false,
+        "as_of": "2026-06-01 06:31 PM CDT",
+        "open_date": "2026-06-01",
+        "is_open_run": true,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "row_count": 100,
         "missing_market_cap": 0,
@@ -98,9 +98,9 @@
         },
         "closes_short_count": 0,
         "mov_distribution": {
-          "positive": 42,
-          "negative": 39,
-          "zero": 19,
+          "positive": 57,
+          "negative": 36,
+          "zero": 7,
           "missing": 0
         },
         "score_missing": {
@@ -120,42 +120,42 @@
         {
           "name": "watchlist_freshness",
           "status": "OK",
-          "message": "as_of 2026-05-29 06:14 PM CDT (age 0.0h)",
+          "message": "as_of 2026-06-01 06:31 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "yfinance_cache_fallback",
           "status": "OK",
-          "message": "26 SUPP rows served from yfinance cache fallback (rate-limit/empty: 26)",
+          "message": "74 SUPP rows served from yfinance cache fallback (rate-limit/empty: 74)",
           "data": {}
         },
         {
           "name": "supp_full_fundamentals",
           "status": "OK",
-          "message": "66/75 (88%) full fundamentals",
+          "message": "65/74 (88%) full fundamentals",
           "data": {}
         },
         {
           "name": "unavailable_spike",
           "status": "OK",
-          "message": "0/142 unavailable (0%)",
+          "message": "1/142 unavailable (1%)",
           "data": {}
         },
         {
           "name": "supp_missing_market_cap",
           "status": "OK",
-          "message": "7/75 (9%)",
+          "message": "7/74 (9%)",
           "data": {}
         },
         {
           "name": "supp_missing_fundamental",
           "status": "OK",
-          "message": "9/75 (12%)",
+          "message": "9/74 (12%)",
           "data": {}
         }
       ],
       "metrics": {
-        "as_of": "2026-05-29 06:14 PM CDT",
+        "as_of": "2026-06-01 06:31 PM CDT",
         "row_count": 141,
         "unavailable_count": 1,
         "unavailable_sample": [
@@ -167,46 +167,45 @@
         ],
         "by_source_label": {
           "tradingview": 66,
-          "csv": 46,
-          "both": 29
+          "both": 29,
+          "csv": 46
         },
         "by_data_source": {
           "main_pipeline": 67,
-          "supplemental_yfinance": 75
+          "supplemental_yfinance": 74
         },
         "supp_summary": {
-          "total": 75,
-          "full_fundamentals": 66,
+          "total": 74,
+          "full_fundamentals": 65,
           "eodhd_enriched": 0,
           "metadata_only": 0,
           "price_only": 9,
           "technical_only": 0,
-          "unavailable": 0
+          "unavailable": 1
         },
         "supp_by_kind": {
-          "equity": 66,
+          "equity": 65,
           "etf": 7,
           "crypto": 2
         },
         "supp_by_enrichment": {
-          "yfinance_fundamentals": 66,
+          "yfinance_fundamentals": 65,
           "yfinance_price_only": 9
         },
         "yfinance_info_cache": {
-          "cache_hit_fresh": 48,
-          "cache_miss": 26,
-          "network_call": 26,
-          "fallback_to_cache": 26,
-          "rate_limit_or_empty": 26,
+          "cache_hit_fresh": 0,
+          "cache_miss": 74,
+          "network_call": 74,
+          "fallback_to_cache": 74,
+          "rate_limit_or_empty": 74,
           "network_success": 0
         },
         "supp_info_sources": {
-          "yfinance_fresh_cache": 48,
-          "yfinance_cache_fallback": 26
+          "yfinance_cache_fallback": 74
         },
         "supp_metadata_stale": 0,
-        "unavailable_ratio": 0.0,
-        "supp_rows_inspected": 75,
+        "unavailable_ratio": 0.007,
+        "supp_rows_inspected": 74,
         "supp_missing_market_cap": 7,
         "supp_missing_sector": 0,
         "supp_missing_fundamental": 9
@@ -224,9 +223,28 @@
         },
         {
           "name": "stale_report_metadata",
-          "status": "OK",
-          "message": "no stale report metadata",
-          "data": {}
+          "status": "WARN",
+          "message": "report task(s) with last_run >24h before rankings as_of: market-risk-monitor, options-earnings-watchlist, benchmark-review, schedule-reliability, market-open-scan, midday-health-check, ranking-diagnostics, close-recap, weekly-rebalance, external-benchmark-review, pine-go-no-go, cooloff-cohort-tracking, disagreement-queue-review, activity-adjusted-review, accumulation-signal-meter, rank-close-tracker",
+          "data": {
+            "ids": [
+              "market-risk-monitor",
+              "options-earnings-watchlist",
+              "benchmark-review",
+              "schedule-reliability",
+              "market-open-scan",
+              "midday-health-check",
+              "ranking-diagnostics",
+              "close-recap",
+              "weekly-rebalance",
+              "external-benchmark-review",
+              "pine-go-no-go",
+              "cooloff-cohort-tracking",
+              "disagreement-queue-review",
+              "activity-adjusted-review",
+              "accumulation-signal-meter",
+              "rank-close-tracker"
+            ]
+          }
         }
       ],
       "metrics": {
@@ -238,7 +256,24 @@
         },
         "not_run_count": 0,
         "not_run_ids": [],
-        "stale_report_ids": [],
+        "stale_report_ids": [
+          "market-risk-monitor",
+          "options-earnings-watchlist",
+          "benchmark-review",
+          "schedule-reliability",
+          "market-open-scan",
+          "midday-health-check",
+          "ranking-diagnostics",
+          "close-recap",
+          "weekly-rebalance",
+          "external-benchmark-review",
+          "pine-go-no-go",
+          "cooloff-cohort-tracking",
+          "disagreement-queue-review",
+          "activity-adjusted-review",
+          "accumulation-signal-meter",
+          "rank-close-tracker"
+        ],
         "tasks": [
           {
             "id": "market-risk-monitor",
@@ -260,7 +295,7 @@
             "id": "benchmark-review",
             "name": "Benchmark Review",
             "status": "warn",
-            "last_run": "2026-05-29 12:51 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "\u2014",
             "has_report": true
           },
@@ -268,7 +303,7 @@
             "id": "schedule-reliability",
             "name": "Schedule Reliability",
             "status": "fail",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "\u2014",
             "has_report": true
           },
@@ -276,7 +311,7 @@
             "id": "market-open-scan",
             "name": "Market Open Scan",
             "status": "fail",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "\u2014",
             "has_report": true
           },
@@ -284,7 +319,7 @@
             "id": "midday-health-check",
             "name": "Midday Health Check",
             "status": "fail",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "\u2014",
             "has_report": true
           },
@@ -292,7 +327,7 @@
             "id": "ranking-diagnostics",
             "name": "Ranking Diagnostics",
             "status": "warn",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "2026-06-01 08:45 AM CDT",
             "has_report": true
           },
@@ -300,7 +335,7 @@
             "id": "close-recap",
             "name": "Close Recap",
             "status": "fail",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "\u2014",
             "has_report": true
           },
@@ -308,7 +343,7 @@
             "id": "weekly-rebalance",
             "name": "Weekly Rebalance Check",
             "status": "warn",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "\u2014",
             "has_report": true
           },
@@ -316,7 +351,7 @@
             "id": "external-benchmark-review",
             "name": "External Benchmark Review",
             "status": "warn",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "2026-06-01 08:45 AM CDT",
             "has_report": true
           },
@@ -324,7 +359,7 @@
             "id": "pine-go-no-go",
             "name": "Pine Go/No-Go Diagnostic",
             "status": "OK",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "2026-06-01 08:45 AM CDT",
             "has_report": true
           },
@@ -332,7 +367,7 @@
             "id": "cooloff-cohort-tracking",
             "name": "Cool-off Cohort Tracking",
             "status": "OK",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "2026-06-01 08:45 AM CDT",
             "has_report": true
           },
@@ -340,7 +375,7 @@
             "id": "disagreement-queue-review",
             "name": "Disagreement Queue Review",
             "status": "warn",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "2026-06-01 08:45 AM CDT",
             "has_report": true
           },
@@ -348,7 +383,7 @@
             "id": "activity-adjusted-review",
             "name": "Activity-Adjusted Review",
             "status": "OK",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "2026-06-01 08:45 AM CDT",
             "has_report": true
           },
@@ -356,7 +391,7 @@
             "id": "accumulation-signal-meter",
             "name": "Accumulation Signal Meter",
             "status": "OK",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "2026-06-01 08:45 AM CDT",
             "has_report": true
           },
@@ -364,13 +399,13 @@
             "id": "rank-close-tracker",
             "name": "Rank vs Close Tracker",
             "status": "OK",
-            "last_run": "2026-05-29 12:52 PM CDT",
+            "last_run": "2026-05-29 06:14 PM CDT",
             "next_run": "\u2014",
             "has_report": true
           }
         ]
       },
-      "status": "OK"
+      "status": "WARN"
     }
   }
 }
