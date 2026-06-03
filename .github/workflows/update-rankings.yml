@@ -566,6 +566,18 @@ jobs:
         run: python 02_Code/Python/Reports/continuity_score.py
         continue-on-error: true
 
+      # SWING 2-5D Score — diagnostic-only 0-100 short-horizon (2-5 trading day)
+      # positive-swing score per ticker (TECH trend + momentum thrust +
+      # continuity + accumulation + Pine GO gate + liquidity + sentiment/
+      # catalyst, with overextension/cool-off/earnings/low-liquidity penalties).
+      # Reads existing rankings/OHLCV/continuity/accumulation artifacts only;
+      # never feeds the production rank and is separate from the production
+      # swing_score. Surfaced compactly as the 2-5D badge on the dashboards.
+      - name: Generate swing 2-5d score
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/swing_2_5d_score.py
+        continue-on-error: true
+
       # Production scoring adjustment — reads the ACT (activity_adjusted_review),
       # GO (pine_go_no_go_diagnostic) and ACC (accumulation_signal_meter)
       # diagnostics and applies a bounded multiplier (±15% cap) to each row's
@@ -619,6 +631,7 @@ jobs:
           git add data/reports/accumulation_signal_meter.json 2>/dev/null || true
           git add data/reports/continuity_score.json 2>/dev/null || true
           git add data/reports/continuity_snapshots.jsonl 2>/dev/null || true
+          git add data/reports/swing_2_5d_score.json 2>/dev/null || true
           git add data/reports/production_scoring_change_review.json 2>/dev/null || true
           git add data/reports/project_closeout_roadmap.json 2>/dev/null || true
           git add data/reports/disagreement_review_state.json 2>/dev/null || true

@@ -598,6 +598,8 @@
       <button class="diag-chip" data-diag="act-demoted" title="Show rows where activity overlay would demote them (ACT Δ &lt; 0)">ACT demoted</button>
       <button class="diag-chip" data-diag="cont-high" title="Show rows with HIGH continuity score (≥ 65) — setup likely to keep working (diagnostic only)">CONT high</button>
       <button class="diag-chip" data-diag="cont-low" title="Show rows with LOW continuity score (&lt; 40) — fade risk (diagnostic only)">CONT low/fade</button>
+      <button class="diag-chip" data-diag="swing25-high" title="Show rows with HIGH 2-5D swing score (≥ 65) — primed for a short 2-5 day positive swing (diagnostic only)">2-5D high</button>
+      <button class="diag-chip" data-diag="swing25-low" title="Show rows with LOW 2-5D swing score (&lt; 45) — weak short-swing setup (diagnostic only)">2-5D low</button>
       <span id="diagFilterCount" class="diag-filter-label" style="margin-left:6px"></span>
     </div>
   </header>
@@ -718,6 +720,7 @@
             <th title="Accumulation Signal Meter (rel-vol + MFI + bar-strength + near-high + RSI zone + close-location). HIGH ≥ 7.0 → +4% to AI. MID → 0. LOW ≤ 3.0 → −3%. Capped within the overall ±15% bound.">ACC</th>
             <th class="col-ext-badge" title="Diagnostic: External benchmark / disagreement queue overlay (e-trade, fidelity, marketbeat, tradingview, zacks). CONF = multi-source external confirmation. DISC = strong/severe disagreement vs internal. MIX = moderate/insufficient signal. EXT is diagnostic only — DOES NOT affect production rank.">EXT</th>
             <th class="col-cont-badge" title="Diagnostic: Continuity Score (0-100) — estimates the likelihood this setup keeps working rather than fades, from relative strength, close location, sustained volume, MA distance, reversal health, sector strength and earnings risk. HIGH ≥ 65, MID 40-64, LOW < 40. Diagnostic only — DOES NOT affect production rank.">CONT</th>
+            <th class="col-swing25-badge" title="Diagnostic: SWING 2-5D Score (0-100) — short-horizon 2-5 day positive-swing potential. Composite of TECH trend, momentum thrust, continuity follow-through, accumulation, Pine GO gate, liquidity participation and sentiment/catalyst, with penalties for overextension/cool-off, weak continuity, near-term earnings and low liquidity. HIGH ≥ 65, MID 45-64, LOW < 45. Diagnostic only — DOES NOT affect production rank, and is separate from the production SWING score.">2-5D</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -735,7 +738,8 @@
       extBenchmark: ['./data/reports/external_benchmark_review.json'],
       disagreement: ['./data/reports/disagreement_queue.json'],
       marketRisk: ['./data/reports/market_risk_monitor.json'],
-      continuity: ['./data/reports/continuity_score.json']
+      continuity: ['./data/reports/continuity_score.json'],
+      swing25: ['./data/reports/swing_2_5d_score.json']
     };
 
     // ticker -> { activity_rank, rank_delta }. Diagnostic-only overlay; the
@@ -752,6 +756,9 @@
     let extByTicker = {};
     // Continuity Score (diagnostic only — never affects production rank).
     let contByTicker = {};
+    // SWING 2-5D Score (diagnostic only — short-horizon 2-5 day swing read;
+    // distinct from the production swing_score and never affects rank).
+    let swing25ByTicker = {};
 
     const schedTimes = [[8,45],[12,30],[15,35]];
     let state = { rows: [], meta: {} };
@@ -953,6 +960,30 @@
         title: `Continuity ${label} (score ${score.toFixed(0)}/100${confTxt}). Diagnostic only — does not affect production rank.`,
         // Keep the raw label + numeric score so the quick-filter can match
         // HIGH/LOW exactly and CSV export can emit the number.
+        rawLabel: label,
+        score: Math.round(score)
+      };
+    }
+
+    // SWING 2-5D badge from swing_2_5d_score.json. Short-horizon (2-5 day)
+    // positive-swing read — TECH trend + momentum thrust + continuity + ACC +
+    // GO gate + liquidity, with overextension/cool-off/earnings/low-liquidity
+    // penalties. Diagnostic only — does NOT feed production rank, and is
+    // separate from the production SWING (swing_score) column.
+    function deriveSwing25Badge(entry) {
+      if (!entry) return null;
+      const score = Number(entry.score);
+      const label = String(entry.label || '—');
+      if (label === '—' || !Number.isFinite(score)) {
+        return null;
+      }
+      const cls = label === 'HIGH' ? 'dg-pos' : label === 'LOW' ? 'dg-neg' : 'dg-mid';
+      const conf = Number(entry.confidence);
+      const confTxt = Number.isFinite(conf) ? ` · confidence ${(conf * 100).toFixed(0)}%` : '';
+      return {
+        label: `${label} ${score.toFixed(0)}`,
+        cls,
+        title: `2-5D swing ${label} (score ${score.toFixed(0)}/100${confTxt}). Short-horizon 2-5 day positive-swing potential. Diagnostic only — does not affect production rank, and is separate from the production SWING score.`,
         rawLabel: label,
         score: Math.round(score)
       };
@@ -1216,6 +1247,7 @@
             <td class="cell-diag">${diagBadgeCell(accByTicker[r.ticker], 'No accumulation signal (artifact missing or ticker not scored)')}</td>
             <td class="cell-diag col-ext-badge">${diagBadgeCell(extByTicker[r.ticker], 'No external benchmark signal (no confirmation or disagreement)')}</td>
             <td class="cell-diag col-cont-badge">${diagBadgeCell(contByTicker[r.ticker], 'No continuity score (artifact missing or insufficient data)')}</td>
+            <td class="cell-diag col-swing25-badge">${diagBadgeCell(swing25ByTicker[r.ticker], 'No 2-5D swing score (artifact missing or insufficient data)')}</td>
           </tr>
         `;
       }).join('');
@@ -1265,6 +1297,8 @@
         case 'act-demoted':  return Number(r.rank_delta) < 0;
         case 'cont-high':    return (contByTicker[r.ticker] || {}).rawLabel === 'HIGH';
         case 'cont-low':     return (contByTicker[r.ticker] || {}).rawLabel === 'LOW';
+        case 'swing25-high': return (swing25ByTicker[r.ticker] || {}).rawLabel === 'HIGH';
+        case 'swing25-low':  return (swing25ByTicker[r.ticker] || {}).rawLabel === 'LOW';
         default: return true;
       }
     }
@@ -1394,7 +1428,16 @@
             const b = deriveContBadge(map[t]);
             if (b) contByTicker[t] = b;
           }
-        }).catch(() => { contByTicker = {}; })
+        }).catch(() => { contByTicker = {}; }),
+
+        fetchFirstAvailable(DATA_CANDIDATES.swing25).then(j => {
+          swing25ByTicker = {};
+          const map = (j && j.badges) || {};
+          for (const t of Object.keys(map)) {
+            const b = deriveSwing25Badge(map[t]);
+            if (b) swing25ByTicker[t] = b;
+          }
+        }).catch(() => { swing25ByTicker = {}; })
       ];
       await Promise.allSettled(tasks);
     }
@@ -1651,7 +1694,7 @@
       // scoring inputs, then Diagnostics. Keep all columns so downstream
       // consumers don't break.
       const csv = [
-        'Rank,Ticker,Company,Price,Sector,Industry,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,ActRank,ActDelta,Go,Acc,Ext,Continuity,ContinuityScore',
+        'Rank,Ticker,Company,Price,Sector,Industry,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,ActRank,ActDelta,Go,Acc,Ext,Continuity,ContinuityScore,Swing25,Swing25Score',
         ...rows.map(r => [
           r.rank,
           r.ticker,
@@ -1673,7 +1716,9 @@
           (accByTicker[r.ticker] && accByTicker[r.ticker].label) || '',
           (extByTicker[r.ticker] && extByTicker[r.ticker].label) || '',
           (contByTicker[r.ticker] && contByTicker[r.ticker].rawLabel) || '',
-          (contByTicker[r.ticker] && contByTicker[r.ticker].score) != null ? String(contByTicker[r.ticker].score) : ''
+          (contByTicker[r.ticker] && contByTicker[r.ticker].score) != null ? String(contByTicker[r.ticker].score) : '',
+          (swing25ByTicker[r.ticker] && swing25ByTicker[r.ticker].rawLabel) || '',
+          (swing25ByTicker[r.ticker] && swing25ByTicker[r.ticker].score) != null ? String(swing25ByTicker[r.ticker].score) : ''
         ].join(','))
       ].join('\n');
 
