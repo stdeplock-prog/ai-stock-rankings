@@ -20,31 +20,31 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Midday Health Check</h1>
-<p class="meta">Generated 2026-06-02 09:51 PM CDT &middot; Overall: <span class="badge">WARN</span></p>
-<div class="summary"><strong>Summary:</strong> Fresh 09:51 PM CT · Data quality OK · Watchlist OK · Schedule FAIL/recovered · Benchmark active</div>
+<p class="meta">Generated 2026-06-03 06:00 PM CDT &middot; Overall: <span class="badge">WARN</span></p>
+<div class="summary"><strong>Summary:</strong> Fresh 06:00 PM CT · Data quality OK · Watchlist OK · Schedule FAIL/recovered · Benchmark active</div>
 
 <div class="section"><h2>Action Items</h2><ul class="action">
-<li>[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 5 diagnostic slot gap(s) in lookback</li>
+<li>[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 7 diagnostic slot gap(s) in lookback</li>
 <li>[WARN] parity.scoring_parity: parity overall=WARN; low_risk drift explained by selection bias ([&#x27;low_risk&#x27;])</li>
 </ul></div>
 <div class="section"><h2>Data Freshness<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-06-02 09:51 PM CDT&quot;,
-  &quot;open_date&quot;: &quot;2026-06-02&quot;,
+  &quot;as_of&quot;: &quot;2026-06-03 06:00 PM CDT&quot;,
+  &quot;open_date&quot;: &quot;2026-06-03&quot;,
   &quot;row_count&quot;: 100,
   &quot;is_weekend&quot;: false,
-  &quot;chicago_now&quot;: &quot;2026-06-02 21:51&quot;,
+  &quot;chicago_now&quot;: &quot;2026-06-03 18:00&quot;,
   &quot;rankings_age_hours&quot;: 0.01,
   &quot;today_live&quot;: true
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-02 09:51 PM CDT (age 0.0h, weekend=False)</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-03 06:00 PM CDT (age 0.0h, weekend=False)</td></tr>
 <tr><td>today_live</td><td class="OK">OK</td><td>data is from today (Chicago)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall&quot;: &quot;OK&quot;,
-  &quot;generated_at&quot;: &quot;2026-06-03T02:51:50Z&quot;,
+  &quot;generated_at&quot;: &quot;2026-06-03T23:00:27Z&quot;,
   &quot;by_section&quot;: {
     &quot;rankings&quot;: &quot;OK&quot;,
     &quot;watchlist&quot;: &quot;OK&quot;,
@@ -58,51 +58,52 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Schedule Reliability<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall_raw&quot;: &quot;FAIL&quot;,
-  &quot;missing_count&quot;: 5,
+  &quot;missing_count&quot;: 7,
   &quot;lookback_days&quot;: 5,
   &quot;today_missing&quot;: [
+    &quot;morning&quot;,
     &quot;midday&quot;
   ],
   &quot;today_satisfied&quot;: false,
-  &quot;last_run_event&quot;: &quot;workflow_dispatch&quot;,
-  &quot;last_run_slot&quot;: &quot;manual&quot;,
-  &quot;last_run_ts_chicago&quot;: &quot;2026-06-02 21:51&quot;,
+  &quot;last_run_event&quot;: &quot;schedule&quot;,
+  &quot;last_run_slot&quot;: &quot;close&quot;,
+  &quot;last_run_ts_chicago&quot;: &quot;2026-06-03 18:00&quot;,
   &quot;recovered&quot;: true,
   &quot;overall_effective&quot;: &quot;WARN&quot;
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>schedule_reliability</td><td class="WARN">WARN</td><td>schedule reliability FAIL/recovered: live data fresh, 5 diagnostic slot gap(s) in lookback</td></tr>
+<tr><td>schedule_reliability</td><td class="WARN">WARN</td><td>schedule reliability FAIL/recovered: live data fresh, 7 diagnostic slot gap(s) in lookback</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Watchlist<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;supp_summary&quot;: {
-    &quot;total&quot;: 75,
-    &quot;full_fundamentals&quot;: 66,
+    &quot;total&quot;: 74,
+    &quot;full_fundamentals&quot;: 65,
     &quot;eodhd_enriched&quot;: 0,
     &quot;metadata_only&quot;: 0,
     &quot;price_only&quot;: 9,
     &quot;technical_only&quot;: 0,
-    &quot;unavailable&quot;: 0
+    &quot;unavailable&quot;: 1
   },
   &quot;yfinance_info_cache&quot;: {
-    &quot;cache_hit_fresh&quot;: 75,
-    &quot;cache_miss&quot;: 0,
-    &quot;network_call&quot;: 0,
-    &quot;fallback_to_cache&quot;: 0,
-    &quot;rate_limit_or_empty&quot;: 0,
+    &quot;cache_hit_fresh&quot;: 0,
+    &quot;cache_miss&quot;: 74,
+    &quot;network_call&quot;: 74,
+    &quot;fallback_to_cache&quot;: 74,
+    &quot;rate_limit_or_empty&quot;: 74,
     &quot;network_success&quot;: 0
   },
-  &quot;unavailable_count&quot;: 0,
-  &quot;scored&quot;: 142,
-  &quot;supp_degraded_pct&quot;: 0.12
+  &quot;unavailable_count&quot;: 1,
+  &quot;scored&quot;: 141,
+  &quot;supp_degraded_pct&quot;: 0.122
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>supp_coverage</td><td class="OK">OK</td><td>SUPP 66/75 full fundamentals; price_only=9 tech_only=0</td></tr>
-<tr><td>yfinance_cache</td><td class="OK">OK</td><td>yfinance cache hits=75 misses=0</td></tr>
+<tr><td>supp_coverage</td><td class="OK">OK</td><td>SUPP 65/74 full fundamentals; price_only=9 tech_only=0</td></tr>
+<tr><td>yfinance_cache</td><td class="OK">OK</td><td>yfinance cache hits=0 misses=74</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Benchmark<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;snapshots_kept&quot;: 24,
+  &quot;snapshots_kept&quot;: 25,
   &quot;horizons&quot;: [
     &quot;1d&quot;,
     &quot;3d&quot;,
@@ -115,7 +116,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;findings_fail&quot;: 0
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>benchmark_snapshots</td><td class="OK">OK</td><td>24 snapshot(s); ≥1 horizon has forward results</td></tr>
+<tr><td>benchmark_snapshots</td><td class="OK">OK</td><td>25 snapshot(s); ≥1 horizon has forward results</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Parity<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{

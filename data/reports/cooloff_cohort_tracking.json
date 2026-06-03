@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-03T02:51:53Z",
-  "as_of_date": "2026-06-02",
+  "generated_at": "2026-06-03T23:00:30Z",
+  "as_of_date": "2026-06-03",
   "overall": "OK",
   "caveat": "DIAGNOSTIC ONLY \u2014 production scoring formulas are NOT mutated. Tracks per-ticker forward returns of Pine cohorts to test whether overextended_bb names underperform clean-go names before promoting the blocker into LOW_RISK / SWING gating.",
   "thresholds": {
@@ -17,9 +17,9 @@
     "snapshot_max_rows": 500
   },
   "current_cohort_sizes": {
-    "clean_go": 34,
+    "clean_go": 39,
     "overextended_bb": 5,
-    "weak_go": 11
+    "weak_go": 10
   },
   "current_cohort_members": {
     "clean_go": [
@@ -31,11 +31,15 @@
       "BPOP",
       "BWA",
       "C",
+      "CIEN",
       "CPAY",
       "CRM",
       "DAL",
+      "DDOG",
+      "FDX",
       "FITB",
       "GEN",
+      "GLW",
       "GNTX",
       "GS",
       "HEI",
@@ -56,6 +60,7 @@
       "SNDK",
       "TEL",
       "TIGO",
+      "WDC",
       "ZM"
     ],
     "overextended_bb": [
@@ -75,14 +80,13 @@
       "LLYVA",
       "LVS",
       "META",
-      "SSB",
       "TJX"
     ]
   },
   "horizon_comparison": {
     "1d": {
       "snapshots_completed": 20,
-      "snapshots_pending": 0,
+      "snapshots_pending": 1,
       "cohorts": {
         "clean_go": {
           "n_observations": 714,
@@ -106,7 +110,7 @@
     },
     "3d": {
       "snapshots_completed": 18,
-      "snapshots_pending": 2,
+      "snapshots_pending": 3,
       "cohorts": {
         "clean_go": {
           "n_observations": 585,
@@ -130,7 +134,7 @@
     },
     "5d": {
       "snapshots_completed": 16,
-      "snapshots_pending": 4,
+      "snapshots_pending": 5,
       "cohorts": {
         "clean_go": {
           "n_observations": 486,
@@ -154,7 +158,7 @@
     },
     "10d": {
       "snapshots_completed": 11,
-      "snapshots_pending": 9,
+      "snapshots_pending": 10,
       "cohorts": {
         "clean_go": {
           "n_observations": 266,
@@ -182,12 +186,12 @@
     "ready": true,
     "rationale": "Clean-go beats overextended_bb at 5d by +1.05pp (clean=+1.80%, overext=+0.75%, n=486/83). Worth a controlled scoring experiment."
   },
-  "snapshots_kept": 20,
+  "snapshots_kept": 21,
   "inputs": {
     "pine_report_present": true,
     "rankings_present": true,
     "watchlist_present": true,
-    "prices_indexed": 233
+    "prices_indexed": 232
   },
-  "summary": "clean_go=34 \u00b7 overext_bb=5 \u00b7 weak_go=11 \u00b7 snaps=20 \u00b7 5d clean=+1.80%/overext=+0.75% (n=486/83) \u00b7 rec=consider_scoring_change"
+  "summary": "clean_go=39 \u00b7 overext_bb=5 \u00b7 weak_go=10 \u00b7 snaps=21 \u00b7 5d clean=+1.80%/overext=+0.75% (n=486/83) \u00b7 rec=consider_scoring_change"
 }
