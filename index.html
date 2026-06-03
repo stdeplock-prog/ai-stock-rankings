@@ -596,6 +596,8 @@
       <button class="diag-chip" data-diag="ext-disc" title="Show rows with external disagreement (DISC)">EXT disagreement</button>
       <button class="diag-chip" data-diag="act-promoted" title="Show rows where activity overlay would promote them (ACT Δ &gt; 0)">ACT promoted</button>
       <button class="diag-chip" data-diag="act-demoted" title="Show rows where activity overlay would demote them (ACT Δ &lt; 0)">ACT demoted</button>
+      <button class="diag-chip" data-diag="cont-high" title="Show rows with HIGH continuity score (≥ 65) — setup likely to keep working (diagnostic only)">CONT high</button>
+      <button class="diag-chip" data-diag="cont-low" title="Show rows with LOW continuity score (&lt; 40) — fade risk (diagnostic only)">CONT low/fade</button>
       <span id="diagFilterCount" class="diag-filter-label" style="margin-left:6px"></span>
     </div>
   </header>
@@ -715,6 +717,7 @@
             <th title="Pine v6 Go/No-Go gate stack (daily-bar proxy). GO = clean setup, no blockers, normalized score ≥ 0.7 → +4% to AI. WAIT = blocker present or 0.4 ≤ norm &lt; 0.7 → −2%. WEAK = norm &lt; 0.4 → −4%. Capped within the overall ±15% bound.">GO</th>
             <th title="Accumulation Signal Meter (rel-vol + MFI + bar-strength + near-high + RSI zone + close-location). HIGH ≥ 7.0 → +4% to AI. MID → 0. LOW ≤ 3.0 → −3%. Capped within the overall ±15% bound.">ACC</th>
             <th class="col-ext-badge" title="Diagnostic: External benchmark / disagreement queue overlay (e-trade, fidelity, marketbeat, tradingview, zacks). CONF = multi-source external confirmation. DISC = strong/severe disagreement vs internal. MIX = moderate/insufficient signal. EXT is diagnostic only — DOES NOT affect production rank.">EXT</th>
+            <th class="col-cont-badge" title="Diagnostic: Continuity Score (0-100) — estimates the likelihood this setup keeps working rather than fades, from relative strength, close location, sustained volume, MA distance, reversal health, sector strength and earnings risk. HIGH ≥ 65, MID 40-64, LOW < 40. Diagnostic only — DOES NOT affect production rank.">CONT</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -731,7 +734,8 @@
       accumMeter: ['./data/reports/accumulation_signal_meter.json'],
       extBenchmark: ['./data/reports/external_benchmark_review.json'],
       disagreement: ['./data/reports/disagreement_queue.json'],
-      marketRisk: ['./data/reports/market_risk_monitor.json']
+      marketRisk: ['./data/reports/market_risk_monitor.json'],
+      continuity: ['./data/reports/continuity_score.json']
     };
 
     // ticker -> { activity_rank, rank_delta }. Diagnostic-only overlay; the
@@ -746,6 +750,8 @@
     let goByTicker = {};
     let accByTicker = {};
     let extByTicker = {};
+    // Continuity Score (diagnostic only — never affects production rank).
+    let contByTicker = {};
 
     const schedTimes = [[8,45],[12,30],[15,35]];
     let state = { rows: [], meta: {} };
@@ -926,6 +932,30 @@
       if (s >= 7) return { label: 'HIGH', cls: 'dg-pos', title: `Accumulation score ${s.toFixed(2)} (HIGH ≥ 7)` };
       if (s <= 3) return { label: 'LOW',  cls: 'dg-neg', title: `Accumulation score ${s.toFixed(2)} (LOW ≤ 3)` };
       return       { label: 'MID',  cls: 'dg-mid', title: `Accumulation score ${s.toFixed(2)} (MID)` };
+    }
+
+    // Continuity badge from the continuity_score.json badges map. Shows the
+    // numeric score on the badge and the full label + confidence in the
+    // tooltip. Diagnostic only — does not feed production rank.
+    function deriveContBadge(entry) {
+      if (!entry) return null;
+      const score = Number(entry.score);
+      const label = String(entry.label || '—');
+      if (label === '—' || !Number.isFinite(score)) {
+        return null;
+      }
+      const cls = label === 'HIGH' ? 'dg-pos' : label === 'LOW' ? 'dg-neg' : 'dg-mid';
+      const conf = Number(entry.confidence);
+      const confTxt = Number.isFinite(conf) ? ` · confidence ${(conf * 100).toFixed(0)}%` : '';
+      return {
+        label: `${label} ${score.toFixed(0)}`,
+        cls,
+        title: `Continuity ${label} (score ${score.toFixed(0)}/100${confTxt}). Diagnostic only — does not affect production rank.`,
+        // Keep the raw label + numeric score so the quick-filter can match
+        // HIGH/LOW exactly and CSV export can emit the number.
+        rawLabel: label,
+        score: Math.round(score)
+      };
     }
 
     function diagBadgeCell(b, missingTitle) {
@@ -1185,6 +1215,7 @@
             <td class="cell-diag">${diagBadgeCell(goByTicker[r.ticker], 'No Pine go/no-go signal (artifact missing or ticker not evaluated)')}</td>
             <td class="cell-diag">${diagBadgeCell(accByTicker[r.ticker], 'No accumulation signal (artifact missing or ticker not scored)')}</td>
             <td class="cell-diag col-ext-badge">${diagBadgeCell(extByTicker[r.ticker], 'No external benchmark signal (no confirmation or disagreement)')}</td>
+            <td class="cell-diag col-cont-badge">${diagBadgeCell(contByTicker[r.ticker], 'No continuity score (artifact missing or insufficient data)')}</td>
           </tr>
         `;
       }).join('');
@@ -1232,6 +1263,8 @@
         case 'ext-disc':     return (extByTicker[r.ticker] || {}).label === 'DISC';
         case 'act-promoted': return Number(r.rank_delta) > 0;
         case 'act-demoted':  return Number(r.rank_delta) < 0;
+        case 'cont-high':    return (contByTicker[r.ticker] || {}).rawLabel === 'HIGH';
+        case 'cont-low':     return (contByTicker[r.ticker] || {}).rawLabel === 'LOW';
         default: return true;
       }
     }
@@ -1352,7 +1385,16 @@
               extByTicker[q.ticker] = { label: 'MIX', cls: 'dg-mid', title: `External signal mixed (${sev || 'no headline severity'})` };
             }
           }
-        }).catch(() => { extByTicker = {}; })
+        }).catch(() => { extByTicker = {}; }),
+
+        fetchFirstAvailable(DATA_CANDIDATES.continuity).then(j => {
+          contByTicker = {};
+          const map = (j && j.badges) || {};
+          for (const t of Object.keys(map)) {
+            const b = deriveContBadge(map[t]);
+            if (b) contByTicker[t] = b;
+          }
+        }).catch(() => { contByTicker = {}; })
       ];
       await Promise.allSettled(tasks);
     }
@@ -1609,7 +1651,7 @@
       // scoring inputs, then Diagnostics. Keep all columns so downstream
       // consumers don't break.
       const csv = [
-        'Rank,Ticker,Company,Price,Sector,Industry,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,ActRank,ActDelta,Go,Acc,Ext',
+        'Rank,Ticker,Company,Price,Sector,Industry,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,ActRank,ActDelta,Go,Acc,Ext,Continuity,ContinuityScore',
         ...rows.map(r => [
           r.rank,
           r.ticker,
@@ -1629,7 +1671,9 @@
           r.rank_delta == null ? '' : r.rank_delta,
           (goByTicker[r.ticker]  && goByTicker[r.ticker].label)  || '',
           (accByTicker[r.ticker] && accByTicker[r.ticker].label) || '',
-          (extByTicker[r.ticker] && extByTicker[r.ticker].label) || ''
+          (extByTicker[r.ticker] && extByTicker[r.ticker].label) || '',
+          (contByTicker[r.ticker] && contByTicker[r.ticker].rawLabel) || '',
+          (contByTicker[r.ticker] && contByTicker[r.ticker].score) != null ? String(contByTicker[r.ticker].score) : ''
         ].join(','))
       ].join('\n');
 

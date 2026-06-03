@@ -556,6 +556,16 @@ jobs:
         run: python 02_Code/Python/Reports/accumulation_signal_meter.py
         continue-on-error: true
 
+      # Continuity Score — diagnostic-only 0-100 trend-continuity score per
+      # ticker (rel strength, close location, volume support, MA distance,
+      # reversal health, sector strength, earnings risk) with a rolling
+      # 7-snapshot tracking artifact. Reads existing rankings/OHLCV/benchmark
+      # data only; never feeds the production rank.
+      - name: Generate continuity score
+        if: steps.gate.outputs.proceed == 'true'
+        run: python 02_Code/Python/Reports/continuity_score.py
+        continue-on-error: true
+
       # Production scoring adjustment — reads the ACT (activity_adjusted_review),
       # GO (pine_go_no_go_diagnostic) and ACC (accumulation_signal_meter)
       # diagnostics and applies a bounded multiplier (±15% cap) to each row's
@@ -607,6 +617,8 @@ jobs:
           git add data/reports/disagreement_queue_review.csv 2>/dev/null || true
           git add data/reports/activity_adjusted_review.json 2>/dev/null || true
           git add data/reports/accumulation_signal_meter.json 2>/dev/null || true
+          git add data/reports/continuity_score.json 2>/dev/null || true
+          git add data/reports/continuity_snapshots.jsonl 2>/dev/null || true
           git add data/reports/production_scoring_change_review.json 2>/dev/null || true
           git add data/reports/project_closeout_roadmap.json 2>/dev/null || true
           git add data/reports/disagreement_review_state.json 2>/dev/null || true
@@ -631,6 +643,7 @@ jobs:
           git add reports/disagreement-queue-review.html 2>/dev/null || true
           git add reports/activity-adjusted-review.html 2>/dev/null || true
           git add reports/accumulation-signal-meter.html 2>/dev/null || true
+          git add reports/continuity-score.html 2>/dev/null || true
           git add reports/project-closeout-roadmap.html 2>/dev/null || true
           # tasks.json is stamped by the daily report scripts (last_run /
           # next_run / status / summary). If we don't stage it here, the later

@@ -425,6 +425,8 @@
       <button class="diag-chip" data-diag="ext-disc" title="Show rows with external disagreement (DISC)">EXT disagreement</button>
       <button class="diag-chip" data-diag="act-promoted" title="Show rows where activity overlay would promote them (ACT Δ &gt; 0)">ACT promoted</button>
       <button class="diag-chip" data-diag="act-demoted" title="Show rows where activity overlay would demote them (ACT Δ &lt; 0)">ACT demoted</button>
+      <button class="diag-chip" data-diag="cont-high" title="Show rows with HIGH continuity score (≥ 65) — setup likely to keep working (diagnostic only)">CONT high</button>
+      <button class="diag-chip" data-diag="cont-low" title="Show rows with LOW continuity score (&lt; 40) — fade risk (diagnostic only)">CONT low/fade</button>
       <span id="diagFilterCount" class="diag-filter-label" style="margin-left:6px"></span>
     </div>
   </header>
@@ -472,6 +474,7 @@
             <th title="Pine v6 Go/No-Go gate stack (daily-bar proxy). GO = clean setup, no blockers, normalized score ≥ 0.7 → +4% to AI. WAIT = blocker present or 0.4 ≤ norm &lt; 0.7 → −2%. WEAK = norm &lt; 0.4 → −4%. Capped within the overall ±15% bound.">GO</th>
             <th title="Accumulation Signal Meter (rel-vol + MFI + bar-strength + near-high + RSI zone + close-location). HIGH ≥ 7.0 → +4% to AI. MID → 0. LOW ≤ 3.0 → −3%. Capped within the overall ±15% bound.">ACC</th>
             <th class="col-ext-badge" title="Diagnostic: External benchmark / disagreement queue overlay. CONF = multi-source external confirmation. DISC = strong/severe disagreement vs internal. MIX = moderate/insufficient signal. EXT is diagnostic only — DOES NOT affect production rank.">EXT</th>
+            <th class="col-cont-badge" title="Diagnostic: Continuity Score (0-100) — estimates the likelihood this setup keeps working rather than fades, from relative strength, close location, sustained volume, MA distance, reversal health, sector strength and earnings risk. HIGH ≥ 65, MID 40-64, LOW < 40. Diagnostic only — DOES NOT affect production rank.">CONT</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -492,7 +495,8 @@
       pineGoNoGo: ['./data/reports/pine_go_no_go_diagnostic.json'],
       accumMeter: ['./data/reports/accumulation_signal_meter.json'],
       extBenchmark: ['./data/reports/external_benchmark_review.json'],
-      disagreement: ['./data/reports/disagreement_queue.json']
+      disagreement: ['./data/reports/disagreement_queue.json'],
+      continuity: ['./data/reports/continuity_score.json']
     };
 
     // ticker -> { activity_rank, rank_delta } sourced from
@@ -507,6 +511,8 @@
     let goByTicker = {};
     let accByTicker = {};
     let extByTicker = {};
+    // Continuity Score (diagnostic only — never affects production rank).
+    let contByTicker = {};
 
     let state = { rows: [], meta: {}, unavailable: [] };
     let sortKey = 'rank';
@@ -663,6 +669,24 @@
       return       { label: 'MID',  cls: 'dg-mid', title: `Accumulation score ${s.toFixed(2)} (MID)` };
     }
 
+    // Continuity badge from continuity_score.json badges map. Diagnostic only.
+    function deriveContBadge(entry) {
+      if (!entry) return null;
+      const score = Number(entry.score);
+      const label = String(entry.label || '—');
+      if (label === '—' || !Number.isFinite(score)) return null;
+      const cls = label === 'HIGH' ? 'dg-pos' : label === 'LOW' ? 'dg-neg' : 'dg-mid';
+      const conf = Number(entry.confidence);
+      const confTxt = Number.isFinite(conf) ? ` · confidence ${(conf * 100).toFixed(0)}%` : '';
+      return {
+        label: `${label} ${score.toFixed(0)}`,
+        cls,
+        title: `Continuity ${label} (score ${score.toFixed(0)}/100${confTxt}). Diagnostic only — does not affect production rank.`,
+        rawLabel: label,
+        score: Math.round(score)
+      };
+    }
+
     function diagBadgeCell(b, missingTitle) {
       if (!b) return `<span class="diag-badge dg-none" title="${missingTitle || 'No diagnostic signal available'}">—</span>`;
       const safe = String(b.title || '').replace(/"/g, '&quot;');
@@ -797,6 +821,7 @@
             <td class="cell-diag">${diagBadgeCell(goByTicker[r.ticker], 'No Pine go/no-go signal (artifact missing or ticker not evaluated)')}</td>
             <td class="cell-diag">${diagBadgeCell(accByTicker[r.ticker], 'No accumulation signal (artifact missing or ticker not scored)')}</td>
             <td class="cell-diag col-ext-badge">${diagBadgeCell(extByTicker[r.ticker], 'No external benchmark signal (no confirmation or disagreement)')}</td>
+            <td class="cell-diag col-cont-badge">${diagBadgeCell(contByTicker[r.ticker], 'No continuity score (artifact missing or insufficient data)')}</td>
           </tr>
         `;
       }).join('');
@@ -835,6 +860,8 @@
         case 'acc-high':     return (accByTicker[r.ticker] || {}).label === 'HIGH';
         case 'ext-conf':     return (extByTicker[r.ticker] || {}).label === 'CONF';
         case 'ext-disc':     return (extByTicker[r.ticker] || {}).label === 'DISC';
+        case 'cont-high':    return (contByTicker[r.ticker] || {}).rawLabel === 'HIGH';
+        case 'cont-low':     return (contByTicker[r.ticker] || {}).rawLabel === 'LOW';
         case 'act-promoted': return Number(r.rank_delta) > 0;
         case 'act-demoted':  return Number(r.rank_delta) < 0;
         default: return true;
@@ -988,7 +1015,16 @@
               extByTicker[q.ticker] = { label: 'MIX', cls: 'dg-mid', title: `External signal mixed (${sev || 'no headline severity'})` };
             }
           }
-        }).catch(() => { extByTicker = {}; })
+        }).catch(() => { extByTicker = {}; }),
+
+        fetchFirstAvailable(DATA_CANDIDATES.continuity).then(j => {
+          contByTicker = {};
+          const map = (j && j.badges) || {};
+          for (const t of Object.keys(map)) {
+            const b = deriveContBadge(map[t]);
+            if (b) contByTicker[t] = b;
+          }
+        }).catch(() => { contByTicker = {}; })
       ];
       await Promise.allSettled(tasks);
     }
@@ -1045,7 +1081,7 @@
       // Column order mirrors the on-screen grouping (Core, Production
        // scoring, Diagnostics). All previous fields preserved.
       const csv = [
-        'Rank,Ticker,Company,Price,Sector,Industry,Source,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,ActRank,ActDelta,Go,Acc,Ext',
+        'Rank,Ticker,Company,Price,Sector,Industry,Source,AI,SWING,vsOpen,Fund,Tech,Sent,Risk,VolM,ActRank,ActDelta,Go,Acc,Ext,Continuity,ContinuityScore',
         ...rows.map(r => [
           r.rank,
           r.ticker,
@@ -1066,7 +1102,9 @@
           r.rank_delta == null ? '' : r.rank_delta,
           (goByTicker[r.ticker]  && goByTicker[r.ticker].label)  || '',
           (accByTicker[r.ticker] && accByTicker[r.ticker].label) || '',
-          (extByTicker[r.ticker] && extByTicker[r.ticker].label) || ''
+          (extByTicker[r.ticker] && extByTicker[r.ticker].label) || '',
+          (contByTicker[r.ticker] && contByTicker[r.ticker].rawLabel) || '',
+          (contByTicker[r.ticker] && contByTicker[r.ticker].score) != null ? String(contByTicker[r.ticker].score) : ''
         ].join(','))
       ].join('\n');
       const a = document.createElement('a');
