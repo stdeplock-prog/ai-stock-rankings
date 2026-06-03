@@ -446,25 +446,63 @@ EFFECTIVE_FRESH_HOURS_WEEKDAY = 6.0
 EFFECTIVE_FRESH_HOURS_WEEKEND = 72.0
 
 
+def _current_expected_slot(chi_now: datetime) -> str | None:
+    """The slot the pipeline is expected to have covered by `chi_now`.
+
+    Returns the slot whose window currently contains now; if now sits in a
+    gap between slots (or after the close window) it returns the most recent
+    slot whose start time has already passed today. Before the morning
+    window opens, or on weekends, there is no expected slot yet -> None.
+
+    This is the basis for "did the current/most-recent expected slot get a
+    refresh?" — distinct from "did every slot get a dedicated firing?", which
+    a single delayed delivery can never satisfy.
+    """
+    if chi_now.weekday() >= 5:
+        return None
+    hm = chi_now.strftime("%H:%M")
+    inside = _slot_for_chicago_hm(hm)
+    if inside:
+        return inside
+    # Not inside any window: pick the latest slot whose MIN_HM has passed.
+    passed = [s for s in SLOT_ORDER if SLOT_WINDOWS[s][0] <= hm]
+    return passed[-1] if passed else None
+
+
 def compute_effective_overall(raw: str, sections: dict) -> dict:
     """Decide the *current operational* overall vs the raw history rollup.
 
-    Raw `overall` reflects the worst section status — including historical
-    misses that have already been recovered by manual/watchdog rescue.
+    Raw `overall` reflects the worst section status — it folds in two
+    *diagnostic* signals that do not mean the pipeline is broken right now:
+      * historical slot misses on prior weekdays, and
+      * slot-coverage bookkeeping gaps (GitHub Actions delivers a slot's
+        cron late, the run lands in a neighbouring slot's window, and
+        slot-level idempotency then skips the dedicated firing — so the
+        calendar credits one logical slot and flags the other "missing"
+        even though the day actually refreshed).
+
     `overall_effective` answers a different question: "is the pipeline
-    healthy right now?" If today's expected slots are satisfied and the
-    live data is fresh, FAIL downgrades to WARN (recovered). Genuine
-    active failures — today's slot still missing past its window, or
-    rankings stale — keep the FAIL.
+    healthy right now?" An *active* FAIL only happens when:
+      * the live data is stale for the current time, OR
+      * no successful refresh has covered the current/most-recent expected
+        slot (and we cannot establish freshness another way).
+
+    When the live data is fresh AND the current expected slot has been
+    covered, a raw FAIL downgrades to WARN (recovered) — historical and
+    bookkeeping misses stay visible in the raw rollup for transparency but
+    no longer masquerade as an outage.
 
     Returns a dict with `effective`, `recovered`, `today_satisfied`,
-    `today_missing`, and a short `reason` string.
+    `today_missing`, `current_slot`, `current_slot_covered`,
+    `rankings_age_hours`, `rankings_fresh`, `last_run_event`,
+    `missing_count`, and a short `reason` string.
     """
     cal = (sections.get("calendar") or {}).get("metrics", {}).get("calendar") or {}
     rows = cal.get("rows") or []
     missing_count = cal.get("missing_count", 0)
 
-    chi_today_str = _to_chicago(_now_utc()).date().strftime("%Y-%m-%d")
+    chi_now = _to_chicago(_now_utc())
+    chi_today_str = chi_now.date().strftime("%Y-%m-%d")
     today_row = next((r for r in rows if r.get("date") == chi_today_str), None)
     today_missing = list((today_row or {}).get("missing") or [])
     today_satisfied = today_row is not None and not today_missing
@@ -478,11 +516,39 @@ def compute_effective_overall(raw: str, sections: dict) -> dict:
                   else EFFECTIVE_FRESH_HOURS_WEEKDAY)
     is_fresh = isinstance(age_h, (int, float)) and age_h < fresh_warn
 
+    # Is the current/most-recent expected slot covered? Two independent
+    # signals satisfy this:
+    #   1. Fresh data: a fresh as_of means a refresh just landed, regardless
+    #      of which logical slot id the gate stamped on it. This is the key
+    #      fix for delayed deliveries that get credited to a neighbouring slot.
+    #   2. The latest proceeding run's Chicago timestamp is on today's date
+    #      and at/after the current expected slot's start minute.
+    current_slot = _current_expected_slot(chi_now)
+    current_slot_covered = False
+    if current_slot is None:
+        # No slot is expected yet (pre-morning / weekend): nothing to cover.
+        current_slot_covered = is_fresh
+    else:
+        if is_fresh:
+            current_slot_covered = True
+        else:
+            last_ts_chi = (last_run.get("ts_chicago") or "")
+            last_date = last_ts_chi[:10]
+            last_hm = last_ts_chi[-5:] if len(last_ts_chi) >= 5 else ""
+            min_hm = SLOT_WINDOWS[current_slot][0]
+            current_slot_covered = (
+                last_date == chi_today_str and bool(last_hm) and last_hm >= min_hm
+            )
+
+    has_any_refresh = bool(last_run) or isinstance(age_h, (int, float))
+
     out = {
         "effective": raw,
         "recovered": False,
         "today_satisfied": today_satisfied,
         "today_missing": today_missing,
+        "current_slot": current_slot,
+        "current_slot_covered": current_slot_covered,
         "rankings_age_hours": age_h,
         "rankings_fresh": is_fresh,
         "last_run_event": last_run.get("event_name"),
@@ -494,28 +560,35 @@ def compute_effective_overall(raw: str, sections: dict) -> dict:
         out["reason"] = "no historical misses; pipeline healthy"
         return out
     if raw == "WARN":
-        out["reason"] = "minor historical issues; current state OK"
+        out["reason"] = (
+            f"diagnostic slot gaps only (missing={missing_count}); "
+            f"live data {'fresh' if is_fresh else 'check freshness'}"
+        )
         return out
 
     # raw == "FAIL"
-    if today_satisfied and is_fresh:
+    if not is_fresh:
+        out["reason"] = (
+            f"live data stale (age {age_h}h >= {fresh_warn}h) — active failure"
+        )
+        return out
+    if not has_any_refresh:
+        out["reason"] = "no successful refresh on record — active failure"
+        return out
+    if current_slot_covered:
         out["effective"] = "WARN"
         out["recovered"] = True
         out["reason"] = (
-            f"today's slot satisfied (no missing) and live data fresh "
-            f"(age {age_h}h < {fresh_warn}h); {missing_count} historical "
-            f"miss(es) remain in lookback"
+            f"live data fresh (age {age_h}h < {fresh_warn}h) and current "
+            f"expected slot ({current_slot or 'none'}) covered; "
+            f"{missing_count} historical/bookkeeping slot gap(s) in lookback "
+            f"are diagnostic, not an outage"
         )
-    elif today_satisfied and not is_fresh:
-        out["reason"] = (
-            f"today's slot satisfied but live data stale "
-            f"(age {age_h}h >= {fresh_warn}h)"
-        )
-    else:
-        out["reason"] = (
-            f"today still missing {today_missing}; "
-            f"{missing_count} historical miss(es) in lookback"
-        )
+        return out
+    out["reason"] = (
+        f"current expected slot ({current_slot}) not yet covered today; "
+        f"{missing_count} slot gap(s) in lookback — active failure"
+    )
     return out
 
 
@@ -558,10 +631,11 @@ th,td{{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-ali
 """)
     if eff_meta.get("recovered"):
         parts.append(
-            '<p class="banner"><strong>Recovered.</strong> '
+            '<p class="banner"><strong>Fresh — slot gaps are diagnostic.</strong> '
             + escape(str(eff_meta.get("reason") or ""))
-            + '. Effective state is WARN; raw history remains FAIL because '
-              'past missed slots are preserved for transparency.</p>'
+            + '. Effective state is WARN; raw history remains FAIL because the '
+              'missed/late slot bookkeeping is preserved for transparency. The '
+              'live data is current.</p>'
         )
     elif raw == "FAIL" and effective == "FAIL":
         parts.append(
@@ -642,9 +716,9 @@ def _stamp_task_if_present(report: dict) -> None:
             missing = cal.get("missing_count")
             if raw == "FAIL" and effective != "FAIL":
                 row["summary"] = (
-                    f"Reliability: {effective} (raw {raw}/recovered); "
-                    f"missing slots last "
-                    f"{cal.get('lookback_days', LOOKBACK_TRADING_DAYS)}d = {missing}"
+                    f"Reliability: {effective} — live data fresh; "
+                    f"{missing} diagnostic slot gap(s) last "
+                    f"{cal.get('lookback_days', LOOKBACK_TRADING_DAYS)}d (recovered)"
                 )
             else:
                 row["summary"] = (
@@ -688,11 +762,14 @@ def build_report() -> dict:
         cal_section["checks"].append(_check(
             "missing_slots", "FAIL",
             f"{cal['missing_count']} expected slot(s) missing in last "
-            f"{LOOKBACK_TRADING_DAYS} weekdays — investigate GH Actions delivery"))
+            f"{LOOKBACK_TRADING_DAYS} weekdays (diagnostic — see effective "
+            f"status; a delayed delivery credited to a neighbouring slot "
+            f"shows here as a gap even when the day refreshed)"))
     elif cal["missing_count"] >= 1:
         cal_section["checks"].append(_check(
             "missing_slots", "WARN",
-            f"{cal['missing_count']} expected slot(s) missing in last {LOOKBACK_TRADING_DAYS} weekdays"))
+            f"{cal['missing_count']} expected slot(s) missing in last "
+            f"{LOOKBACK_TRADING_DAYS} weekdays (diagnostic — see effective status)"))
     else:
         cal_section["checks"].append(_check(
             "missing_slots", "OK",

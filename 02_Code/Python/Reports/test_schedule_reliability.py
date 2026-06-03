@@ -192,8 +192,17 @@ def test_append_run_record_drops_old():
 def _sections_with_today(today_str: str, *, hits: dict, missing: list,
                          missing_count: int, age_h: float = 0.5,
                          is_weekend: bool = False,
-                         last_event: str = "schedule") -> dict:
-    """Build a minimal sections dict for compute_effective_overall tests."""
+                         last_event: str = "schedule",
+                         last_ts_chicago: str | None = None) -> dict:
+    """Build a minimal sections dict for compute_effective_overall tests.
+
+    age_h is the live rankings freshness (the dominant signal post-fix).
+    last_ts_chicago lets a test pin the most-recent proceeding run's
+    Chicago timestamp, used by the current-slot-coverage check when the
+    data is NOT fresh.
+    """
+    last_run = {"event_name": last_event, "slot": "morning",
+                "ts_chicago": last_ts_chicago or (today_str + " 09:00")}
     return {
         "calendar": {"metrics": {"calendar": {
             "rows": [
@@ -208,13 +217,28 @@ def _sections_with_today(today_str: str, *, hits: dict, missing: list,
         "recency": {"metrics": {
             "rankings_age_hours": age_h,
             "is_weekend": is_weekend,
-            "last_run": {"event_name": last_event, "slot": "morning",
-                         "ts_chicago": today_str + " 09:00"},
+            "last_run": last_run,
         }},
     }
 
 
-def test_compute_effective_recovered_when_today_satisfied_and_fresh():
+def test_compute_effective_recovered_when_fresh_despite_missing_slot():
+    # The 2026-06-02 scenario: a delayed morning run lands in the midday
+    # window so the calendar flags 'midday' missing, but the live data is
+    # fresh. Effective must downgrade FAIL -> WARN (recovered), NOT stay
+    # FAIL just because one bookkeeping slot shows missing.
+    today = sr._to_chicago(sr._now_utc()).date().strftime("%Y-%m-%d")
+    secs = _sections_with_today(today,
+                                 hits={"morning": 1, "midday": 0, "close": 1},
+                                 missing=["midday"], missing_count=5, age_h=0.2)
+    eff = sr.compute_effective_overall("FAIL", secs)
+    assert eff["effective"] == "WARN", eff
+    assert eff["recovered"] is True
+    assert eff["rankings_fresh"] is True
+    assert "fresh" in eff["reason"].lower()
+
+
+def test_compute_effective_recovered_when_today_fully_satisfied_and_fresh():
     today = sr._to_chicago(sr._now_utc()).date().strftime("%Y-%m-%d")
     secs = _sections_with_today(today,
                                  hits={"morning": 1, "midday": 1, "close": 1},
@@ -222,18 +246,20 @@ def test_compute_effective_recovered_when_today_satisfied_and_fresh():
     eff = sr.compute_effective_overall("FAIL", secs)
     assert eff["effective"] == "WARN", eff
     assert eff["recovered"] is True
-    assert "satisfied" in eff["reason"].lower()
 
 
-def test_compute_effective_active_fail_when_today_missing():
+def test_compute_effective_active_fail_when_data_stale_and_slot_missing():
+    # Stale data + the current expected slot has no run today => active FAIL.
     today = sr._to_chicago(sr._now_utc()).date().strftime("%Y-%m-%d")
     secs = _sections_with_today(today,
                                  hits={"morning": 0, "midday": 0, "close": 0},
                                  missing=["morning", "midday", "close"],
-                                 missing_count=3, age_h=0.5)
+                                 missing_count=3, age_h=10.0,
+                                 last_ts_chicago="2026-04-29 09:00")
     eff = sr.compute_effective_overall("FAIL", secs)
     assert eff["effective"] == "FAIL", eff
     assert eff["recovered"] is False
+    assert "stale" in eff["reason"].lower()
 
 
 def test_compute_effective_active_fail_when_data_stale():
@@ -248,13 +274,55 @@ def test_compute_effective_active_fail_when_data_stale():
     assert "stale" in eff["reason"].lower()
 
 
+def test_compute_effective_active_fail_when_no_refresh_on_record():
+    # No last_run and no parseable age => cannot establish a refresh =>
+    # active FAIL.
+    today = sr._to_chicago(sr._now_utc()).date().strftime("%Y-%m-%d")
+    secs = {
+        "calendar": {"metrics": {"calendar": {
+            "rows": [{"date": today,
+                      "slot_hits": {"morning": 0, "midday": 0, "close": 0},
+                      "missing": ["morning", "midday", "close"]}],
+            "missing_count": 3, "duplicate_count": 0, "lookback_days": 5,
+        }}},
+        "recency": {"metrics": {
+            "rankings_age_hours": None, "is_weekend": False, "last_run": {},
+        }},
+    }
+    eff = sr.compute_effective_overall("FAIL", secs)
+    assert eff["effective"] == "FAIL", eff
+    assert eff["recovered"] is False
+
+
 def test_compute_effective_passes_through_when_raw_ok_or_warn():
     today = sr._to_chicago(sr._now_utc()).date().strftime("%Y-%m-%d")
     secs = _sections_with_today(today,
                                  hits={"morning": 1, "midday": 1, "close": 1},
                                  missing=[], missing_count=0)
     assert sr.compute_effective_overall("OK", secs)["effective"] == "OK"
-    assert sr.compute_effective_overall("WARN", secs)["effective"] == "WARN"
+    # WARN raw (e.g. duplicate-only diagnostic) with fresh data stays WARN,
+    # never escalates.
+    warn = sr.compute_effective_overall("WARN", secs)
+    assert warn["effective"] == "WARN"
+    assert warn["recovered"] is False
+
+
+def test_compute_effective_current_slot_helper():
+    # Pre-morning weekday -> no expected slot.
+    pre = datetime(2026, 6, 1, 7, 0, tzinfo=timezone(timedelta(hours=-5)))
+    assert sr._current_expected_slot(pre) is None
+    # Inside morning window.
+    mid_morning = datetime(2026, 6, 1, 9, 0, tzinfo=timezone(timedelta(hours=-5)))
+    assert sr._current_expected_slot(mid_morning) == "morning"
+    # Gap between morning and midday windows -> most recent passed slot.
+    gap = datetime(2026, 6, 1, 12, 15, tzinfo=timezone(timedelta(hours=-5)))
+    assert sr._current_expected_slot(gap) == "morning"
+    # After close -> close.
+    evening = datetime(2026, 6, 1, 20, 0, tzinfo=timezone(timedelta(hours=-5)))
+    assert sr._current_expected_slot(evening) == "close"
+    # Weekend -> None.
+    sat = datetime(2026, 6, 6, 10, 0, tzinfo=timezone(timedelta(hours=-5)))
+    assert sr._current_expected_slot(sat) is None
 
 
 def test_build_report_emits_overall_raw_and_effective():
@@ -344,7 +412,7 @@ def test_render_html_shows_recovered_banner():
         "sections": sections,
     }
     html = sr._render_html(report)
-    assert "Recovered" in html, html[:500]
+    assert "diagnostic" in html.lower(), html[:600]
     assert "today satisfied" in html
 
 

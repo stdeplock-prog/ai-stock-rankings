@@ -285,7 +285,14 @@ def analyze_run_source(sr_rep: dict | None) -> dict:
     # slots: a workflow_dispatch that filled an unmet morning slot is
     # more usefully described as a rescue than as a generic manual run.
     missing_count = cal.get("missing_count", 0) or 0
-    if raw == "FAIL" and eff != "FAIL" and today_satisfied and missing_count > 0:
+    # Prefer the report's own recovered flag — it now encodes the freshness
+    # + current-slot-coverage basis. Fall back to the legacy today_satisfied
+    # heuristic for older JSONs lacking that field: a delayed delivery can
+    # leave today_satisfied False while the day is genuinely fresh, so
+    # today_satisfied alone undercounts recoveries.
+    report_recovered = bool((sr_rep.get("effective") or {}).get("recovered"))
+    if (raw == "FAIL" and eff != "FAIL"
+            and (report_recovered or (today_satisfied and missing_count > 0))):
         source = "recovered"
     elif last_event == "workflow_dispatch":
         source = "manual"

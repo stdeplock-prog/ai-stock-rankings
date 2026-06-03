@@ -435,6 +435,39 @@ def test_schedule_active_failure_when_today_missing():
     assert sec["status"] == "FAIL", sec
 
 
+def test_schedule_fresh_but_one_slot_missing_is_warn_not_fail():
+    """The 2026-06-02 scenario: a delayed morning run landed in the midday
+    window, so the calendar flags 'midday' missing, but live data is fresh.
+    The schedule report supplies overall_effective=WARN/recovered. Midday
+    must read WARN (not FAIL) so the dashboard does not show a false outage
+    while data is current."""
+    today = _today_chi_date_str()
+    sr_rep = {
+        "overall": "FAIL",
+        "overall_raw": "FAIL",
+        "overall_effective": "WARN",
+        "effective": {"effective": "WARN", "recovered": True,
+                      "current_slot": "close", "current_slot_covered": True,
+                      "rankings_fresh": True,
+                      "reason": "live data fresh; diagnostic slot gaps"},
+        "sections": {
+            "calendar": {"metrics": {"calendar": {
+                "rows": [{"date": today,
+                          "slot_hits": {"morning": 1, "midday": 0, "close": 1},
+                          "missing": ["midday"]}],
+                "missing_count": 5, "duplicate_count": 0, "lookback_days": 5,
+            }}},
+            "recency": {"metrics": {"last_run": {
+                "event_name": "schedule",
+                "ts_chicago": today + " 18:04",
+            }}},
+        },
+    }
+    sec = mhc.analyze_schedule_reliability(sr_rep)
+    assert sec["status"] == "WARN", sec
+    assert sec["metrics"]["recovered"] is True
+
+
 # ------------------- end-to-end via build_report -------------------
 
 

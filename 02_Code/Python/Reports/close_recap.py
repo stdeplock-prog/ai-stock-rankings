@@ -287,7 +287,13 @@ def analyze_run_source(sr_rep: dict | None) -> dict:
     section["metrics"]["today_satisfied"] = today_satisfied
 
     missing_count = cal.get("missing_count", 0) or 0
-    if raw == "FAIL" and eff != "FAIL" and today_satisfied and missing_count > 0:
+    # Prefer the report's own recovered flag (freshness + current-slot
+    # coverage basis); fall back to today_satisfied for older JSONs, which
+    # undercounts recoveries when a delayed delivery is credited to a
+    # neighbouring slot.
+    report_recovered = bool((sr_rep.get("effective") or {}).get("recovered"))
+    if (raw == "FAIL" and eff != "FAIL"
+            and (report_recovered or (today_satisfied and missing_count > 0))):
         source = "recovered"
     elif last_event == "workflow_dispatch":
         source = "manual"

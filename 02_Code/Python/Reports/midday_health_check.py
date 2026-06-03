@@ -303,16 +303,19 @@ def analyze_schedule_reliability(sr_rep: dict | None) -> dict:
     if isinstance(report_effective, str) and report_effective.upper() in LEVEL_RANK:
         effective = report_effective.upper()
         recovered = raw == "FAIL" and effective != "FAIL"
+        eff_meta = sr_rep.get("effective") or {}
         if effective == "OK":
             msg = "schedule reliability OK"
         elif effective == "WARN" and raw == "FAIL":
-            msg = (f"schedule reliability FAIL/recovered: today satisfied, "
-                   f"{missing_count} missing in lookback")
+            msg = (f"schedule reliability FAIL/recovered: live data fresh, "
+                   f"{missing_count} diagnostic slot gap(s) in lookback")
         elif effective == "WARN":
             msg = "schedule reliability WARN"
         else:
-            msg = (f"schedule reliability FAIL: today_missing={today_missing}, "
-                   f"history_missing={missing_count}")
+            reason = eff_meta.get("reason")
+            msg = (f"schedule reliability FAIL: "
+                   + (reason or f"today_missing={today_missing}, "
+                      f"history_missing={missing_count}"))
     else:
         recovered = (
             raw == "FAIL"
