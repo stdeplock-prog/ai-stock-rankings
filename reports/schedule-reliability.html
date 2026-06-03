@@ -5,7 +5,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
      max-width:980px;margin:24px auto;padding:0 16px;color:#1a1a1a;}
 h1{margin:0 0 4px} .meta{color:#666;font-size:13px;margin-bottom:18px}
 .badge{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:#c0392b}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00}
 .badge-raw{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
        font-weight:600;font-size:12px;letter-spacing:.5px;background:#c0392b;margin-left:6px}
 .section{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}
@@ -26,9 +26,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Schedule Reliability</h1>
-<p class="meta">Generated 2026-06-02T23:04:04Z &middot; Effective: <span class="badge">FAIL</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
+<p class="meta">Generated 2026-06-03T02:51:52Z &middot; Effective: <span class="badge">WARN</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
 
-<p class="banner" style="background:#fdecea;border-color:#e6a8a0;color:#7a2018"><strong>Active failure.</strong> today still missing [&#x27;midday&#x27;]; 5 historical miss(es) in lookback</p>
+<p class="banner"><strong>Fresh — slot gaps are diagnostic.</strong> live data fresh (age 0.01h &lt; 6.0h) and current expected slot (close) covered; 5 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage. Effective state is WARN; raw history remains FAIL because the missed/late slot bookkeeping is preserved for transparency. The live data is current.</p>
 <div class="section calendar"><h2>Recent Slot Delivery</h2>
 <table><thead><tr><th>Date</th>
 <th>morning</th>
@@ -131,52 +131,52 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>missing_slots</td><td class="FAIL">FAIL</td><td>5 expected slot(s) missing in last 5 weekdays — investigate GH Actions delivery</td></tr>
+<tr><td>missing_slots</td><td class="FAIL">FAIL</td><td>5 expected slot(s) missing in last 5 weekdays (diagnostic — see effective status; a delayed delivery credited to a neighbouring slot shows here as a gap even when the day refreshed)</td></tr>
 <tr><td>duplicate_slots</td><td class="OK">OK</td><td>no duplicate slot proceeds detected</td></tr>
-<tr><td>history_source</td><td class="OK">OK</td><td>history loaded from workflow_runs.jsonl (77 records)</td></tr>
+<tr><td>history_source</td><td class="OK">OK</td><td>history loaded from workflow_runs.jsonl (78 records)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Recency<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;chicago_now&quot;: &quot;2026-06-02 18:04&quot;,
+  &quot;chicago_now&quot;: &quot;2026-06-02 21:51&quot;,
   &quot;is_weekend&quot;: false,
-  &quot;expected_slot_now&quot;: &quot;close&quot;,
-  &quot;rankings_as_of&quot;: &quot;2026-06-02 06:03 PM CDT&quot;,
-  &quot;rankings_age_hours&quot;: 0.02,
+  &quot;expected_slot_now&quot;: null,
+  &quot;rankings_as_of&quot;: &quot;2026-06-02 09:51 PM CDT&quot;,
+  &quot;rankings_age_hours&quot;: 0.01,
   &quot;last_run&quot;: {
-    &quot;ts_utc&quot;: &quot;2026-06-02T23:04:04Z&quot;,
-    &quot;ts_chicago&quot;: &quot;2026-06-02 18:04&quot;,
+    &quot;ts_utc&quot;: &quot;2026-06-03T02:51:52Z&quot;,
+    &quot;ts_chicago&quot;: &quot;2026-06-02 21:51&quot;,
     &quot;chicago_date&quot;: &quot;2026-06-02&quot;,
-    &quot;event_name&quot;: &quot;schedule&quot;,
-    &quot;slot&quot;: &quot;close&quot;,
+    &quot;event_name&quot;: &quot;workflow_dispatch&quot;,
+    &quot;slot&quot;: &quot;manual&quot;,
     &quot;proceeded&quot;: true,
-    &quot;as_of&quot;: &quot;2026-06-02 06:03 PM CDT&quot;,
+    &quot;as_of&quot;: &quot;2026-06-02 09:51 PM CDT&quot;,
     &quot;open_date&quot;: &quot;2026-06-02&quot;,
-    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/26852163687&quot;,
-    &quot;commit_sha&quot;: &quot;bd4341a43746cbf19d07f955cd8f763bceed8291&quot;
+    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/26859810434&quot;,
+    &quot;commit_sha&quot;: &quot;b1489b39d3b6cf21124c244db50d0d5316c3beeb&quot;
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-02 06:03 PM CDT (age 0.0h)</td></tr>
-<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=schedule slot=close at 2026-06-02 18:04</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-02 09:51 PM CDT (age 0.0h)</td></tr>
+<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=workflow_dispatch slot=manual at 2026-06-02 21:51</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Skip Pattern<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;proceed_14d&quot;: 23,
+  &quot;proceed_14d&quot;: 24,
   &quot;skip_14d&quot;: 0,
   &quot;skip_reasons_14d&quot;: {}
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>skip_volume</td><td class="OK">OK</td><td>0 skip records in 14d (23 proceeded)</td></tr>
+<tr><td>skip_volume</td><td class="OK">OK</td><td>0 skip records in 14d (24 proceeded)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Event Mix<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;proceed_14d_by_event&quot;: {
     &quot;schedule&quot;: 21,
-    &quot;workflow_dispatch&quot;: 2,
+    &quot;workflow_dispatch&quot;: 3,
     &quot;other&quot;: 0
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>event_mix</td><td class="OK">OK</td><td>schedule=21 dispatch=2 other=0</td></tr>
+<tr><td>event_mix</td><td class="OK">OK</td><td>schedule=21 dispatch=3 other=0</td></tr>
 </tbody></table></div>
 </body></html>
