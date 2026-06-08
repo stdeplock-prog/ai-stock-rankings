@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-05T22:52:53Z",
-  "generated_at_chicago": "2026-06-05 05:52 PM CDT",
+  "generated_at": "2026-06-08T17:43:48Z",
+  "generated_at_chicago": "2026-06-08 12:43 PM CDT",
   "overall": "WARN",
   "sections": {
     "data_freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-06-05 05:52 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-06-08 12:42 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,12 +17,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-06-05 05:52 PM CDT",
-        "open_date": "2026-06-05",
+        "as_of": "2026-06-08 12:42 PM CDT",
+        "open_date": "2026-06-08",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-06-05 17:52",
-        "rankings_age_hours": 0.01,
+        "chicago_now": "2026-06-08 12:43",
+        "rankings_age_hours": 0.03,
         "today_live": true
       },
       "status": "OK"
@@ -31,39 +31,41 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+          "status": "WARN",
+          "message": "overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN"
         }
       ],
       "metrics": {
-        "overall": "OK",
-        "generated_at": "2026-06-05T22:52:51Z",
+        "overall": "WARN",
+        "generated_at": "2026-06-08T17:43:46Z",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
-          "tasks": "OK"
+          "tasks": "WARN"
         },
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "schedule_reliability": {
       "checks": [
         {
           "name": "schedule_reliability",
           "status": "WARN",
-          "message": "schedule reliability FAIL/recovered: live data fresh, 6 diagnostic slot gap(s) in lookback"
+          "message": "schedule reliability FAIL/recovered: live data fresh, 5 diagnostic slot gap(s) in lookback"
         }
       ],
       "metrics": {
         "overall_raw": "FAIL",
-        "missing_count": 6,
+        "missing_count": 5,
         "lookback_days": 5,
-        "today_missing": [],
-        "today_satisfied": true,
+        "today_missing": [
+          "midday"
+        ],
+        "today_satisfied": false,
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-06-05 17:52",
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-06-08 12:43",
         "recovered": true,
         "overall_effective": "WARN"
       },
@@ -96,9 +98,9 @@
           "cache_hit_fresh": 0,
           "cache_miss": 74,
           "network_call": 74,
-          "fallback_to_cache": 2,
-          "rate_limit_or_empty": 2,
-          "network_success": 72
+          "fallback_to_cache": 1,
+          "rate_limit_or_empty": 1,
+          "network_success": 73
         },
         "unavailable_count": 1,
         "scored": 141,
@@ -111,11 +113,11 @@
         {
           "name": "benchmark_snapshots",
           "status": "OK",
-          "message": "27 snapshot(s); \u22651 horizon has forward results"
+          "message": "28 snapshot(s); \u22651 horizon has forward results"
         }
       ],
       "metrics": {
-        "snapshots_kept": 27,
+        "snapshots_kept": 28,
         "horizons": [
           "1d",
           "3d",
@@ -134,13 +136,17 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=WARN; low_risk drift explained by selection bias (['low_risk'])"
+          "message": "parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment']"
         }
       ],
       "metrics": {
-        "overall": "WARN",
-        "cross_group_parity_status": "WARN",
-        "fail_fields": [],
+        "overall": "FAIL",
+        "cross_group_parity_status": "FAIL",
+        "fail_fields": [
+          "ai_score",
+          "technical",
+          "sentiment"
+        ],
         "known_bias_fields": [
           "low_risk"
         ],
@@ -158,8 +164,9 @@
     "parity_present": true
   },
   "action_items": [
-    "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 6 diagnostic slot gap(s) in lookback",
-    "[WARN] parity.scoring_parity: parity overall=WARN; low_risk drift explained by selection bias (['low_risk'])"
+    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN",
+    "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 5 diagnostic slot gap(s) in lookback",
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment']"
   ],
-  "summary": "Fresh 05:52 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
+  "summary": "Fresh 12:42 PM CT \u00b7 Data quality WARN \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
 }
