@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-09T20:18:20Z",
-  "generated_at_chicago": "2026-06-09 03:18 PM CDT",
+  "generated_at": "2026-06-09T22:50:01Z",
+  "generated_at_chicago": "2026-06-09 05:50 PM CDT",
   "overall": "OK",
   "caveat": "DAILY OHLCV ONLY: This report is a daily-bar proxy for the Pine v6 go/no-go gate stack. No true intraday VWAP, no Open Drift, no minute-bar logic. DIAGNOSTIC ONLY \u2014 rankings and scoring formulas are NOT mutated.",
   "thresholds": {
@@ -20,8 +20,8 @@
     "evaluated": 77,
     "ohlcv_missing": 10,
     "insufficient_bars": 0,
-    "blocked": 2,
-    "go_normalized_ge_07": 32,
+    "blocked": 1,
+    "go_normalized_ge_07": 33,
     "go_normalized_lt_04": 15,
     "candidates": 87
   },
@@ -86,7 +86,7 @@
         ],
         "company": "Popular, Inc.",
         "sector": "Financial Services",
-        "ai_score": 7.9,
+        "ai_score": 7.8,
         "swing_score": 8.0,
         "swing_tier": "A",
         "days_to_earnings": 42,
@@ -140,9 +140,8 @@
         "company": "Maplebear Inc.",
         "sector": "Consumer Cyclical",
         "ai_score": 8.1,
-        "swing_score": 7.8,
+        "swing_score": 7.0,
         "swing_tier": "A",
-        "days_to_earnings": 57,
         "evaluated": true,
         "bars": 682,
         "gates": {
@@ -183,6 +182,58 @@
         "accumulation_score": 3,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.6,
+        "blocker_count": 0
+      },
+      {
+        "ticker": "CBSH",
+        "sources": [
+          "main"
+        ],
+        "company": "Commerce Bancshares",
+        "sector": "Financial Services",
+        "ai_score": 7.7,
+        "swing_score": 7.0,
+        "swing_tier": "A",
+        "evaluated": true,
+        "bars": 860,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": true,
+          "ma50_rising": true,
+          "rsi_in_zone": true,
+          "rsi_slope_pos": true,
+          "return_20d_ok": false,
+          "rel_vol_ok": false,
+          "bar_strength": true,
+          "mfi_above_avg": true,
+          "near_20d_high": true
+        },
+        "metrics": {
+          "last_close": 53.41,
+          "sma5": 52.2946,
+          "sma8": 52.0421,
+          "sma13": 52.0121,
+          "sma20": 51.62,
+          "sma50": 50.9819,
+          "rsi14": 63.6648,
+          "rsi14_3bar_ago": 47.8224,
+          "return_20d": 0.0347,
+          "rel_vol_20d": 1.146,
+          "mfi14": 66.2138,
+          "high_20d": 53.41,
+          "bb_upper_20": 53.1903,
+          "range_10d_pct": 0.0544
+        },
+        "blockers": [],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 8,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.8,
+        "accumulation_score": 4,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.8,
         "blocker_count": 0
       },
       {
@@ -245,9 +296,8 @@
         "company": "IDEX Corporation",
         "sector": "Industrials",
         "ai_score": 7.8,
-        "swing_score": 7.7,
-        "swing_tier": "A",
-        "days_to_earnings": 49,
+        "swing_score": 7.0,
+        "swing_tier": "B",
         "evaluated": true,
         "bars": 860,
         "gates": {
@@ -508,9 +558,8 @@
         "company": "Citigroup",
         "sector": "Financial Services",
         "ai_score": 8.4,
-        "swing_score": 7.9,
+        "swing_score": 7.2,
         "swing_tier": "A",
-        "days_to_earnings": 34,
         "evaluated": true,
         "bars": 860,
         "gates": {
@@ -761,58 +810,6 @@
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.6,
         "blocker_count": 0
-      },
-      {
-        "ticker": "FRT",
-        "sources": [
-          "main"
-        ],
-        "company": "Federal Realty Investment Trust",
-        "sector": "Real Estate",
-        "ai_score": 8.0,
-        "swing_score": 7.2,
-        "swing_tier": "A",
-        "evaluated": true,
-        "bars": 860,
-        "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": true,
-          "ma50_rising": true,
-          "rsi_in_zone": true,
-          "rsi_slope_pos": true,
-          "return_20d_ok": false,
-          "rel_vol_ok": false,
-          "bar_strength": false,
-          "mfi_above_avg": true,
-          "near_20d_high": true
-        },
-        "metrics": {
-          "last_close": 122.1,
-          "sma5": 120.842,
-          "sma8": 120.4525,
-          "sma13": 119.9431,
-          "sma20": 118.0555,
-          "sma50": 113.3635,
-          "rsi14": 69.8704,
-          "rsi14_3bar_ago": 64.3611,
-          "return_20d": 0.0555,
-          "rel_vol_20d": 1.122,
-          "mfi14": 60.3465,
-          "high_20d": 122.56,
-          "bb_upper_20": 123.8988,
-          "range_10d_pct": 0.0396
-        },
-        "blockers": [],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 7,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.7,
-        "accumulation_score": 3,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.6,
-        "blocker_count": 0
       }
     ],
     "weakest_main": [
@@ -1035,9 +1032,8 @@
         "company": "Salesforce",
         "sector": "Technology",
         "ai_score": 7.8,
-        "swing_score": 7.1,
-        "swing_tier": "A",
-        "days_to_earnings": 84,
+        "swing_score": 7.0,
+        "swing_tier": "B",
         "evaluated": true,
         "bars": 860,
         "gates": {
@@ -1244,7 +1240,7 @@
         ],
         "company": "Amphenol",
         "sector": "Technology",
-        "ai_score": 7.8,
+        "ai_score": 7.7,
         "swing_score": 8.2,
         "swing_tier": "A",
         "days_to_earnings": 49,
@@ -1298,9 +1294,8 @@
         "company": "Corpay",
         "sector": "Technology",
         "ai_score": 8.1,
-        "swing_score": 7.2,
-        "swing_tier": "A",
-        "days_to_earnings": 56,
+        "swing_score": 6.5,
+        "swing_tier": "B",
         "evaluated": true,
         "bars": 860,
         "gates": {
@@ -1345,60 +1340,6 @@
       }
     ],
     "blocked_main": [
-      {
-        "ticker": "AL",
-        "sources": [
-          "main"
-        ],
-        "company": "Air Lease Corporation",
-        "sector": "Industrials",
-        "ai_score": 7.8,
-        "swing_score": 7.7,
-        "swing_tier": "A",
-        "evaluated": true,
-        "bars": 817,
-        "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": true,
-          "ma50_rising": true,
-          "rsi_in_zone": true,
-          "rsi_slope_pos": true,
-          "return_20d_ok": false,
-          "rel_vol_ok": false,
-          "bar_strength": true,
-          "mfi_above_avg": true,
-          "near_20d_high": true
-        },
-        "metrics": {
-          "last_close": 65.0,
-          "sma5": 64.964,
-          "sma8": 64.8875,
-          "sma13": 64.8031,
-          "sma20": 64.7435,
-          "sma50": 64.5993,
-          "rsi14": 67.6979,
-          "rsi14_3bar_ago": 65.6536,
-          "return_20d": 0.0034,
-          "rel_vol_20d": 0.888,
-          "mfi14": 74.4618,
-          "high_20d": 65.0,
-          "bb_upper_20": 65.0292,
-          "range_10d_pct": 0.0049
-        },
-        "blockers": [
-          "low_volatility_chop (10d range <2%)"
-        ],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 8,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.8,
-        "accumulation_score": 4,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.8,
-        "blocker_count": 1
-      },
       {
         "ticker": "JEF",
         "sources": [
@@ -1496,7 +1437,7 @@
       {
         "ticker": "QCOM",
         "sector": "Technology",
-        "ai_score": 5.7,
+        "ai_score": 5.6,
         "go_no_go_score_normalized": 0.2,
         "blockers": [],
         "action": "downgrade-watchlist-only",
@@ -1525,7 +1466,7 @@
       {
         "ticker": "ECG",
         "sector": "Industrials",
-        "ai_score": 7.7,
+        "ai_score": 7.6,
         "go_no_go_score_normalized": 0.5,
         "blockers": [],
         "action": "review",
@@ -1642,60 +1583,6 @@
       "blocker_count": 0
     },
     {
-      "ticker": "AL",
-      "sources": [
-        "main"
-      ],
-      "company": "Air Lease Corporation",
-      "sector": "Industrials",
-      "ai_score": 7.8,
-      "swing_score": 7.7,
-      "swing_tier": "A",
-      "evaluated": true,
-      "bars": 817,
-      "gates": {
-        "trend_sma_aligned": true,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": true,
-        "rsi_slope_pos": true,
-        "return_20d_ok": false,
-        "rel_vol_ok": false,
-        "bar_strength": true,
-        "mfi_above_avg": true,
-        "near_20d_high": true
-      },
-      "metrics": {
-        "last_close": 65.0,
-        "sma5": 64.964,
-        "sma8": 64.8875,
-        "sma13": 64.8031,
-        "sma20": 64.7435,
-        "sma50": 64.5993,
-        "rsi14": 67.6979,
-        "rsi14_3bar_ago": 65.6536,
-        "return_20d": 0.0034,
-        "rel_vol_20d": 0.888,
-        "mfi14": 74.4618,
-        "high_20d": 65.0,
-        "bb_upper_20": 65.0292,
-        "range_10d_pct": 0.0049
-      },
-      "blockers": [
-        "low_volatility_chop (10d range <2%)"
-      ],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 8,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.8,
-      "accumulation_score": 4,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.8,
-      "blocker_count": 1
-    },
-    {
       "ticker": "AME",
       "sources": [
         "watchlist"
@@ -1756,7 +1643,7 @@
       ],
       "company": "Amphenol",
       "sector": "Technology",
-      "ai_score": 7.8,
+      "ai_score": 7.7,
       "swing_score": 8.2,
       "swing_tier": "A",
       "days_to_earnings": 49,
@@ -1978,7 +1865,7 @@
       ],
       "company": "Popular, Inc.",
       "sector": "Financial Services",
-      "ai_score": 7.9,
+      "ai_score": 7.8,
       "swing_score": 8.0,
       "swing_tier": "A",
       "days_to_earnings": 42,
@@ -2031,7 +1918,7 @@
       ],
       "company": "Brixmor Property Group",
       "sector": "Real Estate",
-      "ai_score": 8.0,
+      "ai_score": 7.9,
       "swing_score": 8.2,
       "swing_tier": "A",
       "days_to_earnings": 47,
@@ -2144,9 +2031,8 @@
       "company": "Citigroup",
       "sector": "Financial Services",
       "ai_score": 8.4,
-      "swing_score": 7.9,
+      "swing_score": 7.2,
       "swing_tier": "A",
-      "days_to_earnings": 34,
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -2197,9 +2083,8 @@
       "company": "Maplebear Inc.",
       "sector": "Consumer Cyclical",
       "ai_score": 8.1,
-      "swing_score": 7.8,
+      "swing_score": 7.0,
       "swing_tier": "A",
-      "days_to_earnings": 57,
       "evaluated": true,
       "bars": 682,
       "gates": {
@@ -2243,6 +2128,58 @@
       "blocker_count": 0
     },
     {
+      "ticker": "CBSH",
+      "sources": [
+        "main"
+      ],
+      "company": "Commerce Bancshares",
+      "sector": "Financial Services",
+      "ai_score": 7.7,
+      "swing_score": 7.0,
+      "swing_tier": "A",
+      "evaluated": true,
+      "bars": 860,
+      "gates": {
+        "trend_sma_aligned": true,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": true,
+        "rsi_slope_pos": true,
+        "return_20d_ok": false,
+        "rel_vol_ok": false,
+        "bar_strength": true,
+        "mfi_above_avg": true,
+        "near_20d_high": true
+      },
+      "metrics": {
+        "last_close": 53.41,
+        "sma5": 52.2946,
+        "sma8": 52.0421,
+        "sma13": 52.0121,
+        "sma20": 51.62,
+        "sma50": 50.9819,
+        "rsi14": 63.6648,
+        "rsi14_3bar_ago": 47.8224,
+        "return_20d": 0.0347,
+        "rel_vol_20d": 1.146,
+        "mfi14": 66.2138,
+        "high_20d": 53.41,
+        "bb_upper_20": 53.1903,
+        "range_10d_pct": 0.0544
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 8,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.8,
+      "accumulation_score": 4,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.8,
+      "blocker_count": 0
+    },
+    {
       "ticker": "CFG",
       "sources": [
         "main"
@@ -2250,9 +2187,8 @@
       "company": "Citizens Financial Group",
       "sector": "Financial Services",
       "ai_score": 8.4,
-      "swing_score": 8.1,
+      "swing_score": 7.4,
       "swing_tier": "A",
-      "days_to_earnings": 36,
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -2407,9 +2343,8 @@
       "company": "Corpay",
       "sector": "Technology",
       "ai_score": 8.1,
-      "swing_score": 7.2,
-      "swing_tier": "A",
-      "days_to_earnings": 56,
+      "swing_score": 6.5,
+      "swing_tier": "B",
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -2460,9 +2395,8 @@
       "company": "Salesforce",
       "sector": "Technology",
       "ai_score": 7.8,
-      "swing_score": 7.1,
-      "swing_tier": "A",
-      "days_to_earnings": 84,
+      "swing_score": 7.0,
+      "swing_tier": "B",
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -2612,58 +2546,6 @@
       "blocker_count": 0
     },
     {
-      "ticker": "DDOG",
-      "sources": [
-        "watchlist"
-      ],
-      "company": "Datadog",
-      "sector": "Technology",
-      "ai_score": 6.7,
-      "swing_score": 4.9,
-      "swing_tier": "C",
-      "evaluated": true,
-      "bars": 860,
-      "gates": {
-        "trend_sma_aligned": false,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": true,
-        "rsi_slope_pos": false,
-        "return_20d_ok": true,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 231.68,
-        "sma5": 245.77,
-        "sma8": 247.3663,
-        "sma13": 236.6915,
-        "sma20": 225.9675,
-        "sma50": 168.1368,
-        "rsi14": 59.7949,
-        "rsi14_3bar_ago": 70.5735,
-        "return_20d": 0.1575,
-        "rel_vol_20d": 0.89,
-        "mfi14": 53.9792,
-        "high_20d": 277.49,
-        "bb_upper_20": 268.8599,
-        "range_10d_pct": 0.2606
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 6,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.6,
-      "accumulation_score": 1,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.2,
-      "blocker_count": 0
-    },
-    {
       "ticker": "DELL",
       "sources": [
         "main",
@@ -2784,7 +2666,7 @@
         "disagreement"
       ],
       "sector": "Industrials",
-      "ai_score": 7.7,
+      "ai_score": 7.6,
       "evaluated": true,
       "bars": 403,
       "gates": {
@@ -2996,8 +2878,9 @@
       "company": "EXL Service",
       "sector": "Technology",
       "ai_score": 7.1,
-      "swing_score": 5.6,
+      "swing_score": 6.3,
       "swing_tier": "B",
+      "days_to_earnings": 48,
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -3214,7 +3097,7 @@
       ],
       "company": "First Solar",
       "sector": "Technology",
-      "ai_score": 7.8,
+      "ai_score": 7.7,
       "swing_score": 5.9,
       "swing_tier": "B",
       "evaluated": true,
@@ -3318,7 +3201,7 @@
       ],
       "company": "Gen Digital",
       "sector": "Technology",
-      "ai_score": 8.0,
+      "ai_score": 7.9,
       "swing_score": 5.7,
       "swing_tier": "B",
       "evaluated": true,
@@ -3794,9 +3677,8 @@
       "company": "IDEX Corporation",
       "sector": "Industrials",
       "ai_score": 7.8,
-      "swing_score": 7.7,
-      "swing_tier": "A",
-      "days_to_earnings": 49,
+      "swing_score": 7.0,
+      "swing_tier": "B",
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -4338,14 +4220,10 @@
     {
       "ticker": "MLI",
       "sources": [
-        "main",
         "disagreement"
       ],
-      "company": "Mueller Industries",
       "sector": "Industrials",
       "ai_score": 7.7,
-      "swing_score": 6.9,
-      "swing_tier": "B",
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -4505,9 +4383,8 @@
       "company": "Morgan Stanley",
       "sector": "Financial Services",
       "ai_score": 8.1,
-      "swing_score": 8.0,
+      "swing_score": 7.2,
       "swing_tier": "A",
-      "days_to_earnings": 35,
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -4621,9 +4498,8 @@
       "company": "UiPath",
       "sector": "Technology",
       "ai_score": 7.5,
-      "swing_score": 6.5,
+      "swing_score": 6.3,
       "swing_tier": "B",
-      "days_to_earnings": 85,
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -4734,7 +4610,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 5.7,
+      "ai_score": 5.6,
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -4841,7 +4717,7 @@
       ],
       "company": "Ralph Lauren Corporation",
       "sector": "Consumer Cyclical",
-      "ai_score": 7.8,
+      "ai_score": 7.7,
       "swing_score": 7.4,
       "swing_tier": "A",
       "evaluated": true,
@@ -5067,8 +4943,9 @@
       "company": "Sandisk",
       "sector": "Technology",
       "ai_score": 6.8,
-      "swing_score": 4.6,
+      "swing_score": 4.7,
       "swing_tier": "C",
+      "days_to_earnings": 75,
       "evaluated": true,
       "bars": 330,
       "gates": {
@@ -5171,9 +5048,8 @@
       "company": "Simon Property Group",
       "sector": "Real Estate",
       "ai_score": 8.0,
-      "swing_score": 8.1,
+      "swing_score": 7.4,
       "swing_tier": "A",
-      "days_to_earnings": 54,
       "evaluated": true,
       "bars": 860,
       "gates": {
@@ -5603,6 +5479,58 @@
       "blocker_count": 0
     },
     {
+      "ticker": "WDC",
+      "sources": [
+        "watchlist"
+      ],
+      "company": "Western Digital",
+      "sector": "Technology",
+      "ai_score": 6.7,
+      "swing_score": 5.1,
+      "swing_tier": "C",
+      "evaluated": true,
+      "bars": 860,
+      "gates": {
+        "trend_sma_aligned": true,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": true,
+        "rsi_slope_pos": false,
+        "return_20d_ok": true,
+        "rel_vol_ok": false,
+        "bar_strength": false,
+        "mfi_above_avg": true,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 526.93,
+        "sma5": 554.1817,
+        "sma8": 547.3849,
+        "sma13": 528.0032,
+        "sma20": 512.3734,
+        "sma50": 428.9176,
+        "rsi14": 57.1185,
+        "rsi14_3bar_ago": 80.3773,
+        "return_20d": 0.0981,
+        "rel_vol_20d": 0.923,
+        "mfi14": 67.0019,
+        "high_20d": 593.9551,
+        "bb_upper_20": 587.8298,
+        "range_10d_pct": 0.1936
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 7,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.7,
+      "accumulation_score": 2,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.4,
+      "blocker_count": 0
+    },
+    {
       "ticker": "WTFC",
       "sources": [
         "main"
@@ -5714,5 +5642,5 @@
     "disagreement_queue_present": true,
     "ohlcv_dir_exists": true
   },
-  "summary": "Overall OK \u00b7 cands=87 \u00b7 evaluated=77 \u00b7 missing_ohlcv=10 \u00b7 go>=.7:32 \u00b7 weak<.4:15 \u00b7 blocked=2 \u00b7 dis_supports_internal=3 \u00b7 dis_supports_external=2"
+  "summary": "Overall OK \u00b7 cands=87 \u00b7 evaluated=77 \u00b7 missing_ohlcv=10 \u00b7 go>=.7:33 \u00b7 weak<.4:15 \u00b7 blocked=1 \u00b7 dis_supports_internal=3 \u00b7 dis_supports_external=2"
 }
