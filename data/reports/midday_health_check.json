@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-08T22:35:22Z",
-  "generated_at_chicago": "2026-06-08 05:35 PM CDT",
+  "generated_at": "2026-06-09T16:44:18Z",
+  "generated_at_chicago": "2026-06-09 11:44 AM CDT",
   "overall": "WARN",
   "sections": {
     "data_freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-06-08 05:35 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-06-09 11:43 AM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,12 +17,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-06-08 05:35 PM CDT",
-        "open_date": "2026-06-08",
+        "as_of": "2026-06-09 11:43 AM CDT",
+        "open_date": "2026-06-09",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-06-08 17:35",
-        "rankings_age_hours": 0.01,
+        "chicago_now": "2026-06-09 11:44",
+        "rankings_age_hours": 0.02,
         "today_live": true
       },
       "status": "OK"
@@ -37,7 +37,7 @@
       ],
       "metrics": {
         "overall": "OK",
-        "generated_at": "2026-06-08T22:35:21Z",
+        "generated_at": "2026-06-09T16:44:17Z",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
@@ -52,20 +52,18 @@
         {
           "name": "schedule_reliability",
           "status": "WARN",
-          "message": "schedule reliability FAIL/recovered: live data fresh, 5 diagnostic slot gap(s) in lookback"
+          "message": "schedule reliability FAIL/recovered: live data fresh, 4 diagnostic slot gap(s) in lookback"
         }
       ],
       "metrics": {
         "overall_raw": "FAIL",
-        "missing_count": 5,
+        "missing_count": 4,
         "lookback_days": 5,
-        "today_missing": [
-          "midday"
-        ],
-        "today_satisfied": false,
+        "today_missing": [],
+        "today_satisfied": true,
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-06-08 17:35",
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-06-09 11:44",
         "recovered": true,
         "overall_effective": "WARN"
       },
@@ -113,11 +111,11 @@
         {
           "name": "benchmark_snapshots",
           "status": "OK",
-          "message": "28 snapshot(s); \u22651 horizon has forward results"
+          "message": "29 snapshot(s); \u22651 horizon has forward results"
         }
       ],
       "metrics": {
-        "snapshots_kept": 28,
+        "snapshots_kept": 29,
         "horizons": [
           "1d",
           "3d",
@@ -126,7 +124,7 @@
           "20d"
         ],
         "any_horizon_completed": true,
-        "findings_warn": 6,
+        "findings_warn": 5,
         "findings_fail": 0
       },
       "status": "OK"
@@ -136,16 +134,14 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment']"
+          "message": "parity overall=FAIL; blocker fields=['technical']"
         }
       ],
       "metrics": {
         "overall": "FAIL",
         "cross_group_parity_status": "FAIL",
         "fail_fields": [
-          "ai_score",
-          "technical",
-          "sentiment"
+          "technical"
         ],
         "known_bias_fields": [
           "low_risk"
@@ -164,8 +160,8 @@
     "parity_present": true
   },
   "action_items": [
-    "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 5 diagnostic slot gap(s) in lookback",
-    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment']"
+    "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 4 diagnostic slot gap(s) in lookback",
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['technical']"
   ],
-  "summary": "Fresh 05:35 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
+  "summary": "Fresh 11:43 AM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
 }
