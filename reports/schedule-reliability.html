@@ -7,7 +7,7 @@ h1{margin:0 0 4px} .meta{color:#666;font-size:13px;margin-bottom:18px}
 .badge{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
        font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00}
 .badge-raw{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00;margin-left:6px}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:#c0392b;margin-left:6px}
 .section{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}
 .section h2{margin:0 0 10px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
 table{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px}
@@ -26,9 +26,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Schedule Reliability</h1>
-<p class="meta">Generated 2026-06-10T17:42:50Z &middot; Effective: <span class="badge">WARN</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
+<p class="meta">Generated 2026-06-10T22:49:20Z &middot; Effective: <span class="badge">WARN</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
 
-<p class="banner"><strong>Fresh — slot gaps are diagnostic.</strong> live data fresh (age 0.01h &lt; 6.0h) and current expected slot (midday) covered; 3 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage. Effective state is WARN; raw history remains FAIL because the missed/late slot bookkeeping is preserved for transparency. The live data is current.</p>
+<p class="banner"><strong>Fresh — slot gaps are diagnostic.</strong> live data fresh (age 0.01h &lt; 6.0h) and current expected slot (close) covered; 3 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage. Effective state is WARN; raw history remains FAIL because the missed/late slot bookkeeping is preserved for transparency. The live data is current.</p>
 <div class="section calendar"><h2>Recent Slot Delivery</h2>
 <table><thead><tr><th>Date</th>
 <th>morning</th>
@@ -58,10 +58,10 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td>2026-06-10</td>
 <td class="hit">✓</td>
 <td class="miss">missing</td>
-<td class="future">—</td>
+<td class="hit">✓</td>
 </tr>
 </tbody></table></div>
-<div class="section"><h2>Calendar<span class="WARN">WARN</span></h2>
+<div class="section"><h2>Calendar<span class="FAIL">FAIL</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;calendar&quot;: {
     &quot;rows&quot;: [
@@ -114,7 +114,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
         &quot;slot_hits&quot;: {
           &quot;morning&quot;: 1,
           &quot;midday&quot;: 0,
-          &quot;close&quot;: 0
+          &quot;close&quot;: 1
         },
         &quot;missing&quot;: [
           &quot;midday&quot;
@@ -130,50 +130,50 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>missing_slots</td><td class="FAIL">FAIL</td><td>3 expected slot(s) missing in last 5 weekdays (diagnostic — see effective status; a delayed delivery credited to a neighbouring slot shows here as a gap even when the day refreshed)</td></tr>
 <tr><td>duplicate_slots</td><td class="OK">OK</td><td>no duplicate slot proceeds detected</td></tr>
-<tr><td>history_source</td><td class="OK">OK</td><td>history loaded from workflow_runs.jsonl (90 records)</td></tr>
+<tr><td>history_source</td><td class="OK">OK</td><td>history loaded from workflow_runs.jsonl (91 records)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Recency<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;chicago_now&quot;: &quot;2026-06-10 12:42&quot;,
+  &quot;chicago_now&quot;: &quot;2026-06-10 17:49&quot;,
   &quot;is_weekend&quot;: false,
-  &quot;expected_slot_now&quot;: &quot;midday&quot;,
-  &quot;rankings_as_of&quot;: &quot;2026-06-10 12:42 PM CDT&quot;,
+  &quot;expected_slot_now&quot;: &quot;close&quot;,
+  &quot;rankings_as_of&quot;: &quot;2026-06-10 05:49 PM CDT&quot;,
   &quot;rankings_age_hours&quot;: 0.01,
   &quot;last_run&quot;: {
-    &quot;ts_utc&quot;: &quot;2026-06-10T17:42:50Z&quot;,
-    &quot;ts_chicago&quot;: &quot;2026-06-10 12:42&quot;,
+    &quot;ts_utc&quot;: &quot;2026-06-10T22:49:20Z&quot;,
+    &quot;ts_chicago&quot;: &quot;2026-06-10 17:49&quot;,
     &quot;chicago_date&quot;: &quot;2026-06-10&quot;,
     &quot;event_name&quot;: &quot;schedule&quot;,
-    &quot;slot&quot;: &quot;morning&quot;,
+    &quot;slot&quot;: &quot;close&quot;,
     &quot;proceeded&quot;: true,
-    &quot;as_of&quot;: &quot;2026-06-10 12:42 PM CDT&quot;,
+    &quot;as_of&quot;: &quot;2026-06-10 05:49 PM CDT&quot;,
     &quot;open_date&quot;: &quot;2026-06-10&quot;,
-    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/27291795909&quot;,
-    &quot;commit_sha&quot;: &quot;1ff287f80750f40679b54c356c6c0b92d8261e82&quot;
+    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/27310459169&quot;,
+    &quot;commit_sha&quot;: &quot;5925ff3871d866aef5302d9e90d9e9d66b2054e0&quot;
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-10 12:42 PM CDT (age 0.0h)</td></tr>
-<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=schedule slot=morning at 2026-06-10 12:42</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-10 05:49 PM CDT (age 0.0h)</td></tr>
+<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=schedule slot=close at 2026-06-10 17:49</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Skip Pattern<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;proceed_14d&quot;: 23,
+  &quot;proceed_14d&quot;: 22,
   &quot;skip_14d&quot;: 0,
   &quot;skip_reasons_14d&quot;: {}
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>skip_volume</td><td class="OK">OK</td><td>0 skip records in 14d (23 proceeded)</td></tr>
+<tr><td>skip_volume</td><td class="OK">OK</td><td>0 skip records in 14d (22 proceeded)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Event Mix<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;proceed_14d_by_event&quot;: {
-    &quot;schedule&quot;: 20,
+    &quot;schedule&quot;: 19,
     &quot;workflow_dispatch&quot;: 3,
     &quot;other&quot;: 0
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>event_mix</td><td class="OK">OK</td><td>schedule=20 dispatch=3 other=0</td></tr>
+<tr><td>event_mix</td><td class="OK">OK</td><td>schedule=19 dispatch=3 other=0</td></tr>
 </tbody></table></div>
 </body></html>
