@@ -20,8 +20,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Midday Health Check</h1>
-<p class="meta">Generated 2026-06-12 12:41 PM CDT &middot; Overall: <span class="badge">WARN</span></p>
-<div class="summary"><strong>Summary:</strong> Fresh 12:40 PM CT · Data quality OK · Watchlist OK · Schedule FAIL/recovered · Benchmark active</div>
+<p class="meta">Generated 2026-06-12 06:00 PM CDT &middot; Overall: <span class="badge">WARN</span></p>
+<div class="summary"><strong>Summary:</strong> Fresh 06:00 PM CT · Data quality OK · Watchlist OK · Schedule FAIL/recovered · Benchmark active</div>
 
 <div class="section"><h2>Action Items</h2><ul class="action">
 <li>[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 4 diagnostic slot gap(s) in lookback</li>
@@ -29,22 +29,22 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </ul></div>
 <div class="section"><h2>Data Freshness<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-06-12 12:40 PM CDT&quot;,
+  &quot;as_of&quot;: &quot;2026-06-12 06:00 PM CDT&quot;,
   &quot;open_date&quot;: &quot;2026-06-12&quot;,
   &quot;row_count&quot;: 100,
   &quot;is_weekend&quot;: false,
-  &quot;chicago_now&quot;: &quot;2026-06-12 12:41&quot;,
-  &quot;rankings_age_hours&quot;: 0.02,
+  &quot;chicago_now&quot;: &quot;2026-06-12 18:00&quot;,
+  &quot;rankings_age_hours&quot;: 0.01,
   &quot;today_live&quot;: true
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-12 12:40 PM CDT (age 0.0h, weekend=False)</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-12 06:00 PM CDT (age 0.0h, weekend=False)</td></tr>
 <tr><td>today_live</td><td class="OK">OK</td><td>data is from today (Chicago)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall&quot;: &quot;OK&quot;,
-  &quot;generated_at&quot;: &quot;2026-06-12T17:41:01Z&quot;,
+  &quot;generated_at&quot;: &quot;2026-06-12T23:00:48Z&quot;,
   &quot;by_section&quot;: {
     &quot;rankings&quot;: &quot;OK&quot;,
     &quot;watchlist&quot;: &quot;OK&quot;,
@@ -60,11 +60,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;overall_raw&quot;: &quot;FAIL&quot;,
   &quot;missing_count&quot;: 4,
   &quot;lookback_days&quot;: 5,
-  &quot;today_missing&quot;: [],
-  &quot;today_satisfied&quot;: true,
+  &quot;today_missing&quot;: [
+    &quot;midday&quot;
+  ],
+  &quot;today_satisfied&quot;: false,
   &quot;last_run_event&quot;: &quot;schedule&quot;,
-  &quot;last_run_slot&quot;: &quot;morning&quot;,
-  &quot;last_run_ts_chicago&quot;: &quot;2026-06-12 12:41&quot;,
+  &quot;last_run_slot&quot;: &quot;close&quot;,
+  &quot;last_run_ts_chicago&quot;: &quot;2026-06-12 18:00&quot;,
   &quot;recovered&quot;: true,
   &quot;overall_effective&quot;: &quot;WARN&quot;
 }</pre></div>
@@ -74,29 +76,29 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Watchlist<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;supp_summary&quot;: {
-    &quot;total&quot;: 74,
-    &quot;full_fundamentals&quot;: 65,
+    &quot;total&quot;: 75,
+    &quot;full_fundamentals&quot;: 66,
     &quot;eodhd_enriched&quot;: 0,
     &quot;metadata_only&quot;: 0,
     &quot;price_only&quot;: 9,
     &quot;technical_only&quot;: 0,
-    &quot;unavailable&quot;: 1
+    &quot;unavailable&quot;: 0
   },
   &quot;yfinance_info_cache&quot;: {
-    &quot;cache_hit_fresh&quot;: 74,
-    &quot;cache_miss&quot;: 0,
-    &quot;network_call&quot;: 0,
+    &quot;cache_hit_fresh&quot;: 0,
+    &quot;cache_miss&quot;: 75,
+    &quot;network_call&quot;: 75,
     &quot;fallback_to_cache&quot;: 0,
     &quot;rate_limit_or_empty&quot;: 0,
-    &quot;network_success&quot;: 0
+    &quot;network_success&quot;: 75
   },
-  &quot;unavailable_count&quot;: 1,
-  &quot;scored&quot;: 141,
-  &quot;supp_degraded_pct&quot;: 0.122
+  &quot;unavailable_count&quot;: 0,
+  &quot;scored&quot;: 142,
+  &quot;supp_degraded_pct&quot;: 0.12
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>supp_coverage</td><td class="OK">OK</td><td>SUPP 65/74 full fundamentals; price_only=9 tech_only=0</td></tr>
-<tr><td>yfinance_cache</td><td class="OK">OK</td><td>yfinance cache hits=74 misses=0</td></tr>
+<tr><td>supp_coverage</td><td class="OK">OK</td><td>SUPP 66/75 full fundamentals; price_only=9 tech_only=0</td></tr>
+<tr><td>yfinance_cache</td><td class="OK">OK</td><td>yfinance cache hits=0 misses=75</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Benchmark<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
