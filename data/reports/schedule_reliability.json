@@ -1,23 +1,21 @@
 {
-  "generated_at": "2026-06-11T22:47:54Z",
-  "generated_at_chicago": "2026-06-11 05:47 PM CDT",
+  "generated_at": "2026-06-12T17:18:33Z",
+  "generated_at_chicago": "2026-06-12 12:18 PM CDT",
   "overall": "FAIL",
   "overall_raw": "FAIL",
   "overall_effective": "WARN",
   "effective": {
     "effective": "WARN",
     "recovered": true,
-    "today_satisfied": false,
-    "today_missing": [
-      "midday"
-    ],
-    "current_slot": "close",
+    "today_satisfied": true,
+    "today_missing": [],
+    "current_slot": "morning",
     "current_slot_covered": true,
-    "rankings_age_hours": 0.02,
+    "rankings_age_hours": 0.03,
     "rankings_fresh": true,
     "last_run_event": "schedule",
     "missing_count": 3,
-    "reason": "live data fresh (age 0.02h < 6.0h) and current expected slot (close) covered; 3 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage"
+    "reason": "live data fresh (age 0.03h < 6.0h) and current expected slot (morning) covered; 3 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage"
   },
   "sections": {
     "calendar": {
@@ -37,23 +35,13 @@
         {
           "name": "history_source",
           "status": "OK",
-          "message": "history loaded from workflow_runs.jsonl (93 records)",
+          "message": "history loaded from workflow_runs.jsonl (94 records)",
           "data": {}
         }
       ],
       "metrics": {
         "calendar": {
           "rows": [
-            {
-              "date": "2026-06-05",
-              "slot_hits": {
-                "morning": 1,
-                "midday": 1,
-                "close": 1
-              },
-              "missing": [],
-              "duplicate": []
-            },
             {
               "date": "2026-06-08",
               "slot_hits": {
@@ -99,6 +87,16 @@
                 "midday"
               ],
               "duplicate": []
+            },
+            {
+              "date": "2026-06-12",
+              "slot_hits": {
+                "morning": 1,
+                "midday": 0,
+                "close": 0
+              },
+              "missing": [],
+              "duplicate": []
             }
           ],
           "missing_count": 3,
@@ -113,33 +111,33 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-06-11 05:47 PM CDT (age 0.0h)",
+          "message": "as_of 2026-06-12 12:17 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "last_run_event",
           "status": "OK",
-          "message": "latest run: event=schedule slot=close at 2026-06-11 17:47",
+          "message": "latest run: event=schedule slot=morning at 2026-06-12 12:18",
           "data": {}
         }
       ],
       "metrics": {
-        "chicago_now": "2026-06-11 17:47",
+        "chicago_now": "2026-06-12 12:18",
         "is_weekend": false,
-        "expected_slot_now": "close",
-        "rankings_as_of": "2026-06-11 05:47 PM CDT",
-        "rankings_age_hours": 0.02,
+        "expected_slot_now": null,
+        "rankings_as_of": "2026-06-12 12:17 PM CDT",
+        "rankings_age_hours": 0.03,
         "last_run": {
-          "ts_utc": "2026-06-11T22:47:54Z",
-          "ts_chicago": "2026-06-11 17:47",
-          "chicago_date": "2026-06-11",
+          "ts_utc": "2026-06-12T17:18:33Z",
+          "ts_chicago": "2026-06-12 12:18",
+          "chicago_date": "2026-06-12",
           "event_name": "schedule",
-          "slot": "close",
+          "slot": "morning",
           "proceeded": true,
-          "as_of": "2026-06-11 05:47 PM CDT",
-          "open_date": "2026-06-11",
-          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/27381250634",
-          "commit_sha": "8fead88551eece38d2a0b3d09b7911cfd22a17c7"
+          "as_of": "2026-06-12 12:17 PM CDT",
+          "open_date": "2026-06-12",
+          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/27429074426",
+          "commit_sha": "1cc6449b6ae282014a143f2eb8e404b6518ff441"
         }
       },
       "status": "OK"
@@ -179,6 +177,6 @@
       "status": "OK"
     }
   },
-  "history_records": 93,
+  "history_records": 94,
   "history_source": "jsonl"
 }

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-11T22:47:54Z",
-  "generated_at_chicago": "2026-06-11 05:47 PM CDT",
+  "generated_at": "2026-06-12T17:18:34Z",
+  "generated_at_chicago": "2026-06-12 12:18 PM CDT",
   "overall": "WARN",
   "sections": {
     "data_freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-06-11 05:47 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-06-12 12:17 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,12 +17,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-06-11 05:47 PM CDT",
-        "open_date": "2026-06-11",
+        "as_of": "2026-06-12 12:17 PM CDT",
+        "open_date": "2026-06-12",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-06-11 17:47",
-        "rankings_age_hours": 0.02,
+        "chicago_now": "2026-06-12 12:18",
+        "rankings_age_hours": 0.03,
         "today_live": true
       },
       "status": "OK"
@@ -37,7 +37,7 @@
       ],
       "metrics": {
         "overall": "OK",
-        "generated_at": "2026-06-11T22:47:53Z",
+        "generated_at": "2026-06-12T17:18:31Z",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
@@ -59,13 +59,11 @@
         "overall_raw": "FAIL",
         "missing_count": 3,
         "lookback_days": 5,
-        "today_missing": [
-          "midday"
-        ],
-        "today_satisfied": false,
+        "today_missing": [],
+        "today_satisfied": true,
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-06-11 17:47",
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-06-12 12:18",
         "recovered": true,
         "overall_effective": "WARN"
       },
@@ -81,7 +79,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=0 misses=75"
+          "message": "yfinance cache hits=75 misses=0"
         }
       ],
       "metrics": {
@@ -95,12 +93,12 @@
           "unavailable": 0
         },
         "yfinance_info_cache": {
-          "cache_hit_fresh": 0,
-          "cache_miss": 75,
-          "network_call": 75,
+          "cache_hit_fresh": 75,
+          "cache_miss": 0,
+          "network_call": 0,
           "fallback_to_cache": 0,
           "rate_limit_or_empty": 0,
-          "network_success": 75
+          "network_success": 0
         },
         "unavailable_count": 0,
         "scored": 142,
@@ -113,11 +111,11 @@
         {
           "name": "benchmark_snapshots",
           "status": "OK",
-          "message": "31 snapshot(s); \u22651 horizon has forward results"
+          "message": "32 snapshot(s); \u22651 horizon has forward results"
         }
       ],
       "metrics": {
-        "snapshots_kept": 31,
+        "snapshots_kept": 32,
         "horizons": [
           "1d",
           "3d",
@@ -136,7 +134,7 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment', 'swing_score']"
+          "message": "parity overall=FAIL; blocker fields=['ai_score', 'technical', 'swing_score']"
         }
       ],
       "metrics": {
@@ -145,7 +143,6 @@
         "fail_fields": [
           "ai_score",
           "technical",
-          "sentiment",
           "swing_score"
         ],
         "known_bias_fields": [
@@ -166,7 +163,7 @@
   },
   "action_items": [
     "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 3 diagnostic slot gap(s) in lookback",
-    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment', 'swing_score']"
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical', 'swing_score']"
   ],
-  "summary": "Fresh 05:47 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
+  "summary": "Fresh 12:17 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
 }
