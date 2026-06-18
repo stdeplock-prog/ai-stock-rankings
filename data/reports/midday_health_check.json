@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-18T17:30:44Z",
-  "generated_at_chicago": "2026-06-18 12:30 PM CDT",
+  "generated_at": "2026-06-18T23:24:46Z",
+  "generated_at_chicago": "2026-06-18 06:24 PM CDT",
   "overall": "WARN",
   "sections": {
     "data_freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-06-18 12:29 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-06-18 06:24 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,12 +17,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-06-18 12:29 PM CDT",
+        "as_of": "2026-06-18 06:24 PM CDT",
         "open_date": "2026-06-18",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-06-18 12:30",
-        "rankings_age_hours": 0.03,
+        "chicago_now": "2026-06-18 18:24",
+        "rankings_age_hours": 0.01,
         "today_live": true
       },
       "status": "OK"
@@ -37,7 +37,7 @@
       ],
       "metrics": {
         "overall": "OK",
-        "generated_at": "2026-06-18T17:30:42Z",
+        "generated_at": "2026-06-18T23:24:44Z",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
@@ -52,18 +52,20 @@
         {
           "name": "schedule_reliability",
           "status": "WARN",
-          "message": "schedule reliability FAIL/recovered: live data fresh, 6 diagnostic slot gap(s) in lookback"
+          "message": "schedule reliability FAIL/recovered: live data fresh, 7 diagnostic slot gap(s) in lookback"
         }
       ],
       "metrics": {
         "overall_raw": "FAIL",
-        "missing_count": 6,
+        "missing_count": 7,
         "lookback_days": 5,
-        "today_missing": [],
-        "today_satisfied": true,
+        "today_missing": [
+          "midday"
+        ],
+        "today_satisfied": false,
         "last_run_event": "schedule",
-        "last_run_slot": "morning",
-        "last_run_ts_chicago": "2026-06-18 12:30",
+        "last_run_slot": "close",
+        "last_run_ts_chicago": "2026-06-18 18:24",
         "recovered": true,
         "overall_effective": "WARN"
       },
@@ -79,7 +81,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=74 misses=0"
+          "message": "yfinance cache hits=0 misses=74"
         }
       ],
       "metrics": {
@@ -93,11 +95,11 @@
           "unavailable": 1
         },
         "yfinance_info_cache": {
-          "cache_hit_fresh": 74,
-          "cache_miss": 0,
-          "network_call": 0,
-          "fallback_to_cache": 0,
-          "rate_limit_or_empty": 0,
+          "cache_hit_fresh": 0,
+          "cache_miss": 74,
+          "network_call": 74,
+          "fallback_to_cache": 74,
+          "rate_limit_or_empty": 74,
           "network_success": 0
         },
         "unavailable_count": 1,
@@ -134,7 +136,7 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=FAIL; blocker fields=['ai_score', 'technical', 'swing_score']"
+          "message": "parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment', 'swing_score']"
         }
       ],
       "metrics": {
@@ -143,6 +145,7 @@
         "fail_fields": [
           "ai_score",
           "technical",
+          "sentiment",
           "swing_score"
         ],
         "known_bias_fields": [
@@ -162,8 +165,8 @@
     "parity_present": true
   },
   "action_items": [
-    "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 6 diagnostic slot gap(s) in lookback",
-    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical', 'swing_score']"
+    "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 7 diagnostic slot gap(s) in lookback",
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment', 'swing_score']"
   ],
-  "summary": "Fresh 12:29 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
+  "summary": "Fresh 06:24 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
 }
