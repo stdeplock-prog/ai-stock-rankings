@@ -5,7 +5,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
      max-width:980px;margin:24px auto;padding:0 16px;color:#1a1a1a;}
 h1{margin:0 0 4px} .meta{color:#666;font-size:13px;margin-bottom:18px}
 .badge{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:#c0392b}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00}
 .section{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}
 .section h2{margin:0 0 10px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
 table{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px}
@@ -20,43 +20,40 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Midday Health Check</h1>
-<p class="meta">Generated 2026-06-19 12:23 PM CDT &middot; Overall: <span class="badge">FAIL</span></p>
-<div class="summary"><strong>Summary:</strong> Fresh 12:23 PM CT · Data quality FAIL · Watchlist OK · Schedule FAIL/recovered · Benchmark active</div>
+<p class="meta">Generated 2026-06-19 02:34 PM CDT &middot; Overall: <span class="badge">WARN</span></p>
+<div class="summary"><strong>Summary:</strong> Fresh 02:34 PM CT · Data quality OK · Watchlist OK · Schedule FAIL/recovered · Benchmark active</div>
 
 <div class="section"><h2>Action Items</h2><ul class="action">
-<li>[FAIL] data_quality.data_quality_overall: overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK</li>
-<li>[FAIL] data_quality.critical_sections: rankings=FAIL, tasks=OK: critical section failure</li>
 <li>[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 6 diagnostic slot gap(s) in lookback</li>
-<li>[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=[&#x27;ai_score&#x27;, &#x27;sentiment&#x27;]</li>
+<li>[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=[&#x27;ai_score&#x27;, &#x27;technical&#x27;, &#x27;low_risk&#x27;, &#x27;swing_score&#x27;]</li>
 </ul></div>
 <div class="section"><h2>Data Freshness<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-06-19 12:23 PM CDT&quot;,
+  &quot;as_of&quot;: &quot;2026-06-19 02:34 PM CDT&quot;,
   &quot;open_date&quot;: &quot;2026-06-19&quot;,
   &quot;row_count&quot;: 100,
   &quot;is_weekend&quot;: false,
-  &quot;chicago_now&quot;: &quot;2026-06-19 12:23&quot;,
-  &quot;rankings_age_hours&quot;: 0.01,
+  &quot;chicago_now&quot;: &quot;2026-06-19 14:34&quot;,
+  &quot;rankings_age_hours&quot;: 0.02,
   &quot;today_live&quot;: true
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-19 12:23 PM CDT (age 0.0h, weekend=False)</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-19 02:34 PM CDT (age 0.0h, weekend=False)</td></tr>
 <tr><td>today_live</td><td class="OK">OK</td><td>data is from today (Chicago)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Data Quality<span class="FAIL">FAIL</span></h2>
+<div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;overall&quot;: &quot;FAIL&quot;,
-  &quot;generated_at&quot;: &quot;2026-06-19T17:23:39Z&quot;,
+  &quot;overall&quot;: &quot;OK&quot;,
+  &quot;generated_at&quot;: &quot;2026-06-19T19:34:56Z&quot;,
   &quot;by_section&quot;: {
-    &quot;rankings&quot;: &quot;FAIL&quot;,
+    &quot;rankings&quot;: &quot;OK&quot;,
     &quot;watchlist&quot;: &quot;OK&quot;,
     &quot;tasks&quot;: &quot;OK&quot;
   },
-  &quot;critical_section_fail&quot;: true
+  &quot;critical_section_fail&quot;: false
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>data_quality_overall</td><td class="FAIL">FAIL</td><td>overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK</td></tr>
-<tr><td>critical_sections</td><td class="FAIL">FAIL</td><td>rankings=FAIL, tasks=OK: critical section failure</td></tr>
+<tr><td>data_quality_overall</td><td class="OK">OK</td><td>overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Schedule Reliability<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -66,8 +63,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;today_missing&quot;: [],
   &quot;today_satisfied&quot;: true,
   &quot;last_run_event&quot;: &quot;schedule&quot;,
-  &quot;last_run_slot&quot;: &quot;morning&quot;,
-  &quot;last_run_ts_chicago&quot;: &quot;2026-06-19 12:23&quot;,
+  &quot;last_run_slot&quot;: &quot;midday&quot;,
+  &quot;last_run_ts_chicago&quot;: &quot;2026-06-19 14:34&quot;,
   &quot;recovered&quot;: true,
   &quot;overall_effective&quot;: &quot;WARN&quot;
 }</pre></div>
@@ -124,14 +121,14 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;cross_group_parity_status&quot;: &quot;FAIL&quot;,
   &quot;fail_fields&quot;: [
     &quot;ai_score&quot;,
-    &quot;sentiment&quot;
+    &quot;technical&quot;,
+    &quot;low_risk&quot;,
+    &quot;swing_score&quot;
   ],
-  &quot;known_bias_fields&quot;: [
-    &quot;low_risk&quot;
-  ],
-  &quot;low_risk_bias_known&quot;: true
+  &quot;known_bias_fields&quot;: [],
+  &quot;low_risk_bias_known&quot;: false
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>scoring_parity</td><td class="WARN">WARN</td><td>parity overall=FAIL; blocker fields=[&#x27;ai_score&#x27;, &#x27;sentiment&#x27;]</td></tr>
+<tr><td>scoring_parity</td><td class="WARN">WARN</td><td>parity overall=FAIL; blocker fields=[&#x27;ai_score&#x27;, &#x27;technical&#x27;, &#x27;low_risk&#x27;, &#x27;swing_score&#x27;]</td></tr>
 </tbody></table></div>
 </body></html>
