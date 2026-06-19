@@ -480,8 +480,8 @@
           "external_label": "3-Hold",
           "internal_value_1to5": 4.0,
           "primary_internal_field": "ai_score",
-          "gap": -1.0,
-          "severity": "moderate",
+          "gap": -3.25,
+          "severity": "severe",
           "direction_agrees": false
         },
         {
@@ -584,30 +584,133 @@
           "direction_agrees": false
         },
         {
-          "source": "zacks",
-          "external_value": 2,
-          "external_label": "4-Sell",
-          "internal_value_1to5": 2.25,
+          "source": "fidelity",
+          "external_value": 1.65,
+          "external_label": "Neutral",
+          "internal_value_1to5": 2.8,
           "primary_internal_field": "ai_score",
-          "gap": -0.25,
+          "gap": -1.15,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.1,
+          "external_label": "Hold",
+          "internal_value_1to5": 2.8,
+          "primary_internal_field": "ai_score",
+          "gap": 0.3,
+          "severity": "moderate",
+          "direction_agrees": true
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 2.8,
+          "primary_internal_field": "ai_score",
+          "gap": 0.2,
           "severity": "moderate",
           "direction_agrees": true
         }
       ],
       "pine_classification": "supports_external_caution",
       "pine_action": "downgrade-watchlist-only",
-      "pine_score_normalized": 0.0,
+      "pine_score_normalized": 0.3,
       "pine_blockers": [],
       "cooloff_blockers": [],
       "suggested_decision": "watchlist_only",
-      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 1 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
       "review": {
         "reviewed": false,
         "decision": "",
         "notes": "",
         "reviewed_at": "",
         "follow_up_date": "",
-        "first_seen": "2026-05-12",
+        "first_seen": "2026-06-11",
+        "last_seen": "2026-06-19"
+      }
+    },
+    {
+      "key": "GS|fidelity",
+      "ticker": "GS",
+      "sector": "Financial Services",
+      "internal_ai_score_0to10": 8.0,
+      "internal_ai_direction": "bullish",
+      "headline_source": "fidelity",
+      "headline_severity": "severe",
+      "headline_gap": -2.8,
+      "reason": "fidelity bearish (=1.2) vs internal ai_score bullish (=4.0); gap -2.80",
+      "confidence_n_sources": 1,
+      "sources_flagging": [
+        "fidelity"
+      ],
+      "external_signals": [
+        {
+          "source": "fidelity",
+          "external_value": 1.2,
+          "external_label": "Bearish",
+          "internal_value_1to5": 4.0,
+          "primary_internal_field": "ai_score",
+          "gap": -2.8,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "tradingview",
+          "external_value": 3,
+          "external_label": "Neutral",
+          "internal_value_1to5": 4.45,
+          "primary_internal_field": "technical",
+          "gap": -1.45,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 4.0,
+          "primary_internal_field": "ai_score",
+          "gap": -1.0,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 4.0,
+          "primary_internal_field": "ai_score",
+          "gap": -0.6,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 3,
+          "external_label": "Hold",
+          "internal_value_1to5": 3.15,
+          "primary_internal_field": "sentiment",
+          "gap": -0.15,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_internal",
+      "pine_action": "keep",
+      "pine_score_normalized": 0.9,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "needs_more_data",
+      "suggested_rationale": "Pine supports the internal bullish view but a severe external disagreement remains \u2014 collect more evidence before committing.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-07",
         "last_seen": "2026-06-19"
       }
     },
@@ -1549,7 +1652,7 @@
           "primary_internal_field": "ai_score",
           "gap": 0.0,
           "severity": "moderate",
-          "direction_agrees": true
+          "direction_agrees": false
         }
       ],
       "pine_classification": "supports_internal",
