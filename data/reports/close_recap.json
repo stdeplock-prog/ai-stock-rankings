@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-19T22:07:14Z",
-  "generated_at_chicago": "2026-06-19 05:07 PM CDT",
+  "generated_at": "2026-06-22T22:56:14Z",
+  "generated_at_chicago": "2026-06-22 05:56 PM CDT",
   "overall": "WARN",
   "sections": {
     "freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-06-19 05:07 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-06-22 05:55 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,14 +17,14 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-06-19 05:07 PM CDT",
-        "open_date": "2026-06-19",
+        "as_of": "2026-06-22 05:55 PM CDT",
+        "open_date": "2026-06-22",
         "row_count": 100,
-        "is_open_run": false,
+        "is_open_run": true,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-06-19 17:07",
-        "rankings_age_hours": 0.0,
+        "chicago_now": "2026-06-22 17:56",
+        "rankings_age_hours": 0.02,
         "today_live": true,
         "close_slot_satisfied": true
       },
@@ -35,7 +35,7 @@
         {
           "name": "run_source",
           "status": "WARN",
-          "message": "latest run: rescued slot (2026-06-19 17:07), history shows 6 missing slot(s)"
+          "message": "latest run: rescued slot (2026-06-22 17:56), history shows 6 missing slot(s)"
         }
       ],
       "metrics": {
@@ -43,9 +43,12 @@
         "overall_effective": "WARN",
         "last_run_event": "schedule",
         "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-06-19 17:07",
-        "today_missing": [],
-        "today_satisfied": true,
+        "last_run_ts_chicago": "2026-06-22 17:56",
+        "today_missing": [
+          "morning",
+          "midday"
+        ],
+        "today_satisfied": false,
         "source": "recovered",
         "close_slot_missing": false
       },
@@ -55,20 +58,20 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+          "status": "WARN",
+          "message": "overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN"
         }
       ],
       "metrics": {
-        "overall": "OK",
+        "overall": "WARN",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
-          "tasks": "OK"
+          "tasks": "WARN"
         },
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "rankings_recap": {
       "checks": [
@@ -80,7 +83,7 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-06-18: PNC, GEV"
+          "message": "top10 unchanged vs 2026-06-19"
         },
         {
           "name": "sector_concentration",
@@ -181,18 +184,18 @@
             "sector": "Consumer Cyclical"
           },
           {
-            "rank": 37,
+            "rank": 36,
             "ticker": "CACC",
             "company": "Credit Acceptance",
-            "change": 243,
+            "change": 244,
             "ai_score": 8.0,
             "sector": "Financial Services"
           },
           {
-            "rank": 58,
+            "rank": 66,
             "ticker": "ADI",
             "company": "Analog Devices",
-            "change": 194,
+            "change": 186,
             "ai_score": 7.9,
             "sector": "Technology"
           },
@@ -205,38 +208,30 @@
             "sector": "Healthcare"
           },
           {
-            "rank": 31,
+            "rank": 27,
             "ticker": "AIZ",
             "company": "Assurant",
-            "change": 102,
+            "change": 106,
             "ai_score": 8.1,
             "sector": "Financial Services"
           }
         ],
         "top_losers": [
           {
-            "rank": 88,
+            "rank": 87,
             "ticker": "NU",
             "company": "Nubank",
-            "change": -86,
+            "change": -85,
             "ai_score": 7.7,
             "sector": "Financial Services"
           },
           {
-            "rank": 79,
+            "rank": 81,
             "ticker": "HUBB",
             "company": "Hubbell Incorporated",
-            "change": -78,
+            "change": -80,
             "ai_score": 7.8,
             "sector": "Industrials"
-          },
-          {
-            "rank": 99,
-            "ticker": "MEDP",
-            "company": "Medpace",
-            "change": -63,
-            "ai_score": 7.7,
-            "sector": "Healthcare"
           },
           {
             "rank": 64,
@@ -247,6 +242,14 @@
             "sector": "Financial Services"
           },
           {
+            "rank": 95,
+            "ticker": "MEDP",
+            "company": "Medpace",
+            "change": -59,
+            "ai_score": 7.7,
+            "sector": "Healthcare"
+          },
+          {
             "rank": 83,
             "ticker": "AU",
             "company": "AngloGold Ashanti",
@@ -255,26 +258,10 @@
             "sector": "Basic Materials"
           }
         ],
-        "new_top10_entries": [
-          {
-            "ticker": "PNC",
-            "rank": 9,
-            "ai_score": 8.3,
-            "sector": "Financial Services"
-          },
-          {
-            "ticker": "GEV",
-            "rank": 10,
-            "ai_score": 8.3,
-            "sector": "Industrials"
-          }
-        ],
-        "exited_top10_entries": [
-          "BNY",
-          "RS"
-        ],
+        "new_top10_entries": [],
+        "exited_top10_entries": [],
         "intraday_new_entries": [],
-        "prior_top10_compared_against": "2026-06-18",
+        "prior_top10_compared_against": "2026-06-19",
         "mov_summary": {
           "with_change": 100,
           "positive": 77,
@@ -297,21 +284,16 @@
         {
           "name": "supp_coverage",
           "status": "OK",
-          "message": "SUPP 65/74 full fundamentals; price_only=9 tech_only=0"
-        },
-        {
-          "name": "watchlist_unavailable",
-          "status": "WARN",
-          "message": "1 watchlist ticker(s) unavailable: "
+          "message": "SUPP 66/75 full fundamentals; price_only=9 tech_only=0"
         },
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=74 misses=0"
+          "message": "yfinance cache hits=0 misses=75"
         }
       ],
       "metrics": {
-        "row_count": 141,
+        "row_count": 142,
         "top_10": [
           {
             "rank": 1,
@@ -351,6 +333,15 @@
           },
           {
             "rank": 5,
+            "ticker": "AGX",
+            "company": "Argan, Inc.",
+            "ai_score": 7.6,
+            "change": 0,
+            "sector": "Industrials",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 6,
             "ticker": "FTAI",
             "company": "FTAI Aviation",
             "ai_score": 7.6,
@@ -359,7 +350,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 6,
+            "rank": 7,
             "ticker": "GOOG",
             "company": "Alphabet Inc. (Class C)",
             "ai_score": 7.6,
@@ -368,7 +359,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 7,
+            "rank": 8,
             "ticker": "TSM",
             "company": "Taiwan Semiconductor Manufactur",
             "ai_score": 7.6,
@@ -377,7 +368,7 @@
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 8,
+            "rank": 9,
             "ticker": "DELL",
             "company": "Dell Technologies",
             "ai_score": 7.5,
@@ -386,53 +377,39 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 9,
+            "rank": 10,
             "ticker": "DUOL",
             "company": "Duolingo",
             "ai_score": 7.5,
             "change": 0,
             "sector": "Technology",
             "data_source": "main_pipeline"
-          },
-          {
-            "rank": 10,
-            "ticker": "GMED",
-            "company": "Globus Medical",
-            "ai_score": 7.5,
-            "change": 0,
-            "sector": "Healthcare",
-            "data_source": "main_pipeline"
           }
         ],
-        "prior_top10_compared_against": "2026-06-18",
+        "prior_top10_compared_against": "2026-06-19",
         "new_top10_entries": [
           {
-            "ticker": "GOOG",
-            "rank": 6,
+            "ticker": "AGX",
+            "rank": 5,
             "ai_score": 7.6
-          },
-          {
-            "ticker": "GMED",
-            "rank": 10,
-            "ai_score": 7.5
           }
         ],
         "top_gainers": [],
         "top_losers": [],
         "supp_summary": {
-          "total": 74,
-          "full_fundamentals": 65,
+          "total": 75,
+          "full_fundamentals": 66,
           "eodhd_enriched": 0,
           "metadata_only": 0,
           "price_only": 9,
           "technical_only": 0,
-          "unavailable": 1
+          "unavailable": 0
         },
-        "unavailable_count": 1,
+        "unavailable_count": 0,
         "unavailable_tickers": [],
-        "supp_degraded_pct": 0.122
+        "supp_degraded_pct": 0.12
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "market_risk": {
       "checks": [
@@ -485,9 +462,18 @@
             ]
           },
           {
+            "ticker": "AGX",
+            "group": "watchlist_top10",
+            "rank": 5,
+            "reasons": [
+              "missing SENT",
+              "missing SWING"
+            ]
+          },
+          {
             "ticker": "TSM",
             "group": "watchlist_top10",
-            "rank": 7,
+            "rank": 8,
             "reasons": [
               "missing SENT",
               "missing SWING"
@@ -496,18 +482,9 @@
           {
             "ticker": "DELL",
             "group": "watchlist_top10",
-            "rank": 8,
+            "rank": 9,
             "reasons": [
-              "weak SWING (4.7)"
-            ]
-          },
-          {
-            "ticker": "GMED",
-            "group": "watchlist_top10",
-            "rank": 10,
-            "reasons": [
-              "weak TECH (4.8)",
-              "weak SWING (4.7)"
+              "weak SWING (4.8)"
             ]
           }
         ],
@@ -526,15 +503,14 @@
           "watchlist_top10": {
             "status": "WARN",
             "n": 10,
-            "top_sector": "Technology",
+            "top_sector": "Industrials",
             "top_count": 4,
             "top_share": 0.4,
             "distribution": {
               "Basic Materials": 1,
-              "Industrials": 3,
+              "Industrials": 4,
               "Technology": 4,
-              "Communication Services": 1,
-              "Healthcare": 1
+              "Communication Services": 1
             }
           }
         }
@@ -546,7 +522,7 @@
         {
           "name": "benchmark_snapshots",
           "status": "OK",
-          "message": "37 snapshot(s); \u22651 horizon has forward results"
+          "message": "38 snapshot(s); \u22651 horizon has forward results"
         },
         {
           "name": "benchmark_findings",
@@ -555,7 +531,7 @@
         }
       ],
       "metrics": {
-        "snapshots_kept": 37,
+        "snapshots_kept": 38,
         "any_horizon_completed": true,
         "bucket_performance": {},
         "findings_warn": 6
@@ -591,12 +567,13 @@
     "prior_snapshot_present": true
   },
   "action_items": [
-    "[WARN] run_source.run_source: latest run: rescued slot (2026-06-19 17:07), history shows 6 missing slot(s)",
+    "[WARN] run_source.run_source: latest run: rescued slot (2026-06-22 17:56), history shows 6 missing slot(s)",
+    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN",
     "[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (8/10 = 80%)",
-    "[WARN] watchlist.watchlist_unavailable: 1 watchlist ticker(s) unavailable: ",
     "[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 4 suspicious top rank(s)",
-    "[INFO] New top10 vs 2026-06-18: PNC, GEV",
-    "[INFO] Exited top10 since 2026-06-18: BNY, RS"
+    "[INFO] Top MOV gainer TXRH (change=283, rank=98)",
+    "[INFO] Top MOV loser NU (change=-85, rank=87)",
+    "[INFO] Diagnostics flagged: SCCO, AGX, TSM"
   ],
-  "summary": "Close 05:07 PM CT \u00b7 Source rescued \u00b7 DQ OK \u00b7 \u2191TXRH \u2193NU \u00b7 2 new top10 (PNC\u2026) \u00b7 Risk OK"
+  "summary": "Close 05:55 PM CT \u00b7 Source rescued \u00b7 DQ WARN \u00b7 \u2191TXRH \u2193NU \u00b7 Top10 stable \u00b7 Risk OK"
 }

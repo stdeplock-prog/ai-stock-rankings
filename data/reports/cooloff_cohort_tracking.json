@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-19T22:07:15Z",
-  "as_of_date": "2026-06-19",
+  "generated_at": "2026-06-22T22:56:15Z",
+  "as_of_date": "2026-06-22",
   "overall": "OK",
   "caveat": "DIAGNOSTIC ONLY \u2014 production scoring formulas are NOT mutated. Tracks per-ticker forward returns of Pine cohorts to test whether overextended_bb names underperform clean-go names before promoting the blocker into LOW_RISK / SWING gating.",
   "thresholds": {
@@ -17,7 +17,7 @@
     "snapshot_max_rows": 500
   },
   "current_cohort_sizes": {
-    "clean_go": 49,
+    "clean_go": 44,
     "overextended_bb": 3,
     "weak_go": 9
   },
@@ -30,12 +30,10 @@
       "AXP",
       "BKNG",
       "BNY",
-      "C",
       "CACC",
       "CART",
       "CFG",
       "COLB",
-      "DAL",
       "DKS",
       "DUOL",
       "DVA",
@@ -48,14 +46,11 @@
       "GEV",
       "GLW",
       "GNTX",
-      "GS",
       "HBAN",
       "IEX",
-      "JPM",
       "KEY",
       "MLI",
       "MS",
-      "MU",
       "NLY",
       "NTRS",
       "PNC",
@@ -92,86 +87,86 @@
   },
   "horizon_comparison": {
     "1d": {
-      "snapshots_completed": 32,
+      "snapshots_completed": 33,
       "snapshots_pending": 1,
       "cohorts": {
         "clean_go": {
-          "n_observations": 1182,
-          "mean_return": 0.0008,
+          "n_observations": 1231,
+          "mean_return": 0.0007,
           "median_return": 0.0,
-          "pct_positive": 0.4188
+          "pct_positive": 0.4021
         },
         "overextended_bb": {
-          "n_observations": 135,
+          "n_observations": 138,
           "mean_return": 0.0026,
           "median_return": 0.0,
-          "pct_positive": 0.4519
+          "pct_positive": 0.442
         },
         "weak_go": {
-          "n_observations": 272,
-          "mean_return": 0.0019,
+          "n_observations": 281,
+          "mean_return": 0.0018,
           "median_return": 0.0,
-          "pct_positive": 0.4154
+          "pct_positive": 0.4021
         }
       }
     },
     "3d": {
-      "snapshots_completed": 30,
+      "snapshots_completed": 31,
       "snapshots_pending": 3,
       "cohorts": {
         "clean_go": {
-          "n_observations": 1031,
+          "n_observations": 1071,
           "mean_return": 0.0036,
-          "median_return": 0.0011,
-          "pct_positive": 0.5102
+          "median_return": 0.0007,
+          "pct_positive": 0.5051
         },
         "overextended_bb": {
-          "n_observations": 124,
-          "mean_return": 0.0005,
+          "n_observations": 130,
+          "mean_return": 0.0014,
           "median_return": 0.0009,
-          "pct_positive": 0.5081
+          "pct_positive": 0.5077
         },
         "weak_go": {
-          "n_observations": 239,
-          "mean_return": 0.0098,
-          "median_return": 0.0079,
-          "pct_positive": 0.5774
+          "n_observations": 248,
+          "mean_return": 0.0099,
+          "median_return": 0.008,
+          "pct_positive": 0.5766
         }
       }
     },
     "5d": {
-      "snapshots_completed": 28,
+      "snapshots_completed": 29,
       "snapshots_pending": 5,
       "cohorts": {
         "clean_go": {
-          "n_observations": 880,
-          "mean_return": 0.0113,
-          "median_return": 0.005,
-          "pct_positive": 0.5602
+          "n_observations": 919,
+          "mean_return": 0.0109,
+          "median_return": 0.0048,
+          "pct_positive": 0.555
         },
         "overextended_bb": {
-          "n_observations": 116,
-          "mean_return": -0.0055,
-          "median_return": -0.015,
-          "pct_positive": 0.4483
+          "n_observations": 117,
+          "mean_return": -0.0047,
+          "median_return": -0.0142,
+          "pct_positive": 0.453
         },
         "weak_go": {
-          "n_observations": 217,
-          "mean_return": 0.0194,
+          "n_observations": 229,
+          "mean_return": 0.0185,
           "median_return": 0.0164,
-          "pct_positive": 0.6498
+          "pct_positive": 0.6507
         }
       }
     },
     "10d": {
-      "snapshots_completed": 23,
+      "snapshots_completed": 24,
       "snapshots_pending": 10,
       "cohorts": {
         "clean_go": {
-          "n_observations": 602,
-          "mean_return": 0.0338,
-          "median_return": 0.0249,
-          "pct_positive": 0.6678
+          "n_observations": 631,
+          "mean_return": 0.0328,
+          "median_return": 0.0245,
+          "pct_positive": 0.6672
         },
         "overextended_bb": {
           "n_observations": 98,
@@ -180,10 +175,10 @@
           "pct_positive": 0.5408
         },
         "weak_go": {
-          "n_observations": 148,
-          "mean_return": 0.0378,
-          "median_return": 0.0221,
-          "pct_positive": 0.6486
+          "n_observations": 158,
+          "mean_return": 0.0385,
+          "median_return": 0.023,
+          "pct_positive": 0.6582
         }
       }
     }
@@ -191,14 +186,14 @@
   "decision": {
     "recommendation": "consider_scoring_change",
     "ready": true,
-    "rationale": "Clean-go beats overextended_bb at 5d by +1.68pp (clean=+1.13%, overext=-0.55%, n=880/116). Worth a controlled scoring experiment."
+    "rationale": "Clean-go beats overextended_bb at 5d by +1.56pp (clean=+1.09%, overext=-0.47%, n=919/117). Worth a controlled scoring experiment."
   },
-  "snapshots_kept": 33,
+  "snapshots_kept": 34,
   "inputs": {
     "pine_report_present": true,
     "rankings_present": true,
     "watchlist_present": true,
-    "prices_indexed": 237
+    "prices_indexed": 238
   },
-  "summary": "clean_go=49 \u00b7 overext_bb=3 \u00b7 weak_go=9 \u00b7 snaps=33 \u00b7 5d clean=+1.13%/overext=-0.55% (n=880/116) \u00b7 rec=consider_scoring_change"
+  "summary": "clean_go=44 \u00b7 overext_bb=3 \u00b7 weak_go=9 \u00b7 snaps=34 \u00b7 5d clean=+1.09%/overext=-0.47% (n=919/117) \u00b7 rec=consider_scoring_change"
 }
