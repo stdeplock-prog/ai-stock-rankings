@@ -20,91 +20,87 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Midday Health Check</h1>
-<p class="meta">Generated 2026-06-22 06:17 PM CDT &middot; Overall: <span class="badge">WARN</span></p>
-<div class="summary"><strong>Summary:</strong> Fresh 06:17 PM CT · Data quality WARN · Watchlist OK · Schedule FAIL/recovered · Benchmark active</div>
+<p class="meta">Generated 2026-06-23 11:38 AM CDT &middot; Overall: <span class="badge">WARN</span></p>
+<div class="summary"><strong>Summary:</strong> Fresh 11:37 AM CT · Data quality OK · Watchlist OK · Schedule FAIL/recovered · Benchmark active</div>
 
 <div class="section"><h2>Action Items</h2><ul class="action">
-<li>[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN</li>
-<li>[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 6 diagnostic slot gap(s) in lookback</li>
-<li>[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=[&#x27;ai_score&#x27;, &#x27;technical&#x27;, &#x27;swing_score&#x27;]</li>
+<li>[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 4 diagnostic slot gap(s) in lookback</li>
+<li>[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=[&#x27;ai_score&#x27;, &#x27;technical&#x27;, &#x27;sentiment&#x27;, &#x27;swing_score&#x27;]</li>
 </ul></div>
 <div class="section"><h2>Data Freshness<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-06-22 06:17 PM CDT&quot;,
-  &quot;open_date&quot;: &quot;2026-06-22&quot;,
+  &quot;as_of&quot;: &quot;2026-06-23 11:37 AM CDT&quot;,
+  &quot;open_date&quot;: &quot;2026-06-23&quot;,
   &quot;row_count&quot;: 100,
   &quot;is_weekend&quot;: false,
-  &quot;chicago_now&quot;: &quot;2026-06-22 18:17&quot;,
-  &quot;rankings_age_hours&quot;: 0.01,
+  &quot;chicago_now&quot;: &quot;2026-06-23 11:38&quot;,
+  &quot;rankings_age_hours&quot;: 0.03,
   &quot;today_live&quot;: true
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-22 06:17 PM CDT (age 0.0h, weekend=False)</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-23 11:37 AM CDT (age 0.0h, weekend=False)</td></tr>
 <tr><td>today_live</td><td class="OK">OK</td><td>data is from today (Chicago)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Data Quality<span class="WARN">WARN</span></h2>
+<div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;overall&quot;: &quot;WARN&quot;,
-  &quot;generated_at&quot;: &quot;2026-06-22T23:17:30Z&quot;,
+  &quot;overall&quot;: &quot;OK&quot;,
+  &quot;generated_at&quot;: &quot;2026-06-23T16:38:36Z&quot;,
   &quot;by_section&quot;: {
     &quot;rankings&quot;: &quot;OK&quot;,
     &quot;watchlist&quot;: &quot;OK&quot;,
-    &quot;tasks&quot;: &quot;WARN&quot;
+    &quot;tasks&quot;: &quot;OK&quot;
   },
   &quot;critical_section_fail&quot;: false
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>data_quality_overall</td><td class="WARN">WARN</td><td>overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN</td></tr>
+<tr><td>data_quality_overall</td><td class="OK">OK</td><td>overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Schedule Reliability<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall_raw&quot;: &quot;FAIL&quot;,
-  &quot;missing_count&quot;: 6,
+  &quot;missing_count&quot;: 4,
   &quot;lookback_days&quot;: 5,
-  &quot;today_missing&quot;: [
-    &quot;morning&quot;,
-    &quot;midday&quot;
-  ],
-  &quot;today_satisfied&quot;: false,
+  &quot;today_missing&quot;: [],
+  &quot;today_satisfied&quot;: true,
   &quot;last_run_event&quot;: &quot;schedule&quot;,
-  &quot;last_run_slot&quot;: &quot;close&quot;,
-  &quot;last_run_ts_chicago&quot;: &quot;2026-06-22 18:17&quot;,
+  &quot;last_run_slot&quot;: &quot;morning&quot;,
+  &quot;last_run_ts_chicago&quot;: &quot;2026-06-23 11:38&quot;,
   &quot;recovered&quot;: true,
   &quot;overall_effective&quot;: &quot;WARN&quot;
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>schedule_reliability</td><td class="WARN">WARN</td><td>schedule reliability FAIL/recovered: live data fresh, 6 diagnostic slot gap(s) in lookback</td></tr>
+<tr><td>schedule_reliability</td><td class="WARN">WARN</td><td>schedule reliability FAIL/recovered: live data fresh, 4 diagnostic slot gap(s) in lookback</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Watchlist<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;supp_summary&quot;: {
-    &quot;total&quot;: 75,
-    &quot;full_fundamentals&quot;: 66,
+    &quot;total&quot;: 74,
+    &quot;full_fundamentals&quot;: 65,
     &quot;eodhd_enriched&quot;: 0,
     &quot;metadata_only&quot;: 0,
     &quot;price_only&quot;: 9,
     &quot;technical_only&quot;: 0,
-    &quot;unavailable&quot;: 0
+    &quot;unavailable&quot;: 1
   },
   &quot;yfinance_info_cache&quot;: {
-    &quot;cache_hit_fresh&quot;: 0,
-    &quot;cache_miss&quot;: 74,
-    &quot;network_call&quot;: 74,
-    &quot;fallback_to_cache&quot;: 74,
-    &quot;rate_limit_or_empty&quot;: 74,
+    &quot;cache_hit_fresh&quot;: 74,
+    &quot;cache_miss&quot;: 0,
+    &quot;network_call&quot;: 0,
+    &quot;fallback_to_cache&quot;: 0,
+    &quot;rate_limit_or_empty&quot;: 0,
     &quot;network_success&quot;: 0
   },
-  &quot;unavailable_count&quot;: 0,
-  &quot;scored&quot;: 142,
-  &quot;supp_degraded_pct&quot;: 0.12
+  &quot;unavailable_count&quot;: 1,
+  &quot;scored&quot;: 141,
+  &quot;supp_degraded_pct&quot;: 0.122
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>supp_coverage</td><td class="OK">OK</td><td>SUPP 65/74 full fundamentals; price_only=9 tech_only=0</td></tr>
-<tr><td>yfinance_cache</td><td class="OK">OK</td><td>yfinance cache hits=0 misses=74</td></tr>
+<tr><td>yfinance_cache</td><td class="OK">OK</td><td>yfinance cache hits=74 misses=0</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Benchmark<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;snapshots_kept&quot;: 38,
+  &quot;snapshots_kept&quot;: 39,
   &quot;horizons&quot;: [
     &quot;1d&quot;,
     &quot;3d&quot;,
@@ -113,11 +109,11 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     &quot;20d&quot;
   ],
   &quot;any_horizon_completed&quot;: true,
-  &quot;findings_warn&quot;: 6,
+  &quot;findings_warn&quot;: 5,
   &quot;findings_fail&quot;: 0
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>benchmark_snapshots</td><td class="OK">OK</td><td>38 snapshot(s); ≥1 horizon has forward results</td></tr>
+<tr><td>benchmark_snapshots</td><td class="OK">OK</td><td>39 snapshot(s); ≥1 horizon has forward results</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Parity<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -126,6 +122,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;fail_fields&quot;: [
     &quot;ai_score&quot;,
     &quot;technical&quot;,
+    &quot;sentiment&quot;,
     &quot;swing_score&quot;
   ],
   &quot;known_bias_fields&quot;: [
@@ -134,6 +131,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;low_risk_bias_known&quot;: true
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>scoring_parity</td><td class="WARN">WARN</td><td>parity overall=FAIL; blocker fields=[&#x27;ai_score&#x27;, &#x27;technical&#x27;, &#x27;swing_score&#x27;]</td></tr>
+<tr><td>scoring_parity</td><td class="WARN">WARN</td><td>parity overall=FAIL; blocker fields=[&#x27;ai_score&#x27;, &#x27;technical&#x27;, &#x27;sentiment&#x27;, &#x27;swing_score&#x27;]</td></tr>
 </tbody></table></div>
 </body></html>
