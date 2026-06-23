@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-23T17:02:15Z",
-  "generated_at_chicago": "2026-06-23 12:02 PM CDT",
+  "generated_at": "2026-06-23T20:20:23Z",
+  "generated_at_chicago": "2026-06-23 03:20 PM CDT",
   "overall": "FAIL",
   "overall_raw": "FAIL",
   "overall_effective": "WARN",
@@ -9,13 +9,13 @@
     "recovered": true,
     "today_satisfied": true,
     "today_missing": [],
-    "current_slot": "morning",
+    "current_slot": "midday",
     "current_slot_covered": true,
-    "rankings_age_hours": 0.04,
+    "rankings_age_hours": 0.01,
     "rankings_fresh": true,
     "last_run_event": "schedule",
     "missing_count": 4,
-    "reason": "live data fresh (age 0.04h < 6.0h) and current expected slot (morning) covered; 4 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage"
+    "reason": "live data fresh (age 0.01h < 6.0h) and current expected slot (midday) covered; 4 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage"
   },
   "sections": {
     "calendar": {
@@ -35,7 +35,7 @@
         {
           "name": "history_source",
           "status": "OK",
-          "message": "history loaded from workflow_runs.jsonl (106 records)",
+          "message": "history loaded from workflow_runs.jsonl (107 records)",
           "data": {}
         }
       ],
@@ -93,7 +93,7 @@
               "date": "2026-06-23",
               "slot_hits": {
                 "morning": 1,
-                "midday": 0,
+                "midday": 1,
                 "close": 0
               },
               "missing": [],
@@ -112,33 +112,33 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-06-23 12:00 PM CDT (age 0.0h)",
+          "message": "as_of 2026-06-23 03:20 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "last_run_event",
           "status": "OK",
-          "message": "latest run: event=schedule slot=morning at 2026-06-23 12:02",
+          "message": "latest run: event=schedule slot=midday at 2026-06-23 15:20",
           "data": {}
         }
       ],
       "metrics": {
-        "chicago_now": "2026-06-23 12:02",
+        "chicago_now": "2026-06-23 15:20",
         "is_weekend": false,
         "expected_slot_now": null,
-        "rankings_as_of": "2026-06-23 12:00 PM CDT",
-        "rankings_age_hours": 0.04,
+        "rankings_as_of": "2026-06-23 03:20 PM CDT",
+        "rankings_age_hours": 0.01,
         "last_run": {
-          "ts_utc": "2026-06-23T17:02:15Z",
-          "ts_chicago": "2026-06-23 12:02",
+          "ts_utc": "2026-06-23T20:20:23Z",
+          "ts_chicago": "2026-06-23 15:20",
           "chicago_date": "2026-06-23",
           "event_name": "schedule",
-          "slot": "morning",
+          "slot": "midday",
           "proceeded": true,
-          "as_of": "2026-06-23 12:00 PM CDT",
+          "as_of": "2026-06-23 03:20 PM CDT",
           "open_date": "2026-06-23",
-          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/28040178336",
-          "commit_sha": "a18751d0cfc3c847a60ed524fa8ee96a768c39f8"
+          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/28051555877",
+          "commit_sha": "76272fcc841ffbec0a142e9fb614b23943c99731"
         }
       },
       "status": "OK"
@@ -148,12 +148,12 @@
         {
           "name": "skip_volume",
           "status": "OK",
-          "message": "0 skip records in 14d (20 proceeded)",
+          "message": "0 skip records in 14d (19 proceeded)",
           "data": {}
         }
       ],
       "metrics": {
-        "proceed_14d": 20,
+        "proceed_14d": 19,
         "skip_14d": 0,
         "skip_reasons_14d": {}
       },
@@ -164,13 +164,13 @@
         {
           "name": "event_mix",
           "status": "OK",
-          "message": "schedule=20 dispatch=0 other=0",
+          "message": "schedule=19 dispatch=0 other=0",
           "data": {}
         }
       ],
       "metrics": {
         "proceed_14d_by_event": {
-          "schedule": 20,
+          "schedule": 19,
           "workflow_dispatch": 0,
           "other": 0
         }
@@ -178,6 +178,6 @@
       "status": "OK"
     }
   },
-  "history_records": 106,
+  "history_records": 107,
   "history_source": "jsonl"
 }
