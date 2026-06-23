@@ -200,6 +200,94 @@
         "go_label": null,
         "acc_label": null,
         "penalties": []
+      },
+      {
+        "ticker": "DKS",
+        "company": "Dick's Sporting Goods",
+        "rank": 17,
+        "score": 76.4,
+        "label": "HIGH",
+        "confidence": 0.88,
+        "go_label": null,
+        "acc_label": null,
+        "penalties": []
+      },
+      {
+        "ticker": "KMI",
+        "company": "Kinder Morgan",
+        "rank": 46,
+        "score": 75.2,
+        "label": "HIGH",
+        "confidence": 0.88,
+        "go_label": null,
+        "acc_label": null,
+        "penalties": []
+      },
+      {
+        "ticker": "APH",
+        "company": "Amphenol",
+        "rank": 49,
+        "score": 75.0,
+        "label": "HIGH",
+        "confidence": 0.88,
+        "go_label": null,
+        "acc_label": null,
+        "penalties": []
+      },
+      {
+        "ticker": "VMC",
+        "company": "Vulcan Materials Company",
+        "rank": 96,
+        "score": 74.9,
+        "label": "HIGH",
+        "confidence": 0.74,
+        "go_label": null,
+        "acc_label": null,
+        "penalties": []
+      },
+      {
+        "ticker": "FHB",
+        "company": "First Hawaiian, Inc.",
+        "rank": 94,
+        "score": 74.7,
+        "label": "HIGH",
+        "confidence": 0.74,
+        "go_label": null,
+        "acc_label": null,
+        "penalties": []
+      },
+      {
+        "ticker": "WFC",
+        "company": "Wells Fargo",
+        "rank": 77,
+        "score": 74.2,
+        "label": "HIGH",
+        "confidence": 0.74,
+        "go_label": null,
+        "acc_label": null,
+        "penalties": []
+      },
+      {
+        "ticker": "BALL",
+        "company": "Ball Corporation",
+        "rank": 9,
+        "score": 74.0,
+        "label": "HIGH",
+        "confidence": 0.88,
+        "go_label": null,
+        "acc_label": null,
+        "penalties": []
+      },
+      {
+        "ticker": "FITB",
+        "company": "Fifth Third Bancorp",
+        "rank": 53,
+        "score": 74.0,
+        "label": "HIGH",
+        "confidence": 0.74,
+        "go_label": null,
+        "acc_label": null,
+        "penalties": []
       }
     ]
   },
@@ -9152,9 +9240,9 @@
         }
       },
       "penalties": {
-        "weak_continuity": {
-          "mult": 0.85,
-          "detail": "CONT LOW (\u00d70.85)"
+        "overextension": {
+          "mult": 0.8563,
+          "detail": "overext +18% vs 10DMA (\u00d70.86)"
         }
       },
       "has_ohlcv": true
@@ -10367,14 +10455,19 @@
           "present": true
         },
         "sentiment_catalyst": {
-          "score": null,
+          "score": 0.75,
           "weight": 0.06,
-          "detail": "no sentiment/catalyst",
-          "present": false
+          "detail": "SENT 7.5/10",
+          "present": true
         }
       },
-      "penalties": {},
-      "has_ohlcv": false
+      "penalties": {
+        "overextension": {
+          "mult": 0.9601,
+          "detail": "overext +11% vs 10DMA (\u00d70.96)"
+        }
+      },
+      "has_ohlcv": true
     },
     {
       "ticker": "LUNMF",
@@ -12777,6 +12870,10 @@
         "weak_continuity": {
           "mult": 0.85,
           "detail": "CONT LOW (\u00d70.85)"
+        },
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.10M (\u00d70.85)"
         }
       },
       "has_ohlcv": false
@@ -12813,7 +12910,7 @@
         "continuity": {
           "score": 0.418,
           "weight": 0.16,
-          "detail": "CONT MID 42",
+          "detail": "CONT MID 55",
           "present": true
         },
         "accumulation": {
@@ -16383,7 +16480,7 @@
     "WFC": {
       "score": 74.3,
       "label": "HIGH",
-      "confidence": 0.74
+      "confidence": 0.88
     },
     "LECO": {
       "score": 59.6,
@@ -16433,7 +16530,7 @@
     "MRNA": {
       "score": 59.6,
       "label": "MID",
-      "confidence": 0.74
+      "confidence": 0.88
     },
     "GWW": {
       "score": 58.4,
@@ -16458,7 +16555,7 @@
     "SN": {
       "score": 69.5,
       "label": "HIGH",
-      "confidence": 0.74
+      "confidence": 0.88
     },
     "FHN": {
       "score": 65.3,
@@ -16523,7 +16620,7 @@
     "RY": {
       "score": 46.9,
       "label": "MID",
-      "confidence": 0.68
+      "confidence": 0.88
     },
     "TJX": {
       "score": 56.0,
@@ -16733,6 +16830,16 @@
     "NVDA": {
       "score": 59.5,
       "label": "MID",
+      "confidence": 0.68
+    },
+    "VG": {
+      "score": 28.4,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "ALAB": {
+      "score": 70.1,
+      "label": "HIGH",
       "confidence": 0.74
     },
     "RGTI": {
