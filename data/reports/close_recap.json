@@ -119,7 +119,7 @@
             "ticker": "SSB",
             "company": "SouthState Corporation",
             "ai_score": 8.4,
-            "change": -2,
+            "change": -1,
             "sector": "Financial Services"
           },
           {
@@ -252,6 +252,14 @@
             "company": "First Horizon Corporation",
             "change": -3,
             "ai_score": 7.6,
+            "sector": "Consumer Cyclical"
+          },
+          {
+            "rank": 51,
+            "ticker": "FNB",
+            "company": "FNB Corporation",
+            "change": -3,
+            "ai_score": 7.9,
             "sector": "Financial Services"
           }
         ],
@@ -304,7 +312,12 @@
         {
           "name": "supp_coverage",
           "status": "OK",
-          "message": "SUPP 66/75 full fundamentals; price_only=9 tech_only=0"
+          "message": "SUPP 65/74 full fundamentals; price_only=9 tech_only=0"
+        },
+        {
+          "name": "watchlist_unavailable",
+          "status": "WARN",
+          "message": "1 watchlist ticker(s) unavailable: "
         },
         {
           "name": "yfinance_cache",
@@ -313,7 +326,7 @@
         }
       ],
       "metrics": {
-        "row_count": 142,
+        "row_count": 141,
         "top_10": [
           {
             "rank": 1,
@@ -422,19 +435,19 @@
         "top_gainers": [],
         "top_losers": [],
         "supp_summary": {
-          "total": 75,
-          "full_fundamentals": 66,
+          "total": 74,
+          "full_fundamentals": 65,
           "eodhd_enriched": 0,
           "metadata_only": 0,
           "price_only": 9,
           "technical_only": 0,
-          "unavailable": 0
+          "unavailable": 1
         },
-        "unavailable_count": 0,
+        "unavailable_count": 1,
         "unavailable_tickers": [],
-        "supp_degraded_pct": 0.12
+        "supp_degraded_pct": 0.122
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "market_risk": {
       "checks": [
@@ -495,7 +508,23 @@
             "group": "watchlist_top10",
             "rank": 6,
             "reasons": [
-              "weak SWING (4.7)"
+              "weak SWING (4.5)"
+            ]
+          },
+          {
+            "ticker": "GLW",
+            "group": "watchlist_top10",
+            "rank": 8,
+            "reasons": [
+              "weak SENT (5.0)"
+            ]
+          },
+          {
+            "ticker": "DUOL",
+            "group": "watchlist_top10",
+            "rank": 9,
+            "reasons": [
+              "weak SWING (4.9)"
             ]
           },
           {
@@ -599,6 +628,7 @@
   "action_items": [
     "[WARN] run_source.run_source: latest run: rescued slot (2026-06-24 15:04), history shows 3 missing slot(s)",
     "[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (7/10 = 70%)",
+    "[WARN] watchlist.watchlist_unavailable: 1 watchlist ticker(s) unavailable: ",
     "[WARN] market_risk.generals_fail: Generals Fail 3/7 below 200DMA (threshold 3): MSFT, META, TSLA",
     "[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 4 suspicious top rank(s)",
     "[INFO] New top10 vs 2026-06-23: JEF, INCY, EWBC",
