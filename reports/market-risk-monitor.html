@@ -32,7 +32,7 @@ a { color:#60a5fa; }
 <body>
   <header>
     <h1>Market Risk Monitor</h1>
-    <div class="meta">Generated 2026-06-24 17:12 UTC</div>
+    <div class="meta">Generated 2026-06-25 16:44 UTC</div>
   </header>
   <main>
     <section>
@@ -43,7 +43,7 @@ a { color:#60a5fa; }
       </div>
       <div class="signal-row">
         <div class="label">Generals Fail &gt;= 3 below 200DMA</div>
-        <div class="val"><span class="pill pill-warn">Generals Fail = 3/7 (&gt;= 3)</span></div>
+        <div class="val"><span class="pill pill-warn">Generals Fail = 4/7 (&gt;= 3)</span></div>
       </div>
     </section>
 
@@ -68,7 +68,7 @@ a { color:#60a5fa; }
       
     <div class="signal-row">
       <div class="label">VIX</div>
-      <div class="val">18.95</div>
+      <div class="val">18.93</div>
       <span class="pill pill-pass">Normal</span>
     </div>
     <div class="note">Threshold: warn at &gt;= 20</div>
@@ -84,7 +84,7 @@ a { color:#60a5fa; }
       
     <div class="signal-row">
       <div class="label">Equity Put/Call (Cboe)</div>
-      <div class="val">0.56</div>
+      <div class="val">0.61</div>
       <span class="pill pill-pass">Neutral range</span>
     </div>
     <div class="note">Market-wide context only (not per-ticker). Equity P/C extremes: &lt;= 0.40 speculative complacency; &gt;= 1.20 fear/hedging.</div>
@@ -95,21 +95,21 @@ a { color:#60a5fa; }
       <h2>Put/Call Ratios — Cboe Daily</h2>
       <table>
         <thead><tr><th>Series</th><th>Ratio</th></tr></thead>
-        <tbody><tr><td>Total</td><td>0.92</td></tr><tr><td>Equity</td><td>0.56</td></tr><tr><td>Index</td><td>1.06</td></tr><tr><td>ETP</td><td>1.13</td></tr><tr><td>VIX</td><td>0.41</td></tr><tr><td>SPX + SPXW</td><td>1.18</td></tr></tbody>
+        <tbody><tr><td>Total</td><td>1.02</td></tr><tr><td>Equity</td><td>0.61</td></tr><tr><td>Index</td><td>1.16</td></tr><tr><td>ETP</td><td>1.38</td></tr><tr><td>VIX</td><td>0.82</td></tr><tr><td>SPX + SPXW</td><td>1.20</td></tr></tbody>
       </table>
-      <div class="note">Market-wide risk context only — not used in per-ticker scoring. Source: <a href="https://www.cboe.com/us/options/market_statistics/daily/">Cboe daily market statistics</a>. Fetched 2026-06-24 17:12 UTC.</div>
+      <div class="note">Market-wide risk context only — not used in per-ticker scoring. Source: <a href="https://www.cboe.com/us/options/market_statistics/daily/">Cboe daily market statistics</a>. Fetched 2026-06-25 16:44 UTC.</div>
     </section>
     
     <section>
       <h2>When the Generals Fail — Leading 7 vs 200DMA</h2>
       <div class="signal-row">
         <div class="label">Headline</div>
-        <div class="val"><span class="pill pill-warn">ALERT: 3/7 below 200DMA</span></div>
+        <div class="val"><span class="pill pill-warn">ALERT: 4/7 below 200DMA</span></div>
       </div>
       <table>
         <thead><tr><th>Ticker</th><th>Last</th><th>200DMA</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>AAPL</td><td>296.81</td><td>269.04</td><td><span class="pill pill-pass">Above 200DMA</span></td></tr><tr><td>MSFT</td><td>372.40</td><td>449.38</td><td><span class="pill pill-warn">Below 200DMA</span></td></tr><tr><td>NVDA</td><td>199.07</td><td>190.39</td><td><span class="pill pill-pass">Above 200DMA</span></td></tr><tr><td>AMZN</td><td>239.87</td><td>232.87</td><td><span class="pill pill-pass">Above 200DMA</span></td></tr><tr><td>GOOGL</td><td>349.54</td><td>312.84</td><td><span class="pill pill-pass">Above 200DMA</span></td></tr><tr><td>META</td><td>559.09</td><td>652.15</td><td><span class="pill pill-warn">Below 200DMA</span></td></tr><tr><td>TSLA</td><td>377.83</td><td>417.67</td><td><span class="pill pill-warn">Below 200DMA</span></td></tr>
+          <tr><td>AAPL</td><td>274.89</td><td>269.21</td><td><span class="pill pill-pass">Above 200DMA</span></td></tr><tr><td>MSFT</td><td>351.99</td><td>448.61</td><td><span class="pill pill-warn">Below 200DMA</span></td></tr><tr><td>NVDA</td><td>195.03</td><td>190.53</td><td><span class="pill pill-pass">Above 200DMA</span></td></tr><tr><td>AMZN</td><td>227.82</td><td>232.80</td><td><span class="pill pill-warn">Below 200DMA</span></td></tr><tr><td>GOOGL</td><td>341.11</td><td>313.35</td><td><span class="pill pill-pass">Above 200DMA</span></td></tr><tr><td>META</td><td>546.90</td><td>651.12</td><td><span class="pill pill-warn">Below 200DMA</span></td></tr><tr><td>TSLA</td><td>373.30</td><td>417.79</td><td><span class="pill pill-warn">Below 200DMA</span></td></tr>
         </tbody>
       </table>
       <div class="note">Leading 7 = Magnificent 7 (AAPL, MSFT, NVDA, AMZN, GOOGL, META, TSLA). Source: yfinance daily closes.</div>
