@@ -457,6 +457,7 @@
         "ai_score": 8.0,
         "swing_score": 7.2,
         "swing_tier": "A",
+        "days_to_earnings": 24,
         "evaluated": true,
         "bars": 872,
         "gates": {
@@ -517,9 +518,9 @@
           "above_bb_mid": true,
           "above_sma50": true,
           "ma50_rising": true,
-          "rsi_in_zone": true,
+          "rsi_in_zone": false,
           "rsi_slope_pos": true,
-          "return_20d_ok": false,
+          "return_20d_ok": true,
           "rel_vol_ok": false,
           "bar_strength": true,
           "mfi_above_avg": true,
@@ -546,9 +547,9 @@
         "go_no_go_score": 8,
         "go_no_go_gates_evaluated": 10,
         "go_no_go_score_normalized": 0.8,
-        "accumulation_score": 4,
+        "accumulation_score": 3,
         "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.8,
+        "accumulation_score_normalized": 0.6,
         "blocker_count": 0
       },
       {
@@ -769,6 +770,7 @@
         "ai_score": 8.3,
         "swing_score": 7.1,
         "swing_tier": "A",
+        "days_to_earnings": 24,
         "evaluated": true,
         "bars": 872,
         "gates": {
@@ -823,6 +825,7 @@
         "ai_score": 7.9,
         "swing_score": 5.5,
         "swing_tier": "B",
+        "days_to_earnings": 40,
         "evaluated": true,
         "bars": 872,
         "gates": {
@@ -933,6 +936,7 @@
         "ai_score": 7.9,
         "swing_score": 5.6,
         "swing_tier": "B",
+        "days_to_earnings": 48,
         "evaluated": true,
         "bars": 872,
         "gates": {
@@ -1200,6 +1204,7 @@
         "ai_score": 8.4,
         "swing_score": 7.3,
         "swing_tier": "A",
+        "days_to_earnings": 46,
         "evaluated": true,
         "bars": 348,
         "gates": {
@@ -1485,7 +1490,7 @@
           "return_20d_ok": true,
           "rel_vol_ok": false,
           "bar_strength": true,
-          "mfi_above_avg": true,
+          "mfi_above_avg": false,
           "near_20d_high": true
         },
         "metrics": {
@@ -1505,7 +1510,7 @@
           "range_10d_pct": 0.1412
         },
         "blockers": [
-          "overextended_bb (>1.5% above BB upper)"
+          "earnings_near (18d)"
         ],
         "insufficient_data_reasons": [],
         "go_no_go_score": 8,
@@ -2789,8 +2794,9 @@
       "company": "Delta Air Lines",
       "sector": "Industrials",
       "ai_score": 7.6,
-      "swing_score": 6.0,
+      "swing_score": 6.7,
       "swing_tier": "B",
+      "days_to_earnings": 13,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -2824,7 +2830,8 @@
         "range_10d_pct": 0.2035
       },
       "blockers": [
-        "overextended_bb (>1.5% above BB upper)"
+        "overextended_bb (>1.5% above BB upper)",
+        "earnings_near (13d)"
       ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 9,
@@ -2845,6 +2852,7 @@
       "ai_score": 7.5,
       "swing_score": 4.6,
       "swing_tier": "C",
+      "days_to_earnings": 69,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -2897,6 +2905,7 @@
       "ai_score": 8.1,
       "swing_score": 7.4,
       "swing_tier": "A",
+      "days_to_earnings": 59,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -2949,6 +2958,7 @@
       "ai_score": 8.0,
       "swing_score": 7.8,
       "swing_tier": "A",
+      "days_to_earnings": 27,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -3277,6 +3287,7 @@
       "ai_score": 7.3,
       "swing_score": 7.7,
       "swing_tier": "A",
+      "days_to_earnings": 33,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -3329,6 +3340,7 @@
       "ai_score": 8.2,
       "swing_score": 7.7,
       "swing_tier": "A",
+      "days_to_earnings": 25,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -3912,12 +3924,22 @@
       "blocker_count": 0
     },
     {
-      "ticker": "HAYW",
+      "ticker": "JOBY",
+      "sources": [
+        "disagreement"
+      ],
+      "sector": "Industrials",
+      "ai_score": 3.5,
+      "evaluated": false,
+      "reason": "ohlcv missing"
+    },
+    {
+      "ticker": "JPM",
       "sources": [
         "main"
       ],
-      "company": "Hayward Holdings",
-      "sector": "Industrials",
+      "company": "JPMorgan Chase",
+      "sector": "Financial Services",
       "ai_score": 8.1,
       "swing_score": 6.6,
       "swing_tier": "B",
@@ -3954,7 +3976,7 @@
         "range_10d_pct": 0.1412
       },
       "blockers": [
-        "overextended_bb (>1.5% above BB upper)"
+        "earnings_near (17d)"
       ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 8,
@@ -4018,7 +4040,7 @@
       "blocker_count": 0
     },
     {
-      "ticker": "INCY",
+      "ticker": "KEY",
       "sources": [
         "main"
       ],
@@ -4030,12 +4052,12 @@
       "evaluated": true,
       "bars": 872,
       "gates": {
-        "trend_sma_aligned": false,
+        "trend_sma_aligned": true,
         "above_sma20": true,
         "above_bb_mid": true,
         "above_sma50": true,
         "ma50_rising": true,
-        "rsi_in_zone": true,
+        "rsi_in_zone": false,
         "rsi_slope_pos": true,
         "return_20d_ok": true,
         "rel_vol_ok": false,
@@ -4193,6 +4215,7 @@
       "ai_score": 7.8,
       "swing_score": 7.2,
       "swing_tier": "A",
+      "days_to_earnings": 19,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -4225,7 +4248,9 @@
         "bb_upper_20": 32.7596,
         "range_10d_pct": 0.0721
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (19d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 8,
       "go_no_go_gates_evaluated": 10,
@@ -4233,7 +4258,7 @@
       "accumulation_score": 4,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.8,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "LLYVA",
@@ -4246,6 +4271,7 @@
       "ai_score": 7.9,
       "swing_score": 7.1,
       "swing_tier": "A",
+      "days_to_earnings": 40,
       "evaluated": true,
       "bars": 725,
       "gates": {
@@ -4529,6 +4555,7 @@
       "ai_score": 8.4,
       "swing_score": 7.3,
       "swing_tier": "A",
+      "days_to_earnings": 46,
       "evaluated": true,
       "bars": 348,
       "gates": {
@@ -4685,6 +4712,7 @@
       "ai_score": 7.8,
       "swing_score": 7.4,
       "swing_tier": "A",
+      "days_to_earnings": 26,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -4737,6 +4765,7 @@
       "ai_score": 8.0,
       "swing_score": 7.3,
       "swing_tier": "A",
+      "days_to_earnings": 25,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -4789,6 +4818,7 @@
       "ai_score": 7.9,
       "swing_score": 5.6,
       "swing_tier": "B",
+      "days_to_earnings": 48,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -4841,6 +4871,7 @@
       "ai_score": 8.0,
       "swing_score": 7.5,
       "swing_tier": "A",
+      "days_to_earnings": 38,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -4956,6 +4987,7 @@
       "ai_score": 7.8,
       "swing_score": 7.1,
       "swing_tier": "A",
+      "days_to_earnings": 38,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -5008,6 +5040,7 @@
       "ai_score": 8.1,
       "swing_score": 7.0,
       "swing_tier": "A",
+      "days_to_earnings": 18,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -5048,7 +5081,7 @@
       "accumulation_score": 2,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.4,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "QBTS",
@@ -5449,6 +5482,7 @@
       "ai_score": 8.3,
       "swing_score": 7.1,
       "swing_tier": "A",
+      "days_to_earnings": 27,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -5617,6 +5651,7 @@
       "ai_score": 7.2,
       "swing_score": 7.2,
       "swing_tier": "A",
+      "days_to_earnings": 45,
       "evaluated": true,
       "bars": 872,
       "gates": {
@@ -5721,6 +5756,7 @@
       "ai_score": 8.1,
       "swing_score": 7.4,
       "swing_tier": "A",
+      "days_to_earnings": 32,
       "evaluated": true,
       "bars": 872,
       "gates": {
