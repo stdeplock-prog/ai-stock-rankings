@@ -30,7 +30,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <li>[WARN] leaderboards.main_sector_concentration: main_top25 dominated by Financial Services 12/25 (48%)</li>
 <li>[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 13/25 (52%)</li>
 <li>[WARN] benchmark_context.lagging_buckets: 5 bucket/horizon pairs with negative avg_mean_return</li>
-<li>[WARN] diagnostics.suspicious_ranks: 3 suspicious top rank(s) flagged</li>
+<li>[WARN] diagnostics.suspicious_ranks: 4 suspicious top rank(s) flagged</li>
 <li>[INFO] main_top10 new entries: GMED, MRP, HALO, INCY, C</li>
 <li>[INFO] main_top10 exited: CFG, EWBC, FAF, GEV, KEY</li>
 <li>[INFO] watchlist_top10 new entries: GMED, FRSH, GLW, MU, VEEV</li>
@@ -220,7 +220,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;open_date&quot;: &quot;2026-06-29&quot;,
   &quot;row_count&quot;: 100,
   &quot;is_weekend&quot;: false,
-  &quot;rankings_age_hours&quot;: 0.02
+  &quot;rankings_age_hours&quot;: 0.0
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-06-29 05:39 PM CDT (age 0.0h, weekend=False)</td></tr>
@@ -1008,7 +1008,20 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
-      &quot;rank&quot;: 40,
+      &quot;rank&quot;: 39,
+      &quot;ticker&quot;: &quot;SOL-USD&quot;,
+      &quot;company&quot;: &quot;Solana USD&quot;,
+      &quot;ai_score&quot;: 6.5,
+      &quot;sector&quot;: &quot;Crypto&quot;,
+      &quot;change&quot;: 0,
+      &quot;fundamental&quot;: null,
+      &quot;technical&quot;: 6.5,
+      &quot;sentiment&quot;: null,
+      &quot;low_risk&quot;: null,
+      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
+    },
+    {
+      &quot;rank&quot;: 41,
       &quot;ticker&quot;: &quot;VG&quot;,
       &quot;company&quot;: &quot;Venture Global, Inc.&quot;,
       &quot;ai_score&quot;: 6.5,
@@ -1425,7 +1438,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;new_entries&quot;: [
         {
           &quot;ticker&quot;: &quot;VG&quot;,
-          &quot;rank&quot;: 40,
+          &quot;rank&quot;: 41,
           &quot;ai_score&quot;: 6.5,
           &quot;sector&quot;: &quot;Energy&quot;
         },
@@ -1704,7 +1717,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Diagnostics<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall&quot;: &quot;FAIL&quot;,
-  &quot;suspicious_count&quot;: 3,
+  &quot;suspicious_count&quot;: 4,
   &quot;suspicious_top&quot;: [
     {
       &quot;ticker&quot;: &quot;DELL&quot;,
@@ -1724,6 +1737,14 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       ]
     },
     {
+      &quot;ticker&quot;: &quot;GLW&quot;,
+      &quot;group&quot;: &quot;watchlist_top10&quot;,
+      &quot;rank&quot;: 8,
+      &quot;reasons&quot;: [
+        &quot;weak SWING (4.9)&quot;
+      ]
+    },
+    {
       &quot;ticker&quot;: &quot;MU&quot;,
       &quot;group&quot;: &quot;watchlist_top10&quot;,
       &quot;rank&quot;: 9,
@@ -1735,6 +1756,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   ]
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>suspicious_ranks</td><td class="WARN">WARN</td><td>3 suspicious top rank(s) flagged</td></tr>
+<tr><td>suspicious_ranks</td><td class="WARN">WARN</td><td>4 suspicious top rank(s) flagged</td></tr>
 </tbody></table></div>
 </body></html>

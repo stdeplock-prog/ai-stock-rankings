@@ -17,7 +17,7 @@
         "open_date": "2026-06-29",
         "row_count": 100,
         "is_weekend": false,
-        "rankings_age_hours": 0.02
+        "rankings_age_hours": 0.0
       },
       "status": "OK"
     },
@@ -828,7 +828,20 @@
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 40,
+            "rank": 39,
+            "ticker": "SOL-USD",
+            "company": "Solana USD",
+            "ai_score": 6.5,
+            "sector": "Crypto",
+            "change": 0,
+            "fundamental": null,
+            "technical": 6.5,
+            "sentiment": null,
+            "low_risk": null,
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 41,
             "ticker": "VG",
             "company": "Venture Global, Inc.",
             "ai_score": 6.5,
@@ -1250,7 +1263,7 @@
             "new_entries": [
               {
                 "ticker": "VG",
-                "rank": 40,
+                "rank": 41,
                 "ai_score": 6.5,
                 "sector": "Energy"
               },
@@ -1536,12 +1549,12 @@
         {
           "name": "suspicious_ranks",
           "status": "WARN",
-          "message": "3 suspicious top rank(s) flagged"
+          "message": "4 suspicious top rank(s) flagged"
         }
       ],
       "metrics": {
         "overall": "FAIL",
-        "suspicious_count": 3,
+        "suspicious_count": 4,
         "suspicious_top": [
           {
             "ticker": "DELL",
@@ -1558,6 +1571,14 @@
             "reasons": [
               "missing SENT",
               "missing SWING"
+            ]
+          },
+          {
+            "ticker": "GLW",
+            "group": "watchlist_top10",
+            "rank": 8,
+            "reasons": [
+              "weak SWING (4.9)"
             ]
           },
           {
@@ -1709,6 +1730,10 @@
         "reason": "diagnostics flagged (watchlist_top10 #7): missing SENT; missing SWING"
       },
       {
+        "ticker": "GLW",
+        "reason": "diagnostics flagged (watchlist_top10 #8): weak SWING (4.9)"
+      },
+      {
         "ticker": "MU",
         "reason": "diagnostics flagged (watchlist_top10 #9): weak LOW_RISK (2.8); weak SWING (4.5)"
       }
@@ -1729,7 +1754,7 @@
     "[WARN] leaderboards.main_sector_concentration: main_top25 dominated by Financial Services 12/25 (48%)",
     "[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 13/25 (52%)",
     "[WARN] benchmark_context.lagging_buckets: 5 bucket/horizon pairs with negative avg_mean_return",
-    "[WARN] diagnostics.suspicious_ranks: 3 suspicious top rank(s) flagged",
+    "[WARN] diagnostics.suspicious_ranks: 4 suspicious top rank(s) flagged",
     "[INFO] main_top10 new entries: GMED, MRP, HALO, INCY, C",
     "[INFO] main_top10 exited: CFG, EWBC, FAF, GEV, KEY",
     "[INFO] watchlist_top10 new entries: GMED, FRSH, GLW, MU, VEEV",
@@ -1737,5 +1762,5 @@
     "[INFO] supp_top10 new entries: VG, SOL-USD, KLAR, ZENA",
     "[INFO] supp_top10 exited: CLS, NBIS, TTMI, VIAV"
   ],
-  "summary": "Overall WARN \u00b7 snaps=43 \u00b7 main top10 \u0394 +8/-8 \u00b7 sector Financial Services 48% \u00b7 bench lag=5 \u00b7 adds=15 trims=11"
+  "summary": "Overall WARN \u00b7 snaps=43 \u00b7 main top10 \u0394 +8/-8 \u00b7 sector Financial Services 48% \u00b7 bench lag=5 \u00b7 adds=15 trims=12"
 }
