@@ -231,8 +231,8 @@
         "missing_sector": 0,
         "distribution": {
           "Technology": {
-            "count": 4,
-            "pct": 0.4
+            "count": 5,
+            "pct": 0.5
           },
           "Financial Services": {
             "count": 2,
@@ -256,7 +256,7 @@
           }
         },
         "top_sector": "Technology",
-        "top_pct": 0.4,
+        "top_pct": 0.5,
         "concentrated": true
       }
     },
@@ -607,7 +607,18 @@
     "tickers": {
       "SPY": {
         "ticker": "SPY",
-        "error": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+        "last": 746.525,
+        "history_len": 252,
+        "return_1d": 0.0075,
+        "return_5d": 0.0176,
+        "return_21d": -0.0132,
+        "return_63d": 0.1813,
+        "return_126d": 0.0814,
+        "return_252d": null,
+        "ma50": 735.8659,
+        "above_50dma": true,
+        "ma200": 691.4241,
+        "above_200dma": true
       },
       "QQQ": {
         "ticker": "QQQ",
@@ -643,7 +654,11 @@
     "fetched_at": "2026-06-30T17:07:50.916912+00:00Z"
   },
   "benchmark_compare": {
-    "available": false
+    "available": true,
+    "spy_return_21d": -0.0132,
+    "main_top25_mean_window_return": 0.0519,
+    "watchlist_top25_mean_window_return": 0.0423,
+    "note": "bucket window return is from the ~10-day sparkline shipped with rankings; SPY 21d is the closest available benchmark window"
   },
   "findings": [
     {
@@ -671,6 +686,15 @@
       "data": {
         "top_sector": "Technology",
         "top_pct": 0.4
+      }
+    },
+    {
+      "name": "sector_concentration:supp_top10",
+      "status": "WARN",
+      "message": "supp_top10: top sector Technology = 50% of bucket",
+      "data": {
+        "top_sector": "Technology",
+        "top_pct": 0.5
       }
     },
     {
