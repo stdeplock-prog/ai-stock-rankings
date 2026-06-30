@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-30T17:07:53Z",
-  "generated_at_chicago": "2026-06-30 12:07 PM CDT",
+  "generated_at": "2026-06-30T19:43:06Z",
+  "generated_at_chicago": "2026-06-30 02:43 PM CDT",
   "overall": "OK",
   "caveat": "DAILY OHLCV ONLY: This report is a daily-bar proxy for the Pine v6 go/no-go gate stack. No true intraday VWAP, no Open Drift, no minute-bar logic. DIAGNOSTIC ONLY \u2014 rankings and scoring formulas are NOT mutated.",
   "thresholds": {
@@ -17,10 +17,10 @@
     "ma50_rise_lookback": 5
   },
   "counts": {
-    "evaluated": 81,
-    "ohlcv_missing": 11,
+    "evaluated": 80,
+    "ohlcv_missing": 12,
     "insufficient_bars": 0,
-    "blocked": 10,
+    "blocked": 11,
     "go_normalized_ge_07": 42,
     "go_normalized_lt_04": 16,
     "candidates": 92
@@ -37,7 +37,7 @@
         "ai_score": 7.8,
         "swing_score": 8.1,
         "swing_tier": "A",
-        "days_to_earnings": 35,
+        "days_to_earnings": 34,
         "evaluated": true,
         "bars": 874,
         "gates": {
@@ -78,6 +78,59 @@
         "accumulation_score": 4,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.8,
+        "blocker_count": 0
+      },
+      {
+        "ticker": "ABNB",
+        "sources": [
+          "main"
+        ],
+        "company": "Airbnb",
+        "sector": "Consumer Cyclical",
+        "ai_score": 7.8,
+        "swing_score": 7.9,
+        "swing_tier": "A",
+        "days_to_earnings": 36,
+        "evaluated": true,
+        "bars": 874,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": true,
+          "ma50_rising": true,
+          "rsi_in_zone": true,
+          "rsi_slope_pos": true,
+          "return_20d_ok": true,
+          "rel_vol_ok": false,
+          "bar_strength": false,
+          "mfi_above_avg": true,
+          "near_20d_high": true
+        },
+        "metrics": {
+          "last_close": 147.17,
+          "sma5": 143.572,
+          "sma8": 142.5,
+          "sma13": 139.4162,
+          "sma20": 137.563,
+          "sma50": 137.6592,
+          "rsi14": 64.8125,
+          "rsi14_3bar_ago": 63.3626,
+          "return_20d": 0.104,
+          "rel_vol_20d": 1.246,
+          "mfi14": 63.9626,
+          "high_20d": 147.17,
+          "bb_upper_20": 147.794,
+          "range_10d_pct": 0.1079
+        },
+        "blockers": [],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 8,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.8,
+        "accumulation_score": 3,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.6,
         "blocker_count": 0
       },
       {
@@ -766,61 +819,62 @@
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.4,
         "blocker_count": 0
-      },
+      }
+    ],
+    "weakest_main": [
       {
-        "ticker": "COLB",
+        "ticker": "CEG",
         "sources": [
           "main"
         ],
-        "company": "Columbia Banking System",
-        "sector": "Financial Services",
-        "ai_score": 8.2,
-        "swing_score": 7.2,
-        "swing_tier": "A",
+        "company": "Constellation Energy",
+        "sector": "Utilities",
+        "ai_score": 7.8,
+        "swing_score": 6.1,
+        "swing_tier": "B",
+        "days_to_earnings": 36,
         "evaluated": true,
         "bars": 874,
         "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": true,
-          "ma50_rising": true,
-          "rsi_in_zone": true,
-          "rsi_slope_pos": true,
+          "trend_sma_aligned": false,
+          "above_sma20": false,
+          "above_bb_mid": false,
+          "above_sma50": false,
+          "ma50_rising": false,
+          "rsi_in_zone": false,
+          "rsi_slope_pos": false,
           "return_20d_ok": false,
           "rel_vol_ok": false,
           "bar_strength": false,
           "mfi_above_avg": true,
-          "near_20d_high": true
+          "near_20d_high": false
         },
         "metrics": {
-          "last_close": 31.99,
-          "sma5": 31.802,
-          "sma8": 31.31,
-          "sma13": 31.1354,
-          "sma20": 30.526,
-          "sma50": 29.6694,
-          "rsi14": 66.2185,
-          "rsi14_3bar_ago": 64.45,
-          "return_20d": 0.0793,
-          "rel_vol_20d": 0.844,
-          "mfi14": 72.525,
-          "high_20d": 32.15,
-          "bb_upper_20": 32.5591,
-          "range_10d_pct": 0.0778
+          "last_close": 259.32,
+          "sma5": 266.052,
+          "sma8": 268.3775,
+          "sma13": 263.0877,
+          "sma20": 262.3735,
+          "sma50": 281.3939,
+          "rsi14": 42.6518,
+          "rsi14_3bar_ago": 47.9592,
+          "return_20d": -0.0988,
+          "rel_vol_20d": 0.686,
+          "mfi14": 61.8102,
+          "high_20d": 275.53,
+          "bb_upper_20": 280.7387,
+          "range_10d_pct": 0.1028
         },
         "blockers": [],
         "insufficient_data_reasons": [],
-        "go_no_go_score": 7,
+        "go_no_go_score": 0,
         "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.7,
-        "accumulation_score": 3,
+        "go_no_go_score_normalized": 0.0,
+        "accumulation_score": 1,
         "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.6,
+        "accumulation_score_normalized": 0.2,
         "blocker_count": 0
-      }
-    ],
-    "weakest_main": [
+      },
       {
         "ticker": "SNX",
         "sources": [
@@ -1094,8 +1148,9 @@
         "company": "Everus Construction Group",
         "sector": "Industrials",
         "ai_score": 8.0,
-        "swing_score": 6.8,
-        "swing_tier": "B",
+        "swing_score": 7.5,
+        "swing_tier": "A",
+        "days_to_earnings": 42,
         "evaluated": true,
         "bars": 417,
         "gates": {
@@ -1150,7 +1205,7 @@
         ],
         "company": "First Industrial Realty Trust",
         "sector": "Real Estate",
-        "ai_score": 8.1,
+        "ai_score": 8.2,
         "swing_score": 7.6,
         "swing_tier": "A",
         "evaluated": true,
@@ -1248,65 +1303,13 @@
         "blocker_count": 0
       },
       {
-        "ticker": "VIRT",
-        "sources": [
-          "main"
-        ],
-        "company": "Virtu Financial",
-        "sector": "Financial Services",
-        "ai_score": 8.2,
-        "swing_score": 7.5,
-        "swing_tier": "A",
-        "evaluated": true,
-        "bars": 874,
-        "gates": {
-          "trend_sma_aligned": false,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": true,
-          "ma50_rising": true,
-          "rsi_in_zone": false,
-          "rsi_slope_pos": false,
-          "return_20d_ok": true,
-          "rel_vol_ok": false,
-          "bar_strength": false,
-          "mfi_above_avg": false,
-          "near_20d_high": false
-        },
-        "metrics": {
-          "last_close": 58.15,
-          "sma5": 61.134,
-          "sma8": 61.44,
-          "sma13": 59.7331,
-          "sma20": 56.98,
-          "sma50": 53.1614,
-          "rsi14": 54.588,
-          "rsi14_3bar_ago": 71.4759,
-          "return_20d": 0.1651,
-          "rel_vol_20d": 0.849,
-          "mfi14": 65.1825,
-          "high_20d": 63.41,
-          "bb_upper_20": 65.7665,
-          "range_10d_pct": 0.1398
-        },
-        "blockers": [],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 5,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.5,
-        "accumulation_score": 0,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.0,
-        "blocker_count": 0
-      },
-      {
         "ticker": "BKNG",
         "sources": [
           "main"
         ],
         "company": "Booking Holdings",
         "sector": "Consumer Cyclical",
-        "ai_score": 7.9,
+        "ai_score": 8.0,
         "swing_score": 7.0,
         "swing_tier": "A",
         "days_to_earnings": 29,
@@ -1693,7 +1696,6 @@
         "ai_score": 8.0,
         "swing_score": 6.2,
         "swing_tier": "B",
-        "days_to_earnings": 27,
         "evaluated": true,
         "bars": 874,
         "gates": {
@@ -1893,56 +1895,56 @@
   },
   "per_ticker": [
     {
-      "ticker": "AAPL",
+      "ticker": "ABNB",
       "sources": [
-        "watchlist"
+        "main"
       ],
-      "company": "Apple Inc.",
-      "sector": "Technology",
-      "ai_score": 6.6,
-      "swing_score": 6.2,
-      "swing_tier": "B",
-      "days_to_earnings": 30,
+      "company": "Airbnb",
+      "sector": "Consumer Cyclical",
+      "ai_score": 7.8,
+      "swing_score": 7.9,
+      "swing_tier": "A",
+      "days_to_earnings": 36,
       "evaluated": true,
       "bars": 874,
       "gates": {
-        "trend_sma_aligned": false,
-        "above_sma20": false,
-        "above_bb_mid": false,
-        "above_sma50": false,
+        "trend_sma_aligned": true,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
         "ma50_rising": true,
-        "rsi_in_zone": false,
-        "rsi_slope_pos": false,
-        "return_20d_ok": false,
+        "rsi_in_zone": true,
+        "rsi_slope_pos": true,
+        "return_20d_ok": true,
         "rel_vol_ok": false,
         "bar_strength": false,
         "mfi_above_avg": true,
-        "near_20d_high": false
+        "near_20d_high": true
       },
       "metrics": {
-        "last_close": 281.74,
-        "sma5": 285.61,
-        "sma8": 289.8775,
-        "sma13": 291.7708,
-        "sma20": 296.7725,
-        "sma50": 291.7833,
-        "rsi14": 39.9087,
-        "rsi14_3bar_ago": 45.8408,
-        "return_20d": -0.0972,
-        "rel_vol_20d": 0.994,
-        "mfi14": 58.3386,
-        "high_20d": 315.2,
-        "bb_upper_20": 316.4968,
-        "range_10d_pct": 0.1018
+        "last_close": 147.17,
+        "sma5": 143.572,
+        "sma8": 142.5,
+        "sma13": 139.4162,
+        "sma20": 137.563,
+        "sma50": 137.6592,
+        "rsi14": 64.8125,
+        "rsi14_3bar_ago": 63.3626,
+        "return_20d": 0.104,
+        "rel_vol_20d": 1.246,
+        "mfi14": 63.9626,
+        "high_20d": 147.17,
+        "bb_upper_20": 147.794,
+        "range_10d_pct": 0.1079
       },
       "blockers": [],
       "insufficient_data_reasons": [],
-      "go_no_go_score": 1,
+      "go_no_go_score": 8,
       "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.1,
-      "accumulation_score": 1,
+      "go_no_go_score_normalized": 0.8,
+      "accumulation_score": 3,
       "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.2,
+      "accumulation_score_normalized": 0.6,
       "blocker_count": 0
     },
     {
@@ -2072,7 +2074,7 @@
       "ai_score": 7.8,
       "swing_score": 8.1,
       "swing_tier": "A",
-      "days_to_earnings": 35,
+      "days_to_earnings": 34,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -2284,7 +2286,7 @@
       ],
       "company": "Amphenol",
       "sector": "Technology",
-      "ai_score": 7.7,
+      "ai_score": 7.6,
       "swing_score": 7.3,
       "swing_tier": "A",
       "days_to_earnings": 28,
@@ -2454,7 +2456,7 @@
       ],
       "company": "Booking Holdings",
       "sector": "Consumer Cyclical",
-      "ai_score": 7.9,
+      "ai_score": 8.0,
       "swing_score": 7.0,
       "swing_tier": "A",
       "days_to_earnings": 29,
@@ -2617,7 +2619,7 @@
       ],
       "company": "Brixmor Property Group",
       "sector": "Real Estate",
-      "ai_score": 7.9,
+      "ai_score": 8.0,
       "swing_score": 8.2,
       "swing_tier": "A",
       "days_to_earnings": 27,
@@ -2880,6 +2882,59 @@
       "blocker_count": 0
     },
     {
+      "ticker": "CEG",
+      "sources": [
+        "main"
+      ],
+      "company": "Constellation Energy",
+      "sector": "Utilities",
+      "ai_score": 7.8,
+      "swing_score": 6.1,
+      "swing_tier": "B",
+      "days_to_earnings": 36,
+      "evaluated": true,
+      "bars": 874,
+      "gates": {
+        "trend_sma_aligned": false,
+        "above_sma20": false,
+        "above_bb_mid": false,
+        "above_sma50": false,
+        "ma50_rising": false,
+        "rsi_in_zone": false,
+        "rsi_slope_pos": false,
+        "return_20d_ok": false,
+        "rel_vol_ok": false,
+        "bar_strength": false,
+        "mfi_above_avg": true,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 259.32,
+        "sma5": 266.052,
+        "sma8": 268.3775,
+        "sma13": 263.0877,
+        "sma20": 262.3735,
+        "sma50": 281.3939,
+        "rsi14": 42.6518,
+        "rsi14_3bar_ago": 47.9592,
+        "return_20d": -0.0988,
+        "rel_vol_20d": 0.686,
+        "mfi14": 61.8102,
+        "high_20d": 275.53,
+        "bb_upper_20": 280.7387,
+        "range_10d_pct": 0.1028
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 0,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.0,
+      "accumulation_score": 1,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.2,
+      "blocker_count": 0
+    },
+    {
       "ticker": "CFG",
       "sources": [
         "main"
@@ -3041,6 +3096,17 @@
       "blocker_count": 0
     },
     {
+      "ticker": "CLS",
+      "sources": [
+        "watchlist"
+      ],
+      "company": "Celestica, Inc.",
+      "sector": "Technology",
+      "ai_score": 6.7,
+      "evaluated": false,
+      "reason": "ohlcv missing"
+    },
+    {
       "ticker": "CNM",
       "sources": [
         "disagreement"
@@ -3102,8 +3168,9 @@
       "company": "Columbia Banking System",
       "sector": "Financial Services",
       "ai_score": 8.2,
-      "swing_score": 7.2,
+      "swing_score": 7.9,
       "swing_tier": "A",
+      "days_to_earnings": 23,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -3208,7 +3275,7 @@
       "company": "Delta Air Lines",
       "sector": "Industrials",
       "ai_score": 7.4,
-      "swing_score": 5.9,
+      "swing_score": 6.0,
       "swing_tier": "B",
       "days_to_earnings": 9,
       "evaluated": true,
@@ -3263,8 +3330,9 @@
       "company": "Datadog",
       "sector": "Technology",
       "ai_score": 6.7,
-      "swing_score": 4.9,
-      "swing_tier": "C",
+      "swing_score": 5.6,
+      "swing_tier": "B",
+      "days_to_earnings": 36,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -3314,7 +3382,7 @@
       ],
       "company": "Dell Technologies",
       "sector": "Technology",
-      "ai_score": 7.6,
+      "ai_score": 7.5,
       "swing_score": 4.8,
       "swing_tier": "C",
       "days_to_earnings": 65,
@@ -3367,9 +3435,10 @@
       ],
       "company": "Dick's Sporting Goods",
       "sector": "Consumer Cyclical",
-      "ai_score": 8.1,
-      "swing_score": 7.8,
+      "ai_score": 8.2,
+      "swing_score": 8.5,
       "swing_tier": "A",
+      "days_to_earnings": 55,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -3418,7 +3487,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 5.2,
+      "ai_score": 5.3,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -3430,7 +3499,7 @@
       "company": "Duolingo",
       "sector": "Technology",
       "ai_score": 7.0,
-      "swing_score": 5.9,
+      "swing_score": 6.6,
       "swing_tier": "B",
       "days_to_earnings": 36,
       "evaluated": true,
@@ -3484,8 +3553,9 @@
       "company": "Everus Construction Group",
       "sector": "Industrials",
       "ai_score": 8.0,
-      "swing_score": 6.8,
-      "swing_tier": "B",
+      "swing_score": 7.5,
+      "swing_tier": "A",
+      "days_to_earnings": 42,
       "evaluated": true,
       "bars": 417,
       "gates": {
@@ -3541,7 +3611,7 @@
       "company": "Equinix",
       "sector": "Real Estate",
       "ai_score": 7.3,
-      "swing_score": 7.7,
+      "swing_score": 8.5,
       "swing_tier": "A",
       "days_to_earnings": 29,
       "evaluated": true,
@@ -3698,9 +3768,8 @@
       "company": "Fidelity National Financial",
       "sector": "Financial Services",
       "ai_score": 7.9,
-      "swing_score": 6.5,
+      "swing_score": 5.8,
       "swing_tier": "B",
-      "days_to_earnings": 36,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -3750,10 +3819,9 @@
       ],
       "company": "First Industrial Realty Trust",
       "sector": "Real Estate",
-      "ai_score": 8.1,
+      "ai_score": 8.2,
       "swing_score": 7.6,
       "swing_tier": "A",
-      "days_to_earnings": 22,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -3921,7 +3989,6 @@
       "ai_score": 7.5,
       "swing_score": 4.5,
       "swing_tier": "C",
-      "days_to_earnings": 27,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -3977,7 +4044,6 @@
       "ai_score": 8.7,
       "swing_score": 7.7,
       "swing_tier": "A",
-      "days_to_earnings": 37,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -4027,7 +4093,7 @@
       ],
       "company": "Alphabet Inc. (Class C)",
       "sector": "Communication Services",
-      "ai_score": 7.3,
+      "ai_score": 7.2,
       "swing_score": 5.4,
       "swing_tier": "C",
       "evaluated": true,
@@ -4136,7 +4202,6 @@
       "ai_score": 8.0,
       "swing_score": 6.2,
       "swing_tier": "B",
-      "days_to_earnings": 27,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -4295,7 +4360,6 @@
       "ai_score": 7.8,
       "swing_score": 7.4,
       "swing_tier": "A",
-      "days_to_earnings": 28,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -4348,7 +4412,6 @@
       "ai_score": 8.3,
       "swing_score": 6.2,
       "swing_tier": "B",
-      "days_to_earnings": 27,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -4397,7 +4460,7 @@
         "disagreement"
       ],
       "sector": "Industrials",
-      "ai_score": 3.7,
+      "ai_score": 3.6,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -4411,7 +4474,6 @@
       "ai_score": 8.2,
       "swing_score": 7.6,
       "swing_tier": "A",
-      "days_to_earnings": 13,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -4444,9 +4506,7 @@
         "bb_upper_20": 343.8309,
         "range_10d_pct": 0.0747
       },
-      "blockers": [
-        "earnings_near (13d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
@@ -4466,7 +4526,6 @@
       "ai_score": 8.2,
       "swing_score": 7.7,
       "swing_tier": "A",
-      "days_to_earnings": 20,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -4499,9 +4558,7 @@
         "bb_upper_20": 23.8502,
         "range_10d_pct": 0.0583
       },
-      "blockers": [
-        "earnings_near (20d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
@@ -4801,7 +4858,6 @@
       "ai_score": 7.0,
       "swing_score": 4.6,
       "swing_tier": "C",
-      "days_to_earnings": 29,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -4906,7 +4962,6 @@
       "ai_score": 8.0,
       "swing_score": 7.1,
       "swing_tier": "A",
-      "days_to_earnings": 34,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -4956,7 +5011,7 @@
       ],
       "company": "Micron Technology",
       "sector": "Technology",
-      "ai_score": 7.0,
+      "ai_score": 6.9,
       "swing_score": 3.8,
       "swing_tier": "D",
       "evaluated": true,
@@ -5011,7 +5066,6 @@
       "ai_score": 8.0,
       "swing_score": 7.0,
       "swing_tier": "A",
-      "days_to_earnings": 29,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -5064,7 +5118,6 @@
       "ai_score": 8.0,
       "swing_score": 7.7,
       "swing_tier": "A",
-      "days_to_earnings": 34,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -5287,58 +5340,6 @@
       }
     },
     {
-      "ticker": "RGA",
-      "sources": [
-        "main"
-      ],
-      "company": "Reinsurance Group of America",
-      "sector": "Financial Services",
-      "ai_score": 7.8,
-      "swing_score": 7.3,
-      "swing_tier": "A",
-      "evaluated": true,
-      "bars": 874,
-      "gates": {
-        "trend_sma_aligned": true,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": true,
-        "rsi_slope_pos": true,
-        "return_20d_ok": false,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": true,
-        "near_20d_high": true
-      },
-      "metrics": {
-        "last_close": 214.84,
-        "sma5": 211.63,
-        "sma8": 211.2087,
-        "sma13": 210.1138,
-        "sma20": 206.5555,
-        "sma50": 208.4422,
-        "rsi14": 59.7563,
-        "rsi14_3bar_ago": 50.3346,
-        "return_20d": 0.0702,
-        "rel_vol_20d": 0.715,
-        "mfi14": 64.7774,
-        "high_20d": 215.28,
-        "bb_upper_20": 217.888,
-        "range_10d_pct": 0.0466
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 7,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.7,
-      "accumulation_score": 3,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.6,
-      "blocker_count": 0
-    },
-    {
       "ticker": "RY",
       "sources": [
         "watchlist"
@@ -5411,7 +5412,6 @@
       "ai_score": 7.3,
       "swing_score": 4.7,
       "swing_tier": "C",
-      "days_to_earnings": 27,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -5464,7 +5464,6 @@
       "ai_score": 7.9,
       "swing_score": 7.2,
       "swing_tier": "A",
-      "days_to_earnings": 20,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -5497,9 +5496,7 @@
         "bb_upper_20": 94.3594,
         "range_10d_pct": 0.0795
       },
-      "blockers": [
-        "earnings_near (20d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 3,
       "go_no_go_gates_evaluated": 10,
@@ -5573,7 +5570,6 @@
       "ai_score": 7.0,
       "swing_score": 4.7,
       "swing_tier": "C",
-      "days_to_earnings": 57,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -5626,7 +5622,6 @@
       "ai_score": 7.8,
       "swing_score": 6.8,
       "swing_tier": "B",
-      "days_to_earnings": 85,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -5679,7 +5674,6 @@
       "ai_score": 8.3,
       "swing_score": 7.5,
       "swing_tier": "A",
-      "days_to_earnings": 23,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -5764,9 +5758,7 @@
         "bb_upper_20": 510.2653,
         "range_10d_pct": 0.1152
       },
-      "blockers": [
-        "earnings_near (21d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 6,
       "go_no_go_gates_evaluated": 10,
@@ -5786,7 +5778,6 @@
       "ai_score": 6.8,
       "swing_score": 5.9,
       "swing_tier": "B",
-      "days_to_earnings": 35,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -5839,7 +5830,7 @@
       ],
       "company": "Taiwan Semiconductor Manufactur",
       "sector": "Technology",
-      "ai_score": 7.4,
+      "ai_score": 7.5,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -6009,7 +6000,6 @@
       "ai_score": 7.5,
       "swing_score": 6.3,
       "swing_tier": "B",
-      "days_to_earnings": 64,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -6061,59 +6051,6 @@
       "ai_score": 6.0,
       "evaluated": false,
       "reason": "ohlcv missing"
-    },
-    {
-      "ticker": "VIRT",
-      "sources": [
-        "main"
-      ],
-      "company": "Virtu Financial",
-      "sector": "Financial Services",
-      "ai_score": 8.2,
-      "swing_score": 7.5,
-      "swing_tier": "A",
-      "days_to_earnings": 35,
-      "evaluated": true,
-      "bars": 874,
-      "gates": {
-        "trend_sma_aligned": false,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": false,
-        "rsi_slope_pos": false,
-        "return_20d_ok": true,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 58.15,
-        "sma5": 61.134,
-        "sma8": 61.44,
-        "sma13": 59.7331,
-        "sma20": 56.98,
-        "sma50": 53.1614,
-        "rsi14": 54.588,
-        "rsi14_3bar_ago": 71.4759,
-        "return_20d": 0.1651,
-        "rel_vol_20d": 0.849,
-        "mfi14": 65.1825,
-        "high_20d": 63.41,
-        "bb_upper_20": 65.7665,
-        "range_10d_pct": 0.1398
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 5,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.5,
-      "accumulation_score": 0,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.0,
-      "blocker_count": 0
     },
     {
       "ticker": "VVV",
@@ -6177,7 +6114,6 @@
       "ai_score": 8.0,
       "swing_score": 7.3,
       "swing_tier": "A",
-      "days_to_earnings": 20,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -6282,7 +6218,6 @@
       "ai_score": 7.8,
       "swing_score": 7.2,
       "swing_tier": "A",
-      "days_to_earnings": 29,
       "evaluated": true,
       "bars": 874,
       "gates": {
@@ -6333,5 +6268,5 @@
     "disagreement_queue_present": true,
     "ohlcv_dir_exists": true
   },
-  "summary": "Overall OK \u00b7 cands=92 \u00b7 evaluated=81 \u00b7 missing_ohlcv=11 \u00b7 go>=.7:42 \u00b7 weak<.4:16 \u00b7 blocked=10 \u00b7 dis_supports_internal=2 \u00b7 dis_supports_external=6"
+  "summary": "Overall OK \u00b7 cands=92 \u00b7 evaluated=80 \u00b7 missing_ohlcv=12 \u00b7 go>=.7:42 \u00b7 weak<.4:16 \u00b7 blocked=11 \u00b7 dis_supports_internal=2 \u00b7 dis_supports_external=6"
 }
