@@ -3590,9 +3590,9 @@
       "confidence": 0.74,
       "components": {
         "tech_trend": {
-          "score": 0.85,
+          "score": 0.7,
           "weight": 0.22,
-          "detail": "TECH 8.5/10",
+          "detail": "TECH 7.0/10",
           "present": true
         },
         "momentum_thrust": {
@@ -4304,7 +4304,7 @@
       "positive_score": 54.1,
       "score": 39.1,
       "label": "LOW",
-      "confidence": 0.74,
+      "confidence": 0.88,
       "components": {
         "tech_trend": {
           "score": 0.8,
@@ -4776,9 +4776,9 @@
       "confidence": 0.74,
       "components": {
         "tech_trend": {
-          "score": 0.81,
+          "score": 0.87,
           "weight": 0.22,
-          "detail": "TECH 8.1/10",
+          "detail": "TECH 8.7/10",
           "present": true
         },
         "momentum_thrust": {
@@ -5068,7 +5068,7 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.2,
+          "score": 0.2875,
           "weight": 0.1,
           "detail": "0.3M vol",
           "present": true
@@ -6401,9 +6401,9 @@
       "confidence": 0.74,
       "components": {
         "tech_trend": {
-          "score": 0.82,
+          "score": 0.87,
           "weight": 0.22,
-          "detail": "TECH 8.2/10",
+          "detail": "TECH 8.7/10",
           "present": true
         },
         "momentum_thrust": {
@@ -6767,7 +6767,7 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.9,
+          "score": 0.375,
           "weight": 0.1,
           "detail": "45.5M vol",
           "present": true
@@ -6996,7 +6996,7 @@
       "positive_score": 31.4,
       "score": 26.7,
       "label": "LOW",
-      "confidence": 0.88,
+      "confidence": 0.74,
       "components": {
         "tech_trend": {
           "score": 0.59,
@@ -9283,6 +9283,10 @@
         }
       },
       "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
         "low_liquidity": {
           "mult": 0.85,
           "detail": "low liq 0.00M (\u00d70.85)"
@@ -9584,7 +9588,7 @@
         "continuity": {
           "score": 0.58,
           "weight": 0.16,
-          "detail": "CONT MID 58",
+          "detail": "CONT MID 54",
           "present": true
         },
         "accumulation": {
@@ -9612,8 +9616,13 @@
           "present": true
         }
       },
-      "penalties": {},
-      "has_ohlcv": true
+      "penalties": {
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.10M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
     },
     {
       "ticker": "NVDA",
@@ -10644,9 +10653,9 @@
           "present": true
         },
         "continuity": {
-          "score": 0.04,
+          "score": 0.058,
           "weight": 0.16,
-          "detail": "CONT LOW 4",
+          "detail": "CONT LOW 6",
           "present": true
         },
         "accumulation": {
@@ -12782,7 +12791,79 @@
         "activity_liq": {
           "score": 0.2992,
           "weight": 0.1,
-          "detail": "2.2M vol",
+          "detail": "0.4M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.40M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "PBR",
+      "company": "Petroleo Brasileiro S.A. Petrob",
+      "sector": "Energy",
+      "rank": 120,
+      "ai_score": 4.0,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 16.05,
+      "days_to_earnings": null,
+      "positive_score": 37.2,
+      "score": 31.6,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.44,
+          "weight": 0.22,
+          "detail": "TECH 4.4/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.4122,
+          "weight": 0.2,
+          "detail": "2d -0.7% (-0.4x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.167,
+          "weight": 0.16,
+          "detail": "CONT LOW 17",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.4683,
+          "weight": 0.1,
+          "detail": "5.1M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -12849,10 +12930,10 @@
           "present": true
         },
         "sentiment_catalyst": {
-          "score": null,
+          "score": 0.44,
           "weight": 0.06,
-          "detail": "no sentiment/catalyst",
-          "present": false
+          "detail": "SENT 3.2/10 +catalyst",
+          "present": true
         }
       },
       "penalties": {
@@ -12861,7 +12942,7 @@
           "detail": "CONT LOW (\u00d70.85)"
         }
       },
-      "has_ohlcv": false
+      "has_ohlcv": true
     },
     {
       "ticker": "AREC",
@@ -13110,7 +13191,7 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.9,
+          "score": 0.2,
           "weight": 0.1,
           "detail": "15.0M vol",
           "present": true
@@ -15206,9 +15287,9 @@
           "present": true
         },
         "continuity": {
-          "score": 0.155,
+          "score": 0.438,
           "weight": 0.16,
-          "detail": "CONT LOW 16",
+          "detail": "CONT MID 44",
           "present": true
         },
         "accumulation": {
@@ -15847,12 +15928,7 @@
           "present": false
         }
       },
-      "penalties": {
-        "weak_continuity": {
-          "mult": 0.85,
-          "detail": "CONT LOW (\u00d70.85)"
-        }
-      },
+      "penalties": {},
       "has_ohlcv": false
     },
     {
@@ -16036,7 +16112,7 @@
         "activity_liq": {
           "score": 0.2,
           "weight": 0.1,
-          "detail": "0.1M vol",
+          "detail": "0.0M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -16053,7 +16129,7 @@
         },
         "low_liquidity": {
           "mult": 0.85,
-          "detail": "low liq 0.10M (\u00d70.85)"
+          "detail": "low liq 0.00M (\u00d70.85)"
         }
       },
       "has_ohlcv": false
@@ -16569,7 +16645,7 @@
     "AIZ": {
       "score": 62.9,
       "label": "MID",
-      "confidence": 0.74
+      "confidence": 0.88
     },
     "BAC": {
       "score": 74.7,
@@ -17124,7 +17200,7 @@
     "SLV": {
       "score": 62.5,
       "label": "MID",
-      "confidence": 0.68
+      "confidence": 0.74
     },
     "UPST": {
       "score": 54.9,
