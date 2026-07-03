@@ -21,25 +21,25 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Cool-off / Overextended Cohort Tracking</h1>
-<p class="meta">Generated 2026-07-02T22:09:32Z &middot;
-   as_of 2026-07-02 &middot;
+<p class="meta">Generated 2026-07-03T16:04:23Z &middot;
+   as_of 2026-07-03 &middot;
    Overall: <span class="badge">OK</span></p>
-<div class="summary"><strong>Summary:</strong> clean_go=37 · overext_bb=2 · weak_go=11 · snaps=42 · 5d clean=+1.13%/overext=-0.66% (n=1211/147) · rec=consider_scoring_change</div>
+<div class="summary"><strong>Summary:</strong> clean_go=40 · overext_bb=4 · weak_go=19 · snaps=43 · 5d clean=+1.01%/overext=-0.70% (n=1244/150) · rec=consider_scoring_change</div>
 <div class="caveat"><strong>Caveat:</strong> DIAGNOSTIC ONLY — production scoring formulas are NOT mutated. Tracks per-ticker forward returns of Pine cohorts to test whether overextended_bb names underperform clean-go names before promoting the blocker into LOW_RISK / SWING gating.</div>
 <div class="recommend"><strong>Recommendation:</strong> consider_scoring_change<br>
-<span class="muted">Clean-go beats overextended_bb at 5d by +1.79pp (clean=+1.13%, overext=-0.66%, n=1211/147). Worth a controlled scoring experiment.</span></div>
+<span class="muted">Clean-go beats overextended_bb at 5d by +1.71pp (clean=+1.01%, overext=-0.70%, n=1244/150). Worth a controlled scoring experiment.</span></div>
 
 <div class='section'><h2>Current cohort sizes</h2>
 <table><thead><tr><th>Cohort</th><th>Size</th><th>Members</th></tr></thead><tbody>
-<tr><td>clean_go</td><td>37</td><td>APH, BKNG, CART, CGNX, EXEL, GEN, GLW, HALO, HEI-A, INCY, JLL, JPM, KEY, LLYVA, LLYVK, MDB, META, NBIX, NU, ORI, PATH, PNC, PRU, RGA, RJF <span class='muted'>(+12 more)</span></td></tr>
-<tr><td>overextended_bb</td><td>2</td><td>DDOG, RDDT</td></tr>
-<tr><td>weak_go</td><td>11</td><td>BWA, CIEN, CNM, ECG, EQIX, GMED, MU, QCOM, SCCO, SMCI, UBER</td></tr>
+<tr><td>clean_go</td><td>40</td><td>AAPL, AFL, APH, BKNG, CART, CFG, COLB, CPAY, DDOG, DKS, DUOL, EXEL, FAF, FNF, GEN, GEV, HALO, HAYW, HBAN, HEI-A, INCY, JPM, LLYVA, LLYVK, NBIX <span class='muted'>(+15 more)</span></td></tr>
+<tr><td>overextended_bb</td><td>4</td><td>JLL, RBRK, SPGI, VEEV</td></tr>
+<tr><td>weak_go</td><td>19</td><td>AMZN, AVGO, BWA, C, CIEN, CNM, CVNA, DELL, EQIX, EXLS, FTAI, GLW, GMED, GOOG, META, MU, QCOM, SCCO, SMCI</td></tr>
 </tbody></table></div>
 <div class='section'><h2>Forward-return comparison by horizon</h2>
 <p class='kv'>Each observation is one (snapshot, ticker) pair where the horizon has elapsed (no lookahead). Pending horizons are the count of snapshots whose elapsed trading days are still below the horizon.</p>
-<table><thead><tr><th>Horizon</th><th>Cohort</th><th>n obs</th><th>mean</th><th>median</th><th>%+</th><th>snaps done / pending</th></tr></thead><tbody><tr><td>1d</td><td>clean_go</td><td>1531</td><td>0.06%</td><td>0.00%</td><td>43.50%</td><td>41 / 1</td></tr><tr><td>1d</td><td>overextended_bb</td><td>169</td><td>-0.18%</td><td>0.00%</td><td>43.79%</td><td>41 / 1</td></tr><tr><td>1d</td><td>weak_go</td><td>387</td><td>0.12%</td><td>0.00%</td><td>41.34%</td><td>41 / 1</td></tr><tr><td>3d</td><td>clean_go</td><td>1385</td><td>0.45%</td><td>0.21%</td><td>52.49%</td><td>39 / 3</td></tr><tr><td>3d</td><td>overextended_bb</td><td>156</td><td>-0.09%</td><td>0.09%</td><td>50.64%</td><td>39 / 3</td></tr><tr><td>3d</td><td>weak_go</td><td>341</td><td>0.82%</td><td>0.70%</td><td>54.84%</td><td>39 / 3</td></tr><tr><td>5d</td><td>clean_go</td><td>1211</td><td>1.13%</td><td>0.68%</td><td>56.90%</td><td>37 / 5</td></tr><tr><td>5d</td><td>overextended_bb</td><td>147</td><td>-0.66%</td><td>-1.39%</td><td>45.58%</td><td>37 / 5</td></tr><tr><td>5d</td><td>weak_go</td><td>317</td><td>1.46%</td><td>1.09%</td><td>59.94%</td><td>37 / 5</td></tr><tr><td>10d</td><td>clean_go</td><td>905</td><td>3.18%</td><td>2.79%</td><td>69.61%</td><td>32 / 10</td></tr><tr><td>10d</td><td>overextended_bb</td><td>113</td><td>0.05%</td><td>0.27%</td><td>51.33%</td><td>32 / 10</td></tr><tr><td>10d</td><td>weak_go</td><td>259</td><td>3.06%</td><td>1.89%</td><td>63.32%</td><td>32 / 10</td></tr></tbody></table>
+<table><thead><tr><th>Horizon</th><th>Cohort</th><th>n obs</th><th>mean</th><th>median</th><th>%+</th><th>snaps done / pending</th></tr></thead><tbody><tr><td>1d</td><td>clean_go</td><td>1564</td><td>0.07%</td><td>0.00%</td><td>43.99%</td><td>42 / 1</td></tr><tr><td>1d</td><td>overextended_bb</td><td>171</td><td>-0.20%</td><td>0.00%</td><td>43.27%</td><td>42 / 1</td></tr><tr><td>1d</td><td>weak_go</td><td>397</td><td>0.09%</td><td>0.00%</td><td>41.06%</td><td>42 / 1</td></tr><tr><td>3d</td><td>clean_go</td><td>1408</td><td>0.44%</td><td>0.22%</td><td>52.56%</td><td>40 / 3</td></tr><tr><td>3d</td><td>overextended_bb</td><td>161</td><td>-0.21%</td><td>0.04%</td><td>50.31%</td><td>40 / 3</td></tr><tr><td>3d</td><td>weak_go</td><td>354</td><td>0.78%</td><td>0.72%</td><td>54.80%</td><td>40 / 3</td></tr><tr><td>5d</td><td>clean_go</td><td>1244</td><td>1.01%</td><td>0.61%</td><td>56.43%</td><td>38 / 5</td></tr><tr><td>5d</td><td>overextended_bb</td><td>150</td><td>-0.70%</td><td>-1.32%</td><td>46.00%</td><td>38 / 5</td></tr><tr><td>5d</td><td>weak_go</td><td>330</td><td>1.41%</td><td>1.12%</td><td>59.70%</td><td>38 / 5</td></tr><tr><td>10d</td><td>clean_go</td><td>939</td><td>3.08%</td><td>2.76%</td><td>69.76%</td><td>33 / 10</td></tr><tr><td>10d</td><td>overextended_bb</td><td>116</td><td>-0.52%</td><td>0.02%</td><td>50.00%</td><td>33 / 10</td></tr><tr><td>10d</td><td>weak_go</td><td>268</td><td>3.03%</td><td>1.89%</td><td>63.81%</td><td>33 / 10</td></tr></tbody></table>
 </div>
 <div class='section'><h2>Snapshot scaffold</h2>
-<p class='kv'>Snapshots tracked: 42 (retention 90 days, cap 500 rows). Min observations before promoting blocker into scoring change: 30 per cohort at 5d.</p>
+<p class='kv'>Snapshots tracked: 43 (retention 90 days, cap 500 rows). Min observations before promoting blocker into scoring change: 30 per cohort at 5d.</p>
 </div>
 </body></html>
