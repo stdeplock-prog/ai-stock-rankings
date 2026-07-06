@@ -21,9 +21,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Scoring Parity Review</h1>
-<p class="meta">Generated 2026-07-03T22:00:39Z &middot; Overall: <span class="badge">FAIL</span></p>
+<p class="meta">Generated 2026-07-06T17:18:25Z &middot; Overall: <span class="badge">FAIL</span></p>
 
-<div class="section"><h2>Inputs</h2><table><tr><th>File</th><th>Present</th><th>as_of</th></tr><tr><td>data/rankings.json</td><td>True</td><td>2026-07-03 05:00 PM CDT</td></tr><tr><td>data/watchlist_rankings.json</td><td>True</td><td>2026-07-03 05:00 PM CDT</td></tr></table></div>
+<div class="section"><h2>Inputs</h2><table><tr><th>File</th><th>Present</th><th>as_of</th></tr><tr><td>data/rankings.json</td><td>True</td><td>2026-07-06 12:17 PM CDT</td></tr><tr><td>data/watchlist_rankings.json</td><td>True</td><td>2026-07-06 12:18 PM CDT</td></tr></table></div>
 <div class="section"><h2>Coverage by group</h2>
 <table><thead><tr><th>Group</th><th class="num">Rows</th><th class="num">ai_score</th><th class="num">fundamental</th><th class="num">technical</th><th class="num">sentiment</th><th class="num">low_risk</th><th class="num">swing_score</th></tr></thead><tbody>
 <tr><td>main_rankings</td><td class="num">100</td>
@@ -42,13 +42,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <td class="num">69/69 (100%)</td>
 <td class="num">69/69 (100%)</td>
 </tr>
-<tr><td>watchlist_supp</td><td class="num">72</td>
-<td class="num">72/72 (100%)</td>
-<td class="num">63/72 (88%)</td>
-<td class="num">72/72 (100%)</td>
-<td class="num">0/72 (0%)</td>
-<td class="num">53/72 (74%)</td>
-<td class="num">0/72 (0%)</td>
+<tr><td>watchlist_supp</td><td class="num">73</td>
+<td class="num">73/73 (100%)</td>
+<td class="num">64/73 (88%)</td>
+<td class="num">73/73 (100%)</td>
+<td class="num">0/73 (0%)</td>
+<td class="num">54/73 (74%)</td>
+<td class="num">0/73 (0%)</td>
 </tr>
 </tbody></table></div>
 <div class="section"><h2>Per-group verdicts</h2>
@@ -72,44 +72,44 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </tbody></table>
 <h3>watchlist_supp <span class="WARN">WARN</span></h3>
 <table><thead><tr><th>Score</th><th>Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>ai_score</td><td class="OK">OK</td><td>72/72 present (100%)</td></tr>
-<tr><td>fundamental</td><td class="OK">OK</td><td>63/72 present (88%) — partial-by-design; coverage unexpectedly high — sanity-check</td></tr>
-<tr><td>technical</td><td class="OK">OK</td><td>72/72 present (100%)</td></tr>
-<tr><td>sentiment</td><td class="WARN">WARN</td><td>0/72 present (0%) — partial-by-design until EODHD enrichment lands</td></tr>
-<tr><td>low_risk</td><td class="WARN">WARN</td><td>53/72 present (74%) — partial-by-design until EODHD enrichment lands</td></tr>
-<tr><td>swing_score</td><td class="WARN">WARN</td><td>0/72 present (0%) — partial-by-design until EODHD enrichment lands</td></tr>
+<tr><td>ai_score</td><td class="OK">OK</td><td>73/73 present (100%)</td></tr>
+<tr><td>fundamental</td><td class="OK">OK</td><td>64/73 present (88%) — partial-by-design; coverage unexpectedly high — sanity-check</td></tr>
+<tr><td>technical</td><td class="OK">OK</td><td>73/73 present (100%)</td></tr>
+<tr><td>sentiment</td><td class="WARN">WARN</td><td>0/73 present (0%) — partial-by-design until EODHD enrichment lands</td></tr>
+<tr><td>low_risk</td><td class="WARN">WARN</td><td>54/73 present (74%) — partial-by-design until EODHD enrichment lands</td></tr>
+<tr><td>swing_score</td><td class="WARN">WARN</td><td>0/73 present (0%) — partial-by-design until EODHD enrichment lands</td></tr>
 </tbody></table>
 </div>
 <div class="section"><h2>Cross-group parity (main_rankings vs watchlist_main_pipeline) <span class="FAIL">FAIL</span></h2>
 <p style="background:#fff8e1;border:1px solid #f0d27a;padding:8px 10px;border-radius:6px;margin:0 0 8px;font-size:13px"><strong>Known selection bias on low_risk:</strong> low_risk drift explained by selection bias (watchlist universe is more speculative / higher-volatility). Same-ticker max |Δ| = 0.0 across 6 shared tickers (no formula divergence). low_risk row demoted from FAIL to WARN; raw drift preserved below.</p>
 <table><thead><tr><th>Score</th><th>Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>ai_score</td><td><span class="FAIL">FAIL</span></td><td>mean delta watchlist_main - main = -1.62 (main=7.891, wlm=6.2681)</td></tr>
-<tr><td>fundamental</td><td><span class="WARN">WARN</span></td><td>mean delta watchlist_main - main = -1.28 (main=7.884, wlm=6.6)</td></tr>
-<tr><td>technical</td><td><span class="FAIL">FAIL</span></td><td>mean delta watchlist_main - main = -1.93 (main=7.965, wlm=6.0362)</td></tr>
-<tr><td>sentiment</td><td><span class="FAIL">FAIL</span></td><td>mean delta watchlist_main - main = -1.87 (main=7.91, wlm=6.0391)</td></tr>
-<tr><td>low_risk</td><td><span class="WARN">WARN</span> <span style="font-size:11px;color:#8a6d3b;background:#fff3cd;padding:1px 6px;border-radius:8px;margin-left:4px">KNOWN_BIAS</span></td><td>mean delta watchlist_main - main = -1.87 (main=7.762, wlm=5.8928) — explained by selection bias (drift verdict: selection_bias, confidence: medium); same-ticker max |Δ| = 0.0 on 6 shared tickers</td></tr>
-<tr><td>swing_score</td><td><span class="FAIL">FAIL</span></td><td>mean delta watchlist_main - main = -1.67 (main=7.092, wlm=5.4232)</td></tr>
+<tr><td>ai_score</td><td><span class="FAIL">FAIL</span></td><td>mean delta watchlist_main - main = -1.63 (main=7.895, wlm=6.2623)</td></tr>
+<tr><td>fundamental</td><td><span class="WARN">WARN</span></td><td>mean delta watchlist_main - main = -1.30 (main=7.889, wlm=6.5841)</td></tr>
+<tr><td>technical</td><td><span class="FAIL">FAIL</span></td><td>mean delta watchlist_main - main = -1.93 (main=7.966, wlm=6.0362)</td></tr>
+<tr><td>sentiment</td><td><span class="FAIL">FAIL</span></td><td>mean delta watchlist_main - main = -1.92 (main=7.965, wlm=6.0478)</td></tr>
+<tr><td>low_risk</td><td><span class="WARN">WARN</span> <span style="font-size:11px;color:#8a6d3b;background:#fff3cd;padding:1px 6px;border-radius:8px;margin-left:4px">KNOWN_BIAS</span></td><td>mean delta watchlist_main - main = -1.81 (main=7.704, wlm=5.8928) — explained by selection bias (drift verdict: selection_bias, confidence: medium); same-ticker max |Δ| = 0.0 on 6 shared tickers</td></tr>
+<tr><td>swing_score</td><td><span class="FAIL">FAIL</span></td><td>mean delta watchlist_main - main = -1.63 (main=7.621, wlm=5.9942)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Distribution summary</h2>
 <table><thead><tr><th>Group</th><th>Field</th><th class="num">n</th><th class="num">mean</th><th class="num">median</th><th class="num">min</th><th class="num">max</th><th class="num">null</th></tr></thead><tbody>
-<tr><td>main_rankings</td><td>ai_score</td><td class="num">100</td><td class="num">7.891</td><td class="num">7.8</td><td class="num">7.6</td><td class="num">8.5</td><td class="num">0</td></tr>
-<tr><td>main_rankings</td><td>fundamental</td><td class="num">100</td><td class="num">7.884</td><td class="num">7.95</td><td class="num">6.8</td><td class="num">9.1</td><td class="num">0</td></tr>
-<tr><td>main_rankings</td><td>technical</td><td class="num">100</td><td class="num">7.965</td><td class="num">8.2</td><td class="num">5.4</td><td class="num">9.4</td><td class="num">0</td></tr>
-<tr><td>main_rankings</td><td>sentiment</td><td class="num">100</td><td class="num">7.91</td><td class="num">8.0</td><td class="num">5.1</td><td class="num">10.0</td><td class="num">0</td></tr>
-<tr><td>main_rankings</td><td>low_risk</td><td class="num">100</td><td class="num">7.762</td><td class="num">7.8</td><td class="num">5.2</td><td class="num">9.7</td><td class="num">0</td></tr>
-<tr><td>main_rankings</td><td>swing_score</td><td class="num">100</td><td class="num">7.092</td><td class="num">7.1</td><td class="num">5.1</td><td class="num">8.5</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>ai_score</td><td class="num">69</td><td class="num">6.2681</td><td class="num">6.3</td><td class="num">2.9</td><td class="num">8.0</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>fundamental</td><td class="num">69</td><td class="num">6.6</td><td class="num">6.7</td><td class="num">1.5</td><td class="num">9.1</td><td class="num">0</td></tr>
+<tr><td>main_rankings</td><td>ai_score</td><td class="num">100</td><td class="num">7.895</td><td class="num">7.8</td><td class="num">7.6</td><td class="num">8.4</td><td class="num">0</td></tr>
+<tr><td>main_rankings</td><td>fundamental</td><td class="num">100</td><td class="num">7.889</td><td class="num">7.95</td><td class="num">6.9</td><td class="num">9.1</td><td class="num">0</td></tr>
+<tr><td>main_rankings</td><td>technical</td><td class="num">100</td><td class="num">7.966</td><td class="num">8.2</td><td class="num">5.4</td><td class="num">8.9</td><td class="num">0</td></tr>
+<tr><td>main_rankings</td><td>sentiment</td><td class="num">100</td><td class="num">7.965</td><td class="num">8.1</td><td class="num">5.1</td><td class="num">10.0</td><td class="num">0</td></tr>
+<tr><td>main_rankings</td><td>low_risk</td><td class="num">100</td><td class="num">7.704</td><td class="num">7.7</td><td class="num">5.2</td><td class="num">9.7</td><td class="num">0</td></tr>
+<tr><td>main_rankings</td><td>swing_score</td><td class="num">100</td><td class="num">7.621</td><td class="num">7.7</td><td class="num">5.3</td><td class="num">8.6</td><td class="num">0</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>ai_score</td><td class="num">69</td><td class="num">6.2623</td><td class="num">6.3</td><td class="num">2.9</td><td class="num">8.0</td><td class="num">0</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>fundamental</td><td class="num">69</td><td class="num">6.5841</td><td class="num">6.7</td><td class="num">1.4</td><td class="num">9.1</td><td class="num">0</td></tr>
 <tr><td>watchlist_main_pipeline</td><td>technical</td><td class="num">69</td><td class="num">6.0362</td><td class="num">6.0</td><td class="num">3.0</td><td class="num">8.5</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>sentiment</td><td class="num">69</td><td class="num">6.0391</td><td class="num">5.8</td><td class="num">0.0</td><td class="num">10.0</td><td class="num">0</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>sentiment</td><td class="num">69</td><td class="num">6.0478</td><td class="num">5.8</td><td class="num">0.0</td><td class="num">10.0</td><td class="num">0</td></tr>
 <tr><td>watchlist_main_pipeline</td><td>low_risk</td><td class="num">69</td><td class="num">5.8928</td><td class="num">6.3</td><td class="num">0.0</td><td class="num">9.7</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>swing_score</td><td class="num">69</td><td class="num">5.4232</td><td class="num">5.4</td><td class="num">2.4</td><td class="num">8.5</td><td class="num">0</td></tr>
-<tr><td>watchlist_supp</td><td>ai_score</td><td class="num">72</td><td class="num">4.9111</td><td class="num">5.05</td><td class="num">1.4</td><td class="num">8.0</td><td class="num">0</td></tr>
-<tr><td>watchlist_supp</td><td>fundamental</td><td class="num">63</td><td class="num">5.1383</td><td class="num">5.31</td><td class="num">1.93</td><td class="num">8.72</td><td class="num">9</td></tr>
-<tr><td>watchlist_supp</td><td>technical</td><td class="num">72</td><td class="num">4.4333</td><td class="num">4.55</td><td class="num">0.0</td><td class="num">10.0</td><td class="num">0</td></tr>
-<tr><td>watchlist_supp</td><td>sentiment</td><td class="num">0</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">72</td></tr>
-<tr><td>watchlist_supp</td><td>low_risk</td><td class="num">53</td><td class="num">4.9349</td><td class="num">5.38</td><td class="num">0.0</td><td class="num">9.97</td><td class="num">19</td></tr>
-<tr><td>watchlist_supp</td><td>swing_score</td><td class="num">0</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">72</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>swing_score</td><td class="num">69</td><td class="num">5.9942</td><td class="num">6.0</td><td class="num">3.1</td><td class="num">8.5</td><td class="num">0</td></tr>
+<tr><td>watchlist_supp</td><td>ai_score</td><td class="num">73</td><td class="num">5.0945</td><td class="num">5.2</td><td class="num">1.8</td><td class="num">7.3</td><td class="num">0</td></tr>
+<tr><td>watchlist_supp</td><td>fundamental</td><td class="num">64</td><td class="num">5.1014</td><td class="num">5.275</td><td class="num">1.93</td><td class="num">8.72</td><td class="num">9</td></tr>
+<tr><td>watchlist_supp</td><td>technical</td><td class="num">73</td><td class="num">5.1342</td><td class="num">5.0</td><td class="num">0.1</td><td class="num">9.6</td><td class="num">0</td></tr>
+<tr><td>watchlist_supp</td><td>sentiment</td><td class="num">0</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">73</td></tr>
+<tr><td>watchlist_supp</td><td>low_risk</td><td class="num">54</td><td class="num">4.8411</td><td class="num">5.38</td><td class="num">0.0</td><td class="num">9.97</td><td class="num">19</td></tr>
+<tr><td>watchlist_supp</td><td>swing_score</td><td class="num">0</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">73</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Provenance / basis counts</h2>
 <h3>main_rankings</h3>
@@ -192,56 +192,55 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="kv"><pre>{
   &quot;data_source&quot;: {
     &quot;values&quot;: {
-      &quot;supplemental_yfinance&quot;: 72
+      &quot;supplemental_yfinance&quot;: 73
     },
     &quot;field_absent_rows&quot;: 0
   },
   &quot;source&quot;: {
     &quot;values&quot;: {
-      &quot;both&quot;: 13,
       &quot;csv&quot;: 32,
-      &quot;tradingview&quot;: 27
+      &quot;both&quot;: 13,
+      &quot;tradingview&quot;: 28
     },
     &quot;field_absent_rows&quot;: 0
   },
   &quot;fundamental_source&quot;: {
     &quot;values&quot;: {
-      &quot;null&quot;: 9,
-      &quot;yfinance&quot;: 63
+      &quot;yfinance&quot;: 64,
+      &quot;null&quot;: 9
     },
     &quot;field_absent_rows&quot;: 0
   },
   &quot;ai_score_basis&quot;: {
     &quot;values&quot;: {
-      &quot;supp_technical_only&quot;: 9,
-      &quot;supp_composite&quot;: 63
+      &quot;supp_composite&quot;: 64,
+      &quot;supp_technical_only&quot;: 9
     },
     &quot;field_absent_rows&quot;: 0
   },
   &quot;eodhd_fundamentals&quot;: {
     &quot;values&quot;: {
-      &quot;bool:False&quot;: 72
+      &quot;bool:False&quot;: 73
     },
     &quot;field_absent_rows&quot;: 0
   },
   &quot;eodhd_deferred&quot;: {
     &quot;values&quot;: {
-      &quot;bool:False&quot;: 9,
-      &quot;bool:True&quot;: 63
+      &quot;bool:False&quot;: 73
     },
     &quot;field_absent_rows&quot;: 0
   },
   &quot;enrichment_source&quot;: {
     &quot;values&quot;: {
-      &quot;yfinance_price_only&quot;: 9,
-      &quot;yfinance_fundamentals&quot;: 63
+      &quot;yfinance_fundamentals&quot;: 64,
+      &quot;yfinance_price_only&quot;: 9
     },
     &quot;field_absent_rows&quot;: 0
   },
   &quot;instrument_kind&quot;: {
     &quot;values&quot;: {
+      &quot;equity&quot;: 64,
       &quot;crypto&quot;: 2,
-      &quot;equity&quot;: 63,
       &quot;etf&quot;: 7
     },
     &quot;field_absent_rows&quot;: 0
@@ -250,15 +249,15 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </div>
 <div class="section"><h2>Top SUPP rows: technical-only or missing fundamentals (showing 9)</h2>
 <table><thead><tr><th>Ticker</th><th>Company</th><th class="num">AI</th><th>Basis</th><th class="num">Fund</th><th class="num">Tech</th><th class="num">Sent</th><th class="num">Risk</th><th>Source</th><th>EODHD</th><th>Deferred</th><th>Kind</th></tr></thead><tbody>
-<tr><td>SOL-USD</td><td>Solana USD</td><td class="num">8.0</td><td>supp_technical_only</td><td class="num">—</td><td class="num">8.0</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>crypto</td></tr>
+<tr><td>SOL-USD</td><td>Solana USD</td><td class="num">6.4</td><td>supp_technical_only</td><td class="num">—</td><td class="num">6.4</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>crypto</td></tr>
+<tr><td>IBIT</td><td>iShares Bitcoin Trust ETF</td><td class="num">6.2</td><td>supp_technical_only</td><td class="num">—</td><td class="num">6.2</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
 <tr><td>BTC-USD</td><td>Bitcoin USD</td><td class="num">6.0</td><td>supp_technical_only</td><td class="num">—</td><td class="num">6.0</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>crypto</td></tr>
-<tr><td>MSOS</td><td>AdvisorShares Pure US Cannabis</td><td class="num">5.7</td><td>supp_technical_only</td><td class="num">—</td><td class="num">5.7</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
-<tr><td>GLD</td><td>SPDR Gold Shares</td><td class="num">5.3</td><td>supp_technical_only</td><td class="num">—</td><td class="num">5.3</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
-<tr><td>IBIT</td><td>iShares Bitcoin Trust ETF</td><td class="num">5.3</td><td>supp_technical_only</td><td class="num">—</td><td class="num">5.3</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
-<tr><td>SLV</td><td>iShares Silver Trust</td><td class="num">5.2</td><td>supp_technical_only</td><td class="num">—</td><td class="num">5.2</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
-<tr><td>GUSH</td><td>Direxion Daily S&amp;P Oil &amp; Gas Ex</td><td class="num">5.1</td><td>supp_technical_only</td><td class="num">—</td><td class="num">5.1</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
-<tr><td>USO</td><td>United States Oil Fund</td><td class="num">4.1</td><td>supp_technical_only</td><td class="num">—</td><td class="num">4.1</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
-<tr><td>QTUM</td><td>Defiance Quantum ETF</td><td class="num">4.0</td><td>supp_technical_only</td><td class="num">—</td><td class="num">4.0</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
+<tr><td>SLV</td><td>iShares Silver Trust</td><td class="num">5.7</td><td>supp_technical_only</td><td class="num">—</td><td class="num">5.7</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
+<tr><td>GLD</td><td>SPDR Gold Shares</td><td class="num">5.5</td><td>supp_technical_only</td><td class="num">—</td><td class="num">5.5</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
+<tr><td>GUSH</td><td>Direxion Daily S&amp;P Oil &amp; Gas Ex</td><td class="num">5.0</td><td>supp_technical_only</td><td class="num">—</td><td class="num">5.0</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
+<tr><td>MSOS</td><td>AdvisorShares Pure US Cannabis</td><td class="num">4.6</td><td>supp_technical_only</td><td class="num">—</td><td class="num">4.6</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
+<tr><td>QTUM</td><td>Defiance Quantum ETF</td><td class="num">4.6</td><td>supp_technical_only</td><td class="num">—</td><td class="num">4.6</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
+<tr><td>USO</td><td>United States Oil Fund</td><td class="num">4.3</td><td>supp_technical_only</td><td class="num">—</td><td class="num">4.3</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
 </tbody></table>
 </div>
 <div class="section"><h2>Recommendations</h2><ol class="recs">
