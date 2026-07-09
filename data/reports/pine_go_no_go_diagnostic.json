@@ -1611,14 +1611,14 @@
         "bars": 880,
         "gates": {
           "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
+          "above_sma20": false,
+          "above_bb_mid": false,
           "above_sma50": true,
           "ma50_rising": true,
-          "rsi_in_zone": true,
+          "rsi_in_zone": false,
           "rsi_slope_pos": false,
-          "return_20d_ok": true,
-          "rel_vol_ok": false,
+          "return_20d_ok": false,
+          "rel_vol_ok": true,
           "bar_strength": false,
           "mfi_above_avg": true,
           "near_20d_high": false
@@ -1643,7 +1643,7 @@
           "earnings_near (21d)"
         ],
         "insufficient_data_reasons": [],
-        "go_no_go_score": 7,
+        "go_no_go_score": 4,
         "go_no_go_gates_evaluated": 10,
         "go_no_go_score_normalized": 0.7,
         "accumulation_score": 2,
@@ -2098,6 +2098,15 @@
       }
     ],
     "disagreement_supports_internal": [
+      {
+        "ticker": "CACC",
+        "sector": "Financial Services",
+        "ai_score": 7.8,
+        "go_no_go_score_normalized": 0.7,
+        "blockers": [],
+        "action": "keep",
+        "rationale": "Pine score 0.70 >= 0.60, no blockers \u2014 internal bullish thesis confirmed by gate stack"
+      },
       {
         "ticker": "LLYVA",
         "sector": "Communication Services",
@@ -3818,7 +3827,7 @@
       "ai_score": 7.8,
       "swing_score": 7.7,
       "swing_tier": "A",
-      "days_to_earnings": 7,
+      "days_to_earnings": 13,
       "evaluated": true,
       "bars": 880,
       "gates": {
@@ -6394,7 +6403,7 @@
       ],
       "company": "Venture Global, Inc.",
       "sector": "Energy",
-      "ai_score": 7.2,
+      "ai_score": 7.3,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
