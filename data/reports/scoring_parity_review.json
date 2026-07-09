@@ -616,12 +616,29 @@
       "enrichment_source": "yfinance_price_only"
     },
     {
-      "ticker": "USO",
-      "company": "United States Oil Fund",
-      "ai_score": 5.5,
+      "ticker": "BTC-USD",
+      "company": "Bitcoin USD",
+      "ai_score": 5.4,
       "ai_score_basis": "supp_technical_only",
       "fundamental": null,
-      "technical": 5.5,
+      "technical": 5.4,
+      "sentiment": null,
+      "low_risk": null,
+      "swing_score": null,
+      "data_source": "supplemental_yfinance",
+      "fundamental_source": null,
+      "eodhd_fundamentals": false,
+      "eodhd_deferred": false,
+      "instrument_kind": "crypto",
+      "enrichment_source": "yfinance_price_only"
+    },
+    {
+      "ticker": "USO",
+      "company": "United States Oil Fund",
+      "ai_score": 5.4,
+      "ai_score_basis": "supp_technical_only",
+      "fundamental": null,
+      "technical": 5.4,
       "sentiment": null,
       "low_risk": null,
       "swing_score": null,
@@ -697,7 +714,7 @@
       "fundamental_source": null,
       "eodhd_fundamentals": false,
       "eodhd_deferred": false,
-      "instrument_kind": "etf",
+      "instrument_kind": "crypto",
       "enrichment_source": "yfinance_price_only"
     },
     {
@@ -714,7 +731,7 @@
       "fundamental_source": null,
       "eodhd_fundamentals": false,
       "eodhd_deferred": false,
-      "instrument_kind": "crypto",
+      "instrument_kind": "etf",
       "enrichment_source": "yfinance_price_only"
     },
     {
@@ -737,7 +754,7 @@
   ],
   "recommendations": [
     "EODHD fundamentals on SUPP rows is 0 \u2014 confirm `EODHD_API_KEY` secret is populated in CI before treating SUPP fundamentals as live.",
-    "Investigate score drift between main_rankings and watchlist_main_pipeline on `technical` (mean delta -2.02). Same scoring engine should produce near-identical means; gap suggests universe mix or weight drift.",
+    "Investigate score drift between main_rankings and watchlist_main_pipeline on `technical` (mean delta -2.03). Same scoring engine should produce near-identical means; gap suggests universe mix or weight drift.",
     "low_risk drift between main_rankings and watchlist_main_pipeline is a known selection-bias finding (watchlist universe is more speculative / higher-volatility). Surfaced as WARN, not FAIL \u2014 no action required on the scoring formula."
   ]
 }
