@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-10T16:54:55Z",
-  "generated_at_chicago": "2026-07-10 11:54 AM CDT",
+  "generated_at": "2026-07-10T19:21:05Z",
+  "generated_at_chicago": "2026-07-10 02:21 PM CDT",
   "overall": "OK",
   "caveat": "DAILY OHLCV ONLY: This report is a daily-bar proxy for the Pine v6 go/no-go gate stack. No true intraday VWAP, no Open Drift, no minute-bar logic. DIAGNOSTIC ONLY \u2014 rankings and scoring formulas are NOT mutated.",
   "thresholds": {
@@ -18,12 +18,12 @@
   },
   "counts": {
     "evaluated": 78,
-    "ohlcv_missing": 12,
+    "ohlcv_missing": 13,
     "insufficient_bars": 0,
-    "blocked": 25,
-    "go_normalized_ge_07": 33,
-    "go_normalized_lt_04": 9,
-    "candidates": 90
+    "blocked": 20,
+    "go_normalized_ge_07": 34,
+    "go_normalized_lt_04": 8,
+    "candidates": 91
   },
   "highlights": {
     "cleanest_go_main": [
@@ -131,6 +131,58 @@
         "accumulation_score": 5,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 1.0,
+        "blocker_count": 0
+      },
+      {
+        "ticker": "INCY",
+        "sources": [
+          "main"
+        ],
+        "company": "Incyte",
+        "sector": "Healthcare",
+        "ai_score": 7.8,
+        "swing_score": 6.3,
+        "swing_tier": "B",
+        "evaluated": true,
+        "bars": 881,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": true,
+          "ma50_rising": true,
+          "rsi_in_zone": true,
+          "rsi_slope_pos": true,
+          "return_20d_ok": true,
+          "rel_vol_ok": false,
+          "bar_strength": false,
+          "mfi_above_avg": true,
+          "near_20d_high": true
+        },
+        "metrics": {
+          "last_close": 118.52,
+          "sma5": 117.262,
+          "sma8": 116.0175,
+          "sma13": 112.7646,
+          "sma20": 109.3315,
+          "sma50": 102.4414,
+          "rsi14": 69.6556,
+          "rsi14_3bar_ago": 67.4678,
+          "return_20d": 0.1481,
+          "rel_vol_20d": 0.645,
+          "mfi14": 76.775,
+          "high_20d": 118.52,
+          "bb_upper_20": 122.4381,
+          "range_10d_pct": 0.1054
+        },
+        "blockers": [],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 8,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.8,
+        "accumulation_score": 3,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.6,
         "blocker_count": 0
       },
       {
@@ -296,7 +348,7 @@
         ],
         "company": "Virtu Financial",
         "sector": "Financial Services",
-        "ai_score": 8.1,
+        "ai_score": 8.2,
         "swing_score": 6.1,
         "swing_tier": "B",
         "evaluated": true,
@@ -448,6 +500,58 @@
         "blocker_count": 0
       },
       {
+        "ticker": "JPM",
+        "sources": [
+          "main"
+        ],
+        "company": "JPMorgan Chase",
+        "sector": "Financial Services",
+        "ai_score": 7.8,
+        "swing_score": 6.8,
+        "swing_tier": "B",
+        "evaluated": true,
+        "bars": 881,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": true,
+          "ma50_rising": true,
+          "rsi_in_zone": true,
+          "rsi_slope_pos": false,
+          "return_20d_ok": false,
+          "rel_vol_ok": true,
+          "bar_strength": false,
+          "mfi_above_avg": false,
+          "near_20d_high": false
+        },
+        "metrics": {
+          "last_close": 335.47,
+          "sma5": 335.2,
+          "sma8": 332.7933,
+          "sma13": 332.1636,
+          "sma20": 328.0298,
+          "sma50": 313.2893,
+          "rsi14": 60.9774,
+          "rsi14_3bar_ago": 67.0216,
+          "return_20d": 0.0777,
+          "rel_vol_20d": 1.426,
+          "mfi14": 55.9342,
+          "high_20d": 339.22,
+          "bb_upper_20": 344.0447,
+          "range_10d_pct": 0.0547
+        },
+        "blockers": [],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 7,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.7,
+        "accumulation_score": 2,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.4,
+        "blocker_count": 0
+      },
+      {
         "ticker": "LLYVA",
         "sources": [
           "main",
@@ -456,9 +560,8 @@
         "company": "Liberty Live (Series A)",
         "sector": "Communication Services",
         "ai_score": 7.8,
-        "swing_score": 8.1,
+        "swing_score": 7.3,
         "swing_tier": "A",
-        "days_to_earnings": 26,
         "evaluated": true,
         "bars": 734,
         "gates": {
@@ -514,9 +617,8 @@
         "company": "Liberty Live (Series C)",
         "sector": "Communication Services",
         "ai_score": 7.8,
-        "swing_score": 8.2,
+        "swing_score": 7.5,
         "swing_tier": "A",
-        "days_to_earnings": 26,
         "evaluated": true,
         "bars": 734,
         "gates": {
@@ -662,11 +764,9 @@
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.6,
         "blocker_count": 0
-      }
-    ],
-    "weakest_main": [
+      },
       {
-        "ticker": "GOOGL",
+        "ticker": "ORI",
         "sources": [
           "main"
         ],
@@ -716,111 +816,9 @@
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.2,
         "blocker_count": 0
-      },
-      {
-        "ticker": "PNC",
-        "sources": [
-          "main"
-        ],
-        "company": "PNC Financial Services",
-        "sector": "Financial Services",
-        "ai_score": 8.1,
-        "swing_score": 7.4,
-        "swing_tier": "A",
-        "evaluated": true,
-        "bars": 881,
-        "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": true,
-          "ma50_rising": true,
-          "rsi_in_zone": true,
-          "rsi_slope_pos": false,
-          "return_20d_ok": true,
-          "rel_vol_ok": false,
-          "bar_strength": false,
-          "mfi_above_avg": true,
-          "near_20d_high": false
-        },
-        "metrics": {
-          "last_close": 250.91,
-          "sma5": 250.824,
-          "sma8": 249.8362,
-          "sma13": 246.3277,
-          "sma20": 241.846,
-          "sma50": 228.369,
-          "rsi14": 64.6569,
-          "rsi14_3bar_ago": 73.4276,
-          "return_20d": 0.0807,
-          "rel_vol_20d": 0.848,
-          "mfi14": 71.3391,
-          "high_20d": 254.01,
-          "bb_upper_20": 257.204,
-          "range_10d_pct": 0.057
-        },
-        "blockers": [],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 7,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.7,
-        "accumulation_score": 2,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.4,
-        "blocker_count": 0
-      },
-      {
-        "ticker": "RGA",
-        "sources": [
-          "main"
-        ],
-        "company": "Reinsurance Group of America",
-        "sector": "Financial Services",
-        "ai_score": 7.8,
-        "swing_score": 6.9,
-        "swing_tier": "B",
-        "evaluated": true,
-        "bars": 881,
-        "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": false,
-          "ma50_rising": true,
-          "rsi_in_zone": false,
-          "rsi_slope_pos": true,
-          "return_20d_ok": true,
-          "rel_vol_ok": false,
-          "bar_strength": false,
-          "mfi_above_avg": true,
-          "near_20d_high": true
-        },
-        "metrics": {
-          "last_close": 230.49,
-          "sma5": 226.682,
-          "sma8": 222.0687,
-          "sma13": 217.6162,
-          "sma20": 214.6595,
-          "sma50": 210.4307,
-          "rsi14": 70.6225,
-          "rsi14_3bar_ago": 68.3261,
-          "return_20d": 0.1337,
-          "rel_vol_20d": 0.981,
-          "mfi14": 67.9341,
-          "high_20d": 230.49,
-          "bb_upper_20": 229.9293,
-          "range_10d_pct": 0.11
-        },
-        "blockers": [],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 7,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.7,
-        "accumulation_score": 2,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.4,
-        "blocker_count": 0
-      },
+      }
+    ],
+    "weakest_main": [
       {
         "ticker": "GOOGL",
         "sources": [
@@ -884,9 +882,8 @@
         "company": "Intercontinental Exchange",
         "sector": "Financial Services",
         "ai_score": 7.8,
-        "swing_score": 6.9,
+        "swing_score": 6.1,
         "swing_tier": "B",
-        "days_to_earnings": 19,
         "evaluated": true,
         "bars": 881,
         "gates": {
@@ -919,9 +916,7 @@
           "bb_upper_20": 144.7738,
           "range_10d_pct": 0.1239
         },
-        "blockers": [
-          "earnings_near (19d)"
-        ],
+        "blockers": [],
         "insufficient_data_reasons": [],
         "go_no_go_score": 4,
         "go_no_go_gates_evaluated": 10,
@@ -929,7 +924,7 @@
         "accumulation_score": 1,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.2,
-        "blocker_count": 1
+        "blocker_count": 0
       },
       {
         "ticker": "RITM",
@@ -1170,7 +1165,7 @@
           "rel_vol_ok": false,
           "bar_strength": false,
           "mfi_above_avg": true,
-          "near_20d_high": true
+          "near_20d_high": false
         },
         "metrics": {
           "last_close": 351.16,
@@ -1205,7 +1200,7 @@
         ],
         "company": "Garmin",
         "sector": "Technology",
-        "ai_score": 8.0,
+        "ai_score": 7.9,
         "swing_score": 8.1,
         "swing_tier": "A",
         "days_to_earnings": 18,
@@ -1261,9 +1256,8 @@
         "company": "Jones Lang LaSalle",
         "sector": "Real Estate",
         "ai_score": 8.0,
-        "swing_score": 8.5,
+        "swing_score": 7.7,
         "swing_tier": "A",
-        "days_to_earnings": 19,
         "evaluated": true,
         "bars": 881,
         "gates": {
@@ -1296,9 +1290,7 @@
           "bb_upper_20": 334.0084,
           "range_10d_pct": 0.1209
         },
-        "blockers": [
-          "earnings_near (19d)"
-        ],
+        "blockers": [],
         "insufficient_data_reasons": [],
         "go_no_go_score": 5,
         "go_no_go_gates_evaluated": 10,
@@ -1306,7 +1298,7 @@
         "accumulation_score": 1,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.2,
-        "blocker_count": 1
+        "blocker_count": 0
       },
       {
         "ticker": "KEY",
@@ -1316,9 +1308,8 @@
         "company": "KeyCorp",
         "sector": "Financial Services",
         "ai_score": 7.9,
-        "swing_score": 7.9,
+        "swing_score": 7.1,
         "swing_tier": "A",
-        "days_to_earnings": 10,
         "evaluated": true,
         "bars": 881,
         "gates": {
@@ -1351,9 +1342,7 @@
           "bb_upper_20": 23.6677,
           "range_10d_pct": 0.0532
         },
-        "blockers": [
-          "earnings_near (10d)"
-        ],
+        "blockers": [],
         "insufficient_data_reasons": [],
         "go_no_go_score": 5,
         "go_no_go_gates_evaluated": 10,
@@ -1361,7 +1350,7 @@
         "accumulation_score": 1,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.2,
-        "blocker_count": 1
+        "blocker_count": 0
       }
     ],
     "blocked_main": [
@@ -2033,18 +2022,18 @@
         ],
         "company": "Garmin",
         "sector": "Technology",
-        "ai_score": 8.0,
+        "ai_score": 7.9,
         "swing_score": 8.1,
         "swing_tier": "A",
         "days_to_earnings": 18,
         "evaluated": true,
         "bars": 881,
         "gates": {
-          "trend_sma_aligned": false,
+          "trend_sma_aligned": true,
           "above_sma20": true,
           "above_bb_mid": true,
           "above_sma50": true,
-          "ma50_rising": true,
+          "ma50_rising": false,
           "rsi_in_zone": true,
           "rsi_slope_pos": false,
           "return_20d_ok": false,
@@ -2080,119 +2069,18 @@
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.4,
         "blocker_count": 1
-      },
-      {
-        "ticker": "ICE",
-        "sources": [
-          "main"
-        ],
-        "company": "Intercontinental Exchange",
-        "sector": "Financial Services",
-        "ai_score": 7.8,
-        "swing_score": 6.9,
-        "swing_tier": "B",
-        "days_to_earnings": 19,
-        "evaluated": true,
-        "bars": 881,
-        "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": false,
-          "ma50_rising": false,
-          "rsi_in_zone": false,
-          "rsi_slope_pos": true,
-          "return_20d_ok": false,
-          "rel_vol_ok": false,
-          "bar_strength": false,
-          "mfi_above_avg": true,
-          "near_20d_high": false
-        },
-        "metrics": {
-          "last_close": 135.11,
-          "sma5": 135.326,
-          "sma8": 131.1725,
-          "sma13": 130.1608,
-          "sma20": 133.0118,
-          "sma50": 143.5412,
-          "rsi14": 48.3733,
-          "rsi14_3bar_ago": 48.242,
-          "return_20d": -0.042,
-          "rel_vol_20d": 0.989,
-          "mfi14": 41.2385,
-          "high_20d": 141.28,
-          "bb_upper_20": 144.7738,
-          "range_10d_pct": 0.1239
-        },
-        "blockers": [
-          "earnings_near (19d)"
-        ],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 4,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.4,
-        "accumulation_score": 1,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.2,
-        "blocker_count": 1
-      },
-      {
-        "ticker": "JLL",
-        "sources": [
-          "main"
-        ],
-        "company": "Jones Lang LaSalle",
-        "sector": "Real Estate",
-        "ai_score": 8.0,
-        "swing_score": 8.5,
-        "swing_tier": "A",
-        "days_to_earnings": 19,
-        "evaluated": true,
-        "bars": 881,
-        "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": true,
-          "ma50_rising": false,
-          "rsi_in_zone": true,
-          "rsi_slope_pos": false,
-          "return_20d_ok": false,
-          "rel_vol_ok": false,
-          "bar_strength": false,
-          "mfi_above_avg": false,
-          "near_20d_high": false
-        },
-        "metrics": {
-          "last_close": 324.19,
-          "sma5": 327.622,
-          "sma8": 322.4362,
-          "sma13": 314.7592,
-          "sma20": 309.2255,
-          "sma50": 306.1336,
-          "rsi14": 61.4177,
-          "rsi14_3bar_ago": 68.9312,
-          "return_20d": 0.0608,
-          "rel_vol_20d": 0.954,
-          "mfi14": 63.4421,
-          "high_20d": 332.57,
-          "bb_upper_20": 334.0084,
-          "range_10d_pct": 0.1209
-        },
-        "blockers": [
-          "earnings_near (19d)"
-        ],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 5,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.5,
-        "accumulation_score": 1,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.2,
-        "blocker_count": 1
       }
     ],
     "disagreement_supports_internal": [
+      {
+        "ticker": "CACC",
+        "sector": "Financial Services",
+        "ai_score": 7.7,
+        "go_no_go_score_normalized": 0.6,
+        "blockers": [],
+        "action": "keep",
+        "rationale": "Pine score 0.60 >= 0.60, no blockers \u2014 internal bullish thesis confirmed by gate stack"
+      },
       {
         "ticker": "LLYVA",
         "sector": "Communication Services",
@@ -2225,7 +2113,7 @@
       {
         "ticker": "CNM",
         "sector": "Industrials",
-        "ai_score": 5.2,
+        "ai_score": 5.3,
         "go_no_go_score_normalized": 0.0,
         "blockers": [],
         "action": "downgrade-watchlist-only",
@@ -2716,7 +2604,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 4.1,
+      "ai_score": 3.9,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -2780,7 +2668,7 @@
       ],
       "company": "Alibaba Group Holding Limited",
       "sector": "Consumer Cyclical",
-      "ai_score": 7.0,
+      "ai_score": 6.9,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -2999,6 +2887,60 @@
         "classification": "supports_external_caution",
         "action": "downgrade-watchlist-only",
         "rationale": "Pine score 0.20 weak, agrees with external caution"
+      }
+    },
+    {
+      "ticker": "CACC",
+      "sources": [
+        "disagreement"
+      ],
+      "sector": "Financial Services",
+      "ai_score": 7.7,
+      "evaluated": true,
+      "bars": 881,
+      "gates": {
+        "trend_sma_aligned": false,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": true,
+        "rsi_slope_pos": false,
+        "return_20d_ok": true,
+        "rel_vol_ok": false,
+        "bar_strength": false,
+        "mfi_above_avg": true,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 627.11,
+        "sma5": 643.394,
+        "sma8": 643.4575,
+        "sma13": 628.4508,
+        "sma20": 605.7005,
+        "sma50": 566.0184,
+        "rsi14": 60.956,
+        "rsi14_3bar_ago": 77.9042,
+        "return_20d": 0.1015,
+        "rel_vol_20d": 0.571,
+        "mfi14": 87.0938,
+        "high_20d": 657.2,
+        "bb_upper_20": 680.3355,
+        "range_10d_pct": 0.1015
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 6,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.6,
+      "accumulation_score": 2,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.4,
+      "blocker_count": 0,
+      "disagreement": {
+        "classification": "supports_internal",
+        "action": "keep",
+        "rationale": "Pine score 0.60 >= 0.60, no blockers \u2014 internal bullish thesis confirmed by gate stack"
       }
     },
     {
@@ -3234,7 +3176,7 @@
         "disagreement"
       ],
       "sector": "Industrials",
-      "ai_score": 5.2,
+      "ai_score": 5.3,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -3559,6 +3501,7 @@
       "ai_score": 7.6,
       "swing_score": 5.0,
       "swing_tier": "C",
+      "days_to_earnings": 55,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -3836,6 +3779,7 @@
       "ai_score": 7.0,
       "swing_score": 6.2,
       "swing_tier": "B",
+      "days_to_earnings": 18,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -3868,7 +3812,9 @@
         "bb_upper_20": 29.4953,
         "range_10d_pct": 0.1312
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (18d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 4,
       "go_no_go_gates_evaluated": 10,
@@ -3876,7 +3822,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "FAF",
@@ -3888,6 +3834,7 @@
       "ai_score": 8.2,
       "swing_score": 8.1,
       "swing_tier": "A",
+      "days_to_earnings": 12,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -3939,7 +3886,7 @@
       ],
       "company": "Fidelity National Financial",
       "sector": "Financial Services",
-      "ai_score": 8.2,
+      "ai_score": 8.1,
       "swing_score": 7.6,
       "swing_tier": "A",
       "days_to_earnings": 26,
@@ -4028,7 +3975,9 @@
         "bb_upper_20": 64.8892,
         "range_10d_pct": 0.0704
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (12d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
@@ -4037,6 +3986,17 @@
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.6,
       "blocker_count": 1
+    },
+    {
+      "ticker": "FRSH",
+      "sources": [
+        "watchlist"
+      ],
+      "company": "Freshworks Inc.",
+      "sector": "Technology",
+      "ai_score": 6.9,
+      "evaluated": false,
+      "reason": "ohlcv missing"
     },
     {
       "ticker": "FTI",
@@ -4091,7 +4051,7 @@
       "accumulation_score": 3,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.6,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "GEN",
@@ -4103,6 +4063,7 @@
       "ai_score": 8.3,
       "swing_score": 7.8,
       "swing_tier": "A",
+      "days_to_earnings": 27,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -4210,6 +4171,7 @@
       "ai_score": 7.6,
       "swing_score": 5.3,
       "swing_tier": "C",
+      "days_to_earnings": 27,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -4259,9 +4221,10 @@
       ],
       "company": "Alphabet Inc. (Class C)",
       "sector": "Communication Services",
-      "ai_score": 7.7,
+      "ai_score": 7.8,
       "swing_score": 6.8,
       "swing_tier": "B",
+      "days_to_earnings": 12,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -4294,7 +4257,9 @@
         "bb_upper_20": 373.7589,
         "range_10d_pct": 0.1044
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (12d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 4,
       "go_no_go_gates_evaluated": 10,
@@ -4357,59 +4322,7 @@
       "accumulation_score": 0,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.0,
-      "blocker_count": 0
-    },
-    {
-      "ticker": "GOOGL",
-      "sources": [
-        "main"
-      ],
-      "company": "Alphabet Inc. (Class A)",
-      "sector": "Communication Services",
-      "ai_score": 7.8,
-      "swing_score": 6.0,
-      "swing_tier": "B",
-      "evaluated": true,
-      "bars": 881,
-      "gates": {
-        "trend_sma_aligned": true,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": false,
-        "ma50_rising": true,
-        "rsi_in_zone": false,
-        "rsi_slope_pos": false,
-        "return_20d_ok": false,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 358.89,
-        "sma5": 362.842,
-        "sma8": 360.805,
-        "sma13": 354.5108,
-        "sma20": 357.8445,
-        "sma50": 372.4695,
-        "rsi14": 48.2065,
-        "rsi14_3bar_ago": 53.6897,
-        "return_20d": -0.0147,
-        "rel_vol_20d": 0.681,
-        "mfi14": 35.0721,
-        "high_20d": 373.25,
-        "bb_upper_20": 376.3037,
-        "range_10d_pct": 0.1197
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 4,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.4,
-      "accumulation_score": 0,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.0,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "GRMN",
@@ -4418,7 +4331,7 @@
       ],
       "company": "Garmin",
       "sector": "Technology",
-      "ai_score": 8.0,
+      "ai_score": 7.9,
       "swing_score": 8.1,
       "swing_tier": "A",
       "days_to_earnings": 18,
@@ -4464,7 +4377,7 @@
       "accumulation_score": 2,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.4,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "HALO",
@@ -4527,9 +4440,8 @@
       "company": "Intercontinental Exchange",
       "sector": "Financial Services",
       "ai_score": 7.8,
-      "swing_score": 6.9,
+      "swing_score": 6.1,
       "swing_tier": "B",
-      "days_to_earnings": 19,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -4562,9 +4474,7 @@
         "bb_upper_20": 144.7738,
         "range_10d_pct": 0.1239
       },
-      "blockers": [
-        "earnings_near (19d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 4,
       "go_no_go_gates_evaluated": 10,
@@ -4572,7 +4482,59 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 1
+      "blocker_count": 0
+    },
+    {
+      "ticker": "INCY",
+      "sources": [
+        "main"
+      ],
+      "company": "Incyte",
+      "sector": "Healthcare",
+      "ai_score": 7.8,
+      "swing_score": 6.3,
+      "swing_tier": "B",
+      "evaluated": true,
+      "bars": 881,
+      "gates": {
+        "trend_sma_aligned": true,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": true,
+        "rsi_slope_pos": true,
+        "return_20d_ok": true,
+        "rel_vol_ok": false,
+        "bar_strength": false,
+        "mfi_above_avg": true,
+        "near_20d_high": true
+      },
+      "metrics": {
+        "last_close": 118.52,
+        "sma5": 117.262,
+        "sma8": 116.0175,
+        "sma13": 112.7646,
+        "sma20": 109.3315,
+        "sma50": 102.4414,
+        "rsi14": 69.6556,
+        "rsi14_3bar_ago": 67.4678,
+        "return_20d": 0.1481,
+        "rel_vol_20d": 0.645,
+        "mfi14": 76.775,
+        "high_20d": 118.52,
+        "bb_upper_20": 122.4381,
+        "range_10d_pct": 0.1054
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 8,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.8,
+      "accumulation_score": 3,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.6,
+      "blocker_count": 0
     },
     {
       "ticker": "JLL",
@@ -4582,9 +4544,8 @@
       "company": "Jones Lang LaSalle",
       "sector": "Real Estate",
       "ai_score": 8.0,
-      "swing_score": 8.5,
+      "swing_score": 7.7,
       "swing_tier": "A",
-      "days_to_earnings": 19,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -4617,9 +4578,7 @@
         "bb_upper_20": 334.0084,
         "range_10d_pct": 0.1209
       },
-      "blockers": [
-        "earnings_near (19d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 5,
       "go_no_go_gates_evaluated": 10,
@@ -4627,7 +4586,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 1
+      "blocker_count": 0
     },
     {
       "ticker": "JOBY",
@@ -4635,7 +4594,7 @@
         "disagreement"
       ],
       "sector": "Industrials",
-      "ai_score": 3.3,
+      "ai_score": 3.2,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -4647,9 +4606,8 @@
       "company": "JPMorgan Chase",
       "sector": "Financial Services",
       "ai_score": 7.8,
-      "swing_score": 6.9,
+      "swing_score": 6.8,
       "swing_tier": "B",
-      "days_to_earnings": 3,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -4682,9 +4640,7 @@
         "bb_upper_20": 344.0447,
         "range_10d_pct": 0.0547
       },
-      "blockers": [
-        "earnings_near (3d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
@@ -4692,7 +4648,7 @@
       "accumulation_score": 2,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.4,
-      "blocker_count": 1
+      "blocker_count": 0
     },
     {
       "ticker": "KEY",
@@ -4702,9 +4658,8 @@
       "company": "KeyCorp",
       "sector": "Financial Services",
       "ai_score": 7.9,
-      "swing_score": 7.9,
+      "swing_score": 7.1,
       "swing_tier": "A",
-      "days_to_earnings": 10,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -4737,9 +4692,7 @@
         "bb_upper_20": 23.6677,
         "range_10d_pct": 0.0532
       },
-      "blockers": [
-        "earnings_near (10d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 5,
       "go_no_go_gates_evaluated": 10,
@@ -4747,7 +4700,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 1
+      "blocker_count": 0
     },
     {
       "ticker": "KMI",
@@ -4757,9 +4710,8 @@
       "company": "Kinder Morgan",
       "sector": "Energy",
       "ai_score": 7.8,
-      "swing_score": 7.8,
+      "swing_score": 7.7,
       "swing_tier": "A",
-      "days_to_earnings": 5,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -4792,9 +4744,7 @@
         "bb_upper_20": 33.1346,
         "range_10d_pct": 0.0565
       },
-      "blockers": [
-        "earnings_near (5d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 5,
       "go_no_go_gates_evaluated": 10,
@@ -4802,7 +4752,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 1
+      "blocker_count": 0
     },
     {
       "ticker": "LLYVA",
@@ -4813,9 +4763,8 @@
       "company": "Liberty Live (Series A)",
       "sector": "Communication Services",
       "ai_score": 7.8,
-      "swing_score": 8.1,
+      "swing_score": 7.3,
       "swing_tier": "A",
-      "days_to_earnings": 26,
       "evaluated": true,
       "bars": 734,
       "gates": {
@@ -4871,9 +4820,8 @@
       "company": "Liberty Live (Series C)",
       "sector": "Communication Services",
       "ai_score": 7.8,
-      "swing_score": 8.2,
+      "swing_score": 7.5,
       "swing_tier": "A",
-      "days_to_earnings": 26,
       "evaluated": true,
       "bars": 734,
       "gates": {
@@ -4922,7 +4870,7 @@
         "disagreement"
       ],
       "sector": "Basic Materials",
-      "ai_score": 6.6,
+      "ai_score": 6.7,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -5191,58 +5139,6 @@
       "accumulation_score": 3,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.6,
-      "blocker_count": 0
-    },
-    {
-      "ticker": "NFLX",
-      "sources": [
-        "watchlist"
-      ],
-      "company": "Netflix",
-      "sector": "Communication Services",
-      "ai_score": 6.9,
-      "swing_score": 5.8,
-      "swing_tier": "B",
-      "evaluated": true,
-      "bars": 881,
-      "gates": {
-        "trend_sma_aligned": true,
-        "above_sma20": false,
-        "above_bb_mid": false,
-        "above_sma50": false,
-        "ma50_rising": false,
-        "rsi_in_zone": false,
-        "rsi_slope_pos": false,
-        "return_20d_ok": false,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": true,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 75.47,
-        "sma5": 76.182,
-        "sma8": 75.035,
-        "sma13": 74.0408,
-        "sma20": 76.0435,
-        "sma50": 82.787,
-        "rsi14": 42.6493,
-        "rsi14_3bar_ago": 43.8065,
-        "return_20d": -0.073,
-        "rel_vol_20d": 0.731,
-        "mfi14": 34.3117,
-        "high_20d": 82.0,
-        "bb_upper_20": 82.7587,
-        "range_10d_pct": 0.1004
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 1,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.1,
-      "accumulation_score": 1,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.2,
       "blocker_count": 0
     },
     {
@@ -5626,7 +5522,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 3.1,
+      "ai_score": 3.0,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -5899,61 +5795,9 @@
       ],
       "company": "Royal Bank Of Canada",
       "sector": "Financial Services",
-      "ai_score": 7.3,
+      "ai_score": 7.4,
       "evaluated": false,
       "reason": "ohlcv missing"
-    },
-    {
-      "ticker": "SARO",
-      "sources": [
-        "main"
-      ],
-      "company": "StandardAero",
-      "sector": "Industrials",
-      "ai_score": 7.7,
-      "swing_score": 7.6,
-      "swing_tier": "A",
-      "evaluated": true,
-      "bars": 442,
-      "gates": {
-        "trend_sma_aligned": false,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": false,
-        "rsi_slope_pos": false,
-        "return_20d_ok": true,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 28.06,
-        "sma5": 29.456,
-        "sma8": 29.4787,
-        "sma13": 28.6915,
-        "sma20": 27.967,
-        "sma50": 26.7488,
-        "rsi14": 50.9029,
-        "rsi14_3bar_ago": 72.123,
-        "return_20d": 0.097,
-        "rel_vol_20d": 0.889,
-        "mfi14": 61.1678,
-        "high_20d": 30.92,
-        "bb_upper_20": 31.03,
-        "range_10d_pct": 0.1278
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 5,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.5,
-      "accumulation_score": 0,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.0,
-      "blocker_count": 0
     },
     {
       "ticker": "SCHW",
@@ -6172,7 +6016,7 @@
       ],
       "company": "Snowflake Inc.",
       "sector": "Technology",
-      "ai_score": 7.5,
+      "ai_score": 7.6,
       "swing_score": 5.3,
       "swing_tier": "C",
       "evaluated": true,
@@ -6289,8 +6133,9 @@
       "company": "Take-Two Interactive",
       "sector": "Communication Services",
       "ai_score": 7.2,
-      "swing_score": 7.5,
+      "swing_score": 8.2,
       "swing_tier": "A",
+      "days_to_earnings": 27,
       "evaluated": true,
       "bars": 881,
       "gates": {
@@ -6517,7 +6362,7 @@
       ],
       "company": "Virtu Financial",
       "sector": "Financial Services",
-      "ai_score": 8.1,
+      "ai_score": 8.2,
       "swing_score": 6.1,
       "swing_tier": "B",
       "evaluated": true,
@@ -6622,5 +6467,5 @@
     "disagreement_queue_present": true,
     "ohlcv_dir_exists": true
   },
-  "summary": "Overall OK \u00b7 cands=90 \u00b7 evaluated=78 \u00b7 missing_ohlcv=12 \u00b7 go>=.7:33 \u00b7 weak<.4:9 \u00b7 blocked=25 \u00b7 dis_supports_internal=2 \u00b7 dis_supports_external=5"
+  "summary": "Overall OK \u00b7 cands=91 \u00b7 evaluated=78 \u00b7 missing_ohlcv=13 \u00b7 go>=.7:34 \u00b7 weak<.4:8 \u00b7 blocked=20 \u00b7 dis_supports_internal=3 \u00b7 dis_supports_external=5"
 }
