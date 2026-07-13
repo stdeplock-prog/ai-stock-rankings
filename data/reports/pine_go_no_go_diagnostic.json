@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-13T17:02:56Z",
-  "generated_at_chicago": "2026-07-13 12:02 PM CDT",
+  "generated_at": "2026-07-13T19:14:27Z",
+  "generated_at_chicago": "2026-07-13 02:14 PM CDT",
   "overall": "OK",
   "caveat": "DAILY OHLCV ONLY: This report is a daily-bar proxy for the Pine v6 go/no-go gate stack. No true intraday VWAP, no Open Drift, no minute-bar logic. DIAGNOSTIC ONLY \u2014 rankings and scoring formulas are NOT mutated.",
   "thresholds": {
@@ -17,12 +17,12 @@
     "ma50_rise_lookback": 5
   },
   "counts": {
-    "evaluated": 79,
-    "ohlcv_missing": 12,
+    "evaluated": 78,
+    "ohlcv_missing": 13,
     "insufficient_bars": 0,
-    "blocked": 13,
-    "go_normalized_ge_07": 36,
-    "go_normalized_lt_04": 17,
+    "blocked": 12,
+    "go_normalized_ge_07": 37,
+    "go_normalized_lt_04": 16,
     "candidates": 91
   },
   "highlights": {
@@ -347,7 +347,7 @@
         ],
         "company": "Regions Financial Corporation",
         "sector": "Financial Services",
-        "ai_score": 7.8,
+        "ai_score": 8.0,
         "swing_score": 7.3,
         "swing_tier": "A",
         "evaluated": true,
@@ -399,7 +399,7 @@
         ],
         "company": "Virtu Financial",
         "sector": "Financial Services",
-        "ai_score": 8.1,
+        "ai_score": 8.2,
         "swing_score": 6.4,
         "swing_tier": "B",
         "evaluated": true,
@@ -608,7 +608,7 @@
         ],
         "company": "TechnipFMC",
         "sector": "Energy",
-        "ai_score": 7.8,
+        "ai_score": 7.7,
         "swing_score": 7.3,
         "swing_tier": "A",
         "evaluated": true,
@@ -812,61 +812,6 @@
     ],
     "weakest_main": [
       {
-        "ticker": "C",
-        "sources": [
-          "main"
-        ],
-        "company": "Citigroup",
-        "sector": "Financial Services",
-        "ai_score": 7.7,
-        "swing_score": 6.4,
-        "swing_tier": "B",
-        "days_to_earnings": 0,
-        "evaluated": true,
-        "bars": 882,
-        "gates": {
-          "trend_sma_aligned": false,
-          "above_sma20": false,
-          "above_bb_mid": false,
-          "above_sma50": true,
-          "ma50_rising": true,
-          "rsi_in_zone": false,
-          "rsi_slope_pos": false,
-          "return_20d_ok": false,
-          "rel_vol_ok": false,
-          "bar_strength": true,
-          "mfi_above_avg": false,
-          "near_20d_high": false
-        },
-        "metrics": {
-          "last_close": 140.79,
-          "sma5": 140.476,
-          "sma8": 140.305,
-          "sma13": 141.5562,
-          "sma20": 141.742,
-          "sma50": 133.1241,
-          "rsi14": 54.7865,
-          "rsi14_3bar_ago": 55.422,
-          "return_20d": 0.0556,
-          "rel_vol_20d": 0.771,
-          "mfi14": 44.8159,
-          "high_20d": 145.67,
-          "bb_upper_20": 146.3046,
-          "range_10d_pct": 0.0565
-        },
-        "blockers": [
-          "earnings_near (0d)"
-        ],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 3,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.3,
-        "accumulation_score": 1,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.2,
-        "blocker_count": 1
-      },
-      {
         "ticker": "ICE",
         "sources": [
           "main"
@@ -908,9 +853,7 @@
           "bb_upper_20": 144.1801,
           "range_10d_pct": 0.1238
         },
-        "blockers": [
-          "earnings_near (16d)"
-        ],
+        "blockers": [],
         "insufficient_data_reasons": [],
         "go_no_go_score": 3,
         "go_no_go_gates_evaluated": 10,
@@ -918,7 +861,7 @@
         "accumulation_score": 1,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.2,
-        "blocker_count": 1
+        "blocker_count": 0
       },
       {
         "ticker": "LLYVA",
@@ -1028,6 +971,58 @@
         "accumulation_score": 1,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.2,
+        "blocker_count": 0
+      },
+      {
+        "ticker": "PTC",
+        "sources": [
+          "main"
+        ],
+        "company": "PTC Inc.",
+        "sector": "Technology",
+        "ai_score": 7.8,
+        "swing_score": 5.5,
+        "swing_tier": "C",
+        "evaluated": true,
+        "bars": 882,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": false,
+          "ma50_rising": false,
+          "rsi_in_zone": false,
+          "rsi_slope_pos": false,
+          "return_20d_ok": false,
+          "rel_vol_ok": false,
+          "bar_strength": true,
+          "mfi_above_avg": true,
+          "near_20d_high": true
+        },
+        "metrics": {
+          "last_close": 124.74,
+          "sma5": 124.232,
+          "sma8": 122.3875,
+          "sma13": 118.9631,
+          "sma20": 117.9155,
+          "sma50": 131.903,
+          "rsi14": 50.9522,
+          "rsi14_3bar_ago": 51.1943,
+          "return_20d": -0.0765,
+          "rel_vol_20d": 0.486,
+          "mfi14": 48.5075,
+          "high_20d": 125.04,
+          "bb_upper_20": 127.111,
+          "range_10d_pct": 0.1265
+        },
+        "blockers": [],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 4,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.4,
+        "accumulation_score": 3,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.6,
         "blocker_count": 0
       },
       {
@@ -1508,12 +1503,12 @@
           "earnings_near (9d)"
         ],
         "insufficient_data_reasons": [],
-        "go_no_go_score": 6,
+        "go_no_go_score": 8,
         "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.6,
-        "accumulation_score": 1,
+        "go_no_go_score_normalized": 0.8,
+        "accumulation_score": 4,
         "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.2,
+        "accumulation_score_normalized": 0.8,
         "blocker_count": 1
       },
       {
@@ -1585,7 +1580,7 @@
         "evaluated": true,
         "bars": 882,
         "gates": {
-          "trend_sma_aligned": true,
+          "trend_sma_aligned": false,
           "above_sma20": true,
           "above_bb_mid": true,
           "above_sma50": true,
@@ -1594,8 +1589,8 @@
           "rsi_slope_pos": false,
           "return_20d_ok": true,
           "rel_vol_ok": false,
-          "bar_strength": false,
-          "mfi_above_avg": true,
+          "bar_strength": true,
+          "mfi_above_avg": false,
           "near_20d_high": false
         },
         "metrics": {
@@ -1645,7 +1640,7 @@
           "above_bb_mid": true,
           "above_sma50": true,
           "ma50_rising": true,
-          "rsi_in_zone": false,
+          "rsi_in_zone": true,
           "rsi_slope_pos": false,
           "return_20d_ok": true,
           "rel_vol_ok": false,
@@ -1682,68 +1677,13 @@
         "blocker_count": 1
       },
       {
-        "ticker": "C",
-        "sources": [
-          "main"
-        ],
-        "company": "Citigroup",
-        "sector": "Financial Services",
-        "ai_score": 7.7,
-        "swing_score": 6.4,
-        "swing_tier": "B",
-        "days_to_earnings": 0,
-        "evaluated": true,
-        "bars": 882,
-        "gates": {
-          "trend_sma_aligned": false,
-          "above_sma20": false,
-          "above_bb_mid": false,
-          "above_sma50": true,
-          "ma50_rising": true,
-          "rsi_in_zone": false,
-          "rsi_slope_pos": false,
-          "return_20d_ok": false,
-          "rel_vol_ok": false,
-          "bar_strength": true,
-          "mfi_above_avg": false,
-          "near_20d_high": false
-        },
-        "metrics": {
-          "last_close": 140.79,
-          "sma5": 140.476,
-          "sma8": 140.305,
-          "sma13": 141.5562,
-          "sma20": 141.742,
-          "sma50": 133.1241,
-          "rsi14": 54.7865,
-          "rsi14_3bar_ago": 55.422,
-          "return_20d": 0.0556,
-          "rel_vol_20d": 0.771,
-          "mfi14": 44.8159,
-          "high_20d": 145.67,
-          "bb_upper_20": 146.3046,
-          "range_10d_pct": 0.0565
-        },
-        "blockers": [
-          "earnings_near (0d)"
-        ],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 3,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.3,
-        "accumulation_score": 1,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.2,
-        "blocker_count": 1
-      },
-      {
         "ticker": "CFG",
         "sources": [
           "main"
         ],
         "company": "Citizens Financial Group",
         "sector": "Financial Services",
-        "ai_score": 7.9,
+        "ai_score": 8.0,
         "swing_score": 6.6,
         "swing_tier": "B",
         "days_to_earnings": 2,
@@ -1847,7 +1787,17 @@
         "blocker_count": 1
       }
     ],
-    "disagreement_supports_internal": [],
+    "disagreement_supports_internal": [
+      {
+        "ticker": "RJF",
+        "sector": "Financial Services",
+        "ai_score": 8.2,
+        "go_no_go_score_normalized": 0.7,
+        "blockers": [],
+        "action": "keep",
+        "rationale": "Pine score 0.70 >= 0.60, no blockers \u2014 internal bullish thesis confirmed by gate stack"
+      }
+    ],
     "disagreement_supports_external_caution": [
       {
         "ticker": "BWA",
@@ -1888,7 +1838,7 @@
       {
         "ticker": "QCOM",
         "sector": "Technology",
-        "ai_score": 4.4,
+        "ai_score": 4.2,
         "go_no_go_score_normalized": 0.2,
         "blockers": [],
         "action": "downgrade-watchlist-only",
@@ -1926,7 +1876,7 @@
       {
         "ticker": "MDB",
         "sector": "Technology",
-        "ai_score": 7.1,
+        "ai_score": 7.2,
         "go_no_go_score_normalized": 0.5,
         "blockers": [],
         "action": "review",
@@ -2614,61 +2564,6 @@
       }
     },
     {
-      "ticker": "C",
-      "sources": [
-        "main"
-      ],
-      "company": "Citigroup",
-      "sector": "Financial Services",
-      "ai_score": 7.7,
-      "swing_score": 6.4,
-      "swing_tier": "B",
-      "days_to_earnings": 0,
-      "evaluated": true,
-      "bars": 882,
-      "gates": {
-        "trend_sma_aligned": false,
-        "above_sma20": false,
-        "above_bb_mid": false,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": false,
-        "rsi_slope_pos": false,
-        "return_20d_ok": false,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 140.79,
-        "sma5": 140.476,
-        "sma8": 140.305,
-        "sma13": 141.5562,
-        "sma20": 141.742,
-        "sma50": 133.1241,
-        "rsi14": 54.7865,
-        "rsi14_3bar_ago": 55.422,
-        "return_20d": 0.0556,
-        "rel_vol_20d": 0.771,
-        "mfi14": 44.8159,
-        "high_20d": 145.67,
-        "bb_upper_20": 146.3046,
-        "range_10d_pct": 0.0565
-      },
-      "blockers": [
-        "earnings_near (0d)"
-      ],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 3,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.3,
-      "accumulation_score": 1,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.2,
-      "blocker_count": 1
-    },
-    {
       "ticker": "CART",
       "sources": [
         "main"
@@ -2728,7 +2623,7 @@
       ],
       "company": "Citizens Financial Group",
       "sector": "Financial Services",
-      "ai_score": 7.9,
+      "ai_score": 8.0,
       "swing_score": 6.6,
       "swing_tier": "B",
       "days_to_earnings": 2,
@@ -3155,7 +3050,7 @@
       ],
       "company": "Datadog",
       "sector": "Technology",
-      "ai_score": 7.2,
+      "ai_score": 7.3,
       "swing_score": 6.4,
       "swing_tier": "B",
       "evaluated": true,
@@ -3315,60 +3210,6 @@
       "blocker_count": 0
     },
     {
-      "ticker": "EGP",
-      "sources": [
-        "main"
-      ],
-      "company": "EastGroup Properties",
-      "sector": "Real Estate",
-      "ai_score": 7.7,
-      "swing_score": 7.3,
-      "swing_tier": "A",
-      "evaluated": true,
-      "bars": 882,
-      "gates": {
-        "trend_sma_aligned": true,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": true,
-        "rsi_slope_pos": false,
-        "return_20d_ok": false,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 209.62,
-        "sma5": 211.396,
-        "sma8": 209.5375,
-        "sma13": 207.3867,
-        "sma20": 205.1337,
-        "sma50": 202.1324,
-        "rsi14": 58.3992,
-        "rsi14_3bar_ago": 68.9508,
-        "return_20d": 0.0514,
-        "rel_vol_20d": 0.925,
-        "mfi14": 52.2864,
-        "high_20d": 214.62,
-        "bb_upper_20": 214.5489,
-        "range_10d_pct": 0.0714
-      },
-      "blockers": [
-        "earnings_near (9d)"
-      ],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 6,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.6,
-      "accumulation_score": 1,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.2,
-      "blocker_count": 0
-    },
-    {
       "ticker": "EQIX",
       "sources": [
         "disagreement"
@@ -3464,9 +3305,7 @@
         "bb_upper_20": 132.9391,
         "range_10d_pct": 0.0421
       },
-      "blockers": [
-        "earnings_near (8d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
@@ -3749,7 +3588,7 @@
       ],
       "company": "Freshworks Inc.",
       "sector": "Technology",
-      "ai_score": 7.3,
+      "ai_score": 7.2,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -3760,7 +3599,7 @@
       ],
       "company": "TechnipFMC",
       "sector": "Energy",
-      "ai_score": 7.8,
+      "ai_score": 7.7,
       "swing_score": 7.3,
       "swing_tier": "A",
       "evaluated": true,
@@ -3855,58 +3694,6 @@
       "accumulation_score": 2,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.4,
-      "blocker_count": 0
-    },
-    {
-      "ticker": "GLW",
-      "sources": [
-        "watchlist"
-      ],
-      "company": "Corning Inc.",
-      "sector": "Technology",
-      "ai_score": 6.8,
-      "swing_score": 5.9,
-      "swing_tier": "B",
-      "evaluated": true,
-      "bars": 882,
-      "gates": {
-        "trend_sma_aligned": false,
-        "above_sma20": false,
-        "above_bb_mid": false,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": false,
-        "rsi_slope_pos": true,
-        "return_20d_ok": true,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 190.89,
-        "sma5": 189.496,
-        "sma8": 202.5413,
-        "sma13": 209.6138,
-        "sma20": 201.309,
-        "sma50": 190.6975,
-        "rsi14": 47.5442,
-        "rsi14_3bar_ago": 45.5415,
-        "return_20d": 0.1351,
-        "rel_vol_20d": 0.312,
-        "mfi14": 47.4469,
-        "high_20d": 255.69,
-        "bb_upper_20": 247.9482,
-        "range_10d_pct": 0.4892
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 4,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.4,
-      "accumulation_score": 0,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.0,
       "blocker_count": 0
     },
     {
@@ -4066,167 +3853,6 @@
       "blocker_count": 0
     },
     {
-      "ticker": "GMED",
-      "sources": [
-        "watchlist"
-      ],
-      "company": "Globus Medical",
-      "sector": "Healthcare",
-      "ai_score": 7.5,
-      "swing_score": 5.6,
-      "swing_tier": "B",
-      "days_to_earnings": 24,
-      "evaluated": true,
-      "bars": 882,
-      "gates": {
-        "trend_sma_aligned": false,
-        "above_sma20": false,
-        "above_bb_mid": false,
-        "above_sma50": false,
-        "ma50_rising": false,
-        "rsi_in_zone": false,
-        "rsi_slope_pos": false,
-        "return_20d_ok": false,
-        "rel_vol_ok": false,
-        "bar_strength": true,
-        "mfi_above_avg": true,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 78.11,
-        "sma5": 78.056,
-        "sma8": 78.1713,
-        "sma13": 80.1823,
-        "sma20": 79.598,
-        "sma50": 81.1662,
-        "rsi14": 46.0482,
-        "rsi14_3bar_ago": 46.1872,
-        "return_20d": -0.034,
-        "rel_vol_20d": 0.81,
-        "mfi14": 61.6276,
-        "high_20d": 86.25,
-        "bb_upper_20": 85.2847,
-        "range_10d_pct": 0.1458
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 1,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.1,
-      "accumulation_score": 2,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.4,
-      "blocker_count": 0
-    },
-    {
-      "ticker": "GOOG",
-      "sources": [
-        "watchlist"
-      ],
-      "company": "Alphabet Inc. (Class C)",
-      "sector": "Communication Services",
-      "ai_score": 7.5,
-      "swing_score": 6.0,
-      "swing_tier": "B",
-      "days_to_earnings": 9,
-      "evaluated": true,
-      "bars": 882,
-      "gates": {
-        "trend_sma_aligned": true,
-        "above_sma20": false,
-        "above_bb_mid": false,
-        "above_sma50": false,
-        "ma50_rising": true,
-        "rsi_in_zone": false,
-        "rsi_slope_pos": false,
-        "return_20d_ok": false,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 355.03,
-        "sma5": 359.7,
-        "sma8": 358.2375,
-        "sma13": 352.7062,
-        "sma20": 355.8225,
-        "sma50": 369.8137,
-        "rsi14": 47.3519,
-        "rsi14_3bar_ago": 53.1638,
-        "return_20d": 0.0048,
-        "rel_vol_20d": 0.486,
-        "mfi14": 37.2978,
-        "high_20d": 371.1,
-        "bb_upper_20": 373.8139,
-        "range_10d_pct": 0.1048
-      },
-      "blockers": [
-        "earnings_near (9d)"
-      ],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 2,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.2,
-      "accumulation_score": 0,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.0,
-      "blocker_count": 1
-    },
-    {
-      "ticker": "GPN",
-      "sources": [
-        "main"
-      ],
-      "company": "Global Payments",
-      "sector": "Industrials",
-      "ai_score": 7.8,
-      "swing_score": 7.8,
-      "swing_tier": "A",
-      "days_to_earnings": 22,
-      "evaluated": true,
-      "bars": 882,
-      "gates": {
-        "trend_sma_aligned": true,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": true,
-        "rsi_slope_pos": false,
-        "return_20d_ok": true,
-        "rel_vol_ok": false,
-        "bar_strength": true,
-        "mfi_above_avg": true,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 76.04,
-        "sma5": 75.686,
-        "sma8": 75.5837,
-        "sma13": 72.7008,
-        "sma20": 70.6155,
-        "sma50": 70.016,
-        "rsi14": 60.3664,
-        "rsi14_3bar_ago": 67.5809,
-        "return_20d": 0.2219,
-        "rel_vol_20d": 0.591,
-        "mfi14": 68.9037,
-        "high_20d": 78.63,
-        "bb_upper_20": 79.6291,
-        "range_10d_pct": 0.1554
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 8,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.8,
-      "accumulation_score": 3,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.6,
-      "blocker_count": 0
-    },
-    {
       "ticker": "GRMN",
       "sources": [
         "main"
@@ -4285,18 +3911,7 @@
       ],
       "company": "Direxion Daily S&P Oil & Gas Ex",
       "sector": "ETF",
-      "ai_score": 7.2,
-      "evaluated": false,
-      "reason": "ohlcv missing"
-    },
-    {
-      "ticker": "GUSH",
-      "sources": [
-        "watchlist"
-      ],
-      "company": "Direxion Daily S&P Oil & Gas Ex",
-      "sector": "ETF",
-      "ai_score": 7.1,
+      "ai_score": 7.6,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -4738,7 +4353,7 @@
         "disagreement"
       ],
       "sector": "Basic Materials",
-      "ai_score": 6.3,
+      "ai_score": 6.4,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -4750,7 +4365,7 @@
       ],
       "company": "MongoDB Inc.",
       "sector": "Technology",
-      "ai_score": 7.1,
+      "ai_score": 7.2,
       "swing_score": 6.9,
       "swing_tier": "B",
       "evaluated": true,
@@ -5480,6 +5095,58 @@
       "blocker_count": 0
     },
     {
+      "ticker": "PTC",
+      "sources": [
+        "main"
+      ],
+      "company": "PTC Inc.",
+      "sector": "Technology",
+      "ai_score": 7.8,
+      "swing_score": 5.5,
+      "swing_tier": "C",
+      "evaluated": true,
+      "bars": 882,
+      "gates": {
+        "trend_sma_aligned": true,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": false,
+        "ma50_rising": false,
+        "rsi_in_zone": false,
+        "rsi_slope_pos": false,
+        "return_20d_ok": false,
+        "rel_vol_ok": false,
+        "bar_strength": true,
+        "mfi_above_avg": true,
+        "near_20d_high": true
+      },
+      "metrics": {
+        "last_close": 124.74,
+        "sma5": 124.232,
+        "sma8": 122.3875,
+        "sma13": 118.9631,
+        "sma20": 117.9155,
+        "sma50": 131.903,
+        "rsi14": 50.9522,
+        "rsi14_3bar_ago": 51.1943,
+        "return_20d": -0.0765,
+        "rel_vol_20d": 0.486,
+        "mfi14": 48.5075,
+        "high_20d": 125.04,
+        "bb_upper_20": 127.111,
+        "range_10d_pct": 0.1265
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 4,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.4,
+      "accumulation_score": 3,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.6,
+      "blocker_count": 0
+    },
+    {
       "ticker": "QBTS",
       "sources": [
         "disagreement"
@@ -5495,7 +5162,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 4.4,
+      "ai_score": 4.2,
       "evaluated": true,
       "bars": 882,
       "gates": {
@@ -5544,13 +5211,65 @@
       }
     },
     {
+      "ticker": "RBRK",
+      "sources": [
+        "main"
+      ],
+      "company": "Rubrik",
+      "sector": "Technology",
+      "ai_score": 7.7,
+      "swing_score": 5.9,
+      "swing_tier": "B",
+      "evaluated": true,
+      "bars": 553,
+      "gates": {
+        "trend_sma_aligned": true,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": true,
+        "rsi_slope_pos": false,
+        "return_20d_ok": true,
+        "rel_vol_ok": false,
+        "bar_strength": false,
+        "mfi_above_avg": true,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 84.38,
+        "sma5": 86.386,
+        "sma8": 84.7325,
+        "sma13": 80.4992,
+        "sma20": 76.7545,
+        "sma50": 70.5018,
+        "rsi14": 61.7977,
+        "rsi14_3bar_ago": 72.8675,
+        "return_20d": 0.1831,
+        "rel_vol_20d": 0.666,
+        "mfi14": 82.41,
+        "high_20d": 88.75,
+        "bb_upper_20": 90.7211,
+        "range_10d_pct": 0.2415
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 7,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.7,
+      "accumulation_score": 2,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.4,
+      "blocker_count": 0
+    },
+    {
       "ticker": "RF",
       "sources": [
         "main"
       ],
       "company": "Regions Financial Corporation",
       "sector": "Financial Services",
-      "ai_score": 7.8,
+      "ai_score": 8.0,
       "swing_score": 7.3,
       "swing_tier": "A",
       "evaluated": true,
@@ -5602,7 +5321,7 @@
       ],
       "company": "Reinsurance Group of America",
       "sector": "Financial Services",
-      "ai_score": 7.8,
+      "ai_score": 7.9,
       "swing_score": 7.0,
       "swing_tier": "B",
       "evaluated": true,
@@ -5650,11 +5369,12 @@
     {
       "ticker": "RJF",
       "sources": [
-        "main"
+        "main",
+        "disagreement"
       ],
       "company": "Raymond James Financial",
       "sector": "Financial Services",
-      "ai_score": 8.0,
+      "ai_score": 8.2,
       "swing_score": 6.8,
       "swing_tier": "B",
       "evaluated": true,
@@ -5697,7 +5417,12 @@
       "accumulation_score": 3,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.6,
-      "blocker_count": 0
+      "blocker_count": 0,
+      "disagreement": {
+        "classification": "supports_internal",
+        "action": "keep",
+        "rationale": "Pine score 0.70 >= 0.60, no blockers \u2014 internal bullish thesis confirmed by gate stack"
+      }
     },
     {
       "ticker": "RY",
@@ -5927,7 +5652,7 @@
       ],
       "company": "Snowflake Inc.",
       "sector": "Technology",
-      "ai_score": 7.0,
+      "ai_score": 6.9,
       "swing_score": 4.9,
       "swing_tier": "C",
       "evaluated": true,
@@ -6191,6 +5916,17 @@
       "blocker_count": 0
     },
     {
+      "ticker": "USO",
+      "sources": [
+        "watchlist"
+      ],
+      "company": "United States Oil Fund",
+      "sector": "ETF",
+      "ai_score": 7.3,
+      "evaluated": false,
+      "reason": "ohlcv missing"
+    },
+    {
       "ticker": "V",
       "sources": [
         "main"
@@ -6301,7 +6037,7 @@
       ],
       "company": "Venture Global, Inc.",
       "sector": "Energy",
-      "ai_score": 7.4,
+      "ai_score": 7.5,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -6311,7 +6047,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 5.8,
+      "ai_score": 5.7,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -6322,7 +6058,7 @@
       ],
       "company": "Virtu Financial",
       "sector": "Financial Services",
-      "ai_score": 8.1,
+      "ai_score": 8.2,
       "swing_score": 6.4,
       "swing_tier": "B",
       "evaluated": true,
@@ -6427,5 +6163,5 @@
     "disagreement_queue_present": true,
     "ohlcv_dir_exists": true
   },
-  "summary": "Overall OK \u00b7 cands=91 \u00b7 evaluated=79 \u00b7 missing_ohlcv=12 \u00b7 go>=.7:36 \u00b7 weak<.4:17 \u00b7 blocked=13 \u00b7 dis_supports_internal=0 \u00b7 dis_supports_external=6"
+  "summary": "Overall OK \u00b7 cands=91 \u00b7 evaluated=78 \u00b7 missing_ohlcv=13 \u00b7 go>=.7:37 \u00b7 weak<.4:16 \u00b7 blocked=12 \u00b7 dis_supports_internal=1 \u00b7 dis_supports_external=6"
 }
