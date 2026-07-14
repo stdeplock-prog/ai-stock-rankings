@@ -18,13 +18,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Data Quality Audit</h1>
-<p class="meta">Generated 2026-07-13T21:54:06Z &middot; Overall: <span class="badge">OK</span></p>
+<p class="meta">Generated 2026-07-14T16:07:40Z &middot; Overall: <span class="badge">OK</span></p>
 
 <div class="section"><h2>Rankings<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-07-13 04:53 PM CDT&quot;,
-  &quot;open_date&quot;: &quot;2026-07-13&quot;,
-  &quot;is_open_run&quot;: false,
+  &quot;as_of&quot;: &quot;2026-07-14 11:07 AM CDT&quot;,
+  &quot;open_date&quot;: &quot;2026-07-14&quot;,
+  &quot;is_open_run&quot;: true,
   &quot;universe&quot;: &quot;SP500 + NDX100 + Russell1000 (~1400 tickers)&quot;,
   &quot;row_count&quot;: 100,
   &quot;missing_market_cap&quot;: 0,
@@ -35,9 +35,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   },
   &quot;closes_short_count&quot;: 0,
   &quot;mov_distribution&quot;: {
-    &quot;positive&quot;: 32,
-    &quot;negative&quot;: 32,
-    &quot;zero&quot;: 36,
+    &quot;positive&quot;: 58,
+    &quot;negative&quot;: 37,
+    &quot;zero&quot;: 5,
     &quot;missing&quot;: 0
   },
   &quot;score_missing&quot;: {
@@ -51,12 +51,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>row_count</td><td class="OK">OK</td><td>100 rows</td></tr>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-07-13 04:53 PM CDT (age 0.0h)</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-07-14 11:07 AM CDT (age 0.0h)</td></tr>
 <tr><td>missing_market_cap</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>missing_sector</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>missing_industry</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>sparkline_short</td><td class="OK">OK</td><td>0/100 (0%) (rows with closes length &lt; 5)</td></tr>
-<tr><td>mov_distribution</td><td class="OK">OK</td><td>+32 / -32 / 0=36 / missing=0</td></tr>
+<tr><td>mov_distribution</td><td class="OK">OK</td><td>+58 / -37 / 0=5 / missing=0</td></tr>
 <tr><td>score_missing_ai_score</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>score_missing_fundamental</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
 <tr><td>score_missing_technical</td><td class="OK">OK</td><td>0/100 (0%)</td></tr>
@@ -66,45 +66,39 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </tbody></table></div>
 <div class="section"><h2>Watchlist<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;as_of&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
-  &quot;row_count&quot;: 141,
-  &quot;unavailable_count&quot;: 1,
-  &quot;unavailable_sample&quot;: [
-    {
-      &quot;input&quot;: &quot;ACHR&quot;,
-      &quot;source&quot;: &quot;tradingview&quot;,
-      &quot;reason&quot;: &quot;not in main rankings and supplemental fetch failed or disabled&quot;
-    }
-  ],
+  &quot;as_of&quot;: &quot;2026-07-14 11:07 AM CDT&quot;,
+  &quot;row_count&quot;: 142,
+  &quot;unavailable_count&quot;: 0,
+  &quot;unavailable_sample&quot;: [],
   &quot;by_source_label&quot;: {
-    &quot;tradingview&quot;: 66,
-    &quot;csv&quot;: 46,
-    &quot;both&quot;: 29
+    &quot;tradingview&quot;: 67,
+    &quot;both&quot;: 29,
+    &quot;csv&quot;: 46
   },
   &quot;by_data_source&quot;: {
     &quot;main_pipeline&quot;: 67,
-    &quot;supplemental_yfinance&quot;: 74
+    &quot;supplemental_yfinance&quot;: 75
   },
   &quot;supp_summary&quot;: {
-    &quot;total&quot;: 74,
-    &quot;full_fundamentals&quot;: 65,
+    &quot;total&quot;: 75,
+    &quot;full_fundamentals&quot;: 66,
     &quot;eodhd_enriched&quot;: 0,
     &quot;metadata_only&quot;: 0,
     &quot;price_only&quot;: 9,
     &quot;technical_only&quot;: 0,
-    &quot;unavailable&quot;: 1
+    &quot;unavailable&quot;: 0
   },
   &quot;supp_by_kind&quot;: {
-    &quot;equity&quot;: 65,
+    &quot;equity&quot;: 66,
     &quot;etf&quot;: 7,
     &quot;crypto&quot;: 2
   },
   &quot;supp_by_enrichment&quot;: {
-    &quot;yfinance_fundamentals&quot;: 65,
+    &quot;yfinance_fundamentals&quot;: 66,
     &quot;yfinance_price_only&quot;: 9
   },
   &quot;yfinance_info_cache&quot;: {
-    &quot;cache_hit_fresh&quot;: 74,
+    &quot;cache_hit_fresh&quot;: 75,
     &quot;cache_miss&quot;: 0,
     &quot;network_call&quot;: 0,
     &quot;fallback_to_cache&quot;: 0,
@@ -112,22 +106,22 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     &quot;network_success&quot;: 0
   },
   &quot;supp_info_sources&quot;: {
-    &quot;yfinance_fresh_cache&quot;: 74
+    &quot;yfinance_fresh_cache&quot;: 75
   },
   &quot;supp_metadata_stale&quot;: 0,
-  &quot;unavailable_ratio&quot;: 0.007,
-  &quot;supp_rows_inspected&quot;: 74,
+  &quot;unavailable_ratio&quot;: 0.0,
+  &quot;supp_rows_inspected&quot;: 75,
   &quot;supp_missing_market_cap&quot;: 7,
   &quot;supp_missing_sector&quot;: 0,
   &quot;supp_missing_fundamental&quot;: 9
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>watchlist_freshness</td><td class="OK">OK</td><td>as_of 2026-07-13 04:54 PM CDT (age 0.0h)</td></tr>
+<tr><td>watchlist_freshness</td><td class="OK">OK</td><td>as_of 2026-07-14 11:07 AM CDT (age 0.0h)</td></tr>
 <tr><td>yfinance_cache_fallback</td><td class="OK">OK</td><td>no cache fallbacks; live network=0</td></tr>
-<tr><td>supp_full_fundamentals</td><td class="OK">OK</td><td>65/74 (88%) full fundamentals</td></tr>
-<tr><td>unavailable_spike</td><td class="OK">OK</td><td>1/142 unavailable (1%)</td></tr>
-<tr><td>supp_missing_market_cap</td><td class="OK">OK</td><td>7/74 (9%)</td></tr>
-<tr><td>supp_missing_fundamental</td><td class="OK">OK</td><td>9/74 (12%)</td></tr>
+<tr><td>supp_full_fundamentals</td><td class="OK">OK</td><td>66/75 (88%) full fundamentals</td></tr>
+<tr><td>unavailable_spike</td><td class="OK">OK</td><td>0/142 unavailable (0%)</td></tr>
+<tr><td>supp_missing_market_cap</td><td class="OK">OK</td><td>7/75 (9%)</td></tr>
+<tr><td>supp_missing_fundamental</td><td class="OK">OK</td><td>9/75 (12%)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Tasks<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -145,23 +139,23 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;market-risk-monitor&quot;,
       &quot;name&quot;: &quot;Market Risk Monitor&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 12:02 PM CDT&quot;,
-      &quot;next_run&quot;: &quot;2026-07-14 08:45 AM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-14 11:07 AM CDT&quot;,
+      &quot;next_run&quot;: &quot;2026-07-15 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
     {
       &quot;id&quot;: &quot;options-earnings-watchlist&quot;,
       &quot;name&quot;: &quot;Options &amp; Earnings Watchlist&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 12:02 PM CDT&quot;,
-      &quot;next_run&quot;: &quot;2026-07-14 08:45 AM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-14 11:07 AM CDT&quot;,
+      &quot;next_run&quot;: &quot;2026-07-15 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
     {
       &quot;id&quot;: &quot;benchmark-review&quot;,
       &quot;name&quot;: &quot;Benchmark Review&quot;,
       &quot;status&quot;: &quot;warn&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:53 PM CDT&quot;,
       &quot;next_run&quot;: &quot;\u2014&quot;,
       &quot;has_report&quot;: true
     },
@@ -169,7 +163,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;schedule-reliability&quot;,
       &quot;name&quot;: &quot;Schedule Reliability&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;\u2014&quot;,
       &quot;has_report&quot;: true
     },
@@ -177,7 +171,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;market-open-scan&quot;,
       &quot;name&quot;: &quot;Market Open Scan&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;\u2014&quot;,
       &quot;has_report&quot;: true
     },
@@ -185,7 +179,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;midday-health-check&quot;,
       &quot;name&quot;: &quot;Midday Health Check&quot;,
       &quot;status&quot;: &quot;warn&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;\u2014&quot;,
       &quot;has_report&quot;: true
     },
@@ -193,7 +187,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;ranking-diagnostics&quot;,
       &quot;name&quot;: &quot;Ranking Diagnostics&quot;,
       &quot;status&quot;: &quot;fail&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-07-14 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -201,7 +195,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;close-recap&quot;,
       &quot;name&quot;: &quot;Close Recap&quot;,
       &quot;status&quot;: &quot;warn&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;\u2014&quot;,
       &quot;has_report&quot;: true
     },
@@ -209,7 +203,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;weekly-rebalance&quot;,
       &quot;name&quot;: &quot;Weekly Rebalance Check&quot;,
       &quot;status&quot;: &quot;warn&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;\u2014&quot;,
       &quot;has_report&quot;: true
     },
@@ -217,7 +211,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;external-benchmark-review&quot;,
       &quot;name&quot;: &quot;External Benchmark Review&quot;,
       &quot;status&quot;: &quot;warn&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-07-14 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -225,7 +219,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;pine-go-no-go&quot;,
       &quot;name&quot;: &quot;Pine Go/No-Go Diagnostic&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-07-14 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -233,7 +227,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;cooloff-cohort-tracking&quot;,
       &quot;name&quot;: &quot;Cool-off Cohort Tracking&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-07-14 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -241,7 +235,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;disagreement-queue-review&quot;,
       &quot;name&quot;: &quot;Disagreement Queue Review&quot;,
       &quot;status&quot;: &quot;warn&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-07-14 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -249,7 +243,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;activity-adjusted-review&quot;,
       &quot;name&quot;: &quot;Activity-Adjusted Review&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-07-14 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -257,7 +251,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;accumulation-signal-meter&quot;,
       &quot;name&quot;: &quot;Accumulation Signal Meter&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;2026-07-14 08:45 AM CDT&quot;,
       &quot;has_report&quot;: true
     },
@@ -265,7 +259,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;rank-close-tracker&quot;,
       &quot;name&quot;: &quot;Rank vs Close Tracker&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;\u2014&quot;,
       &quot;has_report&quot;: true
     },
@@ -273,7 +267,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;continuity-score&quot;,
       &quot;name&quot;: &quot;Continuity Score (Diagnostic)&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;\u2014&quot;,
       &quot;has_report&quot;: true
     },
@@ -281,7 +275,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;id&quot;: &quot;swing-2-5d-score&quot;,
       &quot;name&quot;: &quot;Swing 2-5D Score (Diagnostic)&quot;,
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;last_run&quot;: &quot;2026-07-13 02:37 PM CDT&quot;,
+      &quot;last_run&quot;: &quot;2026-07-13 04:54 PM CDT&quot;,
       &quot;next_run&quot;: &quot;\u2014&quot;,
       &quot;has_report&quot;: true
     }
