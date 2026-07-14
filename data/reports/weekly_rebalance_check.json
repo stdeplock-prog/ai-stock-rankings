@@ -17,7 +17,7 @@
         "open_date": "2026-07-14",
         "row_count": 100,
         "is_weekend": false,
-        "rankings_age_hours": 0.01
+        "rankings_age_hours": 0.02
       },
       "status": "OK"
     },
@@ -55,11 +55,6 @@
           "name": "main_sector_concentration",
           "status": "WARN",
           "message": "main_top25 dominated by Financial Services 16/25 (64%)"
-        },
-        {
-          "name": "watchlist_sector_concentration",
-          "status": "WARN",
-          "message": "watchlist_top25 dominated by Technology 10/25 (40%)"
         }
       ],
       "metrics": {
@@ -557,13 +552,26 @@
             "sector": "Energy",
             "change": 0,
             "fundamental": 8.2,
-            "technical": 7.9,
+            "technical": 7.8,
             "sentiment": null,
             "low_risk": null,
             "data_source": "supplemental_yfinance"
           },
           {
             "rank": 13,
+            "ticker": "GUSH",
+            "company": "Direxion Daily S&P Oil & Gas Ex",
+            "ai_score": 7.2,
+            "sector": "ETF",
+            "change": 0,
+            "fundamental": null,
+            "technical": 7.2,
+            "sentiment": null,
+            "low_risk": null,
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 14,
             "ticker": "DAL",
             "company": "Delta Air Lines",
             "ai_score": 7.1,
@@ -680,7 +688,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 22,
+            "rank": 21,
             "ticker": "AME",
             "company": "Ametek",
             "ai_score": 6.9,
@@ -693,9 +701,9 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 23,
-            "ticker": "AVGO",
-            "company": "Broadcom",
+            "rank": 22,
+            "ticker": "FRSH",
+            "company": "Freshworks Inc.",
             "ai_score": 6.9,
             "sector": "Technology",
             "change": 0,
@@ -706,7 +714,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 24,
+            "rank": 23,
             "ticker": "PAAS",
             "company": "Pan American Silver Corp.",
             "ai_score": 6.9,
@@ -719,7 +727,7 @@
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 25,
+            "rank": 24,
             "ticker": "RDDT",
             "company": "Reddit",
             "ai_score": 6.9,
@@ -730,18 +738,31 @@
             "sentiment": 8.7,
             "low_risk": 3.5,
             "data_source": "main_pipeline"
+          },
+          {
+            "rank": 25,
+            "ticker": "VEEV",
+            "company": "Veeva Systems",
+            "ai_score": 6.9,
+            "sector": "Healthcare",
+            "change": 0,
+            "fundamental": 7.5,
+            "technical": 5.5,
+            "sentiment": 9.4,
+            "low_risk": 6.1,
+            "data_source": "main_pipeline"
           }
         ],
         "watchlist_sector_concentration": {
           "top_sector": "Technology",
-          "top_count": 10,
+          "top_count": 9,
           "of": 25,
-          "pct": 0.4,
-          "warn": true,
+          "pct": 0.36,
+          "warn": false,
           "by_sector": {
-            "Technology": 10,
+            "Technology": 9,
             "Communication Services": 4,
-            "Healthcare": 3,
+            "Healthcare": 4,
             "ETF": 2,
             "Industrials": 2,
             "Consumer Cyclical": 1,
@@ -785,7 +806,7 @@
             "sector": "Energy",
             "change": 0,
             "fundamental": 8.2,
-            "technical": 7.9,
+            "technical": 7.8,
             "sentiment": null,
             "low_risk": null,
             "data_source": "supplemental_yfinance"
@@ -807,7 +828,7 @@
             "rank": 20,
             "ticker": "FRSH",
             "company": "Freshworks Inc.",
-            "ai_score": 7.0,
+            "ai_score": 6.9,
             "sector": "Technology",
             "change": 0,
             "fundamental": 7.65,
@@ -908,7 +929,7 @@
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 42,
+            "rank": 43,
             "ticker": "VISN",
             "company": "Vistance Networks, Inc.",
             "ai_score": 6.4,
@@ -918,19 +939,6 @@
             "technical": 4.5,
             "sentiment": null,
             "low_risk": 5.38,
-            "data_source": "supplemental_yfinance"
-          },
-          {
-            "rank": 43,
-            "ticker": "DVLT",
-            "company": "Datavault AI Inc.",
-            "ai_score": 6.3,
-            "sector": "Technology",
-            "change": 0,
-            "fundamental": 6.75,
-            "technical": 5.8,
-            "sentiment": null,
-            "low_risk": 6.7,
             "data_source": "supplemental_yfinance"
           },
           {
@@ -1280,8 +1288,8 @@
               {
                 "ticker": "FRSH",
                 "prior": 7.2,
-                "current": 7.0,
-                "delta": -0.2
+                "current": 6.9,
+                "delta": -0.3
               },
               {
                 "ticker": "RY",
@@ -1699,7 +1707,6 @@
   },
   "action_items": [
     "[WARN] leaderboards.main_sector_concentration: main_top25 dominated by Financial Services 16/25 (64%)",
-    "[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 10/25 (40%)",
     "[WARN] benchmark_context.lagging_buckets: 5 bucket/horizon pairs with negative avg_mean_return",
     "[WARN] diagnostics.suspicious_ranks: 5 suspicious top rank(s) flagged",
     "[INFO] main_top10 new entries: NU, META, NDAQ, INCY, FAF",

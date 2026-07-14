@@ -28,7 +28,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 
 <div class="section"><h2>Action Items</h2><ul class="action">
 <li>[WARN] leaderboards.main_sector_concentration: main_top25 dominated by Financial Services 16/25 (64%)</li>
-<li>[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 10/25 (40%)</li>
 <li>[WARN] benchmark_context.lagging_buckets: 5 bucket/horizon pairs with negative avg_mean_return</li>
 <li>[WARN] diagnostics.suspicious_ranks: 5 suspicious top rank(s) flagged</li>
 <li>[INFO] main_top10 new entries: NU, META, NDAQ, INCY, FAF</li>
@@ -218,7 +217,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;open_date&quot;: &quot;2026-07-14&quot;,
   &quot;row_count&quot;: 100,
   &quot;is_weekend&quot;: false,
-  &quot;rankings_age_hours&quot;: 0.01
+  &quot;rankings_age_hours&quot;: 0.02
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-07-14 02:20 PM CDT (age 0.0h, weekend=False)</td></tr>
@@ -735,13 +734,26 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;sector&quot;: &quot;Energy&quot;,
       &quot;change&quot;: 0,
       &quot;fundamental&quot;: 8.2,
-      &quot;technical&quot;: 7.9,
+      &quot;technical&quot;: 7.8,
       &quot;sentiment&quot;: null,
       &quot;low_risk&quot;: null,
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
       &quot;rank&quot;: 13,
+      &quot;ticker&quot;: &quot;GUSH&quot;,
+      &quot;company&quot;: &quot;Direxion Daily S&amp;P Oil &amp; Gas Ex&quot;,
+      &quot;ai_score&quot;: 7.2,
+      &quot;sector&quot;: &quot;ETF&quot;,
+      &quot;change&quot;: 0,
+      &quot;fundamental&quot;: null,
+      &quot;technical&quot;: 7.2,
+      &quot;sentiment&quot;: null,
+      &quot;low_risk&quot;: null,
+      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
+    },
+    {
+      &quot;rank&quot;: 14,
       &quot;ticker&quot;: &quot;DAL&quot;,
       &quot;company&quot;: &quot;Delta Air Lines&quot;,
       &quot;ai_score&quot;: 7.1,
@@ -858,7 +870,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
-      &quot;rank&quot;: 22,
+      &quot;rank&quot;: 21,
       &quot;ticker&quot;: &quot;AME&quot;,
       &quot;company&quot;: &quot;Ametek&quot;,
       &quot;ai_score&quot;: 6.9,
@@ -871,9 +883,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
-      &quot;rank&quot;: 23,
-      &quot;ticker&quot;: &quot;AVGO&quot;,
-      &quot;company&quot;: &quot;Broadcom&quot;,
+      &quot;rank&quot;: 22,
+      &quot;ticker&quot;: &quot;FRSH&quot;,
+      &quot;company&quot;: &quot;Freshworks Inc.&quot;,
       &quot;ai_score&quot;: 6.9,
       &quot;sector&quot;: &quot;Technology&quot;,
       &quot;change&quot;: 0,
@@ -884,7 +896,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
-      &quot;rank&quot;: 24,
+      &quot;rank&quot;: 23,
       &quot;ticker&quot;: &quot;PAAS&quot;,
       &quot;company&quot;: &quot;Pan American Silver Corp.&quot;,
       &quot;ai_score&quot;: 6.9,
@@ -897,7 +909,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
-      &quot;rank&quot;: 25,
+      &quot;rank&quot;: 24,
       &quot;ticker&quot;: &quot;RDDT&quot;,
       &quot;company&quot;: &quot;Reddit&quot;,
       &quot;ai_score&quot;: 6.9,
@@ -908,18 +920,31 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;sentiment&quot;: 8.7,
       &quot;low_risk&quot;: 3.5,
       &quot;data_source&quot;: &quot;main_pipeline&quot;
+    },
+    {
+      &quot;rank&quot;: 25,
+      &quot;ticker&quot;: &quot;VEEV&quot;,
+      &quot;company&quot;: &quot;Veeva Systems&quot;,
+      &quot;ai_score&quot;: 6.9,
+      &quot;sector&quot;: &quot;Healthcare&quot;,
+      &quot;change&quot;: 0,
+      &quot;fundamental&quot;: 7.5,
+      &quot;technical&quot;: 5.5,
+      &quot;sentiment&quot;: 9.4,
+      &quot;low_risk&quot;: 6.1,
+      &quot;data_source&quot;: &quot;main_pipeline&quot;
     }
   ],
   &quot;watchlist_sector_concentration&quot;: {
     &quot;top_sector&quot;: &quot;Technology&quot;,
-    &quot;top_count&quot;: 10,
+    &quot;top_count&quot;: 9,
     &quot;of&quot;: 25,
-    &quot;pct&quot;: 0.4,
-    &quot;warn&quot;: true,
+    &quot;pct&quot;: 0.36,
+    &quot;warn&quot;: false,
     &quot;by_sector&quot;: {
-      &quot;Technology&quot;: 10,
+      &quot;Technology&quot;: 9,
       &quot;Communication Services&quot;: 4,
-      &quot;Healthcare&quot;: 3,
+      &quot;Healthcare&quot;: 4,
       &quot;ETF&quot;: 2,
       &quot;Industrials&quot;: 2,
       &quot;Consumer Cyclical&quot;: 1,
@@ -963,7 +988,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;sector&quot;: &quot;Energy&quot;,
       &quot;change&quot;: 0,
       &quot;fundamental&quot;: 8.2,
-      &quot;technical&quot;: 7.9,
+      &quot;technical&quot;: 7.8,
       &quot;sentiment&quot;: null,
       &quot;low_risk&quot;: null,
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
@@ -985,7 +1010,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;rank&quot;: 20,
       &quot;ticker&quot;: &quot;FRSH&quot;,
       &quot;company&quot;: &quot;Freshworks Inc.&quot;,
-      &quot;ai_score&quot;: 7.0,
+      &quot;ai_score&quot;: 6.9,
       &quot;sector&quot;: &quot;Technology&quot;,
       &quot;change&quot;: 0,
       &quot;fundamental&quot;: 7.65,
@@ -1086,7 +1111,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
-      &quot;rank&quot;: 42,
+      &quot;rank&quot;: 43,
       &quot;ticker&quot;: &quot;VISN&quot;,
       &quot;company&quot;: &quot;Vistance Networks, Inc.&quot;,
       &quot;ai_score&quot;: 6.4,
@@ -1096,19 +1121,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;technical&quot;: 4.5,
       &quot;sentiment&quot;: null,
       &quot;low_risk&quot;: 5.38,
-      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
-    },
-    {
-      &quot;rank&quot;: 43,
-      &quot;ticker&quot;: &quot;DVLT&quot;,
-      &quot;company&quot;: &quot;Datavault AI Inc.&quot;,
-      &quot;ai_score&quot;: 6.3,
-      &quot;sector&quot;: &quot;Technology&quot;,
-      &quot;change&quot;: 0,
-      &quot;fundamental&quot;: 6.75,
-      &quot;technical&quot;: 5.8,
-      &quot;sentiment&quot;: null,
-      &quot;low_risk&quot;: 6.7,
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
@@ -1258,7 +1270,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>main_sector_concentration</td><td class="WARN">WARN</td><td>main_top25 dominated by Financial Services 16/25 (64%)</td></tr>
-<tr><td>watchlist_sector_concentration</td><td class="WARN">WARN</td><td>watchlist_top25 dominated by Technology 10/25 (40%)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Change Review<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -1453,8 +1464,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
         {
           &quot;ticker&quot;: &quot;FRSH&quot;,
           &quot;prior&quot;: 7.2,
-          &quot;current&quot;: 7.0,
-          &quot;delta&quot;: -0.2
+          &quot;current&quot;: 6.9,
+          &quot;delta&quot;: -0.3
         },
         {
           &quot;ticker&quot;: &quot;RY&quot;,
