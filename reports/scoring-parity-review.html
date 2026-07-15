@@ -32,7 +32,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <td class="num">100/100 (100%)</td>
 <td class="num">100/100 (100%)</td>
 <td class="num">100/100 (100%)</td>
-<td class="num">100/100 (100%)</td>
+<td class="num">86/100 (86%)</td>
 </tr>
 <tr><td>watchlist_main_pipeline</td><td class="num">68</td>
 <td class="num">68/68 (100%)</td>
@@ -52,16 +52,16 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </tr>
 </tbody></table></div>
 <div class="section"><h2>Per-group verdicts</h2>
-<h3>main_rankings <span class="OK">OK</span></h3>
+<h3>main_rankings <span class="WARN">WARN</span></h3>
 <table><thead><tr><th>Score</th><th>Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>ai_score</td><td class="OK">OK</td><td>100/100 present (100%)</td></tr>
 <tr><td>fundamental</td><td class="OK">OK</td><td>100/100 present (100%)</td></tr>
 <tr><td>technical</td><td class="OK">OK</td><td>100/100 present (100%)</td></tr>
 <tr><td>sentiment</td><td class="OK">OK</td><td>100/100 present (100%)</td></tr>
 <tr><td>low_risk</td><td class="OK">OK</td><td>100/100 present (100%)</td></tr>
-<tr><td>swing_score</td><td class="OK">OK</td><td>100/100 present (100%)</td></tr>
+<tr><td>swing_score</td><td class="WARN">WARN</td><td>86/100 present (86%)</td></tr>
 </tbody></table>
-<h3>watchlist_main_pipeline <span class="OK">OK</span></h3>
+<h3>watchlist_main_pipeline <span class="FAIL">FAIL</span></h3>
 <table><thead><tr><th>Score</th><th>Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>ai_score</td><td class="OK">OK</td><td>68/68 present (100%)</td></tr>
 <tr><td>fundamental</td><td class="OK">OK</td><td>68/68 present (100%)</td></tr>
@@ -241,13 +241,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     &quot;values&quot;: {
       &quot;equity&quot;: 65,
       &quot;etf&quot;: 7,
-      &quot;crypto&quot;: 2
+      &quot;crypto&quot;: 1
     },
     &quot;field_absent_rows&quot;: 0
   }
 }</pre></div>
 </div>
-<div class="section"><h2>Top SUPP rows: technical-only or missing fundamentals (showing 9)</h2>
+<div class="section"><h2>Top SUPP rows: technical-only or missing fundamentals (showing 8)</h2>
 <table><thead><tr><th>Ticker</th><th>Company</th><th class="num">AI</th><th>Basis</th><th class="num">Fund</th><th class="num">Tech</th><th class="num">Sent</th><th class="num">Risk</th><th>Source</th><th>EODHD</th><th>Deferred</th><th>Kind</th></tr></thead><tbody>
 <tr><td>USO</td><td>United States Oil Fund</td><td class="num">7.0</td><td>supp_technical_only</td><td class="num">—</td><td class="num">7.0</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
 <tr><td>GUSH</td><td>Direxion Daily S&amp;P Oil &amp; Gas Ex</td><td class="num">6.1</td><td>supp_technical_only</td><td class="num">—</td><td class="num">6.1</td><td class="num">—</td><td class="num">—</td><td>supplemental_yfinance</td><td>False</td><td>False</td><td>etf</td></tr>
@@ -264,5 +264,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <li>EODHD fundamentals on SUPP rows is 0 — confirm `EODHD_API_KEY` secret is populated in CI before treating SUPP fundamentals as live.</li>
 <li>Investigate score drift between main_rankings and watchlist_main_pipeline on `technical` (mean delta -1.90). Same scoring engine should produce near-identical means; gap suggests universe mix or weight drift.</li>
 <li>low_risk drift between main_rankings and watchlist_main_pipeline is a known selection-bias finding (watchlist universe is more speculative / higher-volatility). Surfaced as WARN, not FAIL — no action required on the scoring formula.</li>
+<li>Main/watchlist-main coverage has FAIL components — fix before tuning weights; partial coverage skews any optimization.</li>
 </ol></div>
 </body></html>

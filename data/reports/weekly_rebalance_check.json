@@ -25,15 +25,15 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; rankings=OK, tasks=OK"
+          "status": "WARN",
+          "message": "overall=WARN; rankings=WARN, tasks=OK"
         }
       ],
       "metrics": {
-        "overall": "OK",
+        "overall": "WARN",
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "schedule": {
       "checks": [
@@ -222,9 +222,9 @@
           },
           {
             "rank": 13,
-            "ticker": "AFL",
-            "company": "Aflac",
-            "ai_score": 8.1,
+            "ticker": "ALLY",
+            "company": "Ally Financial",
+            "ai_score": 7.7,
             "sector": "Financial Services",
             "change": 0,
             "fundamental": 8.8,
@@ -1072,7 +1072,7 @@
             "fundamental": 6.32,
             "technical": 4.3,
             "sentiment": null,
-            "low_risk": 3.45,
+            "low_risk": 9.4,
             "data_source": "supplemental_yfinance"
           }
         ]
@@ -1185,9 +1185,27 @@
               },
               {
                 "ticker": "RY",
-                "rank": 10,
+                "rank": 5,
                 "ai_score": 7.4,
                 "sector": "Financial Services"
+              },
+              {
+                "ticker": "VEEV",
+                "rank": 8,
+                "ai_score": 7.1,
+                "sector": "Healthcare"
+              },
+              {
+                "ticker": "DDOG",
+                "rank": 9,
+                "ai_score": 7.0,
+                "sector": "Technology"
+              },
+              {
+                "ticker": "FRSH",
+                "rank": 10,
+                "ai_score": 7.0,
+                "sector": "Technology"
               }
             ],
             "exited": [
@@ -1196,6 +1214,12 @@
               "SNOW"
             ],
             "score_changes": [
+              {
+                "ticker": "META",
+                "prior": 8.1,
+                "current": 8.3,
+                "delta": 0.2
+              },
               {
                 "ticker": "META",
                 "prior": 8.1,
@@ -1457,7 +1481,7 @@
           {
             "horizon": "3d",
             "bucket": "main_top10",
-            "mean_return": 0.0041
+            "mean_return": 0.0039
           },
           {
             "horizon": "3d",
@@ -1538,7 +1562,23 @@
             ]
           },
           {
-            "ticker": "RY",
+            "ticker": "SNOW",
+            "group": "watchlist_top10",
+            "rank": 7,
+            "reasons": [
+              "weak LOW_RISK (5.0)"
+            ]
+          },
+          {
+            "ticker": "DDOG",
+            "group": "watchlist_top10",
+            "rank": 9,
+            "reasons": [
+              "weak LOW_RISK (4.6)"
+            ]
+          },
+          {
+            "ticker": "FRSH",
             "group": "watchlist_top10",
             "rank": 10,
             "reasons": [
@@ -1649,6 +1689,22 @@
       },
       {
         "ticker": "RY",
+        "reason": "diagnostics flagged (watchlist_top10 #5): missing SENT; missing SWING"
+      },
+      {
+        "ticker": "GMED",
+        "reason": "diagnostics flagged (watchlist_top10 #6): weak TECH (4.4); weak SWING (4.4); negative MOV (-4.0%)"
+      },
+      {
+        "ticker": "SNOW",
+        "reason": "diagnostics flagged (watchlist_top10 #7): weak LOW_RISK (5.0)"
+      },
+      {
+        "ticker": "DDOG",
+        "reason": "diagnostics flagged (watchlist_top10 #9): weak LOW_RISK (4.6)"
+      },
+      {
+        "ticker": "FRSH",
         "reason": "diagnostics flagged (watchlist_top10 #10): missing SENT; missing SWING"
       }
     ],

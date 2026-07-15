@@ -15,23 +15,6 @@
       "as_of_date": "2026-05-07",
       "seed_total": 30,
       "covered": 28,
-      "covered_and_internal": 19,
-      "covered_but_not_internal": [
-        "ADI",
-        "CACC",
-        "DVA",
-        "ECG",
-        "FSLR",
-        "HST",
-        "LLYVA",
-        "LYV",
-        "MLI"
-      ]
-    },
-    "fidelity": {
-      "as_of_date": "2026-05-07",
-      "seed_total": 30,
-      "covered": 26,
       "covered_and_internal": 18,
       "covered_but_not_internal": [
         "ADI",
@@ -41,7 +24,25 @@
         "FSLR",
         "HST",
         "LYV",
-        "MLI"
+        "MLI",
+        "RJF"
+      ]
+    },
+    "fidelity": {
+      "as_of_date": "2026-05-07",
+      "seed_total": 30,
+      "covered": 26,
+      "covered_and_internal": 16,
+      "covered_but_not_internal": [
+        "ADI",
+        "CACC",
+        "DVA",
+        "ECG",
+        "FSLR",
+        "HST",
+        "LYV",
+        "MLI",
+        "RJF"
       ]
     },
     "marketbeat": {
@@ -56,32 +57,15 @@
         "ECG",
         "FSLR",
         "HST",
-        "LLYVA",
         "LYV",
-        "MLI"
+        "MLI",
+        "RJF"
       ]
     },
     "tradingview": {
       "as_of_date": "2026-05-07",
       "seed_total": 30,
       "covered": 29,
-      "covered_and_internal": 20,
-      "covered_but_not_internal": [
-        "ADI",
-        "CACC",
-        "DVA",
-        "ECG",
-        "FSLR",
-        "HST",
-        "LLYVA",
-        "LYV",
-        "MLI"
-      ]
-    },
-    "zacks": {
-      "as_of_date": "2026-05-07",
-      "seed_total": 30,
-      "covered": 27,
       "covered_and_internal": 19,
       "covered_but_not_internal": [
         "ADI",
@@ -90,8 +74,25 @@
         "ECG",
         "FSLR",
         "HST",
-        "LLYVA",
-        "LYV"
+        "LYV",
+        "MLI",
+        "RJF"
+      ]
+    },
+    "zacks": {
+      "as_of_date": "2026-05-07",
+      "seed_total": 30,
+      "covered": 27,
+      "covered_and_internal": 18,
+      "covered_but_not_internal": [
+        "ADI",
+        "CACC",
+        "DVA",
+        "ECG",
+        "FSLR",
+        "HST",
+        "LYV",
+        "RJF"
       ]
     }
   },
@@ -816,7 +817,7 @@
           "primary_internal_field": "ai_score",
           "gap": -1.0,
           "severity": "moderate",
-          "direction_agrees": false
+          "direction_agrees": true
         },
         {
           "source": "etrade",
@@ -826,7 +827,7 @@
           "primary_internal_field": "ai_score",
           "gap": 0.45,
           "severity": "moderate",
-          "direction_agrees": true
+          "direction_agrees": false
         },
         {
           "source": "zacks",
@@ -908,6 +909,16 @@
           "gap": 1.2,
           "severity": "moderate",
           "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 3.55,
+          "primary_internal_field": "sentiment",
+          "gap": 0.45,
+          "severity": "moderate",
+          "direction_agrees": true
         }
       ],
       "marketbeat_target": null,
@@ -1237,7 +1248,7 @@
           "primary_internal_field": "technical",
           "gap": 0.25,
           "severity": "moderate",
-          "direction_agrees": true
+          "direction_agrees": false
         }
       ],
       "marketbeat_target": null,

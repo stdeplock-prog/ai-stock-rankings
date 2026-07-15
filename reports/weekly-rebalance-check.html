@@ -221,13 +221,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-07-15 11:14 AM CDT (age 0.0h, weekend=False)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
+<div class="section"><h2>Data Quality<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;overall&quot;: &quot;OK&quot;,
+  &quot;overall&quot;: &quot;WARN&quot;,
   &quot;critical_section_fail&quot;: false
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>data_quality_overall</td><td class="OK">OK</td><td>overall=OK; rankings=OK, tasks=OK</td></tr>
+<tr><td>data_quality_overall</td><td class="WARN">WARN</td><td>overall=WARN; rankings=WARN, tasks=OK</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Schedule<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -398,9 +398,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     },
     {
       &quot;rank&quot;: 13,
-      &quot;ticker&quot;: &quot;AFL&quot;,
-      &quot;company&quot;: &quot;Aflac&quot;,
-      &quot;ai_score&quot;: 8.1,
+      &quot;ticker&quot;: &quot;ALLY&quot;,
+      &quot;company&quot;: &quot;Ally Financial&quot;,
+      &quot;ai_score&quot;: 7.7,
       &quot;sector&quot;: &quot;Financial Services&quot;,
       &quot;change&quot;: 0,
       &quot;fundamental&quot;: 8.8,
@@ -1248,7 +1248,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;fundamental&quot;: 6.32,
       &quot;technical&quot;: 4.3,
       &quot;sentiment&quot;: null,
-      &quot;low_risk&quot;: 3.45,
+      &quot;low_risk&quot;: 9.4,
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     }
   ]
@@ -1356,9 +1356,27 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
         },
         {
           &quot;ticker&quot;: &quot;RY&quot;,
-          &quot;rank&quot;: 10,
+          &quot;rank&quot;: 5,
           &quot;ai_score&quot;: 7.4,
           &quot;sector&quot;: &quot;Financial Services&quot;
+        },
+        {
+          &quot;ticker&quot;: &quot;VEEV&quot;,
+          &quot;rank&quot;: 8,
+          &quot;ai_score&quot;: 7.1,
+          &quot;sector&quot;: &quot;Healthcare&quot;
+        },
+        {
+          &quot;ticker&quot;: &quot;DDOG&quot;,
+          &quot;rank&quot;: 9,
+          &quot;ai_score&quot;: 7.0,
+          &quot;sector&quot;: &quot;Technology&quot;
+        },
+        {
+          &quot;ticker&quot;: &quot;FRSH&quot;,
+          &quot;rank&quot;: 10,
+          &quot;ai_score&quot;: 7.0,
+          &quot;sector&quot;: &quot;Technology&quot;
         }
       ],
       &quot;exited&quot;: [
@@ -1367,6 +1385,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
         &quot;SNOW&quot;
       ],
       &quot;score_changes&quot;: [
+        {
+          &quot;ticker&quot;: &quot;META&quot;,
+          &quot;prior&quot;: 8.1,
+          &quot;current&quot;: 8.3,
+          &quot;delta&quot;: 0.2
+        },
         {
           &quot;ticker&quot;: &quot;META&quot;,
           &quot;prior&quot;: 8.1,
@@ -1622,7 +1646,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     {
       &quot;horizon&quot;: &quot;3d&quot;,
       &quot;bucket&quot;: &quot;main_top10&quot;,
-      &quot;mean_return&quot;: 0.0041
+      &quot;mean_return&quot;: 0.0039
     },
     {
       &quot;horizon&quot;: &quot;3d&quot;,
@@ -1697,7 +1721,23 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       ]
     },
     {
-      &quot;ticker&quot;: &quot;RY&quot;,
+      &quot;ticker&quot;: &quot;SNOW&quot;,
+      &quot;group&quot;: &quot;watchlist_top10&quot;,
+      &quot;rank&quot;: 7,
+      &quot;reasons&quot;: [
+        &quot;weak LOW_RISK (5.0)&quot;
+      ]
+    },
+    {
+      &quot;ticker&quot;: &quot;DDOG&quot;,
+      &quot;group&quot;: &quot;watchlist_top10&quot;,
+      &quot;rank&quot;: 9,
+      &quot;reasons&quot;: [
+        &quot;weak LOW_RISK (4.6)&quot;
+      ]
+    },
+    {
+      &quot;ticker&quot;: &quot;FRSH&quot;,
       &quot;group&quot;: &quot;watchlist_top10&quot;,
       &quot;rank&quot;: 10,
       &quot;reasons&quot;: [

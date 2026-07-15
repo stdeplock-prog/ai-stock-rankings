@@ -26,6 +26,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="summary"><strong>Recap:</strong> Live 11:14 AM CT · Source scheduled · DQ OK · ↑GS ↓NYT · 3 new top10 (BAC…) · Risk OK</div>
 
 <div class="section"><h2>Action Items</h2>
+<h3>Operational</h3><ul class="action">
+<li>[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK</li>
+</ul>
 <h3>Market &amp; Rankings</h3><ul class="action">
 <li>[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (7/10 = 70%)</li>
 <li>[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 4 suspicious top rank(s)</li>
@@ -34,7 +37,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <li>[INFO] Top MOV gainer GS (change=332, rank=3)</li>
 </ul>
 </div>
-<div class="section"><h2>Risk Monitor <span class="OK">OK</span></h2><p class="kv">Generals Fail: <strong>2/7</strong> below 200DMA (threshold 3); below: MSFT, TSLA · pending: polls, adr, ndr.</p></div>
+<div class="section"><h2>Risk Monitor <span class="OK">OK</span></h2><p class="kv">Generals Fail: <strong>2/7</strong> below 200DMA (threshold 3); below: MSFT, TSLA · pending: polls, adr, vix, ndr.</p></div>
 <div class="section"><h2>Main Rankings <span class="OK">RECAP</span></h2>
 <p class='kv'><strong>New top10 vs 2026-07-14:</strong> BAC, GS, MS</p>
 <p class='kv'><strong>Exited top10 since 2026-07-14:</strong> FR, INCY, NDAQ</p>
@@ -132,20 +135,20 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>run_source</td><td class="OK">OK</td><td>latest run: scheduled (2026-07-15 11:15)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
+<div class="section"><h2>Data Quality<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;overall&quot;: &quot;OK&quot;,
+  &quot;overall&quot;: &quot;WARN&quot;,
   &quot;by_section&quot;: {
-    &quot;rankings&quot;: &quot;OK&quot;,
+    &quot;rankings&quot;: &quot;WARN&quot;,
     &quot;watchlist&quot;: &quot;OK&quot;,
     &quot;tasks&quot;: &quot;OK&quot;
   },
   &quot;critical_section_fail&quot;: false
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>data_quality_overall</td><td class="OK">OK</td><td>overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK</td></tr>
+<tr><td>data_quality_overall</td><td class="WARN">WARN</td><td>overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Rankings Recap<span class="WARN">WARN</span></h2>
+<div class="section"><h2>Rankings Recap<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;top_10&quot;: [
     {
@@ -195,6 +198,46 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;ai_score&quot;: 8.3,
       &quot;change&quot;: -2,
       &quot;sector&quot;: &quot;Communication Services&quot;
+    },
+    {
+      &quot;rank&quot;: 2,
+      &quot;ticker&quot;: &quot;META&quot;,
+      &quot;company&quot;: &quot;Meta Platforms&quot;,
+      &quot;ai_score&quot;: 8.3,
+      &quot;change&quot;: 2,
+      &quot;sector&quot;: &quot;Communication Services&quot;
+    },
+    {
+      &quot;rank&quot;: 3,
+      &quot;ticker&quot;: &quot;CFG&quot;,
+      &quot;company&quot;: &quot;Citizens Financial Group&quot;,
+      &quot;ai_score&quot;: 8.0,
+      &quot;change&quot;: 20,
+      &quot;sector&quot;: &quot;Financial Services&quot;
+    },
+    {
+      &quot;rank&quot;: 4,
+      &quot;ticker&quot;: &quot;INGM&quot;,
+      &quot;company&quot;: &quot;Ingram Micro&quot;,
+      &quot;ai_score&quot;: 8.0,
+      &quot;change&quot;: 20,
+      &quot;sector&quot;: &quot;Technology&quot;
+    },
+    {
+      &quot;rank&quot;: 5,
+      &quot;ticker&quot;: &quot;CART&quot;,
+      &quot;company&quot;: &quot;Maplebear Inc.&quot;,
+      &quot;ai_score&quot;: 8.0,
+      &quot;change&quot;: 23,
+      &quot;sector&quot;: &quot;Consumer Cyclical&quot;
+    },
+    {
+      &quot;rank&quot;: 6,
+      &quot;ticker&quot;: &quot;FIVE&quot;,
+      &quot;company&quot;: &quot;Five Below&quot;,
+      &quot;ai_score&quot;: 7.9,
+      &quot;change&quot;: 25,
+      &quot;sector&quot;: &quot;Consumer Cyclical&quot;
     },
     {
       &quot;rank&quot;: 7,
@@ -311,6 +354,22 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;change&quot;: -26,
       &quot;ai_score&quot;: 7.7,
       &quot;sector&quot;: &quot;Financial Services&quot;
+    },
+    {
+      &quot;rank&quot;: 89,
+      &quot;ticker&quot;: &quot;NDAQ&quot;,
+      &quot;company&quot;: &quot;Nasdaq, Inc.&quot;,
+      &quot;change&quot;: -81,
+      &quot;ai_score&quot;: 6.9,
+      &quot;sector&quot;: &quot;Financial Services&quot;
+    },
+    {
+      &quot;rank&quot;: 72,
+      &quot;ticker&quot;: &quot;GEN&quot;,
+      &quot;company&quot;: &quot;Gen Digital&quot;,
+      &quot;change&quot;: -70,
+      &quot;ai_score&quot;: 7.0,
+      &quot;sector&quot;: &quot;Technology&quot;
     }
   ],
   &quot;new_top10_entries&quot;: [
@@ -360,9 +419,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td>new_top10_entries</td><td class="OK">OK</td><td>new top10 vs 2026-07-14: BAC, GS, MS</td></tr>
 <tr><td>sector_concentration</td><td class="WARN">WARN</td><td>top10 dominated by Financial Services (7/10 = 70%)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Watchlist<span class="OK">OK</span></h2>
+<div class="section"><h2>Watchlist<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;row_count&quot;: 142,
+  &quot;row_count&quot;: 139,
   &quot;top_10&quot;: [
     {
       &quot;rank&quot;: 1,
@@ -475,11 +534,11 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     &quot;full_fundamentals&quot;: 65,
     &quot;eodhd_enriched&quot;: 0,
     &quot;metadata_only&quot;: 0,
-    &quot;price_only&quot;: 9,
+    &quot;price_only&quot;: 8,
     &quot;technical_only&quot;: 0,
-    &quot;unavailable&quot;: 0
+    &quot;unavailable&quot;: 3
   },
-  &quot;unavailable_count&quot;: 0,
+  &quot;unavailable_count&quot;: 3,
   &quot;unavailable_tickers&quot;: [],
   &quot;supp_degraded_pct&quot;: 0.122
 }</pre></div>
@@ -503,12 +562,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;pending_indicators&quot;: [
     &quot;polls&quot;,
     &quot;adr&quot;,
+    &quot;vix&quot;,
     &quot;ndr&quot;
   ]
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>generals_fail</td><td class="OK">OK</td><td>Generals Fail 2/7 below 200DMA (threshold 3)</td></tr>
-<tr><td>indicator_coverage</td><td class="OK">OK</td><td>indicators pending source: polls, adr, ndr</td></tr>
+<tr><td>indicator_coverage</td><td class="OK">OK</td><td>indicators pending source: polls, adr, vix, ndr</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Diagnostics<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -540,18 +600,25 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       ]
     },
     {
-      &quot;ticker&quot;: &quot;RY&quot;,
+      &quot;ticker&quot;: &quot;SNOW&quot;,
       &quot;group&quot;: &quot;watchlist_top10&quot;,
-      &quot;rank&quot;: 10,
+      &quot;rank&quot;: 7,
       &quot;reasons&quot;: [
-        &quot;missing SENT&quot;,
-        &quot;missing SWING&quot;
+        &quot;weak LOW_RISK (5.0)&quot;
+      ]
+    },
+    {
+      &quot;ticker&quot;: &quot;DDOG&quot;,
+      &quot;group&quot;: &quot;watchlist_top10&quot;,
+      &quot;rank&quot;: 9,
+      &quot;reasons&quot;: [
+        &quot;weak LOW_RISK (4.6)&quot;
       ]
     }
   ],
   &quot;sector_crowding&quot;: {
     &quot;main_top10&quot;: {
-      &quot;status&quot;: &quot;FAIL&quot;,
+      &quot;status&quot;: &quot;OK&quot;,
       &quot;n&quot;: 10,
       &quot;top_sector&quot;: &quot;Financial Services&quot;,
       &quot;top_count&quot;: 7,
@@ -563,11 +630,11 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       }
     },
     &quot;watchlist_top10&quot;: {
-      &quot;status&quot;: &quot;WARN&quot;,
+      &quot;status&quot;: &quot;FAIL&quot;,
       &quot;n&quot;: 10,
       &quot;top_sector&quot;: &quot;Technology&quot;,
-      &quot;top_count&quot;: 4,
-      &quot;top_share&quot;: 0.4,
+      &quot;top_count&quot;: 5,
+      &quot;top_share&quot;: 0.5,
       &quot;distribution&quot;: {
         &quot;Communication Services&quot;: 2,
         &quot;Basic Materials&quot;: 1,
