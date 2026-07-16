@@ -28,10 +28,10 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Action Items</h2>
 <h3>Market &amp; Rankings</h3><ul class="action">
 <li>[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (7/10 = 70%)</li>
-<li>[WARN] watchlist.watchlist_unavailable: 1 watchlist ticker(s) unavailable: </li>
 <li>[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 4 suspicious top rank(s)</li>
 <li>[INFO] New top10 vs 2026-07-15: JPM, SF, NDAQ, GOOG</li>
 <li>[INFO] Exited top10 since 2026-07-15: BNY, FAF, GEN, SEIC</li>
+<li>[INFO] Top MOV gainer GEV (change=25, rank=52)</li>
 </ul>
 </div>
 <div class="section"><h2>Risk Monitor <span class="OK">OK</span></h2><p class="kv">Generals Fail: <strong>2/7</strong> below 200DMA (threshold 3); below: MSFT, TSLA · pending: polls, adr, vix, ndr.</p></div>
@@ -98,7 +98,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td>watchlist_top10</td><td>7</td><td><strong>DUOL</strong></td><td>weak SENT (4.8)</td></tr>
 <tr><td>watchlist_top10</td><td>8</td><td><strong>DELL</strong></td><td>weak SENT (4.0); negative MOV (-3.0%)</td></tr>
 <tr><td>watchlist_top10</td><td>9</td><td><strong>RY</strong></td><td>missing SENT; missing SWING</td></tr>
-<tr><td>watchlist_top10</td><td>10</td><td><strong>GMED</strong></td><td>weak TECH (4.2); weak SWING (4.9)</td></tr>
+<tr><td>watchlist_top10</td><td>10</td><td><strong>GMED</strong></td><td>weak TECH (4.2)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Freshness<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -367,9 +367,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td>new_top10_entries</td><td class="OK">OK</td><td>new top10 vs 2026-07-15: JPM, SF, NDAQ, GOOG</td></tr>
 <tr><td>sector_concentration</td><td class="WARN">WARN</td><td>top10 dominated by Financial Services (7/10 = 70%)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Watchlist<span class="WARN">WARN</span></h2>
+<div class="section"><h2>Watchlist<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;row_count&quot;: 141,
+  &quot;row_count&quot;: 142,
   &quot;top_10&quot;: [
     {
       &quot;rank&quot;: 1,
@@ -478,17 +478,17 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;top_gainers&quot;: [],
   &quot;top_losers&quot;: [],
   &quot;supp_summary&quot;: {
-    &quot;total&quot;: 73,
-    &quot;full_fundamentals&quot;: 64,
+    &quot;total&quot;: 74,
+    &quot;full_fundamentals&quot;: 65,
     &quot;eodhd_enriched&quot;: 0,
     &quot;metadata_only&quot;: 0,
     &quot;price_only&quot;: 9,
     &quot;technical_only&quot;: 0,
-    &quot;unavailable&quot;: 1
+    &quot;unavailable&quot;: 0
   },
-  &quot;unavailable_count&quot;: 1,
+  &quot;unavailable_count&quot;: 0,
   &quot;unavailable_tickers&quot;: [],
-  &quot;supp_degraded_pct&quot;: 0.123
+  &quot;supp_degraded_pct&quot;: 0.122
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>supp_coverage</td><td class="OK">OK</td><td>SUPP 64/73 full fundamentals; price_only=9 tech_only=0</td></tr>
@@ -555,8 +555,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;group&quot;: &quot;watchlist_top10&quot;,
       &quot;rank&quot;: 10,
       &quot;reasons&quot;: [
-        &quot;weak TECH (4.2)&quot;,
-        &quot;weak SWING (4.9)&quot;
+        &quot;weak TECH (4.2)&quot;
       ]
     }
   ],
