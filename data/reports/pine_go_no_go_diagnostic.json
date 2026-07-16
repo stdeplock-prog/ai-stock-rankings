@@ -816,6 +816,58 @@
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.6,
         "blocker_count": 0
+      },
+      {
+        "ticker": "NLY",
+        "sources": [
+          "main"
+        ],
+        "company": "Annaly Capital Management",
+        "sector": "Real Estate",
+        "ai_score": 7.9,
+        "swing_score": 7.2,
+        "swing_tier": "A",
+        "evaluated": true,
+        "bars": 885,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": true,
+          "ma50_rising": true,
+          "rsi_in_zone": true,
+          "rsi_slope_pos": true,
+          "return_20d_ok": false,
+          "rel_vol_ok": false,
+          "bar_strength": true,
+          "mfi_above_avg": true,
+          "near_20d_high": true
+        },
+        "metrics": {
+          "last_close": 23.16,
+          "sma5": 22.858,
+          "sma8": 22.8125,
+          "sma13": 22.6328,
+          "sma20": 22.2712,
+          "sma50": 21.5612,
+          "rsi14": 66.3405,
+          "rsi14_3bar_ago": 65.8598,
+          "return_20d": 0.0762,
+          "rel_vol_20d": 0.724,
+          "mfi14": 75.875,
+          "high_20d": 23.16,
+          "bb_upper_20": 23.3827,
+          "range_10d_pct": 0.0583
+        },
+        "blockers": [],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 8,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.8,
+        "accumulation_score": 4,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.8,
+        "blocker_count": 0
       }
     ],
     "weakest_main": [
@@ -3771,7 +3823,9 @@
         "bb_upper_20": 81.4856,
         "range_10d_pct": 0.1168
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (19d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 9,
       "go_no_go_gates_evaluated": 10,
@@ -5427,6 +5481,7 @@
       "ai_score": 8.2,
       "swing_score": 7.5,
       "swing_tier": "A",
+      "days_to_earnings": 11,
       "evaluated": true,
       "bars": 885,
       "gates": {
@@ -5461,12 +5516,12 @@
       },
       "blockers": [],
       "insufficient_data_reasons": [],
-      "go_no_go_score": 6,
+      "go_no_go_score": 10,
       "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.6,
-      "accumulation_score": 1,
+      "go_no_go_score_normalized": 1.0,
+      "accumulation_score": 5,
       "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.2,
+      "accumulation_score_normalized": 1.0,
       "blocker_count": 0
     },
     {
@@ -5838,8 +5893,10 @@
     {
       "ticker": "TSM",
       "sources": [
+        "watchlist",
         "disagreement"
       ],
+      "company": "Taiwan Semiconductor Manufactur",
       "sector": "Technology",
       "ai_score": 6.6,
       "evaluated": false,
@@ -6022,7 +6079,7 @@
       ],
       "company": "Venture Global, Inc.",
       "sector": "Energy",
-      "ai_score": 6.9,
+      "ai_score": 6.8,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
