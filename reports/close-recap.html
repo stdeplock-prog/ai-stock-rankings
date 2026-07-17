@@ -37,8 +37,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Risk Monitor <span class="WARN">WARN</span></h2><p class="kv">Generals Fail: <strong>3/7</strong> below 200DMA (threshold 3); below: MSFT, META, TSLA · pending: polls, adr, ndr.</p></div>
 <div class="section"><h2>Main Rankings <span class="OK">RECAP</span></h2>
 <p class='kv'><strong>New top10 vs 2026-07-16:</strong> CFG, SSB, MRP, COLB, KEY</p>
-<p class='kv'><strong>Exited top10 since 2026-07-16:</strong> CPAY, GOOG, META, MS, NDAQ</p>
-<p class='kv'><strong>Sector concentration:</strong> <span class='WARN'>WARN</span> Financial Services 9/10 (90%)</p>
+<p class='kv'><strong>Exited top10 since 2026-07-16:</strong> GOOG, META, MS, NDAQ, SF</p>
+<p class='kv'><strong>Sector concentration:</strong> <span class='WARN'>WARN</span> Financial Services 8/10 (80%)</p>
 <h3>Top 10</h3><table><thead><tr><th>#</th><th>Ticker</th><th>Company</th><th>AI</th><th>Δ</th><th>Sector</th></tr></thead><tbody>
 <tr><td>1</td><td><strong>JPM</strong></td><td>JPMorgan Chase</td><td>8.7</td><td>0</td><td>Financial Services</td></tr>
 <tr><td>2</td><td><strong>CFG</strong></td><td>Citizens Financial Group</td><td>8.6</td><td>0</td><td>Financial Services</td></tr>
@@ -221,8 +221,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     },
     {
       &quot;rank&quot;: 10,
-      &quot;ticker&quot;: &quot;SF&quot;,
-      &quot;company&quot;: &quot;Stifel&quot;,
+      &quot;ticker&quot;: &quot;CPAY&quot;,
+      &quot;company&quot;: &quot;Corpay&quot;,
       &quot;ai_score&quot;: 8.3,
       &quot;change&quot;: 0,
       &quot;sector&quot;: &quot;Financial Services&quot;
@@ -301,7 +301,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;company&quot;: &quot;Popular, Inc.&quot;,
       &quot;change&quot;: -2,
       &quot;ai_score&quot;: 7.7,
-      &quot;sector&quot;: &quot;Financial Services&quot;
+      &quot;sector&quot;: &quot;Industrials&quot;
     },
     {
       &quot;rank&quot;: 85,
@@ -345,11 +345,11 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     }
   ],
   &quot;exited_top10_entries&quot;: [
-    &quot;CPAY&quot;,
     &quot;GOOG&quot;,
     &quot;META&quot;,
     &quot;MS&quot;,
-    &quot;NDAQ&quot;
+    &quot;NDAQ&quot;,
+    &quot;SF&quot;
   ],
   &quot;intraday_new_entries&quot;: [],
   &quot;prior_top10_compared_against&quot;: &quot;2026-07-16&quot;,
@@ -361,9 +361,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   },
   &quot;sector_concentration&quot;: {
     &quot;top_sector&quot;: &quot;Financial Services&quot;,
-    &quot;top_count&quot;: 9,
+    &quot;top_count&quot;: 8,
     &quot;of&quot;: 10,
-    &quot;pct&quot;: 0.9,
+    &quot;pct&quot;: 0.8,
     &quot;warn&quot;: true
   },
   &quot;limitation&quot;: &quot;MOV-based gainers/losers; new/exited entries vs prior benchmark snapshot; intraday entries vs market_open_scan.&quot;
@@ -371,7 +371,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>top_n</td><td class="OK">OK</td><td>10 top names extracted (rows=100)</td></tr>
 <tr><td>new_top10_entries</td><td class="OK">OK</td><td>new top10 vs 2026-07-16: CFG, SSB, MRP, COLB, KEY</td></tr>
-<tr><td>sector_concentration</td><td class="WARN">WARN</td><td>top10 dominated by Financial Services (9/10 = 90%)</td></tr>
+<tr><td>sector_concentration</td><td class="WARN">WARN</td><td>top10 dominated by Financial Services (8/10 = 80%)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Watchlist<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -570,11 +570,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;status&quot;: &quot;FAIL&quot;,
       &quot;n&quot;: 10,
       &quot;top_sector&quot;: &quot;Financial Services&quot;,
-      &quot;top_count&quot;: 9,
-      &quot;top_share&quot;: 0.9,
+      &quot;top_count&quot;: 8,
+      &quot;top_share&quot;: 0.8,
       &quot;distribution&quot;: {
-        &quot;Financial Services&quot;: 9,
-        &quot;Real Estate&quot;: 1
+        &quot;Financial Services&quot;: 8,
+        &quot;Real Estate&quot;: 1,
+        &quot;Technology&quot;: 1
       }
     },
     &quot;watchlist_top10&quot;: {
