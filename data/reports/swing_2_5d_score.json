@@ -130,7 +130,7 @@
         "rank": 35,
         "score": 82.0,
         "label": "HIGH",
-        "confidence": 0.88,
+        "confidence": 0.74,
         "go_label": null,
         "acc_label": null,
         "penalties": []
@@ -3783,9 +3783,9 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.2817,
+          "score": 0.27,
           "weight": 0.1,
-          "detail": "1.9M vol",
+          "detail": "1.7M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -7172,6 +7172,10 @@
         }
       },
       "penalties": {
+        "earnings": {
+          "mult": 0.82,
+          "detail": "earnings in 5d (\u00d70.82)"
+        },
         "low_liquidity": {
           "mult": 0.85,
           "detail": "low liq 0.50M (\u00d70.85)"
@@ -7889,7 +7893,12 @@
           "present": true
         }
       },
-      "penalties": {},
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        }
+      },
       "has_ohlcv": true
     },
     {
@@ -7924,7 +7933,7 @@
         "continuity": {
           "score": 0.912,
           "weight": 0.16,
-          "detail": "CONT HIGH 91",
+          "detail": "CONT LOW 37",
           "present": true
         },
         "accumulation": {
@@ -8210,6 +8219,10 @@
         }
       },
       "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
         "low_liquidity": {
           "mult": 0.85,
           "detail": "low liq 0.50M (\u00d70.85)"
@@ -8415,8 +8428,8 @@
       "ticker": "TSM",
       "company": "Taiwan Semiconductor Manufactur",
       "sector": "Technology",
-      "rank": 27,
-      "ai_score": 6.7,
+      "rank": 73,
+      "ai_score": 5.2,
       "go_label": null,
       "acc_label": null,
       "swing_score": null,
@@ -9604,7 +9617,7 @@
       "positive_score": 11.6,
       "score": 9.8,
       "label": "LOW",
-      "confidence": 0.68,
+      "confidence": 0.74,
       "components": {
         "tech_trend": {
           "score": 0.21,
@@ -9619,9 +9632,9 @@
           "present": true
         },
         "continuity": {
-          "score": 0.024,
+          "score": 0.162,
           "weight": 0.16,
-          "detail": "CONT LOW 2",
+          "detail": "CONT LOW 16",
           "present": true
         },
         "accumulation": {
@@ -9640,6 +9653,74 @@
           "score": 0.2292,
           "weight": 0.1,
           "detail": "1.0M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.5,
+          "weight": 0.06,
+          "detail": "SENT 3.8/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "QUBT",
+      "company": "Quantum Computing Inc.",
+      "sector": "Technology",
+      "rank": 121,
+      "ai_score": 4.0,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 7.74,
+      "days_to_earnings": null,
+      "positive_score": 28.1,
+      "score": 23.9,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.29,
+          "weight": 0.22,
+          "detail": "TECH 2.9/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.343,
+          "weight": 0.2,
+          "detail": "2d -3.7% (-0.7x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.126,
+          "weight": 0.16,
+          "detail": "CONT LOW 13",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.3867,
+          "weight": 0.1,
+          "detail": "3.7M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -11126,9 +11207,77 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.2175,
+          "score": 0.4567,
           "weight": 0.1,
-          "detail": "0.8M vol",
+          "detail": "4.9M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "PLRZ",
+      "company": "Polyrizon Ltd.",
+      "sector": "Healthcare",
+      "rank": 123,
+      "ai_score": 3.9,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 12.74,
+      "days_to_earnings": null,
+      "positive_score": 23.0,
+      "score": 16.6,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.27,
+          "weight": 0.22,
+          "detail": "TECH 2.7/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.3668,
+          "weight": 0.2,
+          "detail": "2d -2.5% (-0.6x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.024,
+          "weight": 0.16,
+          "detail": "CONT LOW 2",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2,
+          "weight": 0.1,
+          "detail": "0.0M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -11145,7 +11294,7 @@
         },
         "low_liquidity": {
           "mult": 0.85,
-          "detail": "low liq 0.80M (\u00d70.85)"
+          "detail": "low liq 0.00M (\u00d70.85)"
         }
       },
       "has_ohlcv": false
@@ -14144,9 +14293,9 @@
       "confidence": 0.68,
       "components": {
         "tech_trend": {
-          "score": 0.36,
+          "score": 0.39,
           "weight": 0.22,
-          "detail": "TECH 3.6/10",
+          "detail": "TECH 3.9/10",
           "present": true
         },
         "momentum_thrust": {
@@ -15812,7 +15961,7 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.9,
+          "score": 0.8183,
           "weight": 0.1,
           "detail": "12.7M vol",
           "present": true
@@ -15918,9 +16067,9 @@
       "confidence": 0.68,
       "components": {
         "tech_trend": {
-          "score": 0.23,
+          "score": 0.33,
           "weight": 0.22,
-          "detail": "TECH 2.3/10",
+          "detail": "TECH 3.3/10",
           "present": true
         },
         "momentum_thrust": {
@@ -15948,7 +16097,7 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.9,
+          "score": 0.2,
           "weight": 0.1,
           "detail": "13.4M vol",
           "present": true
@@ -15972,8 +16121,8 @@
       "ticker": "IREN",
       "company": "IREN LIMITED",
       "sector": "Financial Services",
-      "rank": 139,
-      "ai_score": 2.5,
+      "rank": 140,
+      "ai_score": 2.4,
       "go_label": null,
       "acc_label": null,
       "swing_score": null,
@@ -16066,9 +16215,9 @@
           "present": true
         },
         "continuity": {
-          "score": 0.04,
+          "score": 0.024,
           "weight": 0.16,
-          "detail": "CONT LOW 4",
+          "detail": "CONT LOW 2",
           "present": true
         },
         "accumulation": {
