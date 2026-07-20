@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-20T16:28:53Z",
-  "generated_at_chicago": "2026-07-20 11:28 AM CDT",
-  "overall": "WARN",
+  "generated_at": "2026-07-20T19:37:22Z",
+  "generated_at_chicago": "2026-07-20 02:37 PM CDT",
+  "overall": "FAIL",
   "sections": {
     "freshness": {
       "checks": [
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-07-20 11:28 AM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-07-20 02:37 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,13 +17,13 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-07-20 11:28 AM CDT",
+        "as_of": "2026-07-20 02:37 PM CDT",
         "open_date": "2026-07-20",
         "row_count": 100,
-        "is_open_run": true,
+        "is_open_run": false,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-07-20 11:28",
+        "chicago_now": "2026-07-20 14:37",
         "rankings_age_hours": 0.01,
         "today_live": true
       },
@@ -34,15 +34,15 @@
         {
           "name": "run_source",
           "status": "OK",
-          "message": "latest run: scheduled (2026-07-20 11:28)"
+          "message": "latest run: scheduled (2026-07-20 14:37)"
         }
       ],
       "metrics": {
         "overall_raw": "OK",
         "overall_effective": "OK",
         "last_run_event": "schedule",
-        "last_run_slot": "morning",
-        "last_run_ts_chicago": "2026-07-20 11:28",
+        "last_run_slot": "midday",
+        "last_run_ts_chicago": "2026-07-20 14:37",
         "today_missing": [],
         "today_satisfied": true,
         "source": "schedule"
@@ -53,20 +53,25 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "WARN",
-          "message": "overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN"
+          "status": "FAIL",
+          "message": "overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK"
+        },
+        {
+          "name": "critical_sections",
+          "status": "FAIL",
+          "message": "rankings=FAIL, tasks=OK: critical section failure"
         }
       ],
       "metrics": {
-        "overall": "WARN",
+        "overall": "FAIL",
         "by_section": {
           "rankings": "FAIL",
           "watchlist": "OK",
-          "tasks": "WARN"
+          "tasks": "OK"
         },
         "critical_section_fail": true
       },
-      "status": "WARN"
+      "status": "FAIL"
     },
     "rankings_changes": {
       "checks": [
@@ -78,7 +83,7 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-07-17: FIVE, CPAY, META, FRT, GEN"
+          "message": "new top10 vs 2026-07-17: FIVE, CPAY, FRT, META, GEN"
         }
       ],
       "metrics": {
@@ -88,7 +93,7 @@
             "ticker": "FIVE",
             "company": "Five Below",
             "ai_score": 8.7,
-            "change": 11,
+            "change": 0,
             "sector": "Consumer Cyclical"
           },
           {
@@ -96,7 +101,7 @@
             "ticker": "JPM",
             "company": "JPMorgan Chase",
             "ai_score": 8.7,
-            "change": -1,
+            "change": 0,
             "sector": "Financial Services"
           },
           {
@@ -112,7 +117,7 @@
             "ticker": "CFG",
             "company": "Citizens Financial Group",
             "ai_score": 8.5,
-            "change": -2,
+            "change": 0,
             "sector": "Financial Services"
           },
           {
@@ -120,31 +125,31 @@
             "ticker": "CPAY",
             "company": "Corpay",
             "ai_score": 8.5,
-            "change": 6,
+            "change": 0,
             "sector": "Technology"
           },
           {
             "rank": 6,
-            "ticker": "META",
-            "company": "Meta Platforms",
-            "ai_score": 8.4,
-            "change": 7,
-            "sector": "Communication Services"
-          },
-          {
-            "rank": 7,
             "ticker": "FRT",
             "company": "Federal Realty Investment Trust",
             "ai_score": 8.4,
-            "change": 63,
+            "change": 1,
             "sector": "Real Estate"
+          },
+          {
+            "rank": 7,
+            "ticker": "META",
+            "company": "Meta Platforms",
+            "ai_score": 8.4,
+            "change": -1,
+            "sector": "Communication Services"
           },
           {
             "rank": 8,
             "ticker": "GEN",
             "company": "Gen Digital",
             "ai_score": 8.4,
-            "change": 14,
+            "change": 0,
             "sector": "Technology"
           },
           {
@@ -152,100 +157,100 @@
             "ticker": "COLB",
             "company": "Columbia Banking System",
             "ai_score": 8.3,
-            "change": -2,
+            "change": 0,
             "sector": "Financial Services"
           },
           {
             "rank": 10,
-            "ticker": "SSB",
-            "company": "SouthState Corporation",
+            "ticker": "GS",
+            "company": "Goldman Sachs",
             "ai_score": 8.3,
-            "change": -5,
+            "change": 1,
             "sector": "Financial Services"
           }
         ],
         "top_gainers": [
           {
-            "rank": 87,
-            "ticker": "HEI-A",
-            "company": "HEICO (Class A)",
-            "change": 151,
+            "rank": 84,
+            "ticker": "DELL",
+            "company": "Dell Technologies",
+            "change": 7,
             "ai_score": 7.6,
+            "sector": "Technology"
+          },
+          {
+            "rank": 40,
+            "ticker": "MSA",
+            "company": "MSA Safety",
+            "change": 4,
+            "ai_score": 7.9,
             "sector": "Industrials"
           },
           {
-            "rank": 65,
-            "ticker": "GEV",
-            "company": "GE Vernova",
-            "change": 118,
+            "rank": 63,
+            "ticker": "RJF",
+            "company": "Raymond James Financial",
+            "change": 4,
             "ai_score": 7.8,
-            "sector": "Industrials"
-          },
-          {
-            "rank": 7,
-            "ticker": "FRT",
-            "company": "Federal Realty Investment Trust",
-            "change": 63,
-            "ai_score": 8.4,
-            "sector": "Real Estate"
-          },
-          {
-            "rank": 70,
-            "ticker": "MORN",
-            "company": "Morningstar, Inc.",
-            "change": 61,
-            "ai_score": 7.7,
             "sector": "Financial Services"
           },
           {
-            "rank": 83,
-            "ticker": "MSCI",
-            "company": "MSCI Inc.",
-            "change": 61,
-            "ai_score": 7.6,
-            "sector": "Financial Services"
+            "rank": 48,
+            "ticker": "HALO",
+            "company": "Halozyme",
+            "change": 3,
+            "ai_score": 7.9,
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 99,
+            "ticker": "DUOL",
+            "company": "Duolingo",
+            "change": 3,
+            "ai_score": 7.5,
+            "sector": "Technology"
           }
         ],
         "top_losers": [
           {
-            "rank": 94,
-            "ticker": "FITB",
-            "company": "Fifth Third Bancorp",
-            "change": -46,
-            "ai_score": 7.5,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 45,
-            "ticker": "KEY",
-            "company": "KeyCorp",
-            "change": -37,
-            "ai_score": 7.9,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 42,
-            "ticker": "MRP",
-            "company": "Millrose Properties",
-            "change": -36,
-            "ai_score": 7.9,
-            "sector": "Real Estate"
-          },
-          {
-            "rank": 38,
-            "ticker": "SF",
-            "company": "Stifel",
-            "change": -28,
-            "ai_score": 7.9,
-            "sector": "Financial Services"
+            "rank": 66,
+            "ticker": "PLNT",
+            "company": "Planet Fitness",
+            "change": -6,
+            "ai_score": 7.8,
+            "sector": "Consumer Cyclical"
           },
           {
             "rank": 88,
-            "ticker": "FTI",
-            "company": "TechnipFMC",
-            "change": -28,
+            "ticker": "ZM",
+            "company": "Zoom Communications",
+            "change": -4,
             "ai_score": 7.6,
-            "sector": "Energy"
+            "sector": "Technology"
+          },
+          {
+            "rank": 61,
+            "ticker": "GPN",
+            "company": "Global Payments",
+            "change": -3,
+            "ai_score": 7.8,
+            "sector": "Industrials"
+          },
+          {
+            "rank": 96,
+            "ticker": "CF",
+            "company": "CF Industries",
+            "change": -3,
+            "ai_score": 7.5,
+            "sector": "Basic Materials"
+          },
+          {
+            "rank": 44,
+            "ticker": "MRP",
+            "company": "Millrose Properties",
+            "change": -2,
+            "ai_score": 7.9,
+            "sector": "Real Estate"
           }
         ],
         "new_top10_entries": [
@@ -262,16 +267,16 @@
             "sector": "Technology"
           },
           {
-            "ticker": "META",
+            "ticker": "FRT",
             "rank": 6,
             "ai_score": 8.4,
-            "sector": "Communication Services"
+            "sector": "Real Estate"
           },
           {
-            "ticker": "FRT",
+            "ticker": "META",
             "rank": 7,
             "ai_score": 8.4,
-            "sector": "Real Estate"
+            "sector": "Communication Services"
           },
           {
             "ticker": "GEN",
@@ -283,9 +288,9 @@
         "prior_top10_compared_against": "2026-07-17",
         "mov_summary": {
           "with_change": 100,
-          "positive": 67,
-          "negative": 29,
-          "zero": 4
+          "positive": 26,
+          "negative": 30,
+          "zero": 44
         },
         "limitation": "MOV-based gainers/losers; new-entry detection uses prior benchmark snapshot when available."
       },
@@ -301,7 +306,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=0 misses=73"
+          "message": "yfinance cache hits=32 misses=41"
         }
       ],
       "metrics": {
@@ -430,13 +435,6 @@
             "sector": "Technology"
           },
           {
-            "ticker": "GUSH",
-            "company": "Direxion Daily S&P Oil & Gas Ex",
-            "ai_score": 7.2,
-            "change": 0,
-            "sector": "Technology"
-          },
-          {
             "ticker": "RY",
             "company": "Royal Bank Of Canada",
             "ai_score": 7.2,
@@ -449,6 +447,13 @@
             "ai_score": 7.2,
             "change": 0,
             "sector": "Energy"
+          },
+          {
+            "ticker": "GUSH",
+            "company": "Direxion Daily S&P Oil & Gas Ex",
+            "ai_score": 7.1,
+            "change": 0,
+            "sector": "ETF"
           },
           {
             "ticker": "PAAS",
@@ -538,10 +543,11 @@
     "benchmark_present": true
   },
   "action_items": [
-    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN",
-    "[INFO] New top10 entries vs 2026-07-17: FIVE, CPAY, META, FRT, GEN",
-    "[INFO] Top MOV gainer HEI-A (change=151, rank=87)",
-    "[INFO] Top MOV loser FITB (change=-46, rank=94)",
+    "[FAIL] data_quality.data_quality_overall: overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK",
+    "[FAIL] data_quality.critical_sections: rankings=FAIL, tasks=OK: critical section failure",
+    "[INFO] New top10 entries vs 2026-07-17: FIVE, CPAY, FRT, META, GEN",
+    "[INFO] Top MOV gainer DELL (change=7, rank=84)",
+    "[INFO] Top MOV loser PLNT (change=-6, rank=66)",
     "[INFO] New watchlist top10: DELL, DUOL, AME, PATH"
   ],
   "strengths_risks": {
@@ -551,10 +557,10 @@
       "BAC (AI 8.5, rank 3, Financial Services)"
     ],
     "risks": [
-      "FITB MOV -46 (rank 94, Financial Services)",
-      "KEY MOV -37 (rank 45, Financial Services)",
-      "MRP MOV -36 (rank 42, Real Estate)"
+      "PLNT MOV -6 (rank 66, Consumer Cyclical)",
+      "ZM MOV -4 (rank 88, Technology)",
+      "GPN MOV -3 (rank 61, Industrials)"
     ]
   },
-  "summary": "Live 11:28 AM CT \u00b7 Source scheduled \u00b7 DQ WARN \u00b7 Top gainer HEI-A \u00b7 5 new top10 (FIVE\u2026) \u00b7 Risk OK"
+  "summary": "Live 02:37 PM CT \u00b7 Source scheduled \u00b7 DQ FAIL \u00b7 Top gainer DELL \u00b7 5 new top10 (FIVE\u2026) \u00b7 Risk OK"
 }
