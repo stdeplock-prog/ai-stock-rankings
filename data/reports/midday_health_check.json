@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-20T16:28:53Z",
-  "generated_at_chicago": "2026-07-20 11:28 AM CDT",
-  "overall": "WARN",
+  "generated_at": "2026-07-20T19:59:35Z",
+  "generated_at_chicago": "2026-07-20 02:59 PM CDT",
+  "overall": "FAIL",
   "sections": {
     "data_freshness": {
       "checks": [
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-07-20 11:28 AM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-07-20 02:59 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,11 +17,11 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-07-20 11:28 AM CDT",
+        "as_of": "2026-07-20 02:59 PM CDT",
         "open_date": "2026-07-20",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-07-20 11:28",
+        "chicago_now": "2026-07-20 14:59",
         "rankings_age_hours": 0.01,
         "today_live": true
       },
@@ -31,21 +31,26 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "WARN",
-          "message": "overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN"
+          "status": "FAIL",
+          "message": "overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK"
+        },
+        {
+          "name": "critical_sections",
+          "status": "FAIL",
+          "message": "rankings=FAIL, tasks=OK: critical section failure"
         }
       ],
       "metrics": {
-        "overall": "WARN",
-        "generated_at": "2026-07-20T16:28:51Z",
+        "overall": "FAIL",
+        "generated_at": "2026-07-20T19:59:33Z",
         "by_section": {
           "rankings": "FAIL",
           "watchlist": "OK",
-          "tasks": "WARN"
+          "tasks": "OK"
         },
         "critical_section_fail": true
       },
-      "status": "WARN"
+      "status": "FAIL"
     },
     "schedule_reliability": {
       "checks": [
@@ -62,8 +67,8 @@
         "today_missing": [],
         "today_satisfied": true,
         "last_run_event": "schedule",
-        "last_run_slot": "morning",
-        "last_run_ts_chicago": "2026-07-20 11:28",
+        "last_run_slot": "midday",
+        "last_run_ts_chicago": "2026-07-20 14:59",
         "recovered": false,
         "overall_effective": "OK"
       },
@@ -79,7 +84,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=0 misses=73"
+          "message": "yfinance cache hits=32 misses=41"
         }
       ],
       "metrics": {
@@ -93,12 +98,12 @@
           "unavailable": 1
         },
         "yfinance_info_cache": {
-          "cache_hit_fresh": 0,
-          "cache_miss": 73,
-          "network_call": 73,
-          "fallback_to_cache": 41,
-          "rate_limit_or_empty": 41,
-          "network_success": 32
+          "cache_hit_fresh": 32,
+          "cache_miss": 41,
+          "network_call": 41,
+          "fallback_to_cache": 26,
+          "rate_limit_or_empty": 26,
+          "network_success": 15
         },
         "unavailable_count": 1,
         "scored": 141,
@@ -163,8 +168,9 @@
     "parity_present": true
   },
   "action_items": [
-    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN",
+    "[FAIL] data_quality.data_quality_overall: overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK",
+    "[FAIL] data_quality.critical_sections: rankings=FAIL, tasks=OK: critical section failure",
     "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment', 'swing_score']"
   ],
-  "summary": "Fresh 11:28 AM CT \u00b7 Data quality WARN \u00b7 Watchlist OK \u00b7 Schedule OK \u00b7 Benchmark active"
+  "summary": "Fresh 02:59 PM CT \u00b7 Data quality FAIL \u00b7 Watchlist OK \u00b7 Schedule OK \u00b7 Benchmark active"
 }

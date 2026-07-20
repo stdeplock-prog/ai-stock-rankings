@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-20T16:28:54Z",
-  "generated_at_chicago": "2026-07-20 11:28 AM CDT",
+  "generated_at": "2026-07-20T19:59:36Z",
+  "generated_at_chicago": "2026-07-20 02:59 PM CDT",
   "overall": "OK",
   "caveat": "DAILY OHLCV ONLY: This report is a daily-bar proxy for the Pine v6 go/no-go gate stack. No true intraday VWAP, no Open Drift, no minute-bar logic. DIAGNOSTIC ONLY \u2014 rankings and scoring formulas are NOT mutated.",
   "thresholds": {
@@ -18,12 +18,12 @@
   },
   "counts": {
     "evaluated": 77,
-    "ohlcv_missing": 13,
+    "ohlcv_missing": 14,
     "insufficient_bars": 0,
-    "blocked": 12,
+    "blocked": 10,
     "go_normalized_ge_07": 38,
     "go_normalized_lt_04": 18,
-    "candidates": 90
+    "candidates": 91
   },
   "highlights": {
     "cleanest_go_main": [
@@ -139,9 +139,8 @@
         "company": "Omega Healthcare Investors",
         "sector": "Real Estate",
         "ai_score": 7.9,
-        "swing_score": 7.2,
+        "swing_score": 7.1,
         "swing_tier": "A",
-        "days_to_earnings": 86,
         "evaluated": true,
         "bars": 887,
         "gates": {
@@ -153,10 +152,10 @@
           "rsi_in_zone": true,
           "rsi_slope_pos": true,
           "return_20d_ok": true,
-          "rel_vol_ok": true,
-          "bar_strength": false,
+          "rel_vol_ok": false,
+          "bar_strength": true,
           "mfi_above_avg": false,
-          "near_20d_high": false
+          "near_20d_high": true
         },
         "metrics": {
           "last_close": 50.21,
@@ -234,6 +233,58 @@
         "accumulation_score": 3,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.6,
+        "blocker_count": 0
+      },
+      {
+        "ticker": "COLB",
+        "sources": [
+          "main"
+        ],
+        "company": "Columbia Banking System",
+        "sector": "Financial Services",
+        "ai_score": 8.3,
+        "swing_score": 7.0,
+        "swing_tier": "B",
+        "evaluated": true,
+        "bars": 887,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": true,
+          "ma50_rising": true,
+          "rsi_in_zone": true,
+          "rsi_slope_pos": true,
+          "return_20d_ok": true,
+          "rel_vol_ok": false,
+          "bar_strength": false,
+          "mfi_above_avg": false,
+          "near_20d_high": false
+        },
+        "metrics": {
+          "last_close": 33.24,
+          "sma5": 32.73,
+          "sma8": 32.3488,
+          "sma13": 32.2638,
+          "sma20": 31.993,
+          "sma50": 30.4976,
+          "rsi14": 64.9096,
+          "rsi14_3bar_ago": 60.1864,
+          "return_20d": 0.1062,
+          "rel_vol_20d": 1.086,
+          "mfi14": 63.0945,
+          "high_20d": 33.61,
+          "bb_upper_20": 33.3828,
+          "range_10d_pct": 0.0854
+        },
+        "blockers": [],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 8,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.8,
+        "accumulation_score": 1,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.2,
         "blocker_count": 0
       },
       {
@@ -338,58 +389,6 @@
         "accumulation_score": 5,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 1.0,
-        "blocker_count": 0
-      },
-      {
-        "ticker": "GRMN",
-        "sources": [
-          "main"
-        ],
-        "company": "Garmin",
-        "sector": "Technology",
-        "ai_score": 8.0,
-        "swing_score": 7.0,
-        "swing_tier": "A",
-        "evaluated": true,
-        "bars": 887,
-        "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": true,
-          "ma50_rising": true,
-          "rsi_in_zone": true,
-          "rsi_slope_pos": true,
-          "return_20d_ok": false,
-          "rel_vol_ok": true,
-          "bar_strength": false,
-          "mfi_above_avg": true,
-          "near_20d_high": false
-        },
-        "metrics": {
-          "last_close": 249.56,
-          "sma5": 245.462,
-          "sma8": 244.8075,
-          "sma13": 243.6585,
-          "sma20": 240.8105,
-          "sma50": 237.7098,
-          "rsi14": 61.0799,
-          "rsi14_3bar_ago": 52.4135,
-          "return_20d": 0.0762,
-          "rel_vol_20d": 2.006,
-          "mfi14": 82.2282,
-          "high_20d": 250.99,
-          "bb_upper_20": 251.2968,
-          "range_10d_pct": 0.0585
-        },
-        "blockers": [],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 8,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.8,
-        "accumulation_score": 3,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.6,
         "blocker_count": 0
       },
       {
@@ -705,11 +704,11 @@
         "blocker_count": 0
       },
       {
-        "ticker": "ZION",
+        "ticker": "WTFC",
         "sources": [
           "main"
         ],
-        "company": "Zions Bancorporation",
+        "company": "Wintrust Financial",
         "sector": "Financial Services",
         "ai_score": 8.2,
         "swing_score": 7.4,
@@ -858,59 +857,6 @@
         "go_no_go_score": 0,
         "go_no_go_gates_evaluated": 10,
         "go_no_go_score_normalized": 0.0,
-        "accumulation_score": 1,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.2,
-        "blocker_count": 0
-      },
-      {
-        "ticker": "SCCO",
-        "sources": [
-          "main",
-          "watchlist"
-        ],
-        "company": "Southern Copper",
-        "sector": "Basic Materials",
-        "ai_score": 7.9,
-        "swing_score": 5.9,
-        "swing_tier": "B",
-        "evaluated": true,
-        "bars": 887,
-        "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": false,
-          "above_bb_mid": false,
-          "above_sma50": false,
-          "ma50_rising": true,
-          "rsi_in_zone": false,
-          "rsi_slope_pos": false,
-          "return_20d_ok": false,
-          "rel_vol_ok": false,
-          "bar_strength": false,
-          "mfi_above_avg": true,
-          "near_20d_high": false
-        },
-        "metrics": {
-          "last_close": 172.48,
-          "sma5": 177.318,
-          "sma8": 175.5075,
-          "sma13": 174.0577,
-          "sma20": 175.522,
-          "sma50": 180.8281,
-          "rsi14": 45.7735,
-          "rsi14_3bar_ago": 54.1079,
-          "return_20d": -0.1002,
-          "rel_vol_20d": 1.248,
-          "mfi14": 44.5916,
-          "high_20d": 192.93,
-          "bb_upper_20": 188.6426,
-          "range_10d_pct": 0.1375
-        },
-        "blockers": [],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 2,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.2,
         "accumulation_score": 1,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.2,
@@ -1343,6 +1289,59 @@
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.4,
         "blocker_count": 1
+      },
+      {
+        "ticker": "BNY",
+        "sources": [
+          "main"
+        ],
+        "company": "BNY Mellon",
+        "sector": "Financial Services",
+        "ai_score": 8.2,
+        "swing_score": 7.5,
+        "swing_tier": "A",
+        "days_to_earnings": 86,
+        "evaluated": true,
+        "bars": 887,
+        "gates": {
+          "trend_sma_aligned": true,
+          "above_sma20": true,
+          "above_bb_mid": true,
+          "above_sma50": true,
+          "ma50_rising": true,
+          "rsi_in_zone": true,
+          "rsi_slope_pos": false,
+          "return_20d_ok": false,
+          "rel_vol_ok": false,
+          "bar_strength": false,
+          "mfi_above_avg": true,
+          "near_20d_high": false
+        },
+        "metrics": {
+          "last_close": 157.13,
+          "sma5": 157.222,
+          "sma8": 155.0538,
+          "sma13": 152.35,
+          "sma20": 149.713,
+          "sma50": 143.294,
+          "rsi14": 63.411,
+          "rsi14_3bar_ago": 67.2004,
+          "return_20d": 0.0757,
+          "rel_vol_20d": 1.096,
+          "mfi14": 75.2417,
+          "high_20d": 162.35,
+          "bb_upper_20": 160.8304,
+          "range_10d_pct": 0.1074
+        },
+        "blockers": [],
+        "insufficient_data_reasons": [],
+        "go_no_go_score": 6,
+        "go_no_go_gates_evaluated": 10,
+        "go_no_go_score_normalized": 0.6,
+        "accumulation_score": 2,
+        "accumulation_gates_evaluated": 5,
+        "accumulation_score_normalized": 0.4,
+        "blocker_count": 0
       }
     ],
     "blocked_main": [
@@ -1371,7 +1370,7 @@
           "rel_vol_ok": true,
           "bar_strength": true,
           "mfi_above_avg": true,
-          "near_20d_high": false
+          "near_20d_high": true
         },
         "metrics": {
           "last_close": 124.72,
@@ -1622,71 +1621,16 @@
         "blocker_count": 1
       },
       {
-        "ticker": "COLB",
+        "ticker": "GRMN",
         "sources": [
           "main"
         ],
-        "company": "Columbia Banking System",
-        "sector": "Financial Services",
-        "ai_score": 8.3,
+        "company": "Garmin",
+        "sector": "Technology",
+        "ai_score": 8.0,
         "swing_score": 7.1,
         "swing_tier": "A",
-        "days_to_earnings": 3,
-        "evaluated": true,
-        "bars": 887,
-        "gates": {
-          "trend_sma_aligned": true,
-          "above_sma20": true,
-          "above_bb_mid": true,
-          "above_sma50": true,
-          "ma50_rising": true,
-          "rsi_in_zone": true,
-          "rsi_slope_pos": true,
-          "return_20d_ok": true,
-          "rel_vol_ok": false,
-          "bar_strength": false,
-          "mfi_above_avg": false,
-          "near_20d_high": false
-        },
-        "metrics": {
-          "last_close": 33.24,
-          "sma5": 32.73,
-          "sma8": 32.3488,
-          "sma13": 32.2638,
-          "sma20": 31.993,
-          "sma50": 30.4976,
-          "rsi14": 64.9096,
-          "rsi14_3bar_ago": 60.1864,
-          "return_20d": 0.1062,
-          "rel_vol_20d": 1.086,
-          "mfi14": 63.0945,
-          "high_20d": 33.61,
-          "bb_upper_20": 33.3828,
-          "range_10d_pct": 0.0854
-        },
-        "blockers": [
-          "earnings_near (3d)"
-        ],
-        "insufficient_data_reasons": [],
-        "go_no_go_score": 8,
-        "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.8,
-        "accumulation_score": 1,
-        "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.2,
-        "blocker_count": 1
-      },
-      {
-        "ticker": "CPAY",
-        "sources": [
-          "main"
-        ],
-        "company": "Corpay",
-        "sector": "Technology",
-        "ai_score": 8.5,
-        "swing_score": 7.8,
-        "swing_tier": "A",
-        "days_to_earnings": 16,
+        "days_to_earnings": 8,
         "evaluated": true,
         "bars": 887,
         "gates": {
@@ -1698,37 +1642,37 @@
           "rsi_in_zone": true,
           "rsi_slope_pos": true,
           "return_20d_ok": false,
-          "rel_vol_ok": false,
+          "rel_vol_ok": true,
           "bar_strength": false,
           "mfi_above_avg": true,
           "near_20d_high": false
         },
         "metrics": {
-          "last_close": 365.79,
-          "sma5": 363.796,
-          "sma8": 358.7038,
-          "sma13": 354.6115,
-          "sma20": 348.9825,
-          "sma50": 347.361,
-          "rsi14": 58.6135,
-          "rsi14_3bar_ago": 55.2407,
-          "return_20d": 0.0353,
-          "rel_vol_20d": 0.464,
-          "mfi14": 74.8615,
-          "high_20d": 371.81,
-          "bb_upper_20": 372.8047,
-          "range_10d_pct": 0.0895
+          "last_close": 249.56,
+          "sma5": 245.462,
+          "sma8": 244.8075,
+          "sma13": 243.6585,
+          "sma20": 240.8105,
+          "sma50": 237.7098,
+          "rsi14": 61.0799,
+          "rsi14_3bar_ago": 52.4135,
+          "return_20d": 0.0762,
+          "rel_vol_20d": 2.006,
+          "mfi14": 82.2282,
+          "high_20d": 250.99,
+          "bb_upper_20": 251.2968,
+          "range_10d_pct": 0.0585
         },
         "blockers": [
-          "earnings_near (16d)"
+          "earnings_near (8d)"
         ],
         "insufficient_data_reasons": [],
         "go_no_go_score": 8,
         "go_no_go_gates_evaluated": 10,
-        "go_no_go_score_normalized": 0.7,
-        "accumulation_score": 2,
+        "go_no_go_score_normalized": 0.8,
+        "accumulation_score": 3,
         "accumulation_gates_evaluated": 5,
-        "accumulation_score_normalized": 0.4,
+        "accumulation_score_normalized": 0.6,
         "blocker_count": 1
       }
     ],
@@ -2320,7 +2264,7 @@
       ],
       "company": "Alibaba Group Holding Limited",
       "sector": "Consumer Cyclical",
-      "ai_score": 6.7,
+      "ai_score": 6.6,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -2773,9 +2717,8 @@
       "company": "Columbia Banking System",
       "sector": "Financial Services",
       "ai_score": 8.3,
-      "swing_score": 7.1,
-      "swing_tier": "A",
-      "days_to_earnings": 3,
+      "swing_score": 7.0,
+      "swing_tier": "B",
       "evaluated": true,
       "bars": 887,
       "gates": {
@@ -2808,9 +2751,7 @@
         "bb_upper_20": 33.3828,
         "range_10d_pct": 0.0854
       },
-      "blockers": [
-        "earnings_near (3d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 8,
       "go_no_go_gates_evaluated": 10,
@@ -2818,7 +2759,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 1
+      "blocker_count": 0
     },
     {
       "ticker": "CPAY",
@@ -2828,9 +2769,8 @@
       "company": "Corpay",
       "sector": "Technology",
       "ai_score": 8.5,
-      "swing_score": 7.8,
+      "swing_score": 7.0,
       "swing_tier": "A",
-      "days_to_earnings": 16,
       "evaluated": true,
       "bars": 887,
       "gates": {
@@ -2863,9 +2803,7 @@
         "bb_upper_20": 372.8047,
         "range_10d_pct": 0.0895
       },
-      "blockers": [
-        "earnings_near (16d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
@@ -2873,7 +2811,7 @@
       "accumulation_score": 2,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.4,
-      "blocker_count": 1
+      "blocker_count": 0
     },
     {
       "ticker": "CVNA",
@@ -2937,9 +2875,8 @@
       "company": "Datadog",
       "sector": "Technology",
       "ai_score": 6.7,
-      "swing_score": 6.9,
+      "swing_score": 6.2,
       "swing_tier": "B",
-      "days_to_earnings": 16,
       "evaluated": true,
       "bars": 887,
       "gates": {
@@ -2972,9 +2909,7 @@
         "bb_upper_20": 284.9166,
         "range_10d_pct": 0.1109
       },
-      "blockers": [
-        "earnings_near (16d)"
-      ],
+      "blockers": [],
       "insufficient_data_reasons": [],
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
@@ -2982,7 +2917,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 1
+      "blocker_count": 0
     },
     {
       "ticker": "DELL",
@@ -2992,9 +2927,8 @@
       "company": "Dell Technologies",
       "sector": "Technology",
       "ai_score": 7.6,
-      "swing_score": 6.2,
-      "swing_tier": "B",
-      "days_to_earnings": 45,
+      "swing_score": 5.5,
+      "swing_tier": "C",
       "evaluated": true,
       "bars": 887,
       "gates": {
@@ -3043,7 +2977,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 5.2,
+      "ai_score": 5.1,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -3359,7 +3293,7 @@
       "accumulation_score": 3,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.6,
-      "blocker_count": 1
+      "blocker_count": 0
     },
     {
       "ticker": "FIVE",
@@ -3651,11 +3585,11 @@
         "above_bb_mid": false,
         "above_sma50": false,
         "ma50_rising": false,
-        "rsi_in_zone": true,
+        "rsi_in_zone": false,
         "rsi_slope_pos": false,
         "return_20d_ok": false,
         "rel_vol_ok": false,
-        "bar_strength": true,
+        "bar_strength": false,
         "mfi_above_avg": true,
         "near_20d_high": false
       },
@@ -3693,8 +3627,9 @@
       "company": "Garmin",
       "sector": "Technology",
       "ai_score": 8.0,
-      "swing_score": 7.0,
+      "swing_score": 7.1,
       "swing_tier": "A",
+      "days_to_earnings": 8,
       "evaluated": true,
       "bars": 887,
       "gates": {
@@ -3705,7 +3640,7 @@
         "ma50_rising": true,
         "rsi_in_zone": true,
         "rsi_slope_pos": true,
-        "return_20d_ok": true,
+        "return_20d_ok": false,
         "rel_vol_ok": true,
         "bar_strength": false,
         "mfi_above_avg": true,
@@ -3727,15 +3662,17 @@
         "bb_upper_20": 251.2968,
         "range_10d_pct": 0.0585
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (8d)"
+      ],
       "insufficient_data_reasons": [],
-      "go_no_go_score": 9,
+      "go_no_go_score": 8,
       "go_no_go_gates_evaluated": 10,
       "go_no_go_score_normalized": 0.8,
       "accumulation_score": 3,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.6,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "GS",
@@ -3802,9 +3739,61 @@
       ],
       "company": "Direxion Daily S&P Oil & Gas Ex",
       "sector": "ETF",
-      "ai_score": 7.2,
+      "ai_score": 6.8,
       "evaluated": false,
       "reason": "ohlcv missing"
+    },
+    {
+      "ticker": "HALO",
+      "sources": [
+        "main"
+      ],
+      "company": "Halozyme",
+      "sector": "Healthcare",
+      "ai_score": 7.9,
+      "swing_score": 6.5,
+      "swing_tier": "B",
+      "evaluated": true,
+      "bars": 887,
+      "gates": {
+        "trend_sma_aligned": false,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": true,
+        "rsi_slope_pos": true,
+        "return_20d_ok": true,
+        "rel_vol_ok": false,
+        "bar_strength": false,
+        "mfi_above_avg": false,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 77.81,
+        "sma5": 76.466,
+        "sma8": 77.19,
+        "sma13": 78.0462,
+        "sma20": 75.8845,
+        "sma50": 71.6186,
+        "rsi14": 59.1775,
+        "rsi14_3bar_ago": 51.9485,
+        "return_20d": 0.1348,
+        "rel_vol_20d": 0.743,
+        "mfi14": 57.7157,
+        "high_20d": 81.57,
+        "bb_upper_20": 83.4596,
+        "range_10d_pct": 0.1076
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 7,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.7,
+      "accumulation_score": 1,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.2,
+      "blocker_count": 0
     },
     {
       "ticker": "HBAN",
@@ -4238,7 +4227,7 @@
         "disagreement"
       ],
       "sector": "Basic Materials",
-      "ai_score": 6.4,
+      "ai_score": 6.5,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -4990,7 +4979,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 3.0,
+      "ai_score": 2.9,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -5166,7 +5155,6 @@
     {
       "ticker": "SCCO",
       "sources": [
-        "main",
         "watchlist"
       ],
       "company": "Southern Copper",
@@ -5433,7 +5421,7 @@
       ],
       "company": "Snowflake Inc.",
       "sector": "Technology",
-      "ai_score": 7.1,
+      "ai_score": 7.0,
       "swing_score": 5.4,
       "swing_tier": "C",
       "evaluated": true,
@@ -5687,58 +5675,6 @@
       "blocker_count": 0
     },
     {
-      "ticker": "TOST",
-      "sources": [
-        "watchlist"
-      ],
-      "company": "Toast, Inc.",
-      "sector": "Technology",
-      "ai_score": 6.6,
-      "swing_score": 6.0,
-      "swing_tier": "B",
-      "evaluated": true,
-      "bars": 887,
-      "gates": {
-        "trend_sma_aligned": true,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": true,
-        "rsi_slope_pos": false,
-        "return_20d_ok": true,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 30.08,
-        "sma5": 30.152,
-        "sma8": 29.6875,
-        "sma13": 29.38,
-        "sma20": 28.12,
-        "sma50": 26.0338,
-        "rsi14": 66.4153,
-        "rsi14_3bar_ago": 67.8635,
-        "return_20d": 0.2323,
-        "rel_vol_20d": 0.543,
-        "mfi14": 76.5906,
-        "high_20d": 30.39,
-        "bb_upper_20": 32.0922,
-        "range_10d_pct": 0.114
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 7,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.7,
-      "accumulation_score": 1,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.2,
-      "blocker_count": 0
-    },
-    {
       "ticker": "TSM",
       "sources": [
         "watchlist",
@@ -5746,7 +5682,7 @@
       ],
       "company": "Taiwan Semiconductor Manufactur",
       "sector": "Technology",
-      "ai_score": 6.9,
+      "ai_score": 6.8,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -5801,6 +5737,17 @@
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.0,
       "blocker_count": 0
+    },
+    {
+      "ticker": "USO",
+      "sources": [
+        "watchlist"
+      ],
+      "company": "United States Oil Fund",
+      "sector": "ETF",
+      "ai_score": 6.9,
+      "evaluated": false,
+      "reason": "ohlcv missing"
     },
     {
       "ticker": "V",
@@ -6039,5 +5986,5 @@
     "disagreement_queue_present": true,
     "ohlcv_dir_exists": true
   },
-  "summary": "Overall OK \u00b7 cands=90 \u00b7 evaluated=77 \u00b7 missing_ohlcv=13 \u00b7 go>=.7:38 \u00b7 weak<.4:18 \u00b7 blocked=12 \u00b7 dis_supports_internal=0 \u00b7 dis_supports_external=8"
+  "summary": "Overall OK \u00b7 cands=91 \u00b7 evaluated=77 \u00b7 missing_ohlcv=14 \u00b7 go>=.7:38 \u00b7 weak<.4:18 \u00b7 blocked=10 \u00b7 dis_supports_internal=0 \u00b7 dis_supports_external=8"
 }
