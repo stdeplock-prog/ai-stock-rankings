@@ -142,7 +142,7 @@
         },
         "swing_score": {
           "count": 9,
-          "mean": 6.4,
+          "mean": 6.5,
           "median": 6.4
         }
       },
@@ -171,6 +171,10 @@
             "pct": 0.1
           },
           "Industrials": {
+            "count": 1,
+            "pct": 0.1
+          },
+          "ETF": {
             "count": 1,
             "pct": 0.1
           }
@@ -390,6 +394,7 @@
         "GUSH",
         "AME",
         "DELL",
+        "GUSH",
         "PAAS",
         "RY",
         "TJX",
@@ -444,8 +449,8 @@
         },
         "swing_score": {
           "count": 18,
-          "mean": 6.328,
-          "median": 6.4
+          "mean": 6.511,
+          "median": 6.55
         }
       },
       "sector_concentration": {
@@ -568,8 +573,8 @@
         "missing_sector": 0,
         "distribution": {
           "Technology": {
-            "count": 11,
-            "pct": 0.44
+            "count": 12,
+            "pct": 0.48
           },
           "ETF": {
             "count": 3,
@@ -598,14 +603,10 @@
           "Consumer Cyclical": {
             "count": 1,
             "pct": 0.04
-          },
-          "Crypto": {
-            "count": 1,
-            "pct": 0.04
           }
         },
         "top_sector": "Technology",
-        "top_pct": 0.44,
+        "top_pct": 0.48,
         "concentrated": true
       }
     }
@@ -615,7 +616,18 @@
     "tickers": {
       "SPY": {
         "ticker": "SPY",
-        "error": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+        "last": 748.25,
+        "history_len": 252,
+        "return_1d": 0.0083,
+        "return_5d": -0.0048,
+        "return_21d": 0.002,
+        "return_63d": 0.0558,
+        "return_126d": 0.0818,
+        "return_252d": null,
+        "ma50": 744.879,
+        "above_50dma": true,
+        "ma200": 697.4702,
+        "above_200dma": true
       },
       "QQQ": {
         "ticker": "QQQ",
@@ -651,7 +663,11 @@
     "fetched_at": "2026-07-21T19:49:20.617677+00:00Z"
   },
   "benchmark_compare": {
-    "available": false
+    "available": true,
+    "spy_return_21d": 0.002,
+    "main_top25_mean_window_return": 0.0255,
+    "watchlist_top25_mean_window_return": 0.028,
+    "note": "bucket window return is from the ~10-day sparkline shipped with rankings; SPY 21d is the closest available benchmark window"
   },
   "findings": [
     {
@@ -693,7 +709,7 @@
     {
       "name": "sector_concentration:supp_top25",
       "status": "WARN",
-      "message": "supp_top25: top sector Technology = 44% of bucket",
+      "message": "supp_top25: top sector Technology = 48% of bucket",
       "data": {
         "top_sector": "Technology",
         "top_pct": 0.44
