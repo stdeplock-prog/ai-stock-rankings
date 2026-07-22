@@ -601,7 +601,7 @@
       "ai_score": 8.3,
       "go_label": null,
       "acc_label": null,
-      "swing_score": 7.5,
+      "swing_score": 7.0,
       "swing_tier": "A",
       "close": 102.28,
       "days_to_earnings": null,
@@ -654,6 +654,10 @@
         }
       },
       "penalties": {
+        "earnings": {
+          "mult": 0.7,
+          "detail": "earnings in 1d (\u00d70.70)"
+        },
         "low_liquidity": {
           "mult": 0.85,
           "detail": "low liq 0.70M (\u00d70.85)"
@@ -2785,9 +2789,9 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.305,
+          "score": 0.4333,
           "weight": 0.1,
-          "detail": "2.3M vol",
+          "detail": "4.5M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -2953,9 +2957,9 @@
       "confidence": 0.88,
       "components": {
         "tech_trend": {
-          "score": 0.84,
+          "score": 0.6,
           "weight": 0.22,
-          "detail": "TECH 8.4/10",
+          "detail": "TECH 6.0/10",
           "present": true
         },
         "momentum_thrust": {
@@ -3726,9 +3730,9 @@
           "present": true
         },
         "continuity": {
-          "score": 0.758,
+          "score": 0.38,
           "weight": 0.16,
-          "detail": "CONT HIGH 76",
+          "detail": "CONT LOW 38",
           "present": true
         },
         "accumulation": {
@@ -4150,7 +4154,7 @@
         }
       },
       "penalties": {},
-      "has_ohlcv": true
+      "has_ohlcv": false
     },
     {
       "ticker": "TIGO",
@@ -4733,7 +4737,7 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.9,
+          "score": 0.7542,
           "weight": 0.1,
           "detail": "16.7M vol",
           "present": true
@@ -8612,10 +8616,10 @@
           "present": true
         },
         "accumulation": {
-          "score": null,
+          "score": 0.007,
           "weight": 0.14,
-          "detail": "no accumulation signal",
-          "present": false
+          "detail": "ACC meter 0.1/10",
+          "present": true
         },
         "go_gate": {
           "score": null,
@@ -9730,9 +9734,9 @@
       "confidence": 0.68,
       "components": {
         "tech_trend": {
-          "score": 0.47,
+          "score": 0.48,
           "weight": 0.22,
-          "detail": "TECH 4.7/10",
+          "detail": "TECH 4.8/10",
           "present": true
         },
         "momentum_thrust": {
@@ -10359,6 +10363,10 @@
         }
       },
       "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
         "low_liquidity": {
           "mult": 0.85,
           "detail": "low liq 0.60M (\u00d70.85)"
@@ -11359,9 +11367,9 @@
       "confidence": 0.68,
       "components": {
         "tech_trend": {
-          "score": 0.59,
+          "score": 0.39,
           "weight": 0.22,
-          "detail": "TECH 5.9/10",
+          "detail": "TECH 3.9/10",
           "present": true
         },
         "momentum_thrust": {
@@ -11371,9 +11379,9 @@
           "present": true
         },
         "continuity": {
-          "score": 0.735,
+          "score": 0.171,
           "weight": 0.16,
-          "detail": "CONT HIGH 74",
+          "detail": "CONT LOW 17",
           "present": true
         },
         "accumulation": {
@@ -11785,6 +11793,10 @@
         }
       },
       "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
         "low_liquidity": {
           "mult": 0.85,
           "detail": "low liq 0.50M (\u00d70.85)"
@@ -11896,7 +11908,7 @@
           "present": true
         },
         "accumulation": {
-          "score": null,
+          "score": 0.0,
           "weight": 0.14,
           "detail": "no accumulation signal",
           "present": false
@@ -12517,13 +12529,478 @@
         }
       },
       "penalties": {
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.30M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "PBR",
+      "company": "Petroleo Brasileiro S.A. Petrob",
+      "sector": "Energy",
+      "rank": 108,
+      "ai_score": 4.6,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 18.85,
+      "days_to_earnings": null,
+      "positive_score": 72.9,
+      "score": 72.9,
+      "label": "HIGH",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.63,
+          "weight": 0.22,
+          "detail": "TECH 6.3/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.7824,
+          "weight": 0.2,
+          "detail": "2d +3.6% (+1.3x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.918,
+          "weight": 0.16,
+          "detail": "CONT HIGH 92",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.5383,
+          "weight": 0.1,
+          "detail": "6.3M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "PGY",
+      "company": "Pagaya Technologies Ltd.",
+      "sector": "Technology",
+      "rank": 109,
+      "ai_score": 4.6,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 17.01,
+      "days_to_earnings": null,
+      "positive_score": 31.4,
+      "score": 22.7,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.42,
+          "weight": 0.22,
+          "detail": "TECH 4.2/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.4555,
+          "weight": 0.2,
+          "detail": "2d -0.5% (-0.2x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.05,
+          "weight": 0.16,
+          "detail": "CONT LOW 5",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2175,
+          "weight": 0.1,
+          "detail": "0.8M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
         "weak_continuity": {
           "mult": 0.85,
           "detail": "CONT LOW (\u00d70.85)"
         },
         "low_liquidity": {
           "mult": 0.85,
-          "detail": "low liq 0.30M (\u00d70.85)"
+          "detail": "low liq 0.80M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "TSLA",
+      "company": "Tesla, Inc.",
+      "sector": "Consumer Cyclical",
+      "rank": 110,
+      "ai_score": 4.6,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 3.8,
+      "swing_tier": "D",
+      "close": 378.93,
+      "days_to_earnings": 0,
+      "positive_score": 44.0,
+      "score": 26.2,
+      "label": "LOW",
+      "confidence": 0.74,
+      "components": {
+        "tech_trend": {
+          "score": 0.38,
+          "weight": 0.22,
+          "detail": "TECH 3.8/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.4672,
+          "weight": 0.2,
+          "detail": "2d -0.5% (-0.1x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.227,
+          "weight": 0.16,
+          "detail": "CONT LOW 23",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "32.7M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.37,
+          "weight": 0.06,
+          "detail": "SENT 3.7/10",
+          "present": true
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
+        "earnings": {
+          "mult": 0.7,
+          "detail": "earnings in 0d (\u00d70.70)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "COHR",
+      "company": "Coherent Corp.",
+      "sector": "Technology",
+      "rank": 111,
+      "ai_score": 4.5,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 4.7,
+      "swing_tier": "C",
+      "close": 317.22,
+      "days_to_earnings": 21,
+      "positive_score": 63.0,
+      "score": 63.0,
+      "label": "MID",
+      "confidence": 0.74,
+      "components": {
+        "tech_trend": {
+          "score": 0.45,
+          "weight": 0.22,
+          "detail": "TECH 4.5/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.9848,
+          "weight": 0.2,
+          "detail": "2d +14.3% (+2.2x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.615,
+          "weight": 0.16,
+          "detail": "CONT MID 62",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.4333,
+          "weight": 0.1,
+          "detail": "4.5M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.47,
+          "weight": 0.06,
+          "detail": "SENT 3.5/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "CRDO",
+      "company": "Credo Technology Group Holding",
+      "sector": "Technology",
+      "rank": 112,
+      "ai_score": 4.5,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 228.6,
+      "days_to_earnings": null,
+      "positive_score": 50.4,
+      "score": 50.4,
+      "label": "MID",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.49,
+          "weight": 0.22,
+          "detail": "TECH 4.9/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.707,
+          "weight": 0.2,
+          "detail": "2d +7.8% (+0.9x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.417,
+          "weight": 0.16,
+          "detail": "CONT MID 42",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.27,
+          "weight": 0.1,
+          "detail": "1.7M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "PLRZ",
+      "company": "Polyrizon Ltd.",
+      "sector": "Healthcare",
+      "rank": 113,
+      "ai_score": 4.5,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 13.5,
+      "days_to_earnings": null,
+      "positive_score": 47.9,
+      "score": 40.7,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.47,
+          "weight": 0.22,
+          "detail": "TECH 4.7/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.6146,
+          "weight": 0.2,
+          "detail": "2d +1.8% (+0.5x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.496,
+          "weight": 0.16,
+          "detail": "CONT MID 50",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2,
+          "weight": 0.1,
+          "detail": "0.0M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.00M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "QUBT",
+      "company": "Quantum Computing Inc.",
+      "sector": "Technology",
+      "rank": 114,
+      "ai_score": 4.5,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 8.12,
+      "days_to_earnings": null,
+      "positive_score": 47.1,
+      "score": 40.1,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.48,
+          "weight": 0.22,
+          "detail": "TECH 4.8/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.6119,
+          "weight": 0.2,
+          "detail": "2d +2.5% (+0.5x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.38,
+          "weight": 0.16,
+          "detail": "CONT LOW 38",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.3167,
+          "weight": 0.1,
+          "detail": "2.5M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
         }
       },
       "has_ohlcv": true
@@ -16031,7 +16508,7 @@
         "momentum_thrust": {
           "score": 0.4772,
           "weight": 0.2,
-          "detail": "2d -0.4% (-0.1x typ)",
+          "detail": "2d +0.0% (+0.0x typ)",
           "present": true
         },
         "continuity": {
@@ -17103,7 +17580,7 @@
     "PBR": {
       "score": 74.1,
       "label": "HIGH",
-      "confidence": 0.68
+      "confidence": 0.74
     },
     "PGY": {
       "score": 22.1,
@@ -17188,16 +17665,686 @@
     "IREN": {
       "score": 72.3,
       "label": "HIGH",
-      "confidence": 0.68
+      "confidence": 0.74
     },
     "JOBY": {
       "score": 62.6,
       "label": "MID",
-      "confidence": 0.68
+      "confidence": 0.74
     },
     "PSIX": {
       "score": 38.9,
       "label": "LOW",
+      "confidence": 0.74
+    },
+    "EGP": {
+      "score": 36.1,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "LH": {
+      "score": 41.2,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "HBAN": {
+      "score": 45.3,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "S": {
+      "score": 56.6,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "MTB": {
+      "score": 63.0,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "WST": {
+      "score": 32.6,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "VVV": {
+      "score": 52.5,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "LEA": {
+      "score": 55.6,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "ORI": {
+      "score": 34.7,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "AAPL": {
+      "score": 62.1,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "AMZN": {
+      "score": 57.1,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "GUSH": {
+      "score": 58.8,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "PAAS": {
+      "score": 74.0,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "VEEV": {
+      "score": 43.2,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "AME": {
+      "score": 53.2,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "DUOL": {
+      "score": 24.4,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "EXEL": {
+      "score": 51.3,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "RY": {
+      "score": 37.7,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "USO": {
+      "score": 71.0,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "DELL": {
+      "score": 39.0,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "GMED": {
+      "score": 36.2,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "GOOG": {
+      "score": 24.4,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "TJX": {
+      "score": 53.6,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "TSM": {
+      "score": 57.8,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "VG": {
+      "score": 67.9,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "AVGO": {
+      "score": 65.3,
+      "label": "HIGH",
+      "confidence": 0.88
+    },
+    "EXLS": {
+      "score": 34.9,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "SNOW": {
+      "score": 54.8,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "BMNR": {
+      "score": 77.1,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "LUNMF": {
+      "score": 62.3,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "CLS": {
+      "score": 49.3,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "NVDA": {
+      "score": 61.1,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "TMO": {
+      "score": 34.0,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "TOST": {
+      "score": 58.5,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "APH": {
+      "score": 52.8,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "NBIS": {
+      "score": 78.8,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "PLTR": {
+      "score": 63.2,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "AGX": {
+      "score": 39.2,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "DDOG": {
+      "score": 40.7,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "RDDT": {
+      "score": 45.0,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "VIAV": {
+      "score": 52.9,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "VISN": {
+      "score": 38.6,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "FRSH": {
+      "score": 17.3,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "LITE": {
+      "score": 73.4,
+      "label": "HIGH",
+      "confidence": 0.74
+    },
+    "XE": {
+      "score": 73.8,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "BABA": {
+      "score": 41.9,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "EQIX": {
+      "score": 35.9,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "UBER": {
+      "score": 39.4,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "CBRS": {
+      "score": 78.2,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "DOCN": {
+      "score": 73.2,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "TTWO": {
+      "score": 38.2,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "ZENA": {
+      "score": 67.0,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "AXTI": {
+      "score": 55.3,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "CRWV": {
+      "score": 73.6,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "DVLT": {
+      "score": 30.8,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "MU": {
+      "score": 66.8,
+      "label": "HIGH",
+      "confidence": 0.74
+    },
+    "SOFI": {
+      "score": 47.8,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "CIEN": {
+      "score": 41.7,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "FEIM": {
+      "score": 51.9,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "SLV": {
+      "score": 74.6,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "STX": {
+      "score": 72.9,
+      "label": "HIGH",
+      "confidence": 0.74
+    },
+    "TTMI": {
+      "score": 57.2,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "WDC": {
+      "score": 65.4,
+      "label": "HIGH",
+      "confidence": 0.74
+    },
+    "BWA": {
+      "score": 46.0,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "NFLX": {
+      "score": 39.2,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "RGTI": {
+      "score": 63.1,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "BF-B": {
+      "score": 62.4,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "CENX": {
+      "score": 50.6,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "SNDK": {
+      "score": 53.6,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "APA": {
+      "score": 69.4,
+      "label": "HIGH",
+      "confidence": 0.74
+    },
+    "CGNX": {
+      "score": 31.9,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "DAL": {
+      "score": 38.0,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "GLD": {
+      "score": 68.1,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "IBIT": {
+      "score": 64.6,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "ISSC": {
+      "score": 52.6,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "SMCI": {
+      "score": 38.9,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "SMTC": {
+      "score": 54.3,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "SOL-USD": {
+      "score": 68.3,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "AMD": {
+      "score": 74.7,
+      "label": "HIGH",
+      "confidence": 0.74
+    },
+    "AREC": {
+      "score": 44.3,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "BETA": {
+      "score": 48.2,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "BTC-USD": {
+      "score": 67.1,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "DVN": {
+      "score": 66.7,
+      "label": "HIGH",
+      "confidence": 0.74
+    },
+    "NVT": {
+      "score": 54.2,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "MDB": {
+      "score": 24.1,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "SLNH": {
+      "score": 60.8,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "VRT": {
+      "score": 53.7,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "FTAI": {
+      "score": 39.1,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "HOOD": {
+      "score": 53.1,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "KLAR": {
+      "score": 19.5,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "LSCC": {
+      "score": 59.4,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "AZO": {
+      "score": 25.0,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "FIG": {
+      "score": 18.3,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "MDLN": {
+      "score": 37.5,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "Q": {
+      "score": 31.2,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "AMKR": {
+      "score": 31.1,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "BIPC": {
+      "score": 50.0,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "DEO": {
+      "score": 44.3,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "GLW": {
+      "score": 30.1,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "TRN": {
+      "score": 30.8,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "TITN": {
+      "score": 51.5,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "APP": {
+      "score": 34.7,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "CVNA": {
+      "score": 31.5,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "FLEX": {
+      "score": 37.6,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "QTUM": {
+      "score": 34.4,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "SOUN": {
+      "score": 51.0,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "ENTG": {
+      "score": 43.0,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "MSOS": {
+      "score": 28.9,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "MTSI": {
+      "score": 35.7,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "NEXT": {
+      "score": 20.5,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "QCOM": {
+      "score": 34.8,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "CNM": {
+      "score": 18.2,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "EMBC": {
+      "score": 33.3,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "PBR": {
+      "score": 72.9,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "PGY": {
+      "score": 22.7,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "TSLA": {
+      "score": 26.2,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "COHR": {
+      "score": 63.0,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "CRDO": {
+      "score": 50.4,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "PLRZ": {
+      "score": 40.7,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "QUBT": {
+      "score": 40.1,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "UONE": {
+      "score": 40.5,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "UPST": {
+      "score": 25.0,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "RKT": {
+      "score": 27.3,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "RXRX": {
+      "score": 33.0,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "CCSI": {
+      "score": 10.5,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "MP": {
+      "score": 32.3,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "ONTO": {
+      "score": 42.9,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "PI": {
+      "score": 18.8,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "ACHR": {
+      "score": 67.8,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "DNTH": {
+      "score": 52.0,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "ALAB": {
+      "score": 35.5,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "APLD": {
+      "score": 47.3,
+      "label": "MID",
+      "confidence": 0.88
+    },
+    "IREN": {
+      "score": 72.1,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "JOBY": {
+      "score": 62.9,
+      "label": "MID",
       "confidence": 0.68
     },
     "BURU": {
@@ -17213,7 +18360,12 @@
     "RKLB": {
       "score": 35.6,
       "label": "LOW",
-      "confidence": 0.74
+      "confidence": 0.68
+    },
+    "BURU": {
+      "score": 13.6,
+      "label": "LOW",
+      "confidence": 0.68
     },
     "SLS": {
       "score": 23.7,

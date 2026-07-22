@@ -192,8 +192,9 @@
         "company": "Jefferies Financial Group",
         "sector": "Financial Services",
         "ai_score": 8.3,
-        "swing_score": 7.4,
+        "swing_score": 7.6,
         "swing_tier": "A",
+        "days_to_earnings": 68,
         "evaluated": true,
         "bars": 889,
         "gates": {
@@ -819,8 +820,9 @@
         "company": "Morgan Stanley",
         "sector": "Financial Services",
         "ai_score": 8.0,
-        "swing_score": 7.1,
+        "swing_score": 7.2,
         "swing_tier": "A",
+        "days_to_earnings": 83,
         "evaluated": true,
         "bars": 889,
         "gates": {
@@ -873,6 +875,7 @@
         "ai_score": 8.0,
         "swing_score": 6.5,
         "swing_tier": "B",
+        "days_to_earnings": 0,
         "evaluated": true,
         "bars": 889,
         "gates": {
@@ -925,6 +928,7 @@
         "ai_score": 8.1,
         "swing_score": 7.7,
         "swing_tier": "A",
+        "days_to_earnings": 13,
         "evaluated": true,
         "bars": 889,
         "gates": {
@@ -957,7 +961,9 @@
           "bb_upper_20": 77.515,
           "range_10d_pct": 0.0681
         },
-        "blockers": [],
+        "blockers": [
+          "earnings_near (13d)"
+        ],
         "insufficient_data_reasons": [],
         "go_no_go_score": 4,
         "go_no_go_gates_evaluated": 10,
@@ -965,7 +971,7 @@
         "accumulation_score": 1,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.2,
-        "blocker_count": 0
+        "blocker_count": 1
       },
       {
         "ticker": "BALL",
@@ -1090,6 +1096,7 @@
         "ai_score": 7.8,
         "swing_score": 7.8,
         "swing_tier": "A",
+        "days_to_earnings": 0,
         "evaluated": true,
         "bars": 889,
         "gates": {
@@ -1122,7 +1129,9 @@
           "bb_upper_20": 33.08,
           "range_10d_pct": 0.0401
         },
-        "blockers": [],
+        "blockers": [
+          "earnings_near (0d)"
+        ],
         "insufficient_data_reasons": [],
         "go_no_go_score": 5,
         "go_no_go_gates_evaluated": 10,
@@ -1130,7 +1139,7 @@
         "accumulation_score": 0,
         "accumulation_gates_evaluated": 5,
         "accumulation_score_normalized": 0.0,
-        "blocker_count": 0
+        "blocker_count": 1
       },
       {
         "ticker": "AFL",
@@ -1584,7 +1593,7 @@
         "evaluated": true,
         "bars": 889,
         "gates": {
-          "trend_sma_aligned": false,
+          "trend_sma_aligned": true,
           "above_sma20": true,
           "above_bb_mid": true,
           "above_sma50": true,
@@ -1645,7 +1654,7 @@
           "above_sma50": true,
           "ma50_rising": true,
           "rsi_in_zone": true,
-          "rsi_slope_pos": true,
+          "rsi_slope_pos": false,
           "return_20d_ok": false,
           "rel_vol_ok": false,
           "bar_strength": false,
@@ -3861,7 +3870,7 @@
         "above_sma50": true,
         "ma50_rising": true,
         "rsi_in_zone": false,
-        "rsi_slope_pos": false,
+        "rsi_slope_pos": true,
         "return_20d_ok": false,
         "rel_vol_ok": false,
         "bar_strength": false,
@@ -4067,15 +4076,125 @@
       "blocker_count": 0
     },
     {
-      "ticker": "JBHT",
+      "ticker": "DUOL",
+      "sources": [
+        "watchlist"
+      ],
+      "company": "Duolingo",
+      "sector": "Technology",
+      "ai_score": 7.2,
+      "swing_score": 6.5,
+      "swing_tier": "B",
+      "days_to_earnings": 14,
+      "evaluated": true,
+      "bars": 889,
+      "gates": {
+        "trend_sma_aligned": true,
+        "above_sma20": false,
+        "above_bb_mid": false,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": false,
+        "rsi_slope_pos": false,
+        "return_20d_ok": false,
+        "rel_vol_ok": false,
+        "bar_strength": false,
+        "mfi_above_avg": true,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 124.71,
+        "sma5": 130.522,
+        "sma8": 129.7575,
+        "sma13": 129.4623,
+        "sma20": 127.0517,
+        "sma50": 119.1233,
+        "rsi14": 49.2824,
+        "rsi14_3bar_ago": 54.9597,
+        "return_20d": -0.02,
+        "rel_vol_20d": 0.897,
+        "mfi14": 69.0619,
+        "high_20d": 133.89,
+        "bb_upper_20": 138.2755,
+        "range_10d_pct": 0.1074
+      },
+      "blockers": [
+        "earnings_near (14d)"
+      ],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 3,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.3,
+      "accumulation_score": 1,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.2,
+      "blocker_count": 1
+    },
+    {
+      "ticker": "EQIX",
+      "sources": [
+        "disagreement"
+      ],
+      "sector": "Real Estate",
+      "ai_score": 6.2,
+      "evaluated": true,
+      "bars": 889,
+      "gates": {
+        "trend_sma_aligned": false,
+        "above_sma20": false,
+        "above_bb_mid": false,
+        "above_sma50": false,
+        "ma50_rising": false,
+        "rsi_in_zone": false,
+        "rsi_slope_pos": true,
+        "return_20d_ok": false,
+        "rel_vol_ok": false,
+        "bar_strength": false,
+        "mfi_above_avg": true,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 1027.88,
+        "sma5": 1019.386,
+        "sma8": 1026.4012,
+        "sma13": 1021.9877,
+        "sma20": 1040.843,
+        "sma50": 1058.7,
+        "rsi14": 45.6736,
+        "rsi14_3bar_ago": 38.9919,
+        "return_20d": -0.0789,
+        "rel_vol_20d": 0.875,
+        "mfi14": 45.3922,
+        "high_20d": 1115.9301,
+        "bb_upper_20": 1108.9046,
+        "range_10d_pct": 0.059
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 1,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.1,
+      "accumulation_score": 1,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.2,
+      "blocker_count": 0,
+      "disagreement": {
+        "classification": "supports_external_caution",
+        "action": "downgrade-watchlist-only",
+        "rationale": "Pine score 0.10 weak, agrees with external caution"
+      }
+    },
+    {
+      "ticker": "EWBC",
       "sources": [
         "main"
       ],
-      "company": "J.B. Hunt",
-      "sector": "Industrials",
-      "ai_score": 7.8,
-      "swing_score": 7.1,
+      "company": "East West Bancorp",
+      "sector": "Financial Services",
+      "ai_score": 8.0,
+      "swing_score": 7.7,
       "swing_tier": "A",
+      "days_to_earnings": 90,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -4137,7 +4256,7 @@
         "above_sma50": true,
         "ma50_rising": true,
         "rsi_in_zone": true,
-        "rsi_slope_pos": true,
+        "rsi_slope_pos": false,
         "return_20d_ok": false,
         "rel_vol_ok": false,
         "bar_strength": true,
@@ -4171,7 +4290,18 @@
       "blocker_count": 0
     },
     {
-      "ticker": "JLL",
+      "ticker": "GUSH",
+      "sources": [
+        "watchlist"
+      ],
+      "company": "Direxion Daily S&P Oil & Gas Ex",
+      "sector": "ETF",
+      "ai_score": 7.5,
+      "evaluated": false,
+      "reason": "ohlcv missing"
+    },
+    {
+      "ticker": "INCY",
       "sources": [
         "main"
       ],
@@ -4212,7 +4342,9 @@
         "bb_upper_20": 340.9832,
         "range_10d_pct": 0.0728
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (5d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 6,
       "go_no_go_gates_evaluated": 10,
@@ -4220,7 +4352,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "JOBY",
@@ -4285,6 +4417,177 @@
       "blocker_count": 0
     },
     {
+      "ticker": "JEF",
+      "sources": [
+        "main"
+      ],
+      "company": "Jefferies Financial Group",
+      "sector": "Financial Services",
+      "ai_score": 8.3,
+      "swing_score": 7.6,
+      "swing_tier": "A",
+      "days_to_earnings": 68,
+      "evaluated": true,
+      "bars": 889,
+      "gates": {
+        "trend_sma_aligned": true,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": true,
+        "rsi_slope_pos": true,
+        "return_20d_ok": false,
+        "rel_vol_ok": false,
+        "bar_strength": true,
+        "mfi_above_avg": true,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 56.74,
+        "sma5": 55.944,
+        "sma8": 54.795,
+        "sma13": 54.0146,
+        "sma20": 53.6225,
+        "sma50": 54.6553,
+        "rsi14": 56.1405,
+        "rsi14_3bar_ago": 53.9521,
+        "return_20d": -0.0966,
+        "rel_vol_20d": 0.687,
+        "mfi14": 62.0073,
+        "high_20d": 60.52,
+        "bb_upper_20": 59.5366,
+        "range_10d_pct": 0.1216
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 8,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.8,
+      "accumulation_score": 3,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.6,
+      "blocker_count": 0
+    },
+    {
+      "ticker": "JLL",
+      "sources": [
+        "main"
+      ],
+      "company": "Jones Lang LaSalle",
+      "sector": "Real Estate",
+      "ai_score": 8.0,
+      "swing_score": 7.8,
+      "swing_tier": "A",
+      "days_to_earnings": 7,
+      "evaluated": true,
+      "bars": 889,
+      "gates": {
+        "trend_sma_aligned": false,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": true,
+        "rsi_slope_pos": false,
+        "return_20d_ok": true,
+        "rel_vol_ok": false,
+        "bar_strength": false,
+        "mfi_above_avg": false,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 324.44,
+        "sma5": 328.962,
+        "sma8": 325.6988,
+        "sma13": 326.4385,
+        "sma20": 320.131,
+        "sma50": 306.2426,
+        "rsi14": 55.3222,
+        "rsi14_3bar_ago": 65.223,
+        "return_20d": 0.1004,
+        "rel_vol_20d": 1.103,
+        "mfi14": 47.4583,
+        "high_20d": 335.85,
+        "bb_upper_20": 340.9832,
+        "range_10d_pct": 0.0728
+      },
+      "blockers": [
+        "earnings_near (7d)"
+      ],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 6,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.6,
+      "accumulation_score": 1,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.2,
+      "blocker_count": 1
+    },
+    {
+      "ticker": "JOBY",
+      "sources": [
+        "disagreement"
+      ],
+      "sector": "Industrials",
+      "ai_score": 4.0,
+      "evaluated": false,
+      "reason": "ohlcv missing"
+    },
+    {
+      "ticker": "JPM",
+      "sources": [
+        "main"
+      ],
+      "company": "JPMorgan Chase",
+      "sector": "Financial Services",
+      "ai_score": 8.3,
+      "swing_score": 6.5,
+      "swing_tier": "B",
+      "days_to_earnings": 82,
+      "evaluated": true,
+      "bars": 889,
+      "gates": {
+        "trend_sma_aligned": true,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": true,
+        "rsi_slope_pos": false,
+        "return_20d_ok": false,
+        "rel_vol_ok": false,
+        "bar_strength": true,
+        "mfi_above_avg": true,
+        "near_20d_high": true
+      },
+      "metrics": {
+        "last_close": 345.23,
+        "sma5": 343.052,
+        "sma8": 341.1438,
+        "sma13": 338.8577,
+        "sma20": 335.8642,
+        "sma50": 318.4027,
+        "rsi14": 63.1867,
+        "rsi14_3bar_ago": 63.3774,
+        "return_20d": 0.0462,
+        "rel_vol_20d": 0.581,
+        "mfi14": 62.6534,
+        "high_20d": 346.91,
+        "bb_upper_20": 347.4837,
+        "range_10d_pct": 0.0738
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 7,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.7,
+      "accumulation_score": 4,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.8,
+      "blocker_count": 0
+    },
+    {
       "ticker": "KMI",
       "sources": [
         "main"
@@ -4294,6 +4597,7 @@
       "ai_score": 7.8,
       "swing_score": 7.8,
       "swing_tier": "A",
+      "days_to_earnings": 0,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -4326,7 +4630,9 @@
         "bb_upper_20": 33.08,
         "range_10d_pct": 0.0401
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (0d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 5,
       "go_no_go_gates_evaluated": 10,
@@ -4334,7 +4640,7 @@
       "accumulation_score": 0,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.0,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "LUNMF",
@@ -4411,8 +4717,9 @@
       "company": "Meta Platforms",
       "sector": "Communication Services",
       "ai_score": 8.3,
-      "swing_score": 7.1,
+      "swing_score": 7.2,
       "swing_tier": "A",
+      "days_to_earnings": 7,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -4445,7 +4752,9 @@
         "bb_upper_20": 700.8201,
         "range_10d_pct": 0.1693
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (7d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 6,
       "go_no_go_gates_evaluated": 10,
@@ -4453,7 +4762,66 @@
       "accumulation_score": 2,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.4,
-      "blocker_count": 0
+      "blocker_count": 1
+    },
+    {
+      "ticker": "MLI",
+      "sources": [
+        "main",
+        "disagreement"
+      ],
+      "company": "Mueller Industries",
+      "sector": "Industrials",
+      "ai_score": 7.8,
+      "swing_score": 6.6,
+      "swing_tier": "B",
+      "days_to_earnings": 89,
+      "evaluated": true,
+      "bars": 889,
+      "gates": {
+        "trend_sma_aligned": true,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": false,
+        "ma50_rising": false,
+        "rsi_in_zone": false,
+        "rsi_slope_pos": true,
+        "return_20d_ok": false,
+        "rel_vol_ok": false,
+        "bar_strength": true,
+        "mfi_above_avg": true,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 62.3,
+        "sma5": 59.376,
+        "sma8": 58.5875,
+        "sma13": 57.7931,
+        "sma20": 59.8827,
+        "sma50": 64.4338,
+        "rsi14": 53.9455,
+        "rsi14_3bar_ago": 42.8037,
+        "return_20d": -0.1069,
+        "rel_vol_20d": 1.044,
+        "mfi14": 48.3514,
+        "high_20d": 68.165,
+        "bb_upper_20": 67.5188,
+        "range_10d_pct": 0.1193
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 5,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.5,
+      "accumulation_score": 2,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.4,
+      "blocker_count": 0,
+      "disagreement": {
+        "classification": "mixed",
+        "action": "review",
+        "rationale": "Pine score 0.50 mid-range, no clear support"
+      }
     },
     {
       "ticker": "MLI",
@@ -4517,8 +4885,9 @@
       "company": "Morgan Stanley",
       "sector": "Financial Services",
       "ai_score": 8.0,
-      "swing_score": 7.1,
+      "swing_score": 7.2,
       "swing_tier": "A",
+      "days_to_earnings": 83,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -4582,6 +4951,7 @@
       "ai_score": 8.2,
       "swing_score": 7.6,
       "swing_tier": "A",
+      "days_to_earnings": 0,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -4614,7 +4984,9 @@
         "bb_upper_20": 95.6154,
         "range_10d_pct": 0.1332
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (0d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
@@ -4622,7 +4994,7 @@
       "accumulation_score": 2,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.4,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "NTRS",
@@ -4738,6 +5110,7 @@
       "ai_score": 6.8,
       "swing_score": 6.1,
       "swing_tier": "B",
+      "days_to_earnings": 35,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -4790,6 +5163,7 @@
       "ai_score": 8.1,
       "swing_score": 7.7,
       "swing_tier": "A",
+      "days_to_earnings": 13,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -4822,7 +5196,9 @@
         "bb_upper_20": 77.515,
         "range_10d_pct": 0.0681
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (13d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 4,
       "go_no_go_gates_evaluated": 10,
@@ -4830,7 +5206,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "OHI",
@@ -4842,6 +5218,7 @@
       "ai_score": 8.1,
       "swing_score": 7.1,
       "swing_tier": "A",
+      "days_to_earnings": 7,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -4874,7 +5251,9 @@
         "bb_upper_20": 50.697,
         "range_10d_pct": 0.0607
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (7d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 9,
       "go_no_go_gates_evaluated": 10,
@@ -4894,6 +5273,7 @@
       "ai_score": 8.1,
       "swing_score": 7.4,
       "swing_tier": "A",
+      "days_to_earnings": 12,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -5019,7 +5399,7 @@
         "ma50_rising": true,
         "rsi_in_zone": true,
         "rsi_slope_pos": false,
-        "return_20d_ok": true,
+        "return_20d_ok": false,
         "rel_vol_ok": false,
         "bar_strength": false,
         "mfi_above_avg": true,
@@ -5043,7 +5423,7 @@
       },
       "blockers": [],
       "insufficient_data_reasons": [],
-      "go_no_go_score": 7,
+      "go_no_go_score": 6,
       "go_no_go_gates_evaluated": 10,
       "go_no_go_score_normalized": 0.7,
       "accumulation_score": 2,
@@ -5385,6 +5765,7 @@
       "ai_score": 8.0,
       "swing_score": 6.5,
       "swing_tier": "B",
+      "days_to_earnings": 0,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -5417,7 +5798,9 @@
         "bb_upper_20": 404.0778,
         "range_10d_pct": 0.0642
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (0d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 3,
       "go_no_go_gates_evaluated": 10,
@@ -5501,8 +5884,9 @@
       "company": "Charles Schwab Corporation",
       "sector": "Financial Services",
       "ai_score": 7.9,
-      "swing_score": 6.7,
+      "swing_score": 6.9,
       "swing_tier": "B",
+      "days_to_earnings": 84,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -5763,8 +6147,9 @@
       "company": "SouthState Corporation",
       "sector": "Financial Services",
       "ai_score": 8.3,
-      "swing_score": 7.5,
+      "swing_score": 7.0,
       "swing_tier": "A",
+      "days_to_earnings": 1,
       "evaluated": true,
       "bars": 889,
       "gates": {
@@ -5797,7 +6182,9 @@
         "bb_upper_20": 103.6559,
         "range_10d_pct": 0.0732
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (1d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 6,
       "go_no_go_gates_evaluated": 10,
@@ -5805,7 +6192,7 @@
       "accumulation_score": 1,
       "accumulation_gates_evaluated": 5,
       "accumulation_score_normalized": 0.2,
-      "blocker_count": 0
+      "blocker_count": 1
     },
     {
       "ticker": "TEL",
@@ -6005,7 +6392,9 @@
         "bb_upper_20": 32.1105,
         "range_10d_pct": 0.1129
       },
-      "blockers": [],
+      "blockers": [
+        "earnings_near (13d)"
+      ],
       "insufficient_data_reasons": [],
       "go_no_go_score": 7,
       "go_no_go_gates_evaluated": 10,
@@ -6048,6 +6437,7 @@
       "ai_score": 8.0,
       "swing_score": 7.8,
       "swing_tier": "A",
+      "days_to_earnings": 6,
       "evaluated": true,
       "bars": 889,
       "gates": {
