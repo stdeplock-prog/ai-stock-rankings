@@ -25,15 +25,15 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; rankings=OK, tasks=OK"
+          "status": "WARN",
+          "message": "overall=WARN; rankings=WARN, tasks=OK"
         }
       ],
       "metrics": {
-        "overall": "OK",
+        "overall": "WARN",
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "schedule": {
       "checks": [
@@ -170,28 +170,28 @@
           },
           {
             "rank": 9,
-            "ticker": "JEF",
-            "company": "Jefferies Financial Group",
-            "ai_score": 8.2,
-            "sector": "Financial Services",
-            "change": 1,
-            "fundamental": 8.4,
-            "technical": 7.9,
-            "sentiment": 7.5,
-            "low_risk": 8.8,
-            "data_source": null
-          },
-          {
-            "rank": 10,
             "ticker": "FRT",
             "company": "Federal Realty Investment Trust",
             "ai_score": 8.2,
             "sector": "Real Estate",
-            "change": -1,
+            "change": 0,
             "fundamental": 8.1,
             "technical": 8.4,
             "sentiment": 8.6,
             "low_risk": 7.8,
+            "data_source": null
+          },
+          {
+            "rank": 10,
+            "ticker": "JEF",
+            "company": "Jefferies Financial Group",
+            "ai_score": 8.2,
+            "sector": "Financial Services",
+            "change": 0,
+            "fundamental": 8.4,
+            "technical": 7.9,
+            "sentiment": 7.5,
+            "low_risk": 8.8,
             "data_source": null
           },
           {
@@ -378,8 +378,8 @@
           },
           {
             "rank": 25,
-            "ticker": "AVT",
-            "company": "Avnet",
+            "ticker": "INGM",
+            "company": "Ingram Micro",
             "ai_score": 8.0,
             "sector": "Technology",
             "change": -2,
@@ -1117,16 +1117,16 @@
                 "sector": "Consumer Cyclical"
               },
               {
-                "ticker": "JEF",
+                "ticker": "FRT",
                 "rank": 9,
                 "ai_score": 8.2,
-                "sector": "Financial Services"
+                "sector": "Real Estate"
               },
               {
-                "ticker": "FRT",
+                "ticker": "JEF",
                 "rank": 10,
                 "ai_score": 8.2,
-                "sector": "Real Estate"
+                "sector": "Financial Services"
               }
             ],
             "exited": [
@@ -1512,7 +1512,7 @@
           }
         ],
         "spy_return_21d": 0.0063,
-        "main_top25_window_return": 0.0393,
+        "main_top25_window_return": 0.0387,
         "watchlist_top25_window_return": 0.0288
       },
       "status": "WARN"
@@ -1603,16 +1603,16 @@
         "sector": "Consumer Cyclical"
       },
       {
-        "ticker": "JEF",
-        "reason": "new entrant \u2014 main top10",
-        "ai_score": 8.2,
-        "sector": "Financial Services"
-      },
-      {
         "ticker": "FRT",
         "reason": "new entrant \u2014 main top10",
         "ai_score": 8.2,
         "sector": "Real Estate"
+      },
+      {
+        "ticker": "JEF",
+        "reason": "new entrant \u2014 main top10",
+        "ai_score": 8.2,
+        "sector": "Financial Services"
       },
       {
         "ticker": "USO",
@@ -1690,16 +1690,16 @@
     "snapshot_count": 61
   },
   "action_items": [
+    "[WARN] data_quality.data_quality_overall: overall=WARN; rankings=WARN, tasks=OK",
     "[WARN] leaderboards.main_sector_concentration: main_top25 dominated by Financial Services 16/25 (64%)",
     "[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 10/25 (40%)",
     "[WARN] benchmark_context.lagging_buckets: 7 bucket/horizon pairs with negative avg_mean_return",
     "[WARN] diagnostics.suspicious_ranks: 5 suspicious top rank(s) flagged",
-    "[INFO] main_top10 new entries: ARW, SSB, FIVE, JEF, FRT",
+    "[INFO] main_top10 new entries: ARW, SSB, FIVE, FRT, JEF",
     "[INFO] main_top10 exited: BAC, GOOG, META, MS, SF",
     "[INFO] watchlist_top10 new entries: USO, AME, VG",
     "[INFO] watchlist_top10 exited: DUOL, PATH, RY",
-    "[INFO] supp_top10 new entries: CLS, LUNMF, AGX, NBIS",
-    "[INFO] supp_top10 exited: BABA, FRSH, VISN, ZENA"
+    "[INFO] supp_top10 new entries: CLS, LUNMF, AGX, NBIS"
   ],
   "summary": "Overall WARN \u00b7 snaps=61 \u00b7 main top10 \u0394 +5/-5 \u00b7 sector Financial Services 64% \u00b7 bench lag=7 \u00b7 adds=9 trims=9"
 }

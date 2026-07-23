@@ -26,6 +26,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="summary"><strong>Recap:</strong> Close 05:36 PM CT · Source scheduled · DQ OK · ↑DLR ↓FE · 5 new top10 (JPM…) · Risk alert 4/7&lt;200DMA</div>
 
 <div class="section"><h2>Action Items</h2>
+<h3>Operational</h3><ul class="action">
+<li>[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK</li>
+</ul>
 <h3>Market &amp; Rankings</h3><ul class="action">
 <li>[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (6/10 = 60%)</li>
 <li>[WARN] market_risk.generals_fail: Generals Fail 4/7 below 200DMA (threshold 3): MSFT, GOOGL, META, TSLA</li>
@@ -48,8 +51,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td>6</td><td><strong>NU</strong></td><td>Nubank</td><td>8.2</td><td>0</td><td>Financial Services</td></tr>
 <tr><td>7</td><td><strong>NDAQ</strong></td><td>Nasdaq, Inc.</td><td>8.2</td><td>1</td><td>Financial Services</td></tr>
 <tr><td>8</td><td><strong>FIVE</strong></td><td>Five Below</td><td>8.2</td><td>-1</td><td>Consumer Cyclical</td></tr>
-<tr><td>9</td><td><strong>JEF</strong></td><td>Jefferies Financial Group</td><td>8.2</td><td>1</td><td>Financial Services</td></tr>
-<tr><td>10</td><td><strong>FRT</strong></td><td>Federal Realty Investment Trust</td><td>8.2</td><td>-1</td><td>Real Estate</td></tr>
+<tr><td>9</td><td><strong>FRT</strong></td><td>Federal Realty Investment Trust</td><td>8.2</td><td>0</td><td>Real Estate</td></tr>
+<tr><td>10</td><td><strong>JEF</strong></td><td>Jefferies Financial Group</td><td>8.2</td><td>0</td><td>Financial Services</td></tr>
 </tbody></table>
 <div class="movers">
 <div><h3>Top MOV Gainers</h3>
@@ -133,18 +136,18 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>run_source</td><td class="OK">OK</td><td>latest run: scheduled (2026-07-23 17:36)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
+<div class="section"><h2>Data Quality<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;overall&quot;: &quot;OK&quot;,
+  &quot;overall&quot;: &quot;WARN&quot;,
   &quot;by_section&quot;: {
-    &quot;rankings&quot;: &quot;OK&quot;,
+    &quot;rankings&quot;: &quot;WARN&quot;,
     &quot;watchlist&quot;: &quot;OK&quot;,
     &quot;tasks&quot;: &quot;OK&quot;
   },
   &quot;critical_section_fail&quot;: false
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>data_quality_overall</td><td class="OK">OK</td><td>overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK</td></tr>
+<tr><td>data_quality_overall</td><td class="WARN">WARN</td><td>overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Rankings Recap<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -215,19 +218,19 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     },
     {
       &quot;rank&quot;: 9,
-      &quot;ticker&quot;: &quot;JEF&quot;,
-      &quot;company&quot;: &quot;Jefferies Financial Group&quot;,
-      &quot;ai_score&quot;: 8.2,
-      &quot;change&quot;: 1,
-      &quot;sector&quot;: &quot;Financial Services&quot;
-    },
-    {
-      &quot;rank&quot;: 10,
       &quot;ticker&quot;: &quot;FRT&quot;,
       &quot;company&quot;: &quot;Federal Realty Investment Trust&quot;,
       &quot;ai_score&quot;: 8.2,
-      &quot;change&quot;: -1,
+      &quot;change&quot;: 0,
       &quot;sector&quot;: &quot;Real Estate&quot;
+    },
+    {
+      &quot;rank&quot;: 10,
+      &quot;ticker&quot;: &quot;JEF&quot;,
+      &quot;company&quot;: &quot;Jefferies Financial Group&quot;,
+      &quot;ai_score&quot;: 8.2,
+      &quot;change&quot;: 0,
+      &quot;sector&quot;: &quot;Financial Services&quot;
     }
   ],
   &quot;top_gainers&quot;: [
@@ -298,20 +301,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;sector&quot;: &quot;Healthcare&quot;
     },
     {
-      &quot;rank&quot;: 69,
+      &quot;rank&quot;: 68,
       &quot;ticker&quot;: &quot;DCI&quot;,
       &quot;company&quot;: &quot;Donaldson Company&quot;,
-      &quot;change&quot;: -6,
+      &quot;change&quot;: -5,
       &quot;ai_score&quot;: 7.7,
       &quot;sector&quot;: &quot;Industrials&quot;
-    },
-    {
-      &quot;rank&quot;: 95,
-      &quot;ticker&quot;: &quot;EEFT&quot;,
-      &quot;company&quot;: &quot;Euronet Worldwide&quot;,
-      &quot;change&quot;: -6,
-      &quot;ai_score&quot;: 7.5,
-      &quot;sector&quot;: &quot;Technology&quot;
     }
   ],
   &quot;new_top10_entries&quot;: [
@@ -341,7 +336,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     },
     {
       &quot;ticker&quot;: &quot;JEF&quot;,
-      &quot;rank&quot;: 9,
+      &quot;rank&quot;: 10,
       &quot;ai_score&quot;: 8.2,
       &quot;sector&quot;: &quot;Financial Services&quot;
     }

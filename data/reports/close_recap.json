@@ -55,20 +55,20 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+          "status": "WARN",
+          "message": "overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
-        "overall": "OK",
+        "overall": "WARN",
         "by_section": {
-          "rankings": "OK",
+          "rankings": "WARN",
           "watchlist": "OK",
           "tasks": "OK"
         },
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "rankings_recap": {
       "checks": [
@@ -156,19 +156,19 @@
           },
           {
             "rank": 9,
-            "ticker": "JEF",
-            "company": "Jefferies Financial Group",
-            "ai_score": 8.2,
-            "change": 1,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 10,
             "ticker": "FRT",
             "company": "Federal Realty Investment Trust",
             "ai_score": 8.2,
-            "change": -1,
+            "change": 0,
             "sector": "Real Estate"
+          },
+          {
+            "rank": 10,
+            "ticker": "JEF",
+            "company": "Jefferies Financial Group",
+            "ai_score": 8.2,
+            "change": 0,
+            "sector": "Financial Services"
           }
         ],
         "top_gainers": [
@@ -239,20 +239,12 @@
             "sector": "Healthcare"
           },
           {
-            "rank": 69,
+            "rank": 68,
             "ticker": "DCI",
             "company": "Donaldson Company",
-            "change": -6,
+            "change": -5,
             "ai_score": 7.7,
             "sector": "Industrials"
-          },
-          {
-            "rank": 95,
-            "ticker": "EEFT",
-            "company": "Euronet Worldwide",
-            "change": -6,
-            "ai_score": 7.5,
-            "sector": "Technology"
           }
         ],
         "new_top10_entries": [
@@ -282,7 +274,7 @@
           },
           {
             "ticker": "JEF",
-            "rank": 9,
+            "rank": 10,
             "ai_score": 8.2,
             "sector": "Financial Services"
           }
@@ -636,6 +628,7 @@
     "prior_snapshot_present": true
   },
   "action_items": [
+    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK",
     "[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (6/10 = 60%)",
     "[WARN] market_risk.generals_fail: Generals Fail 4/7 below 200DMA (threshold 3): MSFT, GOOGL, META, TSLA",
     "[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 5 suspicious top rank(s)",
