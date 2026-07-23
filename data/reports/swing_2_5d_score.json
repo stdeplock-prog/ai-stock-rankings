@@ -3698,9 +3698,9 @@
           "present": true
         },
         "sentiment_catalyst": {
-          "score": 0.89,
+          "score": 0.67,
           "weight": 0.06,
-          "detail": "SENT 8.9/10",
+          "detail": "SENT 6.7/10",
           "present": true
         }
       },
@@ -3730,9 +3730,9 @@
       "confidence": 0.74,
       "components": {
         "tech_trend": {
-          "score": 0.84,
+          "score": 0.66,
           "weight": 0.22,
-          "detail": "TECH 8.4/10",
+          "detail": "TECH 6.6/10",
           "present": true
         },
         "momentum_thrust": {
@@ -3772,7 +3772,12 @@
           "present": true
         }
       },
-      "penalties": {},
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        }
+      },
       "has_ohlcv": true
     },
     {
@@ -3783,7 +3788,7 @@
       "ai_score": 7.8,
       "go_label": null,
       "acc_label": null,
-      "swing_score": 6.6,
+      "swing_score": 6.4,
       "swing_tier": "B",
       "close": 64.47,
       "days_to_earnings": 83,
@@ -3811,7 +3816,7 @@
           "present": true
         },
         "accumulation": {
-          "score": null,
+          "score": 0.072,
           "weight": 0.14,
           "detail": "no accumulation signal",
           "present": false
@@ -4029,7 +4034,12 @@
           "present": true
         }
       },
-      "penalties": {},
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        }
+      },
       "has_ohlcv": true
     },
     {
@@ -4096,11 +4106,11 @@
       "has_ohlcv": true
     },
     {
-      "ticker": "STLD",
-      "company": "Steel Dynamics",
-      "sector": "Basic Materials",
-      "rank": 61,
-      "ai_score": 7.7,
+      "ticker": "PCG",
+      "company": "PG&E Corporation",
+      "sector": "Utilities",
+      "rank": 98,
+      "ai_score": 7.5,
       "go_label": null,
       "acc_label": null,
       "swing_score": 6.4,
@@ -4314,7 +4324,7 @@
         "tech_trend": {
           "score": 0.73,
           "weight": 0.22,
-          "detail": "TECH 7.3/10",
+          "detail": "TECH 8.1/10",
           "present": true
         },
         "momentum_thrust": {
@@ -4440,7 +4450,7 @@
       "positive_score": 50.1,
       "score": 50.1,
       "label": "MID",
-      "confidence": 0.74,
+      "confidence": 0.88,
       "components": {
         "tech_trend": {
           "score": 0.64,
@@ -4455,9 +4465,203 @@
           "present": true
         },
         "continuity": {
-          "score": 0.567,
+          "score": 0.552,
           "weight": 0.16,
-          "detail": "CONT MID 57",
+          "detail": "CONT MID 55",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.334,
+          "weight": 0.14,
+          "detail": "ACC meter 3.3/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "38.7M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.84,
+          "weight": 0.06,
+          "detail": "SENT 8.4/10",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "AMZN",
+      "company": "Amazon",
+      "sector": "Consumer Cyclical",
+      "rank": 6,
+      "ai_score": 7.5,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 6.4,
+      "swing_tier": "B",
+      "close": 244.85,
+      "days_to_earnings": 7,
+      "positive_score": 45.9,
+      "score": 39.1,
+      "label": "LOW",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.7,
+          "weight": 0.22,
+          "detail": "TECH 7.0/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.2428,
+          "weight": 0.2,
+          "detail": "2d -2.1% (-1.2x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.358,
+          "weight": 0.16,
+          "detail": "CONT LOW 36",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.072,
+          "weight": 0.14,
+          "detail": "ACC meter 0.7/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "33.9M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.74,
+          "weight": 0.06,
+          "detail": "SENT 7.4/10",
+          "present": true
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "DELL",
+      "company": "Dell Technologies",
+      "sector": "Technology",
+      "rank": 7,
+      "ai_score": 7.5,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 5.5,
+      "swing_tier": "B",
+      "close": 441.8,
+      "days_to_earnings": 42,
+      "positive_score": 72.0,
+      "score": 72.0,
+      "label": "HIGH",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.69,
+          "weight": 0.22,
+          "detail": "TECH 6.9/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 1.0,
+          "weight": 0.2,
+          "detail": "2d +15.9% (+2.4x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.743,
+          "weight": 0.16,
+          "detail": "CONT HIGH 74",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.441,
+          "weight": 0.14,
+          "detail": "ACC meter 4.4/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.5908,
+          "weight": 0.1,
+          "detail": "7.2M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.7,
+          "weight": 0.06,
+          "detail": "SENT 5.8/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "GUSH",
+      "company": "Direxion Daily S&P Oil & Gas Ex",
+      "sector": "ETF",
+      "rank": 8,
+      "ai_score": 7.5,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 40.3,
+      "days_to_earnings": null,
+      "positive_score": 69.8,
+      "score": 57.6,
+      "label": "MID",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.75,
+          "weight": 0.22,
+          "detail": "TECH 7.5/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.6916,
+          "weight": 0.2,
+          "detail": "2d +4.0% (+0.9x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.933,
+          "weight": 0.16,
+          "detail": "CONT HIGH 93",
           "present": true
         },
         "accumulation": {
@@ -4465,6 +4669,78 @@
           "weight": 0.14,
           "detail": "no accumulation signal",
           "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2175,
+          "weight": 0.1,
+          "detail": "0.8M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "overextension": {
+          "mult": 0.9712,
+          "detail": "overext +10% vs 10DMA (\u00d70.97)"
+        },
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.80M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "GMED",
+      "company": "Globus Medical",
+      "sector": "Healthcare",
+      "rank": 9,
+      "ai_score": 7.4,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 5.4,
+      "swing_tier": "C",
+      "close": 75.5,
+      "days_to_earnings": 14,
+      "positive_score": 34.9,
+      "score": 29.7,
+      "label": "LOW",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.42,
+          "weight": 0.22,
+          "detail": "TECH 4.2/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.4569,
+          "weight": 0.2,
+          "detail": "2d -0.7% (-0.2x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.318,
+          "weight": 0.16,
+          "detail": "CONT LOW 32",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.024,
+          "weight": 0.14,
+          "detail": "ACC meter 0.2/10",
+          "present": true
         },
         "go_gate": {
           "score": null,
@@ -7363,7 +7639,7 @@
         "continuity": {
           "score": 0.832,
           "weight": 0.16,
-          "detail": "CONT HIGH 83",
+          "detail": "CONT HIGH 70",
           "present": true
         },
         "accumulation": {
@@ -14460,6 +14736,10 @@
         "weak_continuity": {
           "mult": 0.85,
           "detail": "CONT LOW (\u00d70.85)"
+        },
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.90M (\u00d70.85)"
         }
       },
       "has_ohlcv": false
@@ -14542,12 +14822,12 @@
       "positive_score": 15.6,
       "score": 11.2,
       "label": "LOW",
-      "confidence": 0.68,
+      "confidence": 0.74,
       "components": {
         "tech_trend": {
-          "score": 0.32,
+          "score": 0.27,
           "weight": 0.22,
-          "detail": "TECH 3.2/10",
+          "detail": "TECH 2.7/10",
           "present": true
         },
         "momentum_thrust": {
@@ -15742,8 +16022,8 @@
       "ticker": "QBTS",
       "company": "D-Wave Quantum Inc.",
       "sector": "Technology",
-      "rank": 136,
-      "ai_score": 3.5,
+      "rank": 133,
+      "ai_score": 3.7,
       "go_label": null,
       "acc_label": null,
       "swing_score": null,
@@ -15824,9 +16104,9 @@
       "confidence": 0.68,
       "components": {
         "tech_trend": {
-          "score": 0.3,
+          "score": 0.34,
           "weight": 0.22,
-          "detail": "TECH 3.0/10",
+          "detail": "TECH 3.4/10",
           "present": true
         },
         "momentum_thrust": {
@@ -15886,7 +16166,7 @@
       "swing_tier": null,
       "close": 0.62,
       "days_to_earnings": null,
-      "positive_score": 27.0,
+      "positive_score": 26.9,
       "score": 19.5,
       "label": "LOW",
       "confidence": 0.68,
@@ -15994,7 +16274,7 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.9,
+          "score": 0.8008,
           "weight": 0.1,
           "detail": "12.5M vol",
           "present": true
@@ -16883,7 +17163,7 @@
     "CBRS": {
       "score": 64.3,
       "label": "MID",
-      "confidence": 0.68
+      "confidence": 0.88
     },
     "FTAI": {
       "score": 60.1,
@@ -16913,7 +17193,7 @@
     "CRWV": {
       "score": 64.9,
       "label": "MID",
-      "confidence": 0.68
+      "confidence": 0.88
     },
     "DDOG": {
       "score": 30.5,
@@ -16963,7 +17243,7 @@
     "SNDK": {
       "score": 61.7,
       "label": "MID",
-      "confidence": 0.74
+      "confidence": 0.88
     },
     "BF-B": {
       "score": 58.8,
@@ -17258,7 +17538,7 @@
     "PGY": {
       "score": 13.8,
       "label": "LOW",
-      "confidence": 0.68
+      "confidence": 0.74
     },
     "QUBT": {
       "score": 36.9,
