@@ -100,9 +100,7 @@
         "confidence": 0.74,
         "go_label": null,
         "acc_label": null,
-        "penalties": [
-          "overextension"
-        ]
+        "penalties": []
       },
       {
         "ticker": "OVV",
@@ -3576,15 +3574,15 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.9,
+          "score": 0.2,
           "weight": 0.1,
           "detail": "20.3M vol",
           "present": true
         },
         "sentiment_catalyst": {
-          "score": 0.71,
+          "score": 0.77,
           "weight": 0.06,
-          "detail": "SENT 7.1/10",
+          "detail": "SENT 6.5/10 +catalyst",
           "present": true
         }
       },
@@ -4682,7 +4680,7 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.9,
+          "score": 0.2058,
           "weight": 0.1,
           "detail": "68.6M vol",
           "present": true
@@ -4698,6 +4696,10 @@
         "weak_continuity": {
           "mult": 0.85,
           "detail": "CONT LOW (\u00d70.85)"
+        },
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.60M (\u00d70.85)"
         }
       },
       "has_ohlcv": true
@@ -12345,9 +12347,9 @@
           "present": true
         },
         "continuity": {
-          "score": 0.173,
+          "score": 0.424,
           "weight": 0.16,
-          "detail": "CONT LOW 17",
+          "detail": "CONT MID 42",
           "present": true
         },
         "accumulation": {
@@ -12376,6 +12378,137 @@
         }
       },
       "penalties": {
+        "earnings": {
+          "mult": 0.82,
+          "detail": "earnings in 5d (\u00d70.82)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "NBIS",
+      "company": "Nebius Group N.V.",
+      "sector": "Communication Services",
+      "rank": 47,
+      "ai_score": 6.0,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 202.52,
+      "days_to_earnings": null,
+      "positive_score": 54.6,
+      "score": 54.6,
+      "label": "MID",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.54,
+          "weight": 0.22,
+          "detail": "TECH 5.4/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.3507,
+          "weight": 0.2,
+          "detail": "2d -7.2% (-0.7x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.656,
+          "weight": 0.16,
+          "detail": "CONT HIGH 66",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.7717,
+          "weight": 0.1,
+          "detail": "10.3M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "BABA",
+      "company": "Alibaba Group Holding Limited",
+      "sector": "Consumer Cyclical",
+      "rank": 48,
+      "ai_score": 5.9,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 113.08,
+      "days_to_earnings": null,
+      "positive_score": 36.3,
+      "score": 30.8,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.44,
+          "weight": 0.22,
+          "detail": "TECH 4.4/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.299,
+          "weight": 0.2,
+          "detail": "2d -3.0% (-0.9x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.324,
+          "weight": 0.16,
+          "detail": "CONT LOW 32",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.3808,
+          "weight": 0.1,
+          "detail": "3.6M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
         "weak_continuity": {
           "mult": 0.85,
           "detail": "CONT LOW (\u00d70.85)"
@@ -12385,7 +12518,7 @@
           "detail": "earnings in 4d (\u00d70.82)"
         }
       },
-      "has_ohlcv": true
+      "has_ohlcv": false
     },
     {
       "ticker": "TRN",
@@ -13046,9 +13179,9 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.3342,
+          "score": 0.375,
           "weight": 0.1,
-          "detail": "2.8M vol",
+          "detail": "3.5M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -13796,9 +13929,9 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.2467,
+          "score": 0.2058,
           "weight": 0.1,
-          "detail": "1.3M vol",
+          "detail": "0.6M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -14004,16 +14137,16 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.9,
+          "score": 0.3925,
           "weight": 0.1,
           "detail": "25416.1M vol",
           "present": true
         },
         "sentiment_catalyst": {
-          "score": null,
+          "score": 0.39,
           "weight": 0.06,
-          "detail": "no sentiment/catalyst",
-          "present": false
+          "detail": "SENT 3.9/10",
+          "present": true
         }
       },
       "penalties": {
@@ -14282,7 +14415,215 @@
         "activity_liq": {
           "score": 0.2,
           "weight": 0.1,
-          "detail": "0.2M vol",
+          "detail": "0.5M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.50M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "SOFI",
+      "company": "SoFi",
+      "sector": "Financial Services",
+      "rank": 86,
+      "ai_score": 5.2,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 4.4,
+      "swing_tier": "C",
+      "close": 16.65,
+      "days_to_earnings": 4,
+      "positive_score": 32.0,
+      "score": 22.3,
+      "label": "LOW",
+      "confidence": 0.74,
+      "components": {
+        "tech_trend": {
+          "score": 0.32,
+          "weight": 0.22,
+          "detail": "TECH 3.2/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.1218,
+          "weight": 0.2,
+          "detail": "2d -5.6% (-1.7x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.173,
+          "weight": 0.16,
+          "detail": "CONT LOW 17",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "73.2M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.41,
+          "weight": 0.06,
+          "detail": "SENT 4.1/10",
+          "present": true
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
+        "earnings": {
+          "mult": 0.82,
+          "detail": "earnings in 4d (\u00d70.82)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "TRN",
+      "company": "Trinity Industries, Inc.",
+      "sector": "Industrials",
+      "rank": 87,
+      "ai_score": 5.2,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 37.33,
+      "days_to_earnings": null,
+      "positive_score": 67.2,
+      "score": 57.1,
+      "label": "MID",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.55,
+          "weight": 0.22,
+          "detail": "TECH 5.5/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.9784,
+          "weight": 0.2,
+          "detail": "2d +3.5% (+2.2x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.752,
+          "weight": 0.16,
+          "detail": "CONT HIGH 75",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2,
+          "weight": 0.1,
+          "detail": "0.1M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.10M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "FIG",
+      "company": "Figma, Inc.",
+      "sector": "Technology",
+      "rank": 88,
+      "ai_score": 5.1,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 20.92,
+      "days_to_earnings": null,
+      "positive_score": 32.2,
+      "score": 27.4,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.31,
+          "weight": 0.22,
+          "detail": "TECH 3.1/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.3796,
+          "weight": 0.2,
+          "detail": "2d -2.6% (-0.5x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.116,
+          "weight": 0.16,
+          "detail": "CONT LOW 12",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.5617,
+          "weight": 0.1,
+          "detail": "6.7M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -14296,17 +14637,13 @@
         "weak_continuity": {
           "mult": 0.85,
           "detail": "CONT LOW (\u00d70.85)"
-        },
-        "low_liquidity": {
-          "mult": 0.85,
-          "detail": "low liq 0.20M (\u00d70.85)"
         }
       },
       "has_ohlcv": false
     },
     {
-      "ticker": "UONE",
-      "company": "Urban One, Inc.",
+      "ticker": "NFLX",
+      "company": "Netflix",
       "sector": "Communication Services",
       "rank": 114,
       "ai_score": 4.5,
@@ -14314,7 +14651,7 @@
       "acc_label": null,
       "swing_score": null,
       "swing_tier": null,
-      "close": 5.1,
+      "close": 1.3,
       "days_to_earnings": null,
       "positive_score": 59.4,
       "score": 50.5,
@@ -17427,6 +17764,361 @@
     },
     "NVTS": {
       "score": 21.2,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "CRWV": {
+      "score": 32.6,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "DOCN": {
+      "score": 32.9,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "FEIM": {
+      "score": 52.1,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "MTSI": {
+      "score": 43.7,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "TTMI": {
+      "score": 36.8,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "BF-B": {
+      "score": 43.2,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "CBRS": {
+      "score": 45.8,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "KLAR": {
+      "score": 22.7,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "ZENA": {
+      "score": 21.3,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "AZO": {
+      "score": 20.2,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "BIPC": {
+      "score": 60.5,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "GLD": {
+      "score": 46.1,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "Q": {
+      "score": 36.7,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "RDDT": {
+      "score": 21.1,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "SMTC": {
+      "score": 34.3,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "SOFI": {
+      "score": 22.3,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "TRN": {
+      "score": 57.1,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "FIG": {
+      "score": 27.4,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "NFLX": {
+      "score": 38.1,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "QCOM": {
+      "score": 28.0,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "SLNH": {
+      "score": 59.6,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "TSLA": {
+      "score": 26.1,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "BETA": {
+      "score": 41.4,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "CNM": {
+      "score": 25.5,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "COHR": {
+      "score": 47.8,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "HOOD": {
+      "score": 31.3,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "MDB": {
+      "score": 18.0,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "DEO": {
+      "score": 36.9,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "ONTO": {
+      "score": 30.7,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "PLRZ": {
+      "score": 47.6,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "TITN": {
+      "score": 51.7,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "CCSI": {
+      "score": 49.9,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "IBIT": {
+      "score": 46.7,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "EMBC": {
+      "score": 47.9,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "MP": {
+      "score": 27.7,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "NEXT": {
+      "score": 23.8,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "APLD": {
+      "score": 31.0,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "BTC-USD": {
+      "score": 32.7,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "RXRX": {
+      "score": 37.5,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "UONE": {
+      "score": 57.7,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "APP": {
+      "score": 23.4,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "PGY": {
+      "score": 18.2,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "SOUN": {
+      "score": 27.9,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "UPST": {
+      "score": 20.7,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "CVNA": {
+      "score": 18.7,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "PBR": {
+      "score": 57.4,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "QTUM": {
+      "score": 22.1,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "CRDO": {
+      "score": 37.1,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "QUBT": {
+      "score": 24.1,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "RKT": {
+      "score": 27.8,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "MRVL": {
+      "score": 54.1,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "SOL-USD": {
+      "score": 26.2,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "ALAB": {
+      "score": 36.9,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "DNTH": {
+      "score": 44.9,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "MSOS": {
+      "score": 23.4,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "PI": {
+      "score": 9.3,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "BURU": {
+      "score": 28.0,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "IONQ": {
+      "score": 25.7,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "PSIX": {
+      "score": 23.8,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "RKLB": {
+      "score": 48.6,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "ACHR": {
+      "score": 55.4,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "SLS": {
+      "score": 22.0,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "IREN": {
+      "score": 58.1,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "JOBY": {
+      "score": 27.2,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "QBTS": {
+      "score": 27.5,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "USAR": {
+      "score": 17.7,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "BFRG": {
+      "score": 27.1,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "NEGG": {
+      "score": 40.4,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "BBAI": {
+      "score": 36.7,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "COIN": {
+      "score": 39.9,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "NVTS": {
+      "score": 20.3,
       "label": "LOW",
       "confidence": 0.68
     },
