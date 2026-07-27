@@ -5,7 +5,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
      max-width:980px;margin:24px auto;padding:0 16px;color:#1a1a1a;}
 h1{margin:0 0 4px} .meta{color:#666;font-size:13px;margin-bottom:18px}
 .badge{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:#c0392b}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00}
 .section{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}
 .section h2{margin:0 0 10px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
 table{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px}
@@ -26,23 +26,19 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="summary"><strong>Recap:</strong> Close 05:55 PM CT · Source scheduled · DQ FAIL · ↑HUBB ↓HALO · 4 new top10 (PLNT…) · Risk alert 4/7&lt;200DMA</div>
 
 <div class="section"><h2>Action Items</h2>
-<h3>Operational</h3><ul class="action">
-<li>[FAIL] data_quality.data_quality_overall: overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK</li>
-<li>[FAIL] data_quality.critical_sections: rankings=FAIL, tasks=OK: critical section failure</li>
-</ul>
 <h3>Market &amp; Rankings</h3><ul class="action">
-<li>[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (4/10 = 40%)</li>
+<li>[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (5/10 = 50%)</li>
 <li>[WARN] market_risk.generals_fail: Generals Fail 4/7 below 200DMA (threshold 3): MSFT, AMZN, META, TSLA</li>
-<li>[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 20 suspicious top rank(s)</li>
-<li>[INFO] New top10 vs 2026-07-24: PLNT, ICE, CEG, MORN</li>
-<li>[INFO] Exited top10 since 2026-07-24: AGCO, FIVE, SCCO, SEIC</li>
+<li>[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 5 suspicious top rank(s)</li>
+<li>[INFO] New top10 vs 2026-07-24: HALO, FAF, SF, JEF</li>
+<li>[INFO] Exited top10 since 2026-07-24: ARW, FIVE, SCCO, SEIC</li>
 </ul>
 </div>
 <div class="section"><h2>Risk Monitor <span class="WARN">WARN</span></h2><p class="kv">Generals Fail: <strong>4/7</strong> below 200DMA (threshold 3); below: MSFT, AMZN, META, TSLA · pending: polls, adr, ndr.</p></div>
 <div class="section"><h2>Main Rankings <span class="OK">RECAP</span></h2>
-<p class='kv'><strong>New top10 vs 2026-07-24:</strong> PLNT, ICE, CEG, MORN</p>
-<p class='kv'><strong>Exited top10 since 2026-07-24:</strong> AGCO, FIVE, SCCO, SEIC</p>
-<p class='kv'><strong>Sector concentration:</strong> <span class='WARN'>WARN</span> Financial Services 4/10 (40%)</p>
+<p class='kv'><strong>New top10 vs 2026-07-24:</strong> HALO, FAF, SF, JEF</p>
+<p class='kv'><strong>Exited top10 since 2026-07-24:</strong> ARW, FIVE, SCCO, SEIC</p>
+<p class='kv'><strong>Sector concentration:</strong> <span class='WARN'>WARN</span> Financial Services 5/10 (50%)</p>
 <h3>Top 10</h3><table><thead><tr><th>#</th><th>Ticker</th><th>Company</th><th>AI</th><th>Δ</th><th>Sector</th></tr></thead><tbody>
 <tr><td>1</td><td><strong>PLNT</strong></td><td>Planet Fitness</td><td>7.3</td><td>39</td><td>Consumer Cyclical</td></tr>
 <tr><td>2</td><td><strong>NU</strong></td><td>Nubank</td><td>7.3</td><td>8</td><td>Financial Services</td></tr>
@@ -137,19 +133,18 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>run_source</td><td class="OK">OK</td><td>latest run: scheduled (2026-07-27 17:55)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Data Quality<span class="FAIL">FAIL</span></h2>
+<div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;overall&quot;: &quot;FAIL&quot;,
+  &quot;overall&quot;: &quot;OK&quot;,
   &quot;by_section&quot;: {
-    &quot;rankings&quot;: &quot;FAIL&quot;,
+    &quot;rankings&quot;: &quot;OK&quot;,
     &quot;watchlist&quot;: &quot;OK&quot;,
     &quot;tasks&quot;: &quot;OK&quot;
   },
-  &quot;critical_section_fail&quot;: true
+  &quot;critical_section_fail&quot;: false
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>data_quality_overall</td><td class="FAIL">FAIL</td><td>overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK</td></tr>
-<tr><td>critical_sections</td><td class="FAIL">FAIL</td><td>rankings=FAIL, tasks=OK: critical section failure</td></tr>
+<tr><td>data_quality_overall</td><td class="OK">OK</td><td>overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Rankings Recap<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -195,12 +190,28 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;sector&quot;: &quot;Basic Materials&quot;
     },
     {
-      &quot;rank&quot;: 6,
-      &quot;ticker&quot;: &quot;CPAY&quot;,
-      &quot;company&quot;: &quot;Corpay&quot;,
-      &quot;ai_score&quot;: 7.1,
-      &quot;change&quot;: -3,
+      &quot;rank&quot;: 4,
+      &quot;ticker&quot;: &quot;HALO&quot;,
+      &quot;company&quot;: &quot;Halozyme&quot;,
+      &quot;ai_score&quot;: 8.4,
+      &quot;change&quot;: 1,
+      &quot;sector&quot;: &quot;Healthcare&quot;
+    },
+    {
+      &quot;rank&quot;: 5,
+      &quot;ticker&quot;: &quot;WEX&quot;,
+      &quot;company&quot;: &quot;WEX Inc.&quot;,
+      &quot;ai_score&quot;: 8.3,
+      &quot;change&quot;: 2,
       &quot;sector&quot;: &quot;Technology&quot;
+    },
+    {
+      &quot;rank&quot;: 6,
+      &quot;ticker&quot;: &quot;FAF&quot;,
+      &quot;company&quot;: &quot;First American Financial Corporation&quot;,
+      &quot;ai_score&quot;: 8.3,
+      &quot;change&quot;: 0,
+      &quot;sector&quot;: &quot;Financial Services&quot;
     },
     {
       &quot;rank&quot;: 7,
@@ -228,10 +239,10 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     },
     {
       &quot;rank&quot;: 10,
-      &quot;ticker&quot;: &quot;MORN&quot;,
-      &quot;company&quot;: &quot;Morningstar, Inc.&quot;,
-      &quot;ai_score&quot;: 7.0,
-      &quot;change&quot;: 38,
+      &quot;ticker&quot;: &quot;NU&quot;,
+      &quot;company&quot;: &quot;Nubank&quot;,
+      &quot;ai_score&quot;: 8.2,
+      &quot;change&quot;: 0,
       &quot;sector&quot;: &quot;Financial Services&quot;
     }
   ],
@@ -327,9 +338,9 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;sector&quot;: &quot;Consumer Cyclical&quot;
     },
     {
-      &quot;ticker&quot;: &quot;ICE&quot;,
-      &quot;rank&quot;: 4,
-      &quot;ai_score&quot;: 7.2,
+      &quot;ticker&quot;: &quot;FAF&quot;,
+      &quot;rank&quot;: 6,
+      &quot;ai_score&quot;: 8.3,
       &quot;sector&quot;: &quot;Financial Services&quot;
     },
     {
@@ -339,14 +350,14 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;sector&quot;: &quot;Utilities&quot;
     },
     {
-      &quot;ticker&quot;: &quot;MORN&quot;,
-      &quot;rank&quot;: 10,
-      &quot;ai_score&quot;: 7.0,
+      &quot;ticker&quot;: &quot;JEF&quot;,
+      &quot;rank&quot;: 8,
+      &quot;ai_score&quot;: 8.2,
       &quot;sector&quot;: &quot;Financial Services&quot;
     }
   ],
   &quot;exited_top10_entries&quot;: [
-    &quot;AGCO&quot;,
+    &quot;ARW&quot;,
     &quot;FIVE&quot;,
     &quot;SCCO&quot;,
     &quot;SEIC&quot;
@@ -361,17 +372,17 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   },
   &quot;sector_concentration&quot;: {
     &quot;top_sector&quot;: &quot;Financial Services&quot;,
-    &quot;top_count&quot;: 4,
+    &quot;top_count&quot;: 5,
     &quot;of&quot;: 10,
-    &quot;pct&quot;: 0.4,
+    &quot;pct&quot;: 0.5,
     &quot;warn&quot;: true
   },
   &quot;limitation&quot;: &quot;MOV-based gainers/losers; new/exited entries vs prior benchmark snapshot; intraday entries vs market_open_scan.&quot;
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>top_n</td><td class="OK">OK</td><td>10 top names extracted (rows=100)</td></tr>
-<tr><td>new_top10_entries</td><td class="OK">OK</td><td>new top10 vs 2026-07-24: PLNT, ICE, CEG, MORN</td></tr>
-<tr><td>sector_concentration</td><td class="WARN">WARN</td><td>top10 dominated by Financial Services (4/10 = 40%)</td></tr>
+<tr><td>new_top10_entries</td><td class="OK">OK</td><td>new top10 vs 2026-07-24: HALO, FAF, SF, JEF</td></tr>
+<tr><td>sector_concentration</td><td class="WARN">WARN</td><td>top10 dominated by Financial Services (5/10 = 50%)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Watchlist<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -383,29 +394,11 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;company&quot;: &quot;Pan American Silver Corp.&quot;,
       &quot;ai_score&quot;: 7.1,
       &quot;change&quot;: 0,
-      &quot;sector&quot;: &quot;Basic Materials&quot;,
-      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
+      &quot;sector&quot;: &quot;Industrials&quot;,
+      &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
       &quot;rank&quot;: 2,
-      &quot;ticker&quot;: &quot;RY&quot;,
-      &quot;company&quot;: &quot;Royal Bank Of Canada&quot;,
-      &quot;ai_score&quot;: 7.1,
-      &quot;change&quot;: 0,
-      &quot;sector&quot;: &quot;Financial Services&quot;,
-      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
-    },
-    {
-      &quot;rank&quot;: 3,
-      &quot;ticker&quot;: &quot;FRSH&quot;,
-      &quot;company&quot;: &quot;Freshworks Inc.&quot;,
-      &quot;ai_score&quot;: 7.0,
-      &quot;change&quot;: 0,
-      &quot;sector&quot;: &quot;Technology&quot;,
-      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
-    },
-    {
-      &quot;rank&quot;: 4,
       &quot;ticker&quot;: &quot;SCCO&quot;,
       &quot;company&quot;: &quot;Southern Copper&quot;,
       &quot;ai_score&quot;: 7.0,
@@ -419,8 +412,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;company&quot;: &quot;Taiwan Semiconductor Manufactur&quot;,
       &quot;ai_score&quot;: 6.8,
       &quot;change&quot;: 0,
-      &quot;sector&quot;: &quot;Technology&quot;,
-      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
+      &quot;sector&quot;: &quot;Real Estate&quot;,
+      &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
       &quot;rank&quot;: 6,
@@ -433,9 +426,18 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     },
     {
       &quot;rank&quot;: 7,
+      &quot;ticker&quot;: &quot;GMED&quot;,
+      &quot;company&quot;: &quot;Globus Medical&quot;,
+      &quot;ai_score&quot;: 7.2,
+      &quot;change&quot;: 0,
+      &quot;sector&quot;: &quot;Healthcare&quot;,
+      &quot;data_source&quot;: &quot;main_pipeline&quot;
+    },
+    {
+      &quot;rank&quot;: 8,
       &quot;ticker&quot;: &quot;META&quot;,
       &quot;company&quot;: &quot;Meta Platforms&quot;,
-      &quot;ai_score&quot;: 6.7,
+      &quot;ai_score&quot;: 7.2,
       &quot;change&quot;: 0,
       &quot;sector&quot;: &quot;Communication Services&quot;,
       &quot;data_source&quot;: &quot;main_pipeline&quot;
@@ -446,8 +448,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;company&quot;: &quot;Celestica, Inc.&quot;,
       &quot;ai_score&quot;: 6.6,
       &quot;change&quot;: 0,
-      &quot;sector&quot;: &quot;Technology&quot;,
-      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
+      &quot;sector&quot;: &quot;Healthcare&quot;,
+      &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
       &quot;rank&quot;: 9,
@@ -548,7 +550,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Diagnostics<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall&quot;: &quot;FAIL&quot;,
-  &quot;suspicious_count&quot;: 20,
+  &quot;suspicious_count&quot;: 5,
   &quot;suspicious_top&quot;: [
     {
       &quot;ticker&quot;: &quot;PLNT&quot;,
@@ -578,18 +580,18 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       ]
     },
     {
-      &quot;ticker&quot;: &quot;ICE&quot;,
-      &quot;group&quot;: &quot;main_top10&quot;,
-      &quot;rank&quot;: 4,
+      &quot;ticker&quot;: &quot;META&quot;,
+      &quot;group&quot;: &quot;watchlist_top10&quot;,
+      &quot;rank&quot;: 8,
       &quot;reasons&quot;: [
         &quot;missing SWING&quot;,
         &quot;weak TECH (3.9)&quot;
       ]
     },
     {
-      &quot;ticker&quot;: &quot;RS&quot;,
-      &quot;group&quot;: &quot;main_top10&quot;,
-      &quot;rank&quot;: 5,
+      &quot;ticker&quot;: &quot;EXEL&quot;,
+      &quot;group&quot;: &quot;watchlist_top10&quot;,
+      &quot;rank&quot;: 9,
       &quot;reasons&quot;: [
         &quot;missing SWING&quot;,
         &quot;weak TECH (3.9)&quot;
@@ -598,17 +600,17 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   ],
   &quot;sector_crowding&quot;: {
     &quot;main_top10&quot;: {
-      &quot;status&quot;: &quot;WARN&quot;,
+      &quot;status&quot;: &quot;FAIL&quot;,
       &quot;n&quot;: 10,
       &quot;top_sector&quot;: &quot;Financial Services&quot;,
-      &quot;top_count&quot;: 4,
-      &quot;top_share&quot;: 0.4,
+      &quot;top_count&quot;: 5,
+      &quot;top_share&quot;: 0.5,
       &quot;distribution&quot;: {
         &quot;Consumer Cyclical&quot;: 1,
         &quot;Financial Services&quot;: 4,
         &quot;Basic Materials&quot;: 1,
-        &quot;Technology&quot;: 3,
-        &quot;Utilities&quot;: 1
+        &quot;Healthcare&quot;: 1,
+        &quot;Industrials&quot;: 1
       }
     },
     &quot;watchlist_top10&quot;: {
@@ -627,7 +629,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>diagnostics_overall</td><td class="WARN">WARN</td><td>diagnostics overall=FAIL; 20 suspicious top rank(s)</td></tr>
+<tr><td>diagnostics_overall</td><td class="WARN">WARN</td><td>diagnostics overall=FAIL; 5 suspicious top rank(s)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Benchmark<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{

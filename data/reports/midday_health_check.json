@@ -31,26 +31,21 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "FAIL",
-          "message": "overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK"
-        },
-        {
-          "name": "critical_sections",
-          "status": "FAIL",
-          "message": "rankings=FAIL, tasks=OK: critical section failure"
+          "status": "OK",
+          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
         "overall": "FAIL",
         "generated_at": "2026-07-27T22:55:20Z",
         "by_section": {
-          "rankings": "FAIL",
+          "rankings": "OK",
           "watchlist": "OK",
           "tasks": "OK"
         },
-        "critical_section_fail": true
+        "critical_section_fail": false
       },
-      "status": "FAIL"
+      "status": "OK"
     },
     "schedule_reliability": {
       "checks": [
@@ -139,7 +134,7 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=FAIL; blocker fields=['ai_score', 'sentiment', 'low_risk']"
+          "message": "parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment', 'low_risk', 'swing_score']"
         }
       ],
       "metrics": {
@@ -147,8 +142,10 @@
         "cross_group_parity_status": "FAIL",
         "fail_fields": [
           "ai_score",
+          "technical",
           "sentiment",
-          "low_risk"
+          "low_risk",
+          "swing_score"
         ],
         "known_bias_fields": [],
         "low_risk_bias_known": false
@@ -165,9 +162,7 @@
     "parity_present": true
   },
   "action_items": [
-    "[FAIL] data_quality.data_quality_overall: overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK",
-    "[FAIL] data_quality.critical_sections: rankings=FAIL, tasks=OK: critical section failure",
-    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'sentiment', 'low_risk']"
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment', 'low_risk', 'swing_score']"
   ],
   "summary": "Fresh 05:55 PM CT \u00b7 Data quality FAIL \u00b7 Watchlist OK \u00b7 Schedule OK \u00b7 Benchmark active"
 }

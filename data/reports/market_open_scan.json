@@ -53,25 +53,20 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "FAIL",
-          "message": "overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK"
-        },
-        {
-          "name": "critical_sections",
-          "status": "FAIL",
-          "message": "rankings=FAIL, tasks=OK: critical section failure"
+          "status": "OK",
+          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
-        "overall": "FAIL",
+        "overall": "OK",
         "by_section": {
-          "rankings": "FAIL",
+          "rankings": "OK",
           "watchlist": "OK",
           "tasks": "OK"
         },
-        "critical_section_fail": true
+        "critical_section_fail": false
       },
-      "status": "FAIL"
+      "status": "OK"
     },
     "rankings_changes": {
       "checks": [
@@ -83,7 +78,7 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-07-24: PLNT, ICE, CEG, MORN"
+          "message": "new top10 vs 2026-07-24: HALO, FAF, SF, JEF"
         }
       ],
       "metrics": {
@@ -129,12 +124,28 @@
             "sector": "Basic Materials"
           },
           {
-            "rank": 6,
-            "ticker": "CPAY",
-            "company": "Corpay",
-            "ai_score": 7.1,
-            "change": -3,
+            "rank": 4,
+            "ticker": "HALO",
+            "company": "Halozyme",
+            "ai_score": 8.4,
+            "change": 1,
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 5,
+            "ticker": "WEX",
+            "company": "WEX Inc.",
+            "ai_score": 8.3,
+            "change": 2,
             "sector": "Technology"
+          },
+          {
+            "rank": 6,
+            "ticker": "FAF",
+            "company": "First American Financial Corporation",
+            "ai_score": 8.3,
+            "change": 0,
+            "sector": "Financial Services"
           },
           {
             "rank": 7,
@@ -162,10 +173,10 @@
           },
           {
             "rank": 10,
-            "ticker": "MORN",
-            "company": "Morningstar, Inc.",
-            "ai_score": 7.0,
-            "change": 38,
+            "ticker": "NU",
+            "company": "Nubank",
+            "ai_score": 8.2,
+            "change": 0,
             "sector": "Financial Services"
           }
         ],
@@ -261,9 +272,9 @@
             "sector": "Consumer Cyclical"
           },
           {
-            "ticker": "ICE",
-            "rank": 4,
-            "ai_score": 7.2,
+            "ticker": "FAF",
+            "rank": 6,
+            "ai_score": 8.3,
             "sector": "Financial Services"
           },
           {
@@ -273,9 +284,9 @@
             "sector": "Utilities"
           },
           {
-            "ticker": "MORN",
-            "rank": 10,
-            "ai_score": 7.0,
+            "ticker": "JEF",
+            "rank": 8,
+            "ai_score": 8.2,
             "sector": "Financial Services"
           }
         ],
@@ -312,29 +323,11 @@
             "company": "Pan American Silver Corp.",
             "ai_score": 7.1,
             "change": 0,
-            "sector": "Basic Materials",
-            "data_source": "supplemental_yfinance"
+            "sector": "Industrials",
+            "data_source": "main_pipeline"
           },
           {
             "rank": 2,
-            "ticker": "RY",
-            "company": "Royal Bank Of Canada",
-            "ai_score": 7.1,
-            "change": 0,
-            "sector": "Financial Services",
-            "data_source": "supplemental_yfinance"
-          },
-          {
-            "rank": 3,
-            "ticker": "FRSH",
-            "company": "Freshworks Inc.",
-            "ai_score": 7.0,
-            "change": 0,
-            "sector": "Technology",
-            "data_source": "supplemental_yfinance"
-          },
-          {
-            "rank": 4,
             "ticker": "SCCO",
             "company": "Southern Copper",
             "ai_score": 7.0,
@@ -348,8 +341,8 @@
             "company": "Taiwan Semiconductor Manufactur",
             "ai_score": 6.8,
             "change": 0,
-            "sector": "Technology",
-            "data_source": "supplemental_yfinance"
+            "sector": "Real Estate",
+            "data_source": "main_pipeline"
           },
           {
             "rank": 6,
@@ -362,9 +355,18 @@
           },
           {
             "rank": 7,
+            "ticker": "GMED",
+            "company": "Globus Medical",
+            "ai_score": 7.2,
+            "change": 0,
+            "sector": "Healthcare",
+            "data_source": "main_pipeline"
+          },
+          {
+            "rank": 8,
             "ticker": "META",
             "company": "Meta Platforms",
-            "ai_score": 6.7,
+            "ai_score": 7.2,
             "change": 0,
             "sector": "Communication Services",
             "data_source": "main_pipeline"
@@ -375,8 +377,8 @@
             "company": "Celestica, Inc.",
             "ai_score": 6.6,
             "change": 0,
-            "sector": "Technology",
-            "data_source": "supplemental_yfinance"
+            "sector": "Healthcare",
+            "data_source": "main_pipeline"
           },
           {
             "rank": 9,
@@ -548,8 +550,6 @@
     "benchmark_present": true
   },
   "action_items": [
-    "[FAIL] data_quality.data_quality_overall: overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK",
-    "[FAIL] data_quality.critical_sections: rankings=FAIL, tasks=OK: critical section failure",
     "[WARN] market_risk.generals_fail: Generals Fail 4/7 below 200DMA (threshold 3): MSFT, AMZN, META, TSLA",
     "[INFO] New top10 entries vs 2026-07-24: PLNT, ICE, CEG, MORN",
     "[INFO] Top MOV gainer HUBB (change=304, rank=22)",

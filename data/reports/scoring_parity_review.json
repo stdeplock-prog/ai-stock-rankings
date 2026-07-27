@@ -17,7 +17,7 @@
         "technical": 100,
         "sentiment": 100,
         "low_risk": 100,
-        "swing_score": 1
+        "swing_score": 100
       },
       "score_null": {
         "ai_score": 0,
@@ -25,7 +25,7 @@
         "technical": 0,
         "sentiment": 0,
         "low_risk": 0,
-        "swing_score": 99
+        "swing_score": 0
       },
       "score_present_pct": {
         "ai_score": 1.0,
@@ -33,7 +33,7 @@
         "technical": 1.0,
         "sentiment": 1.0,
         "low_risk": 1.0,
-        "swing_score": 0.01
+        "swing_score": 1.0
       },
       "distributions": {
         "ai_score": {
@@ -77,12 +77,12 @@
           "max": 9.9
         },
         "swing_score": {
-          "n": 1,
-          "null_count": 99,
-          "mean": 5.0,
-          "median": 5.0,
+          "n": 100,
+          "null_count": 0,
+          "mean": 6.899,
+          "median": 6.95,
           "min": 5.0,
-          "max": 5.0
+          "max": 8.2
         }
       },
       "provenance": {
@@ -128,7 +128,7 @@
         "technical": 68,
         "sentiment": 68,
         "low_risk": 68,
-        "swing_score": 0
+        "swing_score": 62
       },
       "score_null": {
         "ai_score": 0,
@@ -136,7 +136,7 @@
         "technical": 0,
         "sentiment": 0,
         "low_risk": 0,
-        "swing_score": 68
+        "swing_score": 6
       },
       "score_present_pct": {
         "ai_score": 1.0,
@@ -144,7 +144,7 @@
         "technical": 1.0,
         "sentiment": 1.0,
         "low_risk": 1.0,
-        "swing_score": 0.0
+        "swing_score": 0.9118
       },
       "distributions": {
         "ai_score": {
@@ -182,18 +182,18 @@
         "low_risk": {
           "n": 68,
           "null_count": 0,
-          "mean": 5.4941,
-          "median": 6.15,
+          "mean": 5.4647,
+          "median": 6.35,
           "min": 0.0,
-          "max": 9.5
+          "max": 9.1
         },
         "swing_score": {
-          "n": 0,
-          "null_count": 68,
-          "mean": null,
-          "median": null,
-          "min": null,
-          "max": null
+          "n": 62,
+          "null_count": 6,
+          "mean": 5.0484,
+          "median": 4.9,
+          "min": 2.5,
+          "max": 7.6
         }
       },
       "provenance": {
@@ -206,8 +206,8 @@
         "source": {
           "values": {
             "tradingview": 38,
-            "both": 16,
-            "csv": 14
+            "csv": 14,
+            "both": 16
           },
           "field_absent_rows": 0
         },
@@ -375,7 +375,7 @@
   },
   "verdicts": {
     "main_rankings": {
-      "status": "FAIL",
+      "status": "OK",
       "components": {
         "ai_score": {
           "status": "OK",
@@ -413,16 +413,16 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "status": "FAIL",
-          "message": "1/100 present (1%)",
-          "present": 1,
+          "status": "OK",
+          "message": "100/100 present (100%)",
+          "present": 100,
           "total": 100,
-          "pct_null": 0.99
+          "pct_null": 0.0
         }
       }
     },
     "watchlist_main_pipeline": {
-      "status": "FAIL",
+      "status": "WARN",
       "components": {
         "ai_score": {
           "status": "OK",
@@ -460,11 +460,11 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "status": "FAIL",
-          "message": "0/68 present (0%)",
-          "present": 0,
+          "status": "WARN",
+          "message": "62/68 present (91%)",
+          "present": 62,
           "total": 68,
-          "pct_null": 1.0
+          "pct_null": 0.0882
         }
       }
     },
@@ -559,10 +559,11 @@
         "delta": -2.5559
       },
       "swing_score": {
-        "status": "WARN",
-        "message": "missing distribution in one of the groups",
-        "main_mean": 5.0,
-        "watchlist_main_mean": null
+        "status": "FAIL",
+        "message": "mean delta watchlist_main - main = -1.85 (main=6.899, wlm=5.0484)",
+        "main_mean": 6.899,
+        "watchlist_main_mean": 5.0484,
+        "delta": -1.8506
       }
     },
     "low_risk_bias": {
@@ -576,10 +577,10 @@
     {
       "ticker": "SLV",
       "company": "iShares Silver Trust",
-      "ai_score": 5.4,
+      "ai_score": 5.3,
       "ai_score_basis": "supp_technical_only",
       "fundamental": null,
-      "technical": 5.4,
+      "technical": 5.3,
       "sentiment": null,
       "low_risk": null,
       "swing_score": null,
@@ -610,10 +611,10 @@
     {
       "ticker": "IBIT",
       "company": "iShares Bitcoin Trust ETF",
-      "ai_score": 5.1,
+      "ai_score": 5.0,
       "ai_score_basis": "supp_technical_only",
       "fundamental": null,
-      "technical": 5.1,
+      "technical": 5.0,
       "sentiment": null,
       "low_risk": null,
       "swing_score": null,
@@ -648,6 +649,23 @@
       "ai_score_basis": "supp_technical_only",
       "fundamental": null,
       "technical": 4.7,
+      "sentiment": null,
+      "low_risk": null,
+      "swing_score": null,
+      "data_source": "supplemental_yfinance",
+      "fundamental_source": null,
+      "eodhd_fundamentals": false,
+      "eodhd_deferred": false,
+      "instrument_kind": "crypto",
+      "enrichment_source": "yfinance_price_only"
+    },
+    {
+      "ticker": "GUSH",
+      "company": "Direxion Daily S&P Oil & Gas Ex",
+      "ai_score": 4.5,
+      "ai_score_basis": "supp_technical_only",
+      "fundamental": null,
+      "technical": 4.5,
       "sentiment": null,
       "low_risk": null,
       "swing_score": null,
@@ -695,10 +713,27 @@
     {
       "ticker": "QTUM",
       "company": "Defiance Quantum ETF",
-      "ai_score": 4.3,
+      "ai_score": 4.5,
       "ai_score_basis": "supp_technical_only",
       "fundamental": null,
-      "technical": 4.3,
+      "technical": 4.5,
+      "sentiment": null,
+      "low_risk": null,
+      "swing_score": null,
+      "data_source": "supplemental_yfinance",
+      "fundamental_source": null,
+      "eodhd_fundamentals": false,
+      "eodhd_deferred": false,
+      "instrument_kind": "etf",
+      "enrichment_source": "yfinance_price_only"
+    },
+    {
+      "ticker": "USO",
+      "company": "United States Oil Fund",
+      "ai_score": 4.5,
+      "ai_score_basis": "supp_technical_only",
+      "fundamental": null,
+      "technical": 4.5,
       "sentiment": null,
       "low_risk": null,
       "swing_score": null,
@@ -712,10 +747,10 @@
     {
       "ticker": "MSOS",
       "company": "AdvisorShares Pure US Cannabis",
-      "ai_score": 3.8,
+      "ai_score": 4.0,
       "ai_score_basis": "supp_technical_only",
       "fundamental": null,
-      "technical": 3.8,
+      "technical": 4.0,
       "sentiment": null,
       "low_risk": null,
       "swing_score": null,
