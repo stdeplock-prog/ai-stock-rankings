@@ -17,7 +17,7 @@
         "technical": 100,
         "sentiment": 100,
         "low_risk": 100,
-        "swing_score": 100
+        "swing_score": 1
       },
       "score_null": {
         "ai_score": 0,
@@ -25,7 +25,7 @@
         "technical": 0,
         "sentiment": 0,
         "low_risk": 0,
-        "swing_score": 0
+        "swing_score": 99
       },
       "score_present_pct": {
         "ai_score": 1.0,
@@ -33,7 +33,7 @@
         "technical": 1.0,
         "sentiment": 1.0,
         "low_risk": 1.0,
-        "swing_score": 1.0
+        "swing_score": 0.01
       },
       "distributions": {
         "ai_score": {
@@ -128,7 +128,7 @@
         "technical": 68,
         "sentiment": 68,
         "low_risk": 68,
-        "swing_score": 68
+        "swing_score": 0
       },
       "score_null": {
         "ai_score": 0,
@@ -136,7 +136,7 @@
         "technical": 0,
         "sentiment": 0,
         "low_risk": 0,
-        "swing_score": 0
+        "swing_score": 68
       },
       "score_present_pct": {
         "ai_score": 1.0,
@@ -144,7 +144,7 @@
         "technical": 1.0,
         "sentiment": 1.0,
         "low_risk": 1.0,
-        "swing_score": 1.0
+        "swing_score": 0.0
       },
       "distributions": {
         "ai_score": {
@@ -374,7 +374,7 @@
   },
   "verdicts": {
     "main_rankings": {
-      "status": "OK",
+      "status": "FAIL",
       "components": {
         "ai_score": {
           "status": "OK",
@@ -412,16 +412,16 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "status": "OK",
-          "message": "100/100 present (100%)",
-          "present": 100,
+          "status": "FAIL",
+          "message": "1/100 present (1%)",
+          "present": 1,
           "total": 100,
-          "pct_null": 0.0
+          "pct_null": 0.99
         }
       }
     },
     "watchlist_main_pipeline": {
-      "status": "OK",
+      "status": "FAIL",
       "components": {
         "ai_score": {
           "status": "OK",
@@ -459,11 +459,11 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "status": "OK",
-          "message": "68/68 present (100%)",
-          "present": 68,
+          "status": "FAIL",
+          "message": "0/68 present (0%)",
+          "present": 0,
           "total": 68,
-          "pct_null": 0.0
+          "pct_null": 1.0
         }
       }
     },
@@ -598,12 +598,12 @@
       "enrichment_source": "yfinance_price_only"
     },
     {
-      "ticker": "GLD",
-      "company": "SPDR Gold Shares",
-      "ai_score": 5.1,
+      "ticker": "GUSH",
+      "company": "Direxion Daily S&P Oil & Gas Ex",
+      "ai_score": 5.0,
       "ai_score_basis": "supp_technical_only",
       "fundamental": null,
-      "technical": 5.1,
+      "technical": 5.0,
       "sentiment": null,
       "low_risk": null,
       "swing_score": null,
@@ -671,7 +671,7 @@
       "ai_score": 4.8,
       "ai_score_basis": "supp_technical_only",
       "fundamental": null,
-      "technical": 4.8,
+      "technical": 5.0,
       "sentiment": null,
       "low_risk": null,
       "swing_score": null,
@@ -688,7 +688,24 @@
       "ai_score": 4.7,
       "ai_score_basis": "supp_technical_only",
       "fundamental": null,
-      "technical": 4.7,
+      "technical": 4.9,
+      "sentiment": null,
+      "low_risk": null,
+      "swing_score": null,
+      "data_source": "supplemental_yfinance",
+      "fundamental_source": null,
+      "eodhd_fundamentals": false,
+      "eodhd_deferred": false,
+      "instrument_kind": "crypto",
+      "enrichment_source": "yfinance_price_only"
+    },
+    {
+      "ticker": "SOL-USD",
+      "company": "Solana USD",
+      "ai_score": 4.8,
+      "ai_score_basis": "supp_technical_only",
+      "fundamental": null,
+      "technical": 4.8,
       "sentiment": null,
       "low_risk": null,
       "swing_score": null,

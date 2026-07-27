@@ -8,10 +8,11 @@
     "watchlist_as_of": "2026-07-27 12:12 PM CDT"
   },
   "verdict": {
-    "verdict": "selection_bias",
+    "verdict": "mixed",
     "confidence": "medium",
     "delta_mean_low_risk_wl_minus_main": -2.4116,
     "flags": [
+      "data_gap",
       "selection_bias"
     ],
     "formula_flag": {
@@ -20,9 +21,35 @@
       "evidence": []
     },
     "data_gap_flag": {
-      "triggered": false,
-      "main_rankings_evidence": [],
-      "watchlist_main_evidence": []
+      "triggered": true,
+      "main_rankings_evidence": [
+        {
+          "field": "atr_pct",
+          "pct_null": 0.99,
+          "present": 1,
+          "null": 99
+        },
+        {
+          "field": "swing_score",
+          "pct_null": 0.99,
+          "present": 1,
+          "null": 99
+        }
+      ],
+      "watchlist_main_evidence": [
+        {
+          "field": "atr_pct",
+          "pct_null": 1.0,
+          "present": 0,
+          "null": 68
+        },
+        {
+          "field": "swing_score",
+          "pct_null": 1.0,
+          "present": 0,
+          "null": 68
+        }
+      ]
     },
     "selection_bias_flag": {
       "triggered": true,
@@ -60,9 +87,9 @@
         "null_count": 0,
         "mean": 0.0279,
         "median": 0.03,
-        "min": 0.01,
-        "max": 0.07,
-        "p25": 0.02,
+        "min": 0.03,
+        "max": 0.03,
+        "p25": 0.03,
         "p75": 0.03
       },
       "market_cap_dollars": {
@@ -78,9 +105,9 @@
       "coverage": {
         "row_count": 100,
         "atr_pct": {
-          "present": 100,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 1,
+          "null": 99,
+          "pct_null": 0.99
         },
         "vol_bucket": {
           "present": 100,
@@ -88,9 +115,9 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "present": 100,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 1,
+          "null": 99,
+          "pct_null": 0.99
         },
         "market_cap": {
           "present": 100,
@@ -166,6 +193,28 @@
           {
             "ticker": "JEF",
             "company": "Jefferies Financial Group",
+            "sector": "Financial Services",
+            "low_risk": 9.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "6.89B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "JEF",
+            "company": "Jefferies Financial Group",
+            "sector": "Financial Services",
+            "low_risk": 9.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "11.3B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "PNFP",
+            "company": "Pinnacle Financial Partners",
             "sector": "Financial Services",
             "low_risk": 9.7,
             "atr_pct": 0.04,
@@ -401,9 +450,9 @@
       "coverage": {
         "row_count": 25,
         "atr_pct": {
-          "present": 25,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 1,
+          "null": 24,
+          "pct_null": 0.96
         },
         "vol_bucket": {
           "present": 25,
@@ -411,9 +460,9 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "present": 25,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 1,
+          "null": 24,
+          "pct_null": 0.96
         },
         "market_cap": {
           "present": 25,
@@ -722,9 +771,9 @@
       "coverage": {
         "row_count": 10,
         "atr_pct": {
-          "present": 10,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 0,
+          "null": 10,
+          "pct_null": 1.0
         },
         "vol_bucket": {
           "present": 10,
@@ -732,9 +781,9 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "present": 10,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 0,
+          "null": 10,
+          "pct_null": 1.0
         },
         "market_cap": {
           "present": 10,
@@ -1031,9 +1080,9 @@
       "coverage": {
         "row_count": 68,
         "atr_pct": {
-          "present": 68,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 0,
+          "null": 68,
+          "pct_null": 1.0
         },
         "vol_bucket": {
           "present": 68,
@@ -1041,9 +1090,9 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "present": 68,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 0,
+          "null": 68,
+          "pct_null": 1.0
         },
         "market_cap": {
           "present": 68,
@@ -1073,7 +1122,8 @@
           "Consumer Cyclical": 6,
           "Energy": 2,
           "Consumer Defensive": 1,
-          "Financial Services": 4
+          "Financial Services": 4,
+          "Energy": 2
         },
         "share": {
           "Industrials": 0.1029,
@@ -1085,7 +1135,8 @@
           "Consumer Cyclical": 0.0882,
           "Energy": 0.0294,
           "Consumer Defensive": 0.0147,
-          "Financial Services": 0.0588
+          "Financial Services": 0.0588,
+          "Energy": 0.0294
         },
         "total": 68,
         "speculative_share": 0.7794
@@ -1721,16 +1772,12 @@
         "sector": {
           "counts": {
             "Healthcare": 1,
-            "Consumer Cyclical": 2,
-            "Technology": 6,
             "Industrials": 2,
             "Consumer Defensive": 1,
             "Communication Services": 2
           },
           "share": {
             "Healthcare": 0.0714,
-            "Consumer Cyclical": 0.1429,
-            "Technology": 0.4286,
             "Industrials": 0.1429,
             "Consumer Defensive": 0.0714,
             "Communication Services": 0.1429
@@ -1858,6 +1905,7 @@
           "counts": {
             "Technology": 9,
             "Financial Services": 1,
+            "ETF": 1,
             "Crypto": 1,
             "ETF": 1,
             "Basic Materials": 1
@@ -1865,6 +1913,7 @@
           "share": {
             "Technology": 0.6923,
             "Financial Services": 0.0769,
+            "ETF": 0.0769,
             "Crypto": 0.0769,
             "ETF": 0.0769,
             "Basic Materials": 0.0769
@@ -1941,9 +1990,7 @@
     "low_risk_delta": -2.4116
   },
   "recommendations": [
-    "Leave the low_risk formula unchanged. The watchlist universe is materially more speculative / higher-volatility than the main universe, so a lower mean low_risk is expected and faithful to the inputs.",
-    "Consider demoting low_risk drift in cross-group parity from FAIL to a known selection-bias finding so it stops drowning out real parity blockers in the Midday Health Check.",
-    "Treat low_risk as explanatory in the watchlist context, not punitive \u2014 surface it next to the score rather than as a tag that demotes a row.",
+    "Mixed signal: more than one root cause is plausible (data_gap, selection_bias). Resolve any data_gap and formula_issue evidence before treating the rest as selection bias.",
     "A future improvement (not in scope here) is to normalize low_risk by sector or market cap before cross-group comparison so the universe-mix effect is removed."
   ]
 }

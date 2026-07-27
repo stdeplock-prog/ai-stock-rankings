@@ -5,7 +5,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
      max-width:980px;margin:24px auto;padding:0 16px;color:#1a1a1a;}
 h1{margin:0 0 4px} .meta{color:#666;font-size:13px;margin-bottom:18px}
 .badge{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:#c0392b}
 .section{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}
 .section h2{margin:0 0 10px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
 table{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px}
@@ -140,11 +140,11 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall&quot;: &quot;WARN&quot;,
   &quot;by_section&quot;: {
-    &quot;rankings&quot;: &quot;OK&quot;,
+    &quot;rankings&quot;: &quot;FAIL&quot;,
     &quot;watchlist&quot;: &quot;OK&quot;,
     &quot;tasks&quot;: &quot;WARN&quot;
   },
-  &quot;critical_section_fail&quot;: false
+  &quot;critical_section_fail&quot;: true
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>data_quality_overall</td><td class="WARN">WARN</td><td>overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN</td></tr>
@@ -154,10 +154,10 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;top_10&quot;: [
     {
       &quot;rank&quot;: 1,
-      &quot;ticker&quot;: &quot;JPM&quot;,
-      &quot;company&quot;: &quot;JPMorgan Chase&quot;,
-      &quot;ai_score&quot;: 8.7,
-      &quot;change&quot;: 0,
+      &quot;ticker&quot;: &quot;NU&quot;,
+      &quot;company&quot;: &quot;Nubank&quot;,
+      &quot;ai_score&quot;: 7.3,
+      &quot;change&quot;: 6,
       &quot;sector&quot;: &quot;Financial Services&quot;
     },
     {
@@ -170,11 +170,11 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     },
     {
       &quot;rank&quot;: 3,
-      &quot;ticker&quot;: &quot;CPAY&quot;,
-      &quot;company&quot;: &quot;Corpay&quot;,
-      &quot;ai_score&quot;: 8.5,
-      &quot;change&quot;: 0,
-      &quot;sector&quot;: &quot;Technology&quot;
+      &quot;ticker&quot;: &quot;ICE&quot;,
+      &quot;company&quot;: &quot;Intercontinental Exchange&quot;,
+      &quot;ai_score&quot;: 7.2,
+      &quot;change&quot;: 16,
+      &quot;sector&quot;: &quot;Financial Services&quot;
     },
     {
       &quot;rank&quot;: 4,
@@ -407,7 +407,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;ai_score&quot;: 7.8,
       &quot;change&quot;: 0,
       &quot;sector&quot;: &quot;Technology&quot;,
-      &quot;data_source&quot;: &quot;main_pipeline&quot;
+      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
       &quot;rank&quot;: 4,
@@ -469,7 +469,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;company&quot;: &quot;Exelixis&quot;,
       &quot;ai_score&quot;: 7.1,
       &quot;change&quot;: 0,
-      &quot;sector&quot;: &quot;Healthcare&quot;,
+      &quot;sector&quot;: &quot;Technology&quot;,
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     }
   ],
@@ -538,7 +538,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Diagnostics<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall&quot;: &quot;FAIL&quot;,
-  &quot;suspicious_count&quot;: 5,
+  &quot;suspicious_count&quot;: 20,
   &quot;suspicious_top&quot;: [
     {
       &quot;ticker&quot;: &quot;SCCO&quot;,
@@ -618,7 +618,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>diagnostics_overall</td><td class="WARN">WARN</td><td>diagnostics overall=FAIL; 5 suspicious top rank(s)</td></tr>
+<tr><td>diagnostics_overall</td><td class="WARN">WARN</td><td>diagnostics overall=FAIL; 20 suspicious top rank(s)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Benchmark<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{

@@ -52,11 +52,6 @@
     "leaderboards": {
       "checks": [
         {
-          "name": "main_sector_concentration",
-          "status": "WARN",
-          "message": "main_top25 dominated by Financial Services 12/25 (48%)"
-        },
-        {
           "name": "watchlist_sector_concentration",
           "status": "WARN",
           "message": "watchlist_top25 dominated by Technology 12/25 (48%)"
@@ -66,9 +61,9 @@
         "main_top25": [
           {
             "rank": 1,
-            "ticker": "JPM",
-            "company": "JPMorgan Chase",
-            "ai_score": 8.7,
+            "ticker": "NU",
+            "company": "Nubank",
+            "ai_score": 7.3,
             "sector": "Financial Services",
             "change": 0,
             "fundamental": 9.1,
@@ -392,10 +387,10 @@
         ],
         "main_sector_concentration": {
           "top_sector": "Financial Services",
-          "top_count": 12,
+          "top_count": 9,
           "of": 25,
-          "pct": 0.48,
-          "warn": true,
+          "pct": 0.36,
+          "warn": false,
           "by_sector": {
             "Financial Services": 12,
             "Technology": 5,
@@ -556,17 +551,30 @@
             "rank": 12,
             "ticker": "PAAS",
             "company": "Pan American Silver Corp.",
-            "ai_score": 7.1,
+            "ai_score": 7.2,
             "sector": "Basic Materials",
             "change": 0,
             "fundamental": 8.72,
-            "technical": 5.4,
+            "technical": 5.7,
             "sentiment": null,
             "low_risk": 7.28,
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 13,
+            "rank": 2,
+            "ticker": "FRSH",
+            "company": "Freshworks Inc.",
+            "ai_score": 7.1,
+            "sector": "Technology",
+            "change": 0,
+            "fundamental": 7.65,
+            "technical": 5.9,
+            "sentiment": null,
+            "low_risk": 9.39,
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 3,
             "ticker": "RY",
             "company": "Royal Bank Of Canada",
             "ai_score": 7.1,
@@ -770,17 +778,30 @@
             "rank": 12,
             "ticker": "PAAS",
             "company": "Pan American Silver Corp.",
-            "ai_score": 7.1,
+            "ai_score": 7.2,
             "sector": "Basic Materials",
             "change": 0,
             "fundamental": 8.72,
-            "technical": 5.4,
+            "technical": 5.7,
             "sentiment": null,
             "low_risk": 7.28,
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 13,
+            "rank": 2,
+            "ticker": "FRSH",
+            "company": "Freshworks Inc.",
+            "ai_score": 7.1,
+            "sector": "Technology",
+            "change": 0,
+            "fundamental": 7.65,
+            "technical": 5.9,
+            "sentiment": null,
+            "low_risk": 9.39,
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 3,
             "ticker": "RY",
             "company": "Royal Bank Of Canada",
             "ai_score": 7.1,
@@ -887,7 +908,7 @@
             "rank": 45,
             "ticker": "BABA",
             "company": "Alibaba Group Holding Limited",
-            "ai_score": 5.9,
+            "ai_score": 6.0,
             "sector": "Consumer Cyclical",
             "change": 0,
             "fundamental": 6.53,
@@ -1162,8 +1183,8 @@
               {
                 "ticker": "JPM",
                 "prior": 8.7,
-                "current": 8.7,
-                "delta": 0.0
+                "current": 7.2,
+                "delta": -1.5
               },
               {
                 "ticker": "CPAY",
@@ -1212,8 +1233,8 @@
               {
                 "ticker": "AAPL",
                 "prior": 7.2,
-                "current": 7.8,
-                "delta": 0.6
+                "current": 6.4,
+                "delta": -0.8
               },
               {
                 "ticker": "AME",
@@ -1445,7 +1466,7 @@
           {
             "horizon": "1d",
             "bucket": "watchlist_top10",
-            "mean_return": -0.001
+            "mean_return": -0.0009
           },
           {
             "horizon": "1d",
@@ -1526,12 +1547,12 @@
         {
           "name": "suspicious_ranks",
           "status": "WARN",
-          "message": "5 suspicious top rank(s) flagged"
+          "message": "20 suspicious top rank(s) flagged"
         }
       ],
       "metrics": {
         "overall": "FAIL",
-        "suspicious_count": 5,
+        "suspicious_count": 20,
         "suspicious_top": [
           {
             "ticker": "SCCO",
@@ -1610,7 +1631,7 @@
         "sector": "Financial Services"
       },
       {
-        "ticker": "WEX",
+        "ticker": "MORN",
         "reason": "new entrant \u2014 main top10",
         "ai_score": 8.3,
         "sector": "Technology"
@@ -1652,10 +1673,10 @@
         "sector": "Communication Services"
       },
       {
-        "ticker": "EXEL",
+        "ticker": "BMNR",
         "reason": "new entrant \u2014 watchlist top10",
-        "ai_score": 7.1,
-        "sector": "Healthcare"
+        "ai_score": 6.7,
+        "sector": "Financial Services"
       },
       {
         "ticker": "AME",

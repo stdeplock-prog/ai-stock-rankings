@@ -7,7 +7,7 @@ h1{margin:0 0 4px} h2{margin:18px 0 8px;font-size:18px}
 h3{margin:14px 0 6px;font-size:15px}
 .meta{color:#666;font-size:13px;margin-bottom:14px}
 .badge{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:#3c8c3c}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00}
 .section{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}
 table{border-collapse:collapse;width:100%;font-size:13px;margin-top:6px}
 th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-align:top}
@@ -40,21 +40,21 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </tbody></table></div>
 <div class="section"><h2>Risk-input coverage</h2>
 <table><thead><tr><th>Group</th><th>field</th><th class="num">present</th><th class="num">null</th><th class="num">% null</th></tr></thead><tbody>
-<tr><td>main_rankings</td><td>atr_pct</td><td class="num">100</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_rankings</td><td>atr_pct</td><td class="num">1</td><td class="num">99</td><td class="num">0.99</td></tr>
 <tr><td>main_rankings</td><td>vol_bucket</td><td class="num">100</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>main_rankings</td><td>swing_score</td><td class="num">100</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_rankings</td><td>swing_score</td><td class="num">1</td><td class="num">99</td><td class="num">0.99</td></tr>
 <tr><td>main_rankings</td><td>market_cap</td><td class="num">100</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>main_top25</td><td>atr_pct</td><td class="num">25</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_top25</td><td>atr_pct</td><td class="num">1</td><td class="num">24</td><td class="num">0.96</td></tr>
 <tr><td>main_top25</td><td>vol_bucket</td><td class="num">25</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>main_top25</td><td>swing_score</td><td class="num">25</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_top25</td><td>swing_score</td><td class="num">1</td><td class="num">24</td><td class="num">0.96</td></tr>
 <tr><td>main_top25</td><td>market_cap</td><td class="num">25</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>main_top10</td><td>atr_pct</td><td class="num">10</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_top10</td><td>atr_pct</td><td class="num">0</td><td class="num">10</td><td class="num">1</td></tr>
 <tr><td>main_top10</td><td>vol_bucket</td><td class="num">10</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>main_top10</td><td>swing_score</td><td class="num">10</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_top10</td><td>swing_score</td><td class="num">0</td><td class="num">10</td><td class="num">1</td></tr>
 <tr><td>main_top10</td><td>market_cap</td><td class="num">10</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>atr_pct</td><td class="num">68</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>atr_pct</td><td class="num">0</td><td class="num">68</td><td class="num">1</td></tr>
 <tr><td>watchlist_main_pipeline</td><td>vol_bucket</td><td class="num">68</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>swing_score</td><td class="num">68</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>swing_score</td><td class="num">0</td><td class="num">68</td><td class="num">1</td></tr>
 <tr><td>watchlist_main_pipeline</td><td>market_cap</td><td class="num">68</td><td class="num">0</td><td class="num">0</td></tr>
 <tr><td>watchlist_supp</td><td>atr_pct</td><td class="num">0</td><td class="num">74</td><td class="num">1</td></tr>
 <tr><td>watchlist_supp</td><td>vol_bucket</td><td class="num">0</td><td class="num">74</td><td class="num">1</td></tr>
@@ -178,9 +178,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   &quot;low_risk_delta&quot;: -2.4116
 }</pre></div></div>
 <div class="section"><h2>Recommendations</h2><ol class="recs">
-<li>Leave the low_risk formula unchanged. The watchlist universe is materially more speculative / higher-volatility than the main universe, so a lower mean low_risk is expected and faithful to the inputs.</li>
-<li>Consider demoting low_risk drift in cross-group parity from FAIL to a known selection-bias finding so it stops drowning out real parity blockers in the Midday Health Check.</li>
-<li>Treat low_risk as explanatory in the watchlist context, not punitive — surface it next to the score rather than as a tag that demotes a row.</li>
+<li>Mixed signal: more than one root cause is plausible (data_gap, selection_bias). Resolve any data_gap and formula_issue evidence before treating the rest as selection bias.</li>
 <li>A future improvement (not in scope here) is to normalize low_risk by sector or market cap before cross-group comparison so the universe-mix effect is removed.</li>
 </ol></div>
 </body></html>
