@@ -6,7 +6,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
 h1{margin:0 0 4px} h2{margin:18px 0 6px;font-size:18px}
 .meta{color:#666;font-size:13px;margin-bottom:18px}
 .badge{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:#3c8c3c}
 .section{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}
 table{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px}
 th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-align:top}
@@ -21,19 +21,19 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Cool-off / Overextended Cohort Tracking</h1>
-<p class="meta">Generated 2026-07-27T19:55:18Z &middot;
+<p class="meta">Generated 2026-07-27T22:15:25Z &middot;
    as_of 2026-07-27 &middot;
-   Overall: <span class="badge">WARN</span></p>
-<div class="summary"><strong>Summary:</strong> clean_go=0 · overext_bb=0 · weak_go=71 · snaps=59 · 5d clean=+0.70%/overext=-1.00% (n=1611/181) · rec=consider_scoring_change</div>
+   Overall: <span class="badge">OK</span></p>
+<div class="summary"><strong>Summary:</strong> clean_go=17 · overext_bb=4 · weak_go=19 · snaps=59 · 5d clean=+0.70%/overext=-1.00% (n=1611/181) · rec=consider_scoring_change</div>
 <div class="caveat"><strong>Caveat:</strong> DIAGNOSTIC ONLY — production scoring formulas are NOT mutated. Tracks per-ticker forward returns of Pine cohorts to test whether overextended_bb names underperform clean-go names before promoting the blocker into LOW_RISK / SWING gating.</div>
 <div class="recommend"><strong>Recommendation:</strong> consider_scoring_change<br>
 <span class="muted">Clean-go beats overextended_bb at 5d by +1.70pp (clean=+0.70%, overext=-1.00%, n=1611/181). Worth a controlled scoring experiment.</span></div>
 
 <div class='section'><h2>Current cohort sizes</h2>
 <table><thead><tr><th>Cohort</th><th>Size</th><th>Members</th></tr></thead><tbody>
-<tr><td>clean_go</td><td>0</td><td><span class='muted'>—</span></td></tr>
-<tr><td>overextended_bb</td><td>0</td><td><span class='muted'>—</span></td></tr>
-<tr><td>weak_go</td><td>71</td><td>AAPL, ADSK, AFL, AGCO, AME, APLD, AR, ARW, AU, AVGO, AVT, BAC, BLK, BNY, BWA, BX, CCK, CEG, CFG, CNM, CPAY, CVNA, DELL, DUOL, EME <span class='muted'>(+46 more)</span></td></tr>
+<tr><td>clean_go</td><td>17</td><td>A, BAC, BRX, CCK, JPM, NDAQ, PLD, PNFP, RJF, ROST, SCHW, SEIC, SF, STLD, TMO, UNP, WEX</td></tr>
+<tr><td>overextended_bb</td><td>4</td><td>ALLE, FAF, MEDP, SSNC</td></tr>
+<tr><td>weak_go</td><td>19</td><td>APH, APLD, AVGO, CNM, CVNA, DDOG, DUOL, EXEL, GMED, GOOG, LITE, MDB, META, MU, NTRS, NVDA, QCOM, SMCI, VEEV</td></tr>
 </tbody></table></div>
 <div class='section'><h2>Forward-return comparison by horizon</h2>
 <p class='kv'>Each observation is one (snapshot, ticker) pair where the horizon has elapsed (no lookahead). Pending horizons are the count of snapshots whose elapsed trading days are still below the horizon.</p>
