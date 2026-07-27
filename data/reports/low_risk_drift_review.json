@@ -1,17 +1,18 @@
 {
-  "generated_at": "2026-07-24T22:04:13Z",
+  "generated_at": "2026-07-27T16:32:19Z",
   "inputs": {
     "rankings_present": true,
     "watchlist_present": true,
     "parity_present": true,
-    "rankings_as_of": "2026-07-24 05:04 PM CDT",
-    "watchlist_as_of": "2026-07-24 05:04 PM CDT"
+    "rankings_as_of": "2026-07-27 11:31 AM CDT",
+    "watchlist_as_of": "2026-07-27 11:32 AM CDT"
   },
   "verdict": {
-    "verdict": "selection_bias",
+    "verdict": "mixed",
     "confidence": "medium",
-    "delta_mean_low_risk_wl_minus_main": -2.3234,
+    "delta_mean_low_risk_wl_minus_main": -2.5269,
     "flags": [
+      "data_gap",
       "selection_bias"
     ],
     "formula_flag": {
@@ -20,24 +21,44 @@
       "evidence": []
     },
     "data_gap_flag": {
-      "triggered": false,
-      "main_rankings_evidence": [],
-      "watchlist_main_evidence": []
+      "triggered": true,
+      "main_rankings_evidence": [
+        {
+          "field": "atr_pct",
+          "pct_null": 0.99,
+          "present": 1,
+          "null": 99
+        },
+        {
+          "field": "swing_score",
+          "pct_null": 0.99,
+          "present": 1,
+          "null": 99
+        }
+      ],
+      "watchlist_main_evidence": [
+        {
+          "field": "atr_pct",
+          "pct_null": 1.0,
+          "present": 0,
+          "null": 68
+        },
+        {
+          "field": "swing_score",
+          "pct_null": 1.0,
+          "present": 0,
+          "null": 68
+        }
+      ]
     },
     "selection_bias_flag": {
       "triggered": true,
       "evidence": [
         {
           "kind": "speculative_sector_share",
-          "main": 0.33,
+          "main": 0.4,
           "watchlist_main": 0.7794,
-          "delta": 0.4494
-        },
-        {
-          "kind": "high_vol_bucket_share",
-          "main": 0.19,
-          "watchlist_main": 0.7794,
-          "delta": 0.5894
+          "delta": 0.3794
         }
       ]
     }
@@ -48,39 +69,39 @@
       "low_risk": {
         "n": 100,
         "null_count": 0,
-        "mean": 7.991,
-        "median": 8.2,
-        "min": 4.3,
-        "max": 9.8,
+        "mean": 8.021,
+        "median": 8.3,
+        "min": 4.0,
+        "max": 9.9,
         "p25": 7.2,
         "p75": 8.9
       },
       "atr_pct": {
-        "n": 100,
-        "null_count": 0,
-        "mean": 0.0284,
+        "n": 1,
+        "null_count": 99,
+        "mean": 0.03,
         "median": 0.03,
-        "min": 0.01,
-        "max": 0.07,
-        "p25": 0.02,
+        "min": 0.03,
+        "max": 0.03,
+        "p25": 0.03,
         "p75": 0.03
       },
       "market_cap_dollars": {
         "n": 100,
         "null_count": 0,
-        "mean": 130804500000.0,
-        "median": 24450000000.0,
-        "min": 4250000000.0,
-        "max": 4890000000000.0,
-        "p25": 12200000000.0,
-        "p75": 73975000000.0
+        "mean": 152397300000.0,
+        "median": 22500000000.0,
+        "min": 4200000000.0,
+        "max": 4950000000000.0,
+        "p25": 11875000000.0,
+        "p75": 68925000000.0
       },
       "coverage": {
         "row_count": 100,
         "atr_pct": {
-          "present": 100,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 1,
+          "null": 99,
+          "pct_null": 0.99
         },
         "vol_bucket": {
           "present": 100,
@@ -88,9 +109,9 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "present": 100,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 1,
+          "null": 99,
+          "pct_null": 0.99
         },
         "market_cap": {
           "present": 100,
@@ -100,44 +121,42 @@
       },
       "vol_bucket": {
         "counts": {
-          "Med": 80,
-          "High": 19,
-          "Low": 1
+          "Unknown": 99,
+          "Med": 1
         },
         "share": {
-          "Med": 0.8,
-          "High": 0.19,
-          "Low": 0.01
+          "Unknown": 0.99,
+          "Med": 0.01
         },
         "total": 100
       },
       "sector": {
         "counts": {
-          "Financial Services": 33,
-          "Basic Materials": 4,
-          "Technology": 11,
-          "Consumer Cyclical": 9,
-          "Industrials": 16,
-          "Real Estate": 10,
-          "Energy": 2,
-          "Healthcare": 9,
-          "Utilities": 4,
-          "Communication Services": 2
+          "Financial Services": 27,
+          "Consumer Cyclical": 7,
+          "Technology": 17,
+          "Basic Materials": 6,
+          "Utilities": 3,
+          "Industrials": 15,
+          "Real Estate": 9,
+          "Communication Services": 2,
+          "Energy": 5,
+          "Healthcare": 9
         },
         "share": {
-          "Financial Services": 0.33,
-          "Basic Materials": 0.04,
-          "Technology": 0.11,
-          "Consumer Cyclical": 0.09,
-          "Industrials": 0.16,
-          "Real Estate": 0.1,
-          "Energy": 0.02,
-          "Healthcare": 0.09,
-          "Utilities": 0.04,
-          "Communication Services": 0.02
+          "Financial Services": 0.27,
+          "Consumer Cyclical": 0.07,
+          "Technology": 0.17,
+          "Basic Materials": 0.06,
+          "Utilities": 0.03,
+          "Industrials": 0.15,
+          "Real Estate": 0.09,
+          "Communication Services": 0.02,
+          "Energy": 0.05,
+          "Healthcare": 0.09
         },
         "total": 100,
-        "speculative_share": 0.33
+        "speculative_share": 0.4
       },
       "extremes": {
         "highest": [
@@ -145,21 +164,10 @@
             "ticker": "FNF",
             "company": "Fidelity National Financial",
             "sector": "Financial Services",
-            "low_risk": 9.8,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "13.9B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "PNFP",
-            "company": "Pinnacle Financial Partners",
-            "sector": "Financial Services",
-            "low_risk": 9.8,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "15.5B",
+            "low_risk": 9.9,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "14.0B",
             "source": null,
             "data_source": null
           },
@@ -167,10 +175,21 @@
             "ticker": "CFG",
             "company": "Citizens Financial Group",
             "sector": "Financial Services",
-            "low_risk": 9.7,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "30.4B",
+            "low_risk": 9.9,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "30.1B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "MRP",
+            "company": "Millrose Properties",
+            "sector": "Real Estate",
+            "low_risk": 9.9,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "4.73B",
             "source": null,
             "data_source": null
           },
@@ -178,100 +197,111 @@
             "ticker": "MORN",
             "company": "Morningstar, Inc.",
             "sector": "Financial Services",
+            "low_risk": 9.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "6.89B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "JEF",
+            "company": "Jefferies Financial Group",
+            "sector": "Financial Services",
+            "low_risk": 9.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "11.3B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "PNFP",
+            "company": "Pinnacle Financial Partners",
+            "sector": "Financial Services",
             "low_risk": 9.7,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "6.56B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "15.7B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "TDY",
-            "company": "Teledyne Technologies",
-            "sector": "Technology",
-            "low_risk": 9.6,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "30.4B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "FITB",
-            "company": "Fifth Third Bancorp",
+            "ticker": "RJF",
+            "company": "Raymond James Financial",
             "sector": "Financial Services",
             "low_risk": 9.6,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "52.0B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "33.1B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "COLB",
-            "company": "Columbia Banking System",
-            "sector": "Financial Services",
-            "low_risk": 9.5,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "9.02B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "SSNC",
-            "company": "SS&C Technologies",
-            "sector": "Technology",
-            "low_risk": 9.5,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "17.8B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "NXST",
-            "company": "Nexstar Media Group",
-            "sector": "Communication Services",
-            "low_risk": 9.5,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "5.60B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "AGCO",
-            "company": "AGCO",
+            "ticker": "DCI",
+            "company": "Donaldson Company",
             "sector": "Industrials",
-            "low_risk": 9.4,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "8.78B",
+            "low_risk": 9.6,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "10.7B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "BALL",
+            "company": "Ball Corporation",
+            "sector": "Consumer Cyclical",
+            "low_risk": 9.6,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "17.2B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "USB",
+            "company": "U.S. Bancorp",
+            "sector": "Financial Services",
+            "low_risk": 9.6,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "99.0B",
             "source": null,
             "data_source": null
           }
         ],
         "lowest": [
           {
-            "ticker": "CF",
-            "company": "CF Industries",
-            "sector": "Basic Materials",
-            "low_risk": 4.3,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "19.2B",
+            "ticker": "SMCI",
+            "company": "Supermicro",
+            "sector": "Technology",
+            "low_risk": 4.0,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "18.8B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "RTX",
-            "company": "RTX Corporation",
-            "sector": "Industrials",
-            "low_risk": 5.1,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "286.6B",
+            "ticker": "OVV",
+            "company": "Ovintiv",
+            "sector": "Energy",
+            "low_risk": 4.2,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "17.1B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "CF",
+            "company": "CF Industries",
+            "sector": "Basic Materials",
+            "low_risk": 4.6,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "18.6B",
             "source": null,
             "data_source": null
           },
@@ -279,32 +309,21 @@
             "ticker": "STLD",
             "company": "Steel Dynamics",
             "sector": "Basic Materials",
-            "low_risk": 5.2,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "35.6B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "PCG",
-            "company": "PG&E Corporation",
-            "sector": "Utilities",
-            "low_risk": 5.5,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "47.8B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "VST",
-            "company": "Vistra Corp.",
-            "sector": "Utilities",
             "low_risk": 5.7,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "55.1B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "35.8B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "LPLA",
+            "company": "LPL Financial",
+            "sector": "Financial Services",
+            "low_risk": 5.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "26.5B",
             "source": null,
             "data_source": null
           },
@@ -312,43 +331,21 @@
             "ticker": "RGA",
             "company": "Reinsurance Group of America",
             "sector": "Financial Services",
-            "low_risk": 5.8,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "15.7B",
+            "low_risk": 6.0,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "15.8B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "HAS",
-            "company": "Hasbro",
-            "sector": "Consumer Cyclical",
-            "low_risk": 5.8,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "12.6B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "EHC",
-            "company": "Encompass Health",
-            "sector": "Healthcare",
-            "low_risk": 6.3,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "11.2B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "CSX",
-            "company": "CSX Corporation",
-            "sector": "Industrials",
-            "low_risk": 6.4,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "98.6B",
+            "ticker": "KMI",
+            "company": "Kinder Morgan",
+            "sector": "Energy",
+            "low_risk": 6.1,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "70.8B",
             "source": null,
             "data_source": null
           },
@@ -356,10 +353,32 @@
             "ticker": "AFL",
             "company": "Aflac",
             "sector": "Financial Services",
-            "low_risk": 6.5,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "63.9B",
+            "low_risk": 6.2,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "64.3B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "VST",
+            "company": "Vistra Corp.",
+            "sector": "Utilities",
+            "low_risk": 6.2,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "53.4B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "FIVE",
+            "company": "Five Below",
+            "sector": "Consumer Cyclical",
+            "low_risk": 6.3,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "11.4B",
             "source": null,
             "data_source": null
           }
@@ -371,39 +390,39 @@
       "low_risk": {
         "n": 25,
         "null_count": 0,
-        "mean": 8.032,
-        "median": 7.7,
-        "min": 6.5,
-        "max": 9.7,
-        "p25": 7.3,
-        "p75": 8.7
+        "mean": 8.304,
+        "median": 8.7,
+        "min": 6.2,
+        "max": 9.8,
+        "p25": 7.5,
+        "p75": 8.9
       },
       "atr_pct": {
-        "n": 25,
-        "null_count": 0,
-        "mean": 0.028,
+        "n": 1,
+        "null_count": 24,
+        "mean": 0.03,
         "median": 0.03,
-        "min": 0.01,
-        "max": 0.05,
-        "p25": 0.02,
+        "min": 0.03,
+        "max": 0.03,
+        "p25": 0.03,
         "p75": 0.03
       },
       "market_cap_dollars": {
         "n": 25,
         "null_count": 0,
-        "mean": 91888800000.0,
-        "median": 24200000000.0,
-        "min": 6110000000.0,
-        "max": 938900000000.0,
-        "p25": 11400000000.0,
-        "p75": 76600000000.0
+        "mean": 190251600000.0,
+        "median": 24700000000.0,
+        "min": 4310000000.0,
+        "max": 2900000000000.0,
+        "p25": 11300000000.0,
+        "p75": 83600000000.0
       },
       "coverage": {
         "row_count": 25,
         "atr_pct": {
-          "present": 25,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 1,
+          "null": 24,
+          "pct_null": 0.96
         },
         "vol_bucket": {
           "present": 25,
@@ -411,9 +430,9 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "present": 25,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 1,
+          "null": 24,
+          "pct_null": 0.96
         },
         "market_cap": {
           "present": 25,
@@ -423,35 +442,33 @@
       },
       "vol_bucket": {
         "counts": {
-          "Med": 18,
-          "High": 6,
-          "Low": 1
+          "Unknown": 24,
+          "Med": 1
         },
         "share": {
-          "Med": 0.72,
-          "High": 0.24,
-          "Low": 0.04
+          "Unknown": 0.96,
+          "Med": 0.04
         },
         "total": 25
       },
       "sector": {
         "counts": {
-          "Financial Services": 12,
+          "Financial Services": 9,
+          "Consumer Cyclical": 2,
+          "Technology": 6,
           "Basic Materials": 2,
-          "Technology": 4,
-          "Consumer Cyclical": 3,
-          "Industrials": 2,
-          "Real Estate": 1,
-          "Energy": 1
+          "Utilities": 1,
+          "Industrials": 4,
+          "Real Estate": 1
         },
         "share": {
-          "Financial Services": 0.48,
+          "Financial Services": 0.36,
+          "Consumer Cyclical": 0.08,
+          "Technology": 0.24,
           "Basic Materials": 0.08,
-          "Technology": 0.16,
-          "Consumer Cyclical": 0.12,
-          "Industrials": 0.08,
-          "Real Estate": 0.04,
-          "Energy": 0.04
+          "Utilities": 0.04,
+          "Industrials": 0.16,
+          "Real Estate": 0.04
         },
         "total": 25,
         "speculative_share": 0.32
@@ -459,24 +476,13 @@
       "extremes": {
         "highest": [
           {
-            "ticker": "CFG",
-            "company": "Citizens Financial Group",
+            "ticker": "MORN",
+            "company": "Morningstar, Inc.",
             "sector": "Financial Services",
-            "low_risk": 9.7,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "30.4B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "AGCO",
-            "company": "AGCO",
-            "sector": "Industrials",
-            "low_risk": 9.4,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "8.78B",
+            "low_risk": 9.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "6.89B",
             "source": null,
             "data_source": null
           },
@@ -484,21 +490,10 @@
             "ticker": "JEF",
             "company": "Jefferies Financial Group",
             "sector": "Financial Services",
-            "low_risk": 9.2,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "11.4B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "PNC",
-            "company": "PNC Financial Services",
-            "sector": "Financial Services",
-            "low_risk": 9.2,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "100.1B",
+            "low_risk": 9.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "11.3B",
             "source": null,
             "data_source": null
           },
@@ -506,32 +501,43 @@
             "ticker": "NU",
             "company": "Nubank",
             "sector": "Financial Services",
-            "low_risk": 8.9,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "68.1B",
+            "low_risk": 9.5,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "70.2B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "RJF",
-            "company": "Raymond James Financial",
-            "sector": "Financial Services",
-            "low_risk": 8.8,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "32.5B",
+            "ticker": "AGCO",
+            "company": "AGCO",
+            "sector": "Industrials",
+            "low_risk": 9.3,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "8.59B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "SCCO",
-            "company": "Southern Copper",
-            "sector": "Basic Materials",
-            "low_risk": 8.7,
-            "atr_pct": 0.05,
-            "vol_bucket": "High",
-            "market_cap": "140.6B",
+            "ticker": "INTU",
+            "company": "Intuit",
+            "sector": "Technology",
+            "low_risk": 9.3,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "84.2B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "MSFT",
+            "company": "Microsoft",
+            "sector": "Technology",
+            "low_risk": 9.0,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "2.90T",
             "source": null,
             "data_source": null
           },
@@ -539,32 +545,43 @@
             "ticker": "CPAY",
             "company": "Corpay",
             "sector": "Technology",
-            "low_risk": 8.6,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "24.2B",
+            "low_risk": 8.9,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "24.7B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "SEIC",
-            "company": "SEI Investments Company",
-            "sector": "Financial Services",
-            "low_risk": 8.6,
+            "ticker": "HUBB",
+            "company": "Hubbell Incorporated",
+            "sector": "Industrials",
+            "low_risk": 8.9,
             "atr_pct": 0.03,
             "vol_bucket": "Med",
-            "market_cap": "11.9B",
+            "market_cap": "25.4B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "JPM",
-            "company": "JPMorgan Chase",
-            "sector": "Financial Services",
-            "low_risk": 8.3,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "938.9B",
+            "ticker": "PLNT",
+            "company": "Planet Fitness",
+            "sector": "Consumer Cyclical",
+            "low_risk": 8.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "4.31B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "SCCO",
+            "company": "Southern Copper",
+            "sector": "Basic Materials",
+            "low_risk": 8.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "138.4B",
             "source": null,
             "data_source": null
           }
@@ -574,32 +591,43 @@
             "ticker": "AFL",
             "company": "Aflac",
             "sector": "Financial Services",
-            "low_risk": 6.5,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "63.9B",
+            "low_risk": 6.2,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "64.3B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "OKE",
-            "company": "Oneok",
-            "sector": "Energy",
-            "low_risk": 6.8,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "58.7B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "ROST",
-            "company": "Ross Stores",
+            "ticker": "FIVE",
+            "company": "Five Below",
             "sector": "Consumer Cyclical",
+            "low_risk": 6.3,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "11.4B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "CEG",
+            "company": "Constellation Energy",
+            "sector": "Utilities",
+            "low_risk": 6.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "97.3B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "MLI",
+            "company": "Mueller Industries",
+            "sector": "Industrials",
             "low_risk": 7.1,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "76.6B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "14.1B",
             "source": null,
             "data_source": null
           },
@@ -608,9 +636,9 @@
             "company": "Arrow Electronics",
             "sector": "Technology",
             "low_risk": 7.2,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "10.9B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "10.6B",
             "source": null,
             "data_source": null
           },
@@ -618,43 +646,32 @@
             "ticker": "WEX",
             "company": "WEX Inc.",
             "sector": "Technology",
-            "low_risk": 7.2,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "6.11B",
+            "low_risk": 7.4,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "6.10B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "ALLE",
-            "company": "Allegion",
-            "sector": "Industrials",
-            "low_risk": 7.2,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "13.0B",
+            "ticker": "FRT",
+            "company": "Federal Realty Investment Trust",
+            "sector": "Real Estate",
+            "low_risk": 7.5,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "11.0B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "AVT",
-            "company": "Avnet",
-            "sector": "Technology",
-            "low_risk": 7.3,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "7.33B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "FIVE",
-            "company": "Five Below",
-            "sector": "Consumer Cyclical",
-            "low_risk": 7.6,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "11.2B",
+            "ticker": "ICE",
+            "company": "Intercontinental Exchange",
+            "sector": "Financial Services",
+            "low_risk": 7.9,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "83.6B",
             "source": null,
             "data_source": null
           },
@@ -662,10 +679,10 @@
             "ticker": "BNY",
             "company": "BNY Mellon",
             "sector": "Financial Services",
-            "low_risk": 7.6,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "107.8B",
+            "low_risk": 8.0,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "107.0B",
             "source": null,
             "data_source": null
           },
@@ -673,10 +690,10 @@
             "ticker": "SF",
             "company": "Stifel",
             "sector": "Financial Services",
-            "low_risk": 7.7,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "12.3B",
+            "low_risk": 8.1,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "12.5B",
             "source": null,
             "data_source": null
           }
@@ -688,39 +705,39 @@
       "low_risk": {
         "n": 10,
         "null_count": 0,
-        "mean": 8.24,
-        "median": 8.45,
-        "min": 7.2,
-        "max": 9.4,
-        "p25": 7.675,
-        "p75": 8.675
+        "mean": 8.56,
+        "median": 8.75,
+        "min": 6.8,
+        "max": 9.8,
+        "p25": 7.975,
+        "p75": 9.35
       },
       "atr_pct": {
-        "n": 10,
-        "null_count": 0,
-        "mean": 0.035,
-        "median": 0.035,
-        "min": 0.02,
-        "max": 0.05,
-        "p25": 0.03,
-        "p75": 0.04
+        "n": 0,
+        "null_count": 10,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "max": null,
+        "p25": null,
+        "p75": null
       },
       "market_cap_dollars": {
         "n": 10,
         "null_count": 0,
-        "mean": 124149000000.0,
-        "median": 16350000000.0,
-        "min": 6110000000.0,
-        "max": 938900000000.0,
-        "p25": 10975000000.0,
-        "p75": 57125000000.0
+        "mean": 127050000000.0,
+        "median": 22700000000.0,
+        "min": 4310000000.0,
+        "max": 940900000000.0,
+        "p25": 10775000000.0,
+        "p75": 80250000000.0
       },
       "coverage": {
         "row_count": 10,
         "atr_pct": {
-          "present": 10,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 0,
+          "null": 10,
+          "pct_null": 1.0
         },
         "vol_bucket": {
           "present": 10,
@@ -728,9 +745,9 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "present": 10,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 0,
+          "null": 10,
+          "pct_null": 1.0
         },
         "market_cap": {
           "present": 10,
@@ -740,43 +757,52 @@
       },
       "vol_bucket": {
         "counts": {
-          "Med": 5,
-          "High": 5
+          "Unknown": 10
         },
         "share": {
-          "Med": 0.5,
-          "High": 0.5
+          "Unknown": 1.0
         },
         "total": 10
       },
       "sector": {
         "counts": {
-          "Financial Services": 3,
-          "Basic Materials": 2,
-          "Technology": 3,
+          "Financial Services": 5,
           "Consumer Cyclical": 1,
-          "Industrials": 1
+          "Technology": 2,
+          "Basic Materials": 1,
+          "Utilities": 1
         },
         "share": {
-          "Financial Services": 0.3,
-          "Basic Materials": 0.2,
-          "Technology": 0.3,
+          "Financial Services": 0.5,
           "Consumer Cyclical": 0.1,
-          "Industrials": 0.1
+          "Technology": 0.2,
+          "Basic Materials": 0.1,
+          "Utilities": 0.1
         },
         "total": 10,
-        "speculative_share": 0.4
+        "speculative_share": 0.3
       },
       "extremes": {
         "highest": [
           {
-            "ticker": "AGCO",
-            "company": "AGCO",
-            "sector": "Industrials",
-            "low_risk": 9.4,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "8.78B",
+            "ticker": "MORN",
+            "company": "Morningstar, Inc.",
+            "sector": "Financial Services",
+            "low_risk": 9.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "6.89B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "JEF",
+            "company": "Jefferies Financial Group",
+            "sector": "Financial Services",
+            "low_risk": 9.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "11.3B",
             "source": null,
             "data_source": null
           },
@@ -784,21 +810,10 @@
             "ticker": "NU",
             "company": "Nubank",
             "sector": "Financial Services",
-            "low_risk": 8.9,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "68.1B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "SCCO",
-            "company": "Southern Copper",
-            "sector": "Basic Materials",
-            "low_risk": 8.7,
-            "atr_pct": 0.05,
-            "vol_bucket": "High",
-            "market_cap": "140.6B",
+            "low_risk": 9.5,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "70.2B",
             "source": null,
             "data_source": null
           },
@@ -806,21 +821,21 @@
             "ticker": "CPAY",
             "company": "Corpay",
             "sector": "Technology",
-            "low_risk": 8.6,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "24.2B",
+            "low_risk": 8.9,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "24.7B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "SEIC",
-            "company": "SEI Investments Company",
-            "sector": "Financial Services",
-            "low_risk": 8.6,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "11.9B",
+            "ticker": "PLNT",
+            "company": "Planet Fitness",
+            "sector": "Consumer Cyclical",
+            "low_risk": 8.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "4.31B",
             "source": null,
             "data_source": null
           },
@@ -828,10 +843,10 @@
             "ticker": "JPM",
             "company": "JPMorgan Chase",
             "sector": "Financial Services",
-            "low_risk": 8.3,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "938.9B",
+            "low_risk": 8.7,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "940.9B",
             "source": null,
             "data_source": null
           },
@@ -839,21 +854,21 @@
             "ticker": "RS",
             "company": "Reliance, Inc.",
             "sector": "Basic Materials",
-            "low_risk": 7.9,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "20.8B",
+            "low_risk": 8.2,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "20.7B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "FIVE",
-            "company": "Five Below",
-            "sector": "Consumer Cyclical",
-            "low_risk": 7.6,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "11.2B",
+            "ticker": "ICE",
+            "company": "Intercontinental Exchange",
+            "sector": "Financial Services",
+            "low_risk": 7.9,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "83.6B",
             "source": null,
             "data_source": null
           },
@@ -862,55 +877,55 @@
             "company": "Arrow Electronics",
             "sector": "Technology",
             "low_risk": 7.2,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "10.9B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "10.6B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "WEX",
-            "company": "WEX Inc.",
-            "sector": "Technology",
-            "low_risk": 7.2,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "6.11B",
+            "ticker": "CEG",
+            "company": "Constellation Energy",
+            "sector": "Utilities",
+            "low_risk": 6.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "97.3B",
             "source": null,
             "data_source": null
           }
         ],
         "lowest": [
           {
+            "ticker": "CEG",
+            "company": "Constellation Energy",
+            "sector": "Utilities",
+            "low_risk": 6.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "97.3B",
+            "source": null,
+            "data_source": null
+          },
+          {
             "ticker": "ARW",
             "company": "Arrow Electronics",
             "sector": "Technology",
             "low_risk": 7.2,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "10.9B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "10.6B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "WEX",
-            "company": "WEX Inc.",
-            "sector": "Technology",
-            "low_risk": 7.2,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "6.11B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "FIVE",
-            "company": "Five Below",
-            "sector": "Consumer Cyclical",
-            "low_risk": 7.6,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "11.2B",
+            "ticker": "ICE",
+            "company": "Intercontinental Exchange",
+            "sector": "Financial Services",
+            "low_risk": 7.9,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "83.6B",
             "source": null,
             "data_source": null
           },
@@ -918,10 +933,10 @@
             "ticker": "RS",
             "company": "Reliance, Inc.",
             "sector": "Basic Materials",
-            "low_risk": 7.9,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "20.8B",
+            "low_risk": 8.2,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "20.7B",
             "source": null,
             "data_source": null
           },
@@ -929,10 +944,21 @@
             "ticker": "JPM",
             "company": "JPMorgan Chase",
             "sector": "Financial Services",
-            "low_risk": 8.3,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "938.9B",
+            "low_risk": 8.7,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "940.9B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "PLNT",
+            "company": "Planet Fitness",
+            "sector": "Consumer Cyclical",
+            "low_risk": 8.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "4.31B",
             "source": null,
             "data_source": null
           },
@@ -940,32 +966,10 @@
             "ticker": "CPAY",
             "company": "Corpay",
             "sector": "Technology",
-            "low_risk": 8.6,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "24.2B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "SEIC",
-            "company": "SEI Investments Company",
-            "sector": "Financial Services",
-            "low_risk": 8.6,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "11.9B",
-            "source": null,
-            "data_source": null
-          },
-          {
-            "ticker": "SCCO",
-            "company": "Southern Copper",
-            "sector": "Basic Materials",
-            "low_risk": 8.7,
-            "atr_pct": 0.05,
-            "vol_bucket": "High",
-            "market_cap": "140.6B",
+            "low_risk": 8.9,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "24.7B",
             "source": null,
             "data_source": null
           },
@@ -973,21 +977,32 @@
             "ticker": "NU",
             "company": "Nubank",
             "sector": "Financial Services",
-            "low_risk": 8.9,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "68.1B",
+            "low_risk": 9.5,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "70.2B",
             "source": null,
             "data_source": null
           },
           {
-            "ticker": "AGCO",
-            "company": "AGCO",
-            "sector": "Industrials",
-            "low_risk": 9.4,
-            "atr_pct": 0.03,
-            "vol_bucket": "Med",
-            "market_cap": "8.78B",
+            "ticker": "MORN",
+            "company": "Morningstar, Inc.",
+            "sector": "Financial Services",
+            "low_risk": 9.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "6.89B",
+            "source": null,
+            "data_source": null
+          },
+          {
+            "ticker": "JEF",
+            "company": "Jefferies Financial Group",
+            "sector": "Financial Services",
+            "low_risk": 9.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "11.3B",
             "source": null,
             "data_source": null
           }
@@ -999,39 +1014,39 @@
       "low_risk": {
         "n": 68,
         "null_count": 0,
-        "mean": 5.6676,
-        "median": 6.35,
+        "mean": 5.4941,
+        "median": 6.15,
         "min": 0.0,
         "max": 9.5,
         "p25": 3.975,
-        "p75": 7.9
+        "p75": 7.55
       },
       "atr_pct": {
-        "n": 68,
-        "null_count": 0,
-        "mean": 0.0574,
-        "median": 0.06,
-        "min": 0.02,
-        "max": 0.12,
-        "p25": 0.04,
-        "p75": 0.07
+        "n": 0,
+        "null_count": 68,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "max": null,
+        "p25": null,
+        "p75": null
       },
       "market_cap_dollars": {
         "n": 68,
         "null_count": 0,
-        "mean": 400633970588.2353,
-        "median": 55250000000.0,
-        "min": 4230000000.0,
-        "max": 5010000000000.0,
-        "p25": 19650000000.0,
-        "p75": 176800000000.0
+        "mean": 397696029411.7647,
+        "median": 51600000000.0,
+        "min": 4390000000.0,
+        "max": 4950000000000.0,
+        "p25": 18725000000.0,
+        "p75": 173500000000.0
       },
       "coverage": {
         "row_count": 68,
         "atr_pct": {
-          "present": 68,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 0,
+          "null": 68,
+          "pct_null": 1.0
         },
         "vol_bucket": {
           "present": 68,
@@ -1039,9 +1054,9 @@
           "pct_null": 0.0
         },
         "swing_score": {
-          "present": 68,
-          "null": 0,
-          "pct_null": 0.0
+          "present": 0,
+          "null": 68,
+          "pct_null": 1.0
         },
         "market_cap": {
           "present": 68,
@@ -1051,39 +1066,37 @@
       },
       "vol_bucket": {
         "counts": {
-          "High": 53,
-          "Med": 15
+          "Unknown": 68
         },
         "share": {
-          "High": 0.7794,
-          "Med": 0.2206
+          "Unknown": 1.0
         },
         "total": 68
       },
       "sector": {
         "counts": {
           "Basic Materials": 2,
-          "Industrials": 7,
-          "Technology": 35,
           "Communication Services": 6,
+          "Technology": 35,
+          "Industrials": 7,
           "Healthcare": 4,
           "Consumer Cyclical": 6,
           "Real Estate": 1,
-          "Energy": 2,
           "Consumer Defensive": 1,
-          "Financial Services": 4
+          "Financial Services": 4,
+          "Energy": 2
         },
         "share": {
           "Basic Materials": 0.0294,
-          "Industrials": 0.1029,
-          "Technology": 0.5147,
           "Communication Services": 0.0882,
+          "Technology": 0.5147,
+          "Industrials": 0.1029,
           "Healthcare": 0.0588,
           "Consumer Cyclical": 0.0882,
           "Real Estate": 0.0147,
-          "Energy": 0.0294,
           "Consumer Defensive": 0.0147,
-          "Financial Services": 0.0588
+          "Financial Services": 0.0588,
+          "Energy": 0.0294
         },
         "total": 68,
         "speculative_share": 0.7794
@@ -1095,42 +1108,9 @@
             "company": "Sandisk",
             "sector": "Technology",
             "low_risk": 9.5,
-            "atr_pct": 0.12,
-            "vol_bucket": "High",
-            "market_cap": "212.7B",
-            "source": "tradingview",
-            "data_source": "main_pipeline"
-          },
-          {
-            "ticker": "BWA",
-            "company": "BorgWarner",
-            "sector": "Consumer Cyclical",
-            "low_risk": 9.3,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "13.2B",
-            "source": "csv",
-            "data_source": "main_pipeline"
-          },
-          {
-            "ticker": "EXLS",
-            "company": "EXL Service",
-            "sector": "Technology",
-            "low_risk": 9.1,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "4.23B",
-            "source": "tradingview",
-            "data_source": "main_pipeline"
-          },
-          {
-            "ticker": "DUOL",
-            "company": "Duolingo",
-            "sector": "Technology",
-            "low_risk": 8.9,
-            "atr_pct": 0.06,
-            "vol_bucket": "High",
-            "market_cap": "5.70B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "192.3B",
             "source": "tradingview",
             "data_source": "main_pipeline"
           },
@@ -1138,10 +1118,21 @@
             "ticker": "AME",
             "company": "Ametek",
             "sector": "Industrials",
-            "low_risk": 8.8,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "55.5B",
+            "low_risk": 9.2,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "54.8B",
+            "source": "tradingview",
+            "data_source": "main_pipeline"
+          },
+          {
+            "ticker": "EXLS",
+            "company": "EXL Service",
+            "sector": "Technology",
+            "low_risk": 9.0,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "4.39B",
             "source": "tradingview",
             "data_source": "main_pipeline"
           },
@@ -1149,10 +1140,32 @@
             "ticker": "SCCO",
             "company": "Southern Copper",
             "sector": "Basic Materials",
-            "low_risk": 8.7,
-            "atr_pct": 0.05,
-            "vol_bucket": "High",
-            "market_cap": "140.6B",
+            "low_risk": 8.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "138.4B",
+            "source": "tradingview",
+            "data_source": "main_pipeline"
+          },
+          {
+            "ticker": "BWA",
+            "company": "BorgWarner",
+            "sector": "Consumer Cyclical",
+            "low_risk": 8.8,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "12.9B",
+            "source": "csv",
+            "data_source": "main_pipeline"
+          },
+          {
+            "ticker": "META",
+            "company": "Meta Platforms",
+            "sector": "Communication Services",
+            "low_risk": 8.6,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "1.52T",
             "source": "tradingview",
             "data_source": "main_pipeline"
           },
@@ -1160,10 +1173,10 @@
             "ticker": "GMED",
             "company": "Globus Medical",
             "sector": "Healthcare",
-            "low_risk": 8.7,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "10.4B",
+            "low_risk": 8.6,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "10.6B",
             "source": "tradingview",
             "data_source": "main_pipeline"
           },
@@ -1171,32 +1184,32 @@
             "ticker": "EQIX",
             "company": "Equinix",
             "sector": "Real Estate",
-            "low_risk": 8.7,
-            "atr_pct": 0.02,
-            "vol_bucket": "Med",
-            "market_cap": "106.9B",
+            "low_risk": 8.6,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "104.1B",
             "source": "tradingview",
             "data_source": "main_pipeline"
           },
           {
-            "ticker": "CNM",
-            "company": "Core & Main",
-            "sector": "Industrials",
-            "low_risk": 8.6,
-            "atr_pct": 0.04,
-            "vol_bucket": "High",
-            "market_cap": "8.44B",
-            "source": "csv",
+            "ticker": "AAPL",
+            "company": "Apple Inc.",
+            "sector": "Technology",
+            "low_risk": 8.5,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "4.95T",
+            "source": "tradingview",
             "data_source": "main_pipeline"
           },
           {
-            "ticker": "CIEN",
-            "company": "Ciena",
+            "ticker": "DUOL",
+            "company": "Duolingo",
             "sector": "Technology",
-            "low_risk": 8.3,
-            "atr_pct": 0.07,
-            "vol_bucket": "High",
-            "market_cap": "55.3B",
+            "low_risk": 8.5,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "6.14B",
             "source": "tradingview",
             "data_source": "main_pipeline"
           }
@@ -1207,9 +1220,9 @@
             "company": "Applied Digital",
             "sector": "Technology",
             "low_risk": 0.0,
-            "atr_pct": 0.1,
-            "vol_bucket": "High",
-            "market_cap": "7.77B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "7.48B",
             "source": "both",
             "data_source": "main_pipeline"
           },
@@ -1218,9 +1231,9 @@
             "company": "AppLovin",
             "sector": "Communication Services",
             "low_risk": 0.0,
-            "atr_pct": 0.07,
-            "vol_bucket": "High",
-            "market_cap": "131.7B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "137.4B",
             "source": "both",
             "data_source": "main_pipeline"
           },
@@ -1229,20 +1242,9 @@
             "company": "Carvana",
             "sector": "Consumer Cyclical",
             "low_risk": 0.0,
-            "atr_pct": 0.06,
-            "vol_bucket": "High",
-            "market_cap": "66.3B",
-            "source": "tradingview",
-            "data_source": "main_pipeline"
-          },
-          {
-            "ticker": "ALAB",
-            "company": "Astera Labs",
-            "sector": "Technology",
-            "low_risk": 0.0,
-            "atr_pct": 0.11,
-            "vol_bucket": "High",
-            "market_cap": "50.0B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "69.1B",
             "source": "tradingview",
             "data_source": "main_pipeline"
           },
@@ -1251,9 +1253,20 @@
             "company": "Rocket Lab",
             "sector": "Industrials",
             "low_risk": 0.0,
-            "atr_pct": 0.1,
-            "vol_bucket": "High",
-            "market_cap": "39.9B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "40.7B",
+            "source": "tradingview",
+            "data_source": "main_pipeline"
+          },
+          {
+            "ticker": "ALAB",
+            "company": "Astera Labs",
+            "sector": "Technology",
+            "low_risk": 0.0,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "46.7B",
             "source": "tradingview",
             "data_source": "main_pipeline"
           },
@@ -1262,9 +1275,9 @@
             "company": "Coinbase",
             "sector": "Financial Services",
             "low_risk": 0.0,
-            "atr_pct": 0.06,
-            "vol_bucket": "High",
-            "market_cap": "41.7B",
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "42.9B",
             "source": "tradingview",
             "data_source": "main_pipeline"
           },
@@ -1272,10 +1285,21 @@
             "ticker": "RKT",
             "company": "Rocket Companies",
             "sector": "Financial Services",
-            "low_risk": 1.5,
-            "atr_pct": 0.06,
-            "vol_bucket": "High",
-            "market_cap": "36.9B",
+            "low_risk": 1.6,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "37.8B",
+            "source": "tradingview",
+            "data_source": "main_pipeline"
+          },
+          {
+            "ticker": "HOOD",
+            "company": "Robinhood Markets",
+            "sector": "Financial Services",
+            "low_risk": 1.6,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "84.5B",
             "source": "tradingview",
             "data_source": "main_pipeline"
           },
@@ -1283,32 +1307,21 @@
             "ticker": "AMD",
             "company": "Advanced Micro Devices",
             "sector": "Technology",
-            "low_risk": 2.2,
-            "atr_pct": 0.07,
-            "vol_bucket": "High",
-            "market_cap": "851.1B",
+            "low_risk": 2.4,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "790.9B",
             "source": "both",
-            "data_source": "main_pipeline"
-          },
-          {
-            "ticker": "HOOD",
-            "company": "Robinhood Markets",
-            "sector": "Financial Services",
-            "low_risk": 2.2,
-            "atr_pct": 0.06,
-            "vol_bucket": "High",
-            "market_cap": "85.5B",
-            "source": "tradingview",
             "data_source": "main_pipeline"
           },
           {
             "ticker": "MRVL",
             "company": "Marvell Technology",
             "sector": "Technology",
-            "low_risk": 2.6,
-            "atr_pct": 0.1,
-            "vol_bucket": "High",
-            "market_cap": "174.3B",
+            "low_risk": 2.4,
+            "atr_pct": null,
+            "vol_bucket": "Unknown",
+            "market_cap": "168.1B",
             "source": "both",
             "data_source": "main_pipeline"
           }
@@ -1340,12 +1353,12 @@
       "market_cap_dollars": {
         "n": 67,
         "null_count": 7,
-        "mean": 70584632835.8209,
-        "median": 4360000000.0,
-        "min": 10900000.0,
-        "max": 2089999999999.9998,
-        "p25": 1445000000.0,
-        "p75": 16500000000.0
+        "mean": 70273191044.7761,
+        "median": 4250000000.0,
+        "min": 10500000.0,
+        "max": 2060000000000.0,
+        "p25": 1525000000.0,
+        "p75": 16400000000.0
       },
       "coverage": {
         "row_count": 74,
@@ -1382,31 +1395,31 @@
       "sector": {
         "counts": {
           "Basic Materials": 5,
-          "Financial Services": 6,
-          "ETF": 7,
           "Technology": 27,
+          "Financial Services": 6,
           "Energy": 3,
           "Industrials": 10,
           "Consumer Cyclical": 2,
-          "Communication Services": 2,
           "Healthcare": 7,
-          "Utilities": 1,
+          "Communication Services": 2,
+          "ETF": 7,
           "Consumer Defensive": 1,
+          "Utilities": 1,
           "Crypto": 2,
           "Real Estate": 1
         },
         "share": {
           "Basic Materials": 0.0676,
-          "Financial Services": 0.0811,
-          "ETF": 0.0946,
           "Technology": 0.3649,
+          "Financial Services": 0.0811,
           "Energy": 0.0405,
           "Industrials": 0.1351,
           "Consumer Cyclical": 0.027,
-          "Communication Services": 0.027,
           "Healthcare": 0.0946,
-          "Utilities": 0.0135,
+          "Communication Services": 0.027,
+          "ETF": 0.0946,
           "Consumer Defensive": 0.0135,
+          "Utilities": 0.0135,
           "Crypto": 0.027,
           "Real Estate": 0.0135
         },
@@ -1422,7 +1435,7 @@
             "low_risk": 9.97,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "1.57B",
+            "market_cap": "1.64B",
             "source": "csv",
             "data_source": "supplemental_yfinance"
           },
@@ -1433,7 +1446,7 @@
             "low_risk": 9.66,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "290.7B",
+            "market_cap": "289.6B",
             "source": "csv",
             "data_source": "supplemental_yfinance"
           },
@@ -1444,7 +1457,7 @@
             "low_risk": 9.4,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "186.1M",
+            "market_cap": "185.1M",
             "source": "tradingview",
             "data_source": "supplemental_yfinance"
           },
@@ -1455,7 +1468,7 @@
             "low_risk": 9.39,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "2.84B",
+            "market_cap": "3.04B",
             "source": "csv",
             "data_source": "supplemental_yfinance"
           },
@@ -1466,7 +1479,7 @@
             "low_risk": 9.04,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "9.75B",
+            "market_cap": "9.35B",
             "source": "both",
             "data_source": "supplemental_yfinance"
           },
@@ -1477,7 +1490,7 @@
             "low_risk": 9.04,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "195.2M",
+            "market_cap": "206.2M",
             "source": "csv",
             "data_source": "supplemental_yfinance"
           },
@@ -1488,7 +1501,7 @@
             "low_risk": 8.77,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "2.09T",
+            "market_cap": "2.06T",
             "source": "both",
             "data_source": "supplemental_yfinance"
           },
@@ -1499,7 +1512,7 @@
             "low_risk": 8.52,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "5.11B",
+            "market_cap": "5.04B",
             "source": "tradingview",
             "data_source": "supplemental_yfinance"
           },
@@ -1510,7 +1523,7 @@
             "low_risk": 8.26,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "2.97B",
+            "market_cap": "2.93B",
             "source": "csv",
             "data_source": "supplemental_yfinance"
           },
@@ -1521,23 +1534,12 @@
             "low_risk": 8.21,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "715.2M",
+            "market_cap": "690.5M",
             "source": "csv",
             "data_source": "supplemental_yfinance"
           }
         ],
         "lowest": [
-          {
-            "ticker": "SLNH",
-            "company": "Soluna Holdings, Inc.",
-            "sector": "Financial Services",
-            "low_risk": 0.0,
-            "atr_pct": null,
-            "vol_bucket": null,
-            "market_cap": "198.8M",
-            "source": "csv",
-            "data_source": "supplemental_yfinance"
-          },
           {
             "ticker": "PGY",
             "company": "Pagaya Technologies Ltd.",
@@ -1545,7 +1547,29 @@
             "low_risk": 0.0,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "1.32B",
+            "market_cap": "1.41B",
+            "source": "csv",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "ticker": "SLNH",
+            "company": "Soluna Holdings, Inc.",
+            "sector": "Financial Services",
+            "low_risk": 0.0,
+            "atr_pct": null,
+            "vol_bucket": null,
+            "market_cap": "190.9M",
+            "source": "csv",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "ticker": "QUBT",
+            "company": "Quantum Computing Inc.",
+            "sector": "Technology",
+            "low_risk": 0.0,
+            "atr_pct": null,
+            "vol_bucket": null,
+            "market_cap": "1.79B",
             "source": "csv",
             "data_source": "supplemental_yfinance"
           },
@@ -1556,19 +1580,8 @@
             "low_risk": 0.0,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "39.7B",
+            "market_cap": "38.1B",
             "source": "both",
-            "data_source": "supplemental_yfinance"
-          },
-          {
-            "ticker": "QUBT",
-            "company": "Quantum Computing Inc.",
-            "sector": "Technology",
-            "low_risk": 0.0,
-            "atr_pct": null,
-            "vol_bucket": null,
-            "market_cap": "1.68B",
-            "source": "csv",
             "data_source": "supplemental_yfinance"
           },
           {
@@ -1578,7 +1591,7 @@
             "low_risk": 0.0,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "12.3B",
+            "market_cap": "13.3B",
             "source": "both",
             "data_source": "supplemental_yfinance"
           },
@@ -1589,8 +1602,19 @@
             "low_risk": 0.0,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "3.63B",
+            "market_cap": "3.78B",
             "source": "tradingview",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "ticker": "BBAI",
+            "company": "BigBear.ai, Inc.",
+            "sector": "Technology",
+            "low_risk": 0.0,
+            "atr_pct": null,
+            "vol_bucket": null,
+            "market_cap": "1.37B",
+            "source": "both",
             "data_source": "supplemental_yfinance"
           },
           {
@@ -1600,7 +1624,7 @@
             "low_risk": 0.0,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "13.2B",
+            "market_cap": "12.9B",
             "source": "tradingview",
             "data_source": "supplemental_yfinance"
           },
@@ -1611,19 +1635,8 @@
             "low_risk": 0.0,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "296.1M",
+            "market_cap": "296.6M",
             "source": "csv",
-            "data_source": "supplemental_yfinance"
-          },
-          {
-            "ticker": "BBAI",
-            "company": "BigBear.ai, Inc.",
-            "sector": "Technology",
-            "low_risk": 0.0,
-            "atr_pct": null,
-            "vol_bucket": null,
-            "market_cap": "1.32B",
-            "source": "both",
             "data_source": "supplemental_yfinance"
           },
           {
@@ -1633,7 +1646,7 @@
             "low_risk": 0.0,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "10.9M",
+            "market_cap": "11.0M",
             "source": "csv",
             "data_source": "supplemental_yfinance"
           }
@@ -1648,30 +1661,28 @@
         "low_risk": {
           "n": 38,
           "null_count": 0,
-          "mean": 5.9737,
-          "median": 6.6,
+          "mean": 5.9132,
+          "median": 6.5,
           "min": 0.0,
           "max": 9.5,
-          "p25": 4.625,
-          "p75": 8.125
+          "p25": 4.5,
+          "p75": 8.075
         },
         "vol_bucket": {
           "counts": {
-            "High": 27,
-            "Med": 11
+            "Unknown": 38
           },
           "share": {
-            "High": 0.7105,
-            "Med": 0.2895
+            "Unknown": 1.0
           },
           "total": 38
         },
         "sector": {
           "counts": {
             "Basic Materials": 1,
-            "Industrials": 5,
-            "Technology": 19,
             "Communication Services": 1,
+            "Technology": 19,
+            "Industrials": 5,
             "Healthcare": 2,
             "Consumer Cyclical": 4,
             "Real Estate": 1,
@@ -1680,9 +1691,9 @@
           },
           "share": {
             "Basic Materials": 0.0263,
-            "Industrials": 0.1316,
-            "Technology": 0.5,
             "Communication Services": 0.0263,
+            "Technology": 0.5,
+            "Industrials": 0.1316,
             "Healthcare": 0.0526,
             "Consumer Cyclical": 0.1053,
             "Real Estate": 0.0263,
@@ -1698,21 +1709,19 @@
         "low_risk": {
           "n": 16,
           "null_count": 0,
-          "mean": 4.0562,
-          "median": 4.05,
+          "mean": 3.9187,
+          "median": 4.0,
           "min": 0.0,
-          "max": 8.2,
-          "p25": 2.675,
-          "p75": 5.425
+          "max": 8.3,
+          "p25": 2.625,
+          "p75": 5.05
         },
         "vol_bucket": {
           "counts": {
-            "High": 15,
-            "Med": 1
+            "Unknown": 16
           },
           "share": {
-            "High": 0.9375,
-            "Med": 0.0625
+            "Unknown": 1.0
           },
           "total": 16
         },
@@ -1740,40 +1749,38 @@
         "low_risk": {
           "n": 14,
           "null_count": 0,
-          "mean": 6.6786,
-          "median": 6.9,
-          "min": 3.3,
-          "max": 9.3,
-          "p25": 6.1,
-          "p75": 7.55
+          "mean": 6.1571,
+          "median": 6.8,
+          "min": 2.6,
+          "max": 8.8,
+          "p25": 5.8,
+          "p75": 7.525
         },
         "vol_bucket": {
           "counts": {
-            "Med": 3,
-            "High": 11
+            "Unknown": 14
           },
           "share": {
-            "Med": 0.2143,
-            "High": 0.7857
+            "Unknown": 1.0
           },
           "total": 14
         },
         "sector": {
           "counts": {
             "Healthcare": 1,
-            "Consumer Cyclical": 2,
-            "Technology": 6,
             "Industrials": 2,
-            "Communication Services": 2,
-            "Consumer Defensive": 1
+            "Technology": 6,
+            "Consumer Cyclical": 2,
+            "Consumer Defensive": 1,
+            "Communication Services": 2
           },
           "share": {
             "Healthcare": 0.0714,
-            "Consumer Cyclical": 0.1429,
-            "Technology": 0.4286,
             "Industrials": 0.1429,
-            "Communication Services": 0.1429,
-            "Consumer Defensive": 0.0714
+            "Technology": 0.4286,
+            "Consumer Cyclical": 0.1429,
+            "Consumer Defensive": 0.0714,
+            "Communication Services": 0.1429
           },
           "total": 14,
           "speculative_share": 0.7857
@@ -1805,8 +1812,8 @@
         "sector": {
           "counts": {
             "Basic Materials": 1,
-            "Financial Services": 2,
             "Technology": 11,
+            "Financial Services": 2,
             "Industrials": 5,
             "Healthcare": 7,
             "Consumer Defensive": 1,
@@ -1818,8 +1825,8 @@
           },
           "share": {
             "Basic Materials": 0.0312,
-            "Financial Services": 0.0625,
             "Technology": 0.3438,
+            "Financial Services": 0.0625,
             "Industrials": 0.1562,
             "Healthcare": 0.2188,
             "Consumer Defensive": 0.0312,
@@ -1831,56 +1838,6 @@
           },
           "total": 32,
           "speculative_share": 0.6562
-        }
-      },
-      "tradingview": {
-        "row_count": 29,
-        "low_risk": {
-          "n": 18,
-          "null_count": 11,
-          "mean": 4.9728,
-          "median": 5.08,
-          "min": 0.0,
-          "max": 9.4,
-          "p25": 3.8275,
-          "p75": 7.0275
-        },
-        "vol_bucket": {
-          "counts": {
-            "__missing__": 29
-          },
-          "share": {
-            "__missing__": 1.0
-          },
-          "total": 29
-        },
-        "sector": {
-          "counts": {
-            "ETF": 5,
-            "Energy": 2,
-            "Basic Materials": 3,
-            "Industrials": 5,
-            "Consumer Cyclical": 1,
-            "Communication Services": 1,
-            "Technology": 7,
-            "Utilities": 1,
-            "Financial Services": 3,
-            "Crypto": 1
-          },
-          "share": {
-            "ETF": 0.1724,
-            "Energy": 0.069,
-            "Basic Materials": 0.1034,
-            "Industrials": 0.1724,
-            "Consumer Cyclical": 0.0345,
-            "Communication Services": 0.0345,
-            "Technology": 0.2414,
-            "Utilities": 0.0345,
-            "Financial Services": 0.1034,
-            "Crypto": 0.0345
-          },
-          "total": 29,
-          "speculative_share": 0.3793
         }
       },
       "both": {
@@ -1907,28 +1864,78 @@
         "sector": {
           "counts": {
             "Technology": 9,
-            "ETF": 1,
             "Financial Services": 1,
+            "ETF": 1,
             "Crypto": 1,
             "Basic Materials": 1
           },
           "share": {
             "Technology": 0.6923,
-            "ETF": 0.0769,
             "Financial Services": 0.0769,
+            "ETF": 0.0769,
             "Crypto": 0.0769,
             "Basic Materials": 0.0769
           },
           "total": 13,
           "speculative_share": 0.6923
         }
+      },
+      "tradingview": {
+        "row_count": 29,
+        "low_risk": {
+          "n": 18,
+          "null_count": 11,
+          "mean": 4.9728,
+          "median": 5.08,
+          "min": 0.0,
+          "max": 9.4,
+          "p25": 3.8275,
+          "p75": 7.0275
+        },
+        "vol_bucket": {
+          "counts": {
+            "__missing__": 29
+          },
+          "share": {
+            "__missing__": 1.0
+          },
+          "total": 29
+        },
+        "sector": {
+          "counts": {
+            "Basic Materials": 3,
+            "Energy": 2,
+            "Industrials": 5,
+            "Consumer Cyclical": 1,
+            "Technology": 7,
+            "Communication Services": 1,
+            "ETF": 5,
+            "Financial Services": 3,
+            "Utilities": 1,
+            "Crypto": 1
+          },
+          "share": {
+            "Basic Materials": 0.1034,
+            "Energy": 0.069,
+            "Industrials": 0.1724,
+            "Consumer Cyclical": 0.0345,
+            "Technology": 0.2414,
+            "Communication Services": 0.0345,
+            "ETF": 0.1724,
+            "Financial Services": 0.1034,
+            "Utilities": 0.0345,
+            "Crypto": 0.0345
+          },
+          "total": 29,
+          "speculative_share": 0.3793
+        }
       }
     }
   },
   "overlap_main_vs_watchlist": {
-    "shared_count": 6,
-    "only_in_watchlist_main": 62,
-    "only_in_main_rankings": 94,
+    "shared_count": 7,
+    "only_in_watchlist_main": 61,
+    "only_in_main_rankings": 93,
     "differing_count": 0,
     "max_abs_delta": 0.0,
     "mean_abs_delta": 0.0,
@@ -1937,13 +1944,11 @@
   "parity_context": {
     "parity_overall": "FAIL",
     "low_risk_status": "WARN",
-    "low_risk_message": "mean delta watchlist_main - main = -2.32 (main=7.991, wlm=5.6676) \u2014 explained by selection bias (drift verdict: selection_bias, confidence: medium); same-ticker max |\u0394| = 0.0 on 5 shared tickers",
-    "low_risk_delta": -2.3234
+    "low_risk_message": "mean delta watchlist_main - main = -2.53 (main=8.021, wlm=5.4941) \u2014 explained by selection bias (drift verdict: selection_bias, confidence: medium); same-ticker max |\u0394| = 0.0 on 6 shared tickers",
+    "low_risk_delta": -2.5269
   },
   "recommendations": [
-    "Leave the low_risk formula unchanged. The watchlist universe is materially more speculative / higher-volatility than the main universe, so a lower mean low_risk is expected and faithful to the inputs.",
-    "Consider demoting low_risk drift in cross-group parity from FAIL to a known selection-bias finding so it stops drowning out real parity blockers in the Midday Health Check.",
-    "Treat low_risk as explanatory in the watchlist context, not punitive \u2014 surface it next to the score rather than as a tag that demotes a row.",
+    "Mixed signal: more than one root cause is plausible (data_gap, selection_bias). Resolve any data_gap and formula_issue evidence before treating the rest as selection bias.",
     "A future improvement (not in scope here) is to normalize low_risk by sector or market cap before cross-group comparison so the universe-mix effect is removed."
   ]
 }

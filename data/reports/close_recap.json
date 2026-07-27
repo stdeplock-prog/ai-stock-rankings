@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-24T22:04:15Z",
-  "generated_at_chicago": "2026-07-24 05:04 PM CDT",
-  "overall": "WARN",
+  "generated_at": "2026-07-27T16:32:20Z",
+  "generated_at_chicago": "2026-07-27 11:32 AM CDT",
+  "overall": "FAIL",
   "sections": {
     "freshness": {
       "checks": [
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-07-24 05:04 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-07-27 11:31 AM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,16 +17,16 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-07-24 05:04 PM CDT",
-        "open_date": "2026-07-24",
+        "as_of": "2026-07-27 11:31 AM CDT",
+        "open_date": "2026-07-27",
         "row_count": 100,
-        "is_open_run": false,
+        "is_open_run": true,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-07-24 17:04",
-        "rankings_age_hours": 0.0,
+        "chicago_now": "2026-07-27 11:32",
+        "rankings_age_hours": 0.02,
         "today_live": true,
-        "close_slot_satisfied": true
+        "close_slot_satisfied": false
       },
       "status": "OK"
     },
@@ -35,15 +35,15 @@
         {
           "name": "run_source",
           "status": "OK",
-          "message": "latest run: scheduled (2026-07-24 17:04)"
+          "message": "latest run: scheduled (2026-07-27 11:32)"
         }
       ],
       "metrics": {
         "overall_raw": "OK",
         "overall_effective": "OK",
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-07-24 17:04",
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-07-27 11:32",
         "today_missing": [],
         "today_satisfied": true,
         "source": "schedule",
@@ -55,20 +55,25 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+          "status": "FAIL",
+          "message": "overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:WARN"
+        },
+        {
+          "name": "critical_sections",
+          "status": "FAIL",
+          "message": "rankings=FAIL, tasks=WARN: critical section failure"
         }
       ],
       "metrics": {
-        "overall": "OK",
+        "overall": "FAIL",
         "by_section": {
-          "rankings": "OK",
+          "rankings": "FAIL",
           "watchlist": "OK",
-          "tasks": "OK"
+          "tasks": "WARN"
         },
-        "critical_section_fail": false
+        "critical_section_fail": true
       },
-      "status": "OK"
+      "status": "FAIL"
     },
     "rankings_recap": {
       "checks": [
@@ -80,233 +85,238 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-07-23: RS, AGCO, WEX, SEIC, SCCO"
+          "message": "new top10 vs 2026-07-24: ICE, PLNT, CEG, MORN, JEF"
+        },
+        {
+          "name": "sector_concentration",
+          "status": "WARN",
+          "message": "top10 dominated by Financial Services (5/10 = 50%)"
         }
       ],
       "metrics": {
         "top_10": [
           {
             "rank": 1,
-            "ticker": "JPM",
-            "company": "JPMorgan Chase",
-            "ai_score": 8.7,
-            "change": 0,
+            "ticker": "NU",
+            "company": "Nubank",
+            "ai_score": 7.3,
+            "change": 6,
             "sector": "Financial Services"
           },
           {
             "rank": 2,
-            "ticker": "RS",
-            "company": "Reliance, Inc.",
-            "ai_score": 8.6,
-            "change": 0,
-            "sector": "Basic Materials"
+            "ticker": "JPM",
+            "company": "JPMorgan Chase",
+            "ai_score": 7.2,
+            "change": -1,
+            "sector": "Financial Services"
           },
           {
             "rank": 3,
-            "ticker": "CPAY",
-            "company": "Corpay",
-            "ai_score": 8.5,
-            "change": 0,
-            "sector": "Technology"
+            "ticker": "ICE",
+            "company": "Intercontinental Exchange",
+            "ai_score": 7.2,
+            "change": 16,
+            "sector": "Financial Services"
           },
           {
             "rank": 4,
-            "ticker": "FIVE",
-            "company": "Five Below",
-            "ai_score": 8.4,
-            "change": 0,
+            "ticker": "PLNT",
+            "company": "Planet Fitness",
+            "ai_score": 7.2,
+            "change": 44,
             "sector": "Consumer Cyclical"
           },
           {
             "rank": 5,
-            "ticker": "ARW",
-            "company": "Arrow Electronics",
-            "ai_score": 8.4,
-            "change": 1,
+            "ticker": "CPAY",
+            "company": "Corpay",
+            "ai_score": 7.1,
+            "change": -2,
             "sector": "Technology"
           },
           {
             "rank": 6,
-            "ticker": "NU",
-            "company": "Nubank",
-            "ai_score": 8.4,
-            "change": 1,
-            "sector": "Financial Services"
+            "ticker": "RS",
+            "company": "Reliance, Inc.",
+            "ai_score": 7.1,
+            "change": -4,
+            "sector": "Basic Materials"
           },
           {
             "rank": 7,
-            "ticker": "AGCO",
-            "company": "AGCO",
-            "ai_score": 8.4,
-            "change": -2,
-            "sector": "Industrials"
-          },
-          {
-            "rank": 8,
-            "ticker": "WEX",
-            "company": "WEX Inc.",
-            "ai_score": 8.3,
-            "change": 0,
+            "ticker": "ARW",
+            "company": "Arrow Electronics",
+            "ai_score": 7.0,
+            "change": -1,
             "sector": "Technology"
           },
           {
+            "rank": 8,
+            "ticker": "CEG",
+            "company": "Constellation Energy",
+            "ai_score": 7.0,
+            "change": 47,
+            "sector": "Utilities"
+          },
+          {
             "rank": 9,
-            "ticker": "SEIC",
-            "company": "SEI Investments Company",
-            "ai_score": 8.3,
-            "change": 0,
+            "ticker": "MORN",
+            "company": "Morningstar, Inc.",
+            "ai_score": 7.0,
+            "change": 86,
             "sector": "Financial Services"
           },
           {
             "rank": 10,
-            "ticker": "SCCO",
-            "company": "Southern Copper",
-            "ai_score": 8.3,
-            "change": 1,
-            "sector": "Basic Materials"
+            "ticker": "JEF",
+            "company": "Jefferies Financial Group",
+            "ai_score": 6.9,
+            "change": 4,
+            "sector": "Financial Services"
           }
         ],
         "top_gainers": [
           {
-            "rank": 36,
-            "ticker": "FR",
-            "company": "First Industrial Realty Trust",
-            "change": 35,
-            "ai_score": 7.9,
-            "sector": "Real Estate"
-          },
-          {
-            "rank": 82,
-            "ticker": "TMO",
-            "company": "Thermo Fisher Scientific",
-            "change": 15,
-            "ai_score": 7.6,
-            "sector": "Healthcare"
-          },
-          {
-            "rank": 22,
-            "ticker": "AVT",
-            "company": "Avnet",
-            "change": 6,
-            "ai_score": 8.0,
-            "sector": "Technology"
-          },
-          {
-            "rank": 85,
-            "ticker": "VST",
-            "company": "Vistra Corp.",
-            "change": 6,
-            "ai_score": 7.6,
-            "sector": "Utilities"
+            "rank": 50,
+            "ticker": "BX",
+            "company": "Blackstone Inc.",
+            "change": 368,
+            "ai_score": 6.5,
+            "sector": "Financial Services"
           },
           {
             "rank": 92,
-            "ticker": "WAB",
-            "company": "Wabtec",
-            "change": 6,
-            "ai_score": 7.5,
-            "sector": "Industrials"
+            "ticker": "BSX",
+            "company": "Boston Scientific",
+            "change": 284,
+            "ai_score": 6.3,
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 21,
+            "ticker": "INTU",
+            "company": "Intuit",
+            "change": 209,
+            "ai_score": 6.7,
+            "sector": "Technology"
+          },
+          {
+            "rank": 82,
+            "ticker": "PODD",
+            "company": "Insulet Corporation",
+            "change": 195,
+            "ai_score": 6.4,
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 46,
+            "ticker": "AU",
+            "company": "AngloGold Ashanti",
+            "change": 174,
+            "ai_score": 6.5,
+            "sector": "Basic Materials"
           }
         ],
         "top_losers": [
           {
-            "rank": 75,
-            "ticker": "PNFP",
-            "company": "Pinnacle Financial Partners",
+            "rank": 99,
+            "ticker": "MS",
+            "company": "Morgan Stanley",
+            "change": -69,
+            "ai_score": 6.2,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 84,
+            "ticker": "OVV",
+            "company": "Ovintiv",
+            "change": -64,
+            "ai_score": 6.3,
+            "sector": "Energy"
+          },
+          {
+            "rank": 98,
+            "ticker": "NTRS",
+            "company": "Northern Trust",
+            "change": -63,
+            "ai_score": 6.2,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 88,
+            "ticker": "LH",
+            "company": "Labcorp",
             "change": -54,
-            "ai_score": 7.6,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 54,
-            "ticker": "NDAQ",
-            "company": "Nasdaq, Inc.",
-            "change": -44,
-            "ai_score": 7.8,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 30,
-            "ticker": "MEDP",
-            "company": "Medpace",
-            "change": -8,
-            "ai_score": 7.9,
+            "ai_score": 6.3,
             "sector": "Healthcare"
           },
           {
-            "rank": 45,
-            "ticker": "FCNCA",
-            "company": "First Citizens BancShares",
-            "change": -5,
-            "ai_score": 7.8,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 63,
-            "ticker": "FAF",
-            "company": "First American Financial Corporation",
-            "change": -4,
-            "ai_score": 7.7,
+            "rank": 60,
+            "ticker": "SEIC",
+            "company": "SEI Investments Company",
+            "change": -51,
+            "ai_score": 6.5,
             "sector": "Financial Services"
           }
         ],
         "new_top10_entries": [
           {
-            "ticker": "RS",
-            "rank": 2,
-            "ai_score": 8.6,
-            "sector": "Basic Materials"
-          },
-          {
-            "ticker": "AGCO",
-            "rank": 7,
-            "ai_score": 8.4,
-            "sector": "Industrials"
-          },
-          {
-            "ticker": "WEX",
-            "rank": 8,
-            "ai_score": 8.3,
-            "sector": "Technology"
-          },
-          {
-            "ticker": "SEIC",
-            "rank": 9,
-            "ai_score": 8.3,
+            "ticker": "ICE",
+            "rank": 3,
+            "ai_score": 7.2,
             "sector": "Financial Services"
           },
           {
-            "ticker": "SCCO",
+            "ticker": "PLNT",
+            "rank": 4,
+            "ai_score": 7.2,
+            "sector": "Consumer Cyclical"
+          },
+          {
+            "ticker": "CEG",
+            "rank": 8,
+            "ai_score": 7.0,
+            "sector": "Utilities"
+          },
+          {
+            "ticker": "MORN",
+            "rank": 9,
+            "ai_score": 7.0,
+            "sector": "Financial Services"
+          },
+          {
+            "ticker": "JEF",
             "rank": 10,
-            "ai_score": 8.3,
-            "sector": "Basic Materials"
+            "ai_score": 6.9,
+            "sector": "Financial Services"
           }
         ],
         "exited_top10_entries": [
-          "FRT",
-          "GS",
-          "JEF",
-          "NDAQ",
-          "SSB"
+          "AGCO",
+          "FIVE",
+          "SCCO",
+          "SEIC",
+          "WEX"
         ],
         "intraday_new_entries": [],
-        "prior_top10_compared_against": "2026-07-23",
+        "prior_top10_compared_against": "2026-07-24",
         "mov_summary": {
           "with_change": 100,
-          "positive": 68,
-          "negative": 19,
-          "zero": 13
+          "positive": 46,
+          "negative": 53,
+          "zero": 1
         },
         "sector_concentration": {
           "top_sector": "Financial Services",
-          "top_count": 3,
+          "top_count": 5,
           "of": 10,
-          "pct": 0.3,
-          "warn": false
+          "pct": 0.5,
+          "warn": true
         },
         "limitation": "MOV-based gainers/losers; new/exited entries vs prior benchmark snapshot; intraday entries vs market_open_scan."
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "watchlist": {
       "checks": [
@@ -318,7 +328,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=74 misses=0"
+          "message": "yfinance cache hits=0 misses=74"
         }
       ],
       "metrics": {
@@ -326,121 +336,121 @@
         "top_10": [
           {
             "rank": 1,
+            "ticker": "PAAS",
+            "company": "Pan American Silver Corp.",
+            "ai_score": 7.2,
+            "change": 0,
+            "sector": "Basic Materials",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 2,
+            "ticker": "FRSH",
+            "company": "Freshworks Inc.",
+            "ai_score": 7.1,
+            "change": 0,
+            "sector": "Technology",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 3,
+            "ticker": "RY",
+            "company": "Royal Bank Of Canada",
+            "ai_score": 7.1,
+            "change": 0,
+            "sector": "Financial Services",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 4,
             "ticker": "SCCO",
             "company": "Southern Copper",
-            "ai_score": 8.3,
+            "ai_score": 6.9,
             "change": 0,
             "sector": "Basic Materials",
             "data_source": "main_pipeline"
           },
           {
-            "rank": 2,
-            "ticker": "AME",
-            "company": "Ametek",
-            "ai_score": 7.9,
-            "change": 0,
-            "sector": "Industrials",
-            "data_source": "main_pipeline"
-          },
-          {
-            "rank": 3,
-            "ticker": "AAPL",
-            "company": "Apple Inc.",
-            "ai_score": 7.8,
+            "rank": 5,
+            "ticker": "TSM",
+            "company": "Taiwan Semiconductor Manufactur",
+            "ai_score": 6.8,
             "change": 0,
             "sector": "Technology",
-            "data_source": "main_pipeline"
+            "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 4,
+            "rank": 6,
+            "ticker": "BMNR",
+            "company": "BitMine Immersion Technologies,",
+            "ai_score": 6.7,
+            "change": 0,
+            "sector": "Financial Services",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 7,
             "ticker": "META",
             "company": "Meta Platforms",
-            "ai_score": 7.6,
+            "ai_score": 6.6,
             "change": 0,
             "sector": "Communication Services",
             "data_source": "main_pipeline"
           },
           {
-            "rank": 5,
-            "ticker": "TMO",
-            "company": "Thermo Fisher Scientific",
-            "ai_score": 7.6,
-            "change": 0,
-            "sector": "Healthcare",
-            "data_source": "main_pipeline"
-          },
-          {
-            "rank": 6,
-            "ticker": "DELL",
-            "company": "Dell Technologies",
-            "ai_score": 7.5,
-            "change": 0,
-            "sector": "Technology",
-            "data_source": "main_pipeline"
-          },
-          {
-            "rank": 7,
-            "ticker": "APH",
-            "company": "Amphenol",
-            "ai_score": 7.1,
-            "change": 0,
-            "sector": "Technology",
-            "data_source": "main_pipeline"
-          },
-          {
             "rank": 8,
-            "ticker": "AVGO",
-            "company": "Broadcom",
-            "ai_score": 7.1,
+            "ticker": "EXLS",
+            "company": "EXL Service",
+            "ai_score": 6.5,
             "change": 0,
             "sector": "Technology",
             "data_source": "main_pipeline"
           },
           {
             "rank": 9,
-            "ticker": "EXEL",
-            "company": "Exelixis",
-            "ai_score": 7.1,
+            "ticker": "AAPL",
+            "company": "Apple Inc.",
+            "ai_score": 6.4,
             "change": 0,
-            "sector": "Healthcare",
+            "sector": "Technology",
             "data_source": "main_pipeline"
           },
           {
             "rank": 10,
-            "ticker": "EXLS",
-            "company": "EXL Service",
-            "ai_score": 7.1,
+            "ticker": "AME",
+            "company": "Ametek",
+            "ai_score": 6.4,
             "change": 0,
-            "sector": "Technology",
+            "sector": "Industrials",
             "data_source": "main_pipeline"
           }
         ],
-        "prior_top10_compared_against": "2026-07-23",
+        "prior_top10_compared_against": "2026-07-24",
         "new_top10_entries": [
           {
-            "ticker": "TMO",
+            "ticker": "PAAS",
+            "rank": 1,
+            "ai_score": 7.2
+          },
+          {
+            "ticker": "FRSH",
+            "rank": 2,
+            "ai_score": 7.1
+          },
+          {
+            "ticker": "RY",
+            "rank": 3,
+            "ai_score": 7.1
+          },
+          {
+            "ticker": "TSM",
             "rank": 5,
-            "ai_score": 7.6
+            "ai_score": 6.8
           },
           {
-            "ticker": "APH",
-            "rank": 7,
-            "ai_score": 7.1
-          },
-          {
-            "ticker": "AVGO",
-            "rank": 8,
-            "ai_score": 7.1
-          },
-          {
-            "ticker": "EXEL",
-            "rank": 9,
-            "ai_score": 7.1
-          },
-          {
-            "ticker": "EXLS",
-            "rank": 10,
-            "ai_score": 7.1
+            "ticker": "BMNR",
+            "rank": 6,
+            "ai_score": 6.7
           }
         ],
         "top_gainers": [],
@@ -465,7 +475,7 @@
         {
           "name": "generals_fail",
           "status": "WARN",
-          "message": "Generals Fail 5/7 below 200DMA (threshold 3): MSFT, AMZN, GOOGL, META, TSLA"
+          "message": "Generals Fail 4/7 below 200DMA (threshold 3): MSFT, AMZN, META, TSLA"
         },
         {
           "name": "indicator_coverage",
@@ -474,16 +484,15 @@
         }
       ],
       "metrics": {
-        "generated_at": "2026-07-24 16:30 UTC",
+        "generated_at": "2026-07-27 16:32 UTC",
         "generals_fail": {
-          "below_count": 5,
+          "below_count": 4,
           "available_count": 7,
           "threshold": 3,
           "alert": true,
           "below_tickers": [
             "MSFT",
             "AMZN",
-            "GOOGL",
             "META",
             "TSLA"
           ]
@@ -501,82 +510,86 @@
         {
           "name": "diagnostics_overall",
           "status": "WARN",
-          "message": "diagnostics overall=FAIL; 5 suspicious top rank(s)"
+          "message": "diagnostics overall=FAIL; 20 suspicious top rank(s)"
         }
       ],
       "metrics": {
         "overall": "FAIL",
-        "suspicious_count": 5,
+        "suspicious_count": 20,
         "suspicious_top": [
           {
-            "ticker": "META",
-            "group": "watchlist_top10",
+            "ticker": "NU",
+            "group": "main_top10",
+            "rank": 1,
+            "reasons": [
+              "missing SWING",
+              "weak TECH (3.6)"
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "group": "main_top10",
+            "rank": 2,
+            "reasons": [
+              "missing SWING",
+              "weak TECH (3.6)"
+            ]
+          },
+          {
+            "ticker": "ICE",
+            "group": "main_top10",
+            "rank": 3,
+            "reasons": [
+              "missing SWING",
+              "weak TECH (3.7)"
+            ]
+          },
+          {
+            "ticker": "PLNT",
+            "group": "main_top10",
             "rank": 4,
             "reasons": [
-              "negative MOV (-9.4%)"
+              "missing SWING",
+              "weak TECH (3.8)"
             ]
           },
           {
-            "ticker": "APH",
-            "group": "watchlist_top10",
-            "rank": 7,
+            "ticker": "CPAY",
+            "group": "main_top10",
+            "rank": 5,
             "reasons": [
-              "negative MOV (-1.0%)"
-            ]
-          },
-          {
-            "ticker": "AVGO",
-            "group": "watchlist_top10",
-            "rank": 8,
-            "reasons": [
-              "negative MOV (-1.9%)"
-            ]
-          },
-          {
-            "ticker": "EXEL",
-            "group": "watchlist_top10",
-            "rank": 9,
-            "reasons": [
-              "weak SENT (4.9)",
-              "negative MOV (-1.5%)"
-            ]
-          },
-          {
-            "ticker": "EXLS",
-            "group": "watchlist_top10",
-            "rank": 10,
-            "reasons": [
-              "negative MOV (-1.5%)"
+              "missing SWING",
+              "weak TECH (3.6)"
             ]
           }
         ],
         "sector_crowding": {
           "main_top10": {
-            "status": "WARN",
-            "n": 10,
-            "top_sector": "Financial Services",
-            "top_count": 3,
-            "top_share": 0.3,
-            "distribution": {
-              "Financial Services": 3,
-              "Basic Materials": 2,
-              "Technology": 3,
-              "Consumer Cyclical": 1,
-              "Industrials": 1
-            }
-          },
-          "watchlist_top10": {
             "status": "FAIL",
             "n": 10,
-            "top_sector": "Technology",
+            "top_sector": "Financial Services",
             "top_count": 5,
             "top_share": 0.5,
             "distribution": {
+              "Financial Services": 5,
+              "Consumer Cyclical": 1,
+              "Technology": 2,
               "Basic Materials": 1,
-              "Industrials": 1,
-              "Technology": 5,
+              "Utilities": 1
+            }
+          },
+          "watchlist_top10": {
+            "status": "WARN",
+            "n": 10,
+            "top_sector": "Technology",
+            "top_count": 4,
+            "top_share": 0.4,
+            "distribution": {
+              "Basic Materials": 2,
+              "Technology": 4,
+              "Financial Services": 2,
               "Communication Services": 1,
-              "Healthcare": 2
+              "Industrials": 1
             }
           }
         }
@@ -588,7 +601,7 @@
         {
           "name": "benchmark_snapshots",
           "status": "OK",
-          "message": "62 snapshot(s); \u22651 horizon has forward results"
+          "message": "63 snapshot(s); \u22651 horizon has forward results"
         },
         {
           "name": "benchmark_findings",
@@ -597,7 +610,7 @@
         }
       ],
       "metrics": {
-        "snapshots_kept": 62,
+        "snapshots_kept": 63,
         "any_horizon_completed": true,
         "bucket_performance": {},
         "findings_warn": 5
@@ -633,11 +646,13 @@
     "prior_snapshot_present": true
   },
   "action_items": [
-    "[WARN] market_risk.generals_fail: Generals Fail 5/7 below 200DMA (threshold 3): MSFT, AMZN, GOOGL, META, TSLA",
-    "[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 5 suspicious top rank(s)",
-    "[INFO] New top10 vs 2026-07-23: RS, AGCO, WEX, SEIC, SCCO",
-    "[INFO] Exited top10 since 2026-07-23: FRT, GS, JEF, NDAQ, SSB",
-    "[INFO] Top MOV gainer FR (change=35, rank=36)"
+    "[FAIL] data_quality.data_quality_overall: overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:WARN",
+    "[FAIL] data_quality.critical_sections: rankings=FAIL, tasks=WARN: critical section failure",
+    "[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (5/10 = 50%)",
+    "[WARN] market_risk.generals_fail: Generals Fail 4/7 below 200DMA (threshold 3): MSFT, AMZN, META, TSLA",
+    "[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 20 suspicious top rank(s)",
+    "[INFO] New top10 vs 2026-07-24: ICE, PLNT, CEG, MORN, JEF",
+    "[INFO] Exited top10 since 2026-07-24: AGCO, FIVE, SCCO, SEIC, WEX"
   ],
-  "summary": "Close 05:04 PM CT \u00b7 Source scheduled \u00b7 DQ OK \u00b7 \u2191FR \u2193PNFP \u00b7 5 new top10 (RS\u2026) \u00b7 Risk alert 5/7<200DMA"
+  "summary": "Live 11:31 AM CT \u00b7 Source scheduled \u00b7 DQ FAIL \u00b7 \u2191BX \u2193MS \u00b7 5 new top10 (ICE\u2026) \u00b7 Risk alert 4/7<200DMA"
 }

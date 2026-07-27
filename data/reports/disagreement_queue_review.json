@@ -1,988 +1,144 @@
 {
-  "generated_at": "2026-07-24T22:04:16Z",
-  "as_of_date": "2026-07-24",
+  "generated_at": "2026-07-27T16:32:21Z",
+  "as_of_date": "2026-07-27",
   "overall": "WARN",
   "caveat": "REVIEW WORKFLOW \u2014 these are review suggestions, not financial advice. Production scoring formulas and rankings are NOT modified by this report. Suggested decisions are diagnostic only; manual edits to data/reports/disagreement_review_state.json are preserved across runs.",
   "inputs": {
     "queue_present": true,
-    "queue_size": 16,
+    "queue_size": 18,
     "external_present": true,
     "external_sources": 5,
     "pine_present": true,
-    "pine_evaluated": 88,
+    "pine_evaluated": 90,
     "cooloff_present": true,
-    "cooloff_overextended_n": 4,
+    "cooloff_overextended_n": 0,
     "prior_state_entries": 51
   },
   "summary_counts": {
-    "total": 16,
-    "unresolved": 16,
+    "total": 18,
+    "unresolved": 18,
     "reviewed": 0,
-    "severe": 6,
-    "strong": 9,
+    "severe": 10,
+    "strong": 7,
     "needs_more_data": 0,
     "decisions": {
-      "blank": 16
+      "blank": 18
     },
     "stale_state_entries": 35
   },
   "unresolved_severe": [
     {
-      "key": "QBTS|tradingview",
-      "ticker": "QBTS",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 3.2,
+      "key": "CNM|tradingview",
+      "ticker": "CNM",
+      "sector": "Industrials",
+      "internal_ai_score_0to10": 4.2,
       "internal_ai_direction": "bearish",
       "headline_source": "tradingview",
       "headline_severity": "severe",
-      "headline_gap": 3.4,
-      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.6); gap +3.40",
+      "headline_gap": 3.3,
+      "reason": "tradingview bullish (=4) vs internal technical bearish (=0.7); gap +3.30",
       "confidence_n_sources": 4,
-      "sources_flagging": [
-        "etrade",
-        "fidelity",
-        "tradingview",
-        "marketbeat:target"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 1.6,
-          "primary_internal_field": "technical",
-          "gap": 3.4,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 4.062,
-          "external_label": null,
-          "internal_value_1to5": 1.6,
-          "primary_internal_field": "ai_score",
-          "gap": 2.462,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "fidelity",
-          "external_value": 3.55,
-          "external_label": "Bullish",
-          "internal_value_1to5": 1.6,
-          "primary_internal_field": "ai_score",
-          "gap": 1.95,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 1.6,
-          "primary_internal_field": "ai_score",
-          "gap": 1.4,
-          "severity": "moderate",
-          "direction_agrees": false
-        }
-      ],
-      "pine_classification": "",
-      "pine_action": "",
-      "pine_score_normalized": null,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-08",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "APLD|tradingview",
-      "ticker": "APLD",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 4.6,
-      "internal_ai_direction": "bearish",
-      "headline_source": "tradingview",
-      "headline_severity": "severe",
-      "headline_gap": 2.5,
-      "reason": "tradingview bullish (=5) vs internal technical neutral (=2.5); gap +2.50",
-      "confidence_n_sources": 2,
-      "sources_flagging": [
-        "etrade",
-        "tradingview"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 2.5,
-          "primary_internal_field": "technical",
-          "gap": 2.5,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 4.154,
-          "external_label": null,
-          "internal_value_1to5": 2.3,
-          "primary_internal_field": "ai_score",
-          "gap": 1.854,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "marketbeat",
-          "external_value": 4,
-          "external_label": "Moderate Buy",
-          "internal_value_1to5": 2.75,
-          "primary_internal_field": "sentiment",
-          "gap": 1.25,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 2.3,
-          "primary_internal_field": "ai_score",
-          "gap": 0.7,
-          "severity": "moderate",
-          "direction_agrees": false
-        }
-      ],
-      "pine_classification": "supports_external_caution",
-      "pine_action": "downgrade-watchlist-only",
-      "pine_score_normalized": 0.1,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "watchlist_only",
-      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-15",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "QCOM|tradingview",
-      "ticker": "QCOM",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 5.1,
-      "internal_ai_direction": "neutral",
-      "headline_source": "tradingview",
-      "headline_severity": "severe",
-      "headline_gap": 2.6,
-      "reason": "tradingview bullish (=5) vs internal technical bearish (=2.4); gap +2.60",
-      "confidence_n_sources": 2,
-      "sources_flagging": [
-        "fidelity",
-        "tradingview"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 2.4,
-          "primary_internal_field": "technical",
-          "gap": 2.6,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "fidelity",
-          "external_value": 4.7,
-          "external_label": "Very Bullish",
-          "internal_value_1to5": 2.55,
-          "primary_internal_field": "ai_score",
-          "gap": 2.15,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 3.286,
-          "external_label": null,
-          "internal_value_1to5": 2.55,
-          "primary_internal_field": "ai_score",
-          "gap": 0.736,
-          "severity": "moderate",
-          "direction_agrees": true
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 2.55,
-          "primary_internal_field": "ai_score",
-          "gap": 0.45,
-          "severity": "moderate",
-          "direction_agrees": true
-        },
-        {
-          "source": "marketbeat",
-          "external_value": 3,
-          "external_label": "Hold",
-          "internal_value_1to5": 2.75,
-          "primary_internal_field": "sentiment",
-          "gap": 0.25,
-          "severity": "moderate",
-          "direction_agrees": true
-        }
-      ],
-      "pine_classification": "supports_external_caution",
-      "pine_action": "downgrade-watchlist-only",
-      "pine_score_normalized": 0.1,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "watchlist_only",
-      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-20",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "DOCN|tradingview",
-      "ticker": "DOCN",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 5.4,
-      "internal_ai_direction": "neutral",
-      "headline_source": "tradingview",
-      "headline_severity": "severe",
-      "headline_gap": 2.75,
-      "reason": "tradingview bullish (=5) vs internal technical bearish (=2.25); gap +2.75",
-      "confidence_n_sources": 1,
-      "sources_flagging": [
-        "tradingview"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 2.25,
-          "primary_internal_field": "technical",
-          "gap": 2.75,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "fidelity",
-          "external_value": 4.15,
-          "external_label": "Bullish",
-          "internal_value_1to5": 2.7,
-          "primary_internal_field": "ai_score",
-          "gap": 1.45,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 4.0,
-          "external_label": null,
-          "internal_value_1to5": 2.7,
-          "primary_internal_field": "ai_score",
-          "gap": 1.3,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 2.7,
-          "primary_internal_field": "ai_score",
-          "gap": 0.3,
-          "severity": "moderate",
-          "direction_agrees": true
-        }
-      ],
-      "pine_classification": "",
-      "pine_action": "",
-      "pine_score_normalized": null,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-14",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "GS|fidelity",
-      "ticker": "GS",
-      "sector": "Financial Services",
-      "internal_ai_score_0to10": 7.9,
-      "internal_ai_direction": "bullish",
-      "headline_source": "fidelity",
-      "headline_severity": "severe",
-      "headline_gap": -2.75,
-      "reason": "fidelity bearish (=1.2) vs internal ai_score bullish (=3.95); gap -2.75",
-      "confidence_n_sources": 1,
-      "sources_flagging": [
-        "fidelity"
-      ],
-      "external_signals": [
-        {
-          "source": "fidelity",
-          "external_value": 1.2,
-          "external_label": "Bearish",
-          "internal_value_1to5": 3.95,
-          "primary_internal_field": "ai_score",
-          "gap": -2.75,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 3.95,
-          "primary_internal_field": "ai_score",
-          "gap": -0.95,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 3.4,
-          "external_label": "Moderate Buy",
-          "internal_value_1to5": 3.95,
-          "primary_internal_field": "ai_score",
-          "gap": -0.55,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "tradingview",
-          "external_value": 3,
-          "external_label": "Neutral",
-          "internal_value_1to5": 3.4,
-          "primary_internal_field": "technical",
-          "gap": -0.4,
-          "severity": "moderate",
-          "direction_agrees": true
-        },
-        {
-          "source": "marketbeat",
-          "external_value": 3,
-          "external_label": "Hold",
-          "internal_value_1to5": 3.25,
-          "primary_internal_field": "sentiment",
-          "gap": -0.25,
-          "severity": "moderate",
-          "direction_agrees": true
-        }
-      ],
-      "pine_classification": "mixed",
-      "pine_action": "review",
-      "pine_score_normalized": 0.5,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-07",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "TSM|tradingview",
-      "ticker": "TSM",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 6.9,
-      "internal_ai_direction": "neutral",
-      "headline_source": "tradingview",
-      "headline_severity": "severe",
-      "headline_gap": 2.8,
-      "reason": "tradingview bullish (=5) vs internal technical bearish (=2.2); gap +2.80",
-      "confidence_n_sources": 1,
-      "sources_flagging": [
-        "tradingview"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 2.2,
-          "primary_internal_field": "technical",
-          "gap": 2.8,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "fidelity",
-          "external_value": 4.35,
-          "external_label": "Bullish",
-          "internal_value_1to5": 3.45,
-          "primary_internal_field": "ai_score",
-          "gap": 0.9,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 4.318,
-          "external_label": null,
-          "internal_value_1to5": 3.45,
-          "primary_internal_field": "ai_score",
-          "gap": 0.868,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 3.45,
-          "primary_internal_field": "ai_score",
-          "gap": -0.45,
-          "severity": "moderate",
-          "direction_agrees": true
-        }
-      ],
-      "pine_classification": "",
-      "pine_action": "",
-      "pine_score_normalized": null,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-07",
-        "last_seen": "2026-07-24"
-      }
-    }
-  ],
-  "reviewed_decisions": [],
-  "rows": [
-    {
-      "key": "QBTS|tradingview",
-      "ticker": "QBTS",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 3.2,
-      "internal_ai_direction": "bearish",
-      "headline_source": "tradingview",
-      "headline_severity": "severe",
-      "headline_gap": 3.4,
-      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.6); gap +3.40",
-      "confidence_n_sources": 4,
-      "sources_flagging": [
-        "etrade",
-        "fidelity",
-        "tradingview",
-        "marketbeat:target"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 1.6,
-          "primary_internal_field": "technical",
-          "gap": 3.4,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 4.062,
-          "external_label": null,
-          "internal_value_1to5": 1.6,
-          "primary_internal_field": "ai_score",
-          "gap": 2.462,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "fidelity",
-          "external_value": 3.55,
-          "external_label": "Bullish",
-          "internal_value_1to5": 1.6,
-          "primary_internal_field": "ai_score",
-          "gap": 1.95,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 1.6,
-          "primary_internal_field": "ai_score",
-          "gap": 1.4,
-          "severity": "moderate",
-          "direction_agrees": false
-        }
-      ],
-      "pine_classification": "",
-      "pine_action": "",
-      "pine_score_normalized": null,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-08",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "APLD|tradingview",
-      "ticker": "APLD",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 4.6,
-      "internal_ai_direction": "bearish",
-      "headline_source": "tradingview",
-      "headline_severity": "severe",
-      "headline_gap": 2.5,
-      "reason": "tradingview bullish (=5) vs internal technical neutral (=2.5); gap +2.50",
-      "confidence_n_sources": 2,
-      "sources_flagging": [
-        "etrade",
-        "tradingview"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 2.5,
-          "primary_internal_field": "technical",
-          "gap": 2.5,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 4.154,
-          "external_label": null,
-          "internal_value_1to5": 2.3,
-          "primary_internal_field": "ai_score",
-          "gap": 1.854,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "marketbeat",
-          "external_value": 4,
-          "external_label": "Moderate Buy",
-          "internal_value_1to5": 2.75,
-          "primary_internal_field": "sentiment",
-          "gap": 1.25,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 2.3,
-          "primary_internal_field": "ai_score",
-          "gap": 0.7,
-          "severity": "moderate",
-          "direction_agrees": false
-        }
-      ],
-      "pine_classification": "supports_external_caution",
-      "pine_action": "downgrade-watchlist-only",
-      "pine_score_normalized": 0.1,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "watchlist_only",
-      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-15",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "QCOM|tradingview",
-      "ticker": "QCOM",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 5.1,
-      "internal_ai_direction": "neutral",
-      "headline_source": "tradingview",
-      "headline_severity": "severe",
-      "headline_gap": 2.6,
-      "reason": "tradingview bullish (=5) vs internal technical bearish (=2.4); gap +2.60",
-      "confidence_n_sources": 2,
-      "sources_flagging": [
-        "fidelity",
-        "tradingview"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 2.4,
-          "primary_internal_field": "technical",
-          "gap": 2.6,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "fidelity",
-          "external_value": 4.7,
-          "external_label": "Very Bullish",
-          "internal_value_1to5": 2.55,
-          "primary_internal_field": "ai_score",
-          "gap": 2.15,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 3.286,
-          "external_label": null,
-          "internal_value_1to5": 2.55,
-          "primary_internal_field": "ai_score",
-          "gap": 0.736,
-          "severity": "moderate",
-          "direction_agrees": true
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 2.55,
-          "primary_internal_field": "ai_score",
-          "gap": 0.45,
-          "severity": "moderate",
-          "direction_agrees": true
-        },
-        {
-          "source": "marketbeat",
-          "external_value": 3,
-          "external_label": "Hold",
-          "internal_value_1to5": 2.75,
-          "primary_internal_field": "sentiment",
-          "gap": 0.25,
-          "severity": "moderate",
-          "direction_agrees": true
-        }
-      ],
-      "pine_classification": "supports_external_caution",
-      "pine_action": "downgrade-watchlist-only",
-      "pine_score_normalized": 0.1,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "watchlist_only",
-      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-20",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "DOCN|tradingview",
-      "ticker": "DOCN",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 5.4,
-      "internal_ai_direction": "neutral",
-      "headline_source": "tradingview",
-      "headline_severity": "severe",
-      "headline_gap": 2.75,
-      "reason": "tradingview bullish (=5) vs internal technical bearish (=2.25); gap +2.75",
-      "confidence_n_sources": 1,
-      "sources_flagging": [
-        "tradingview"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 2.25,
-          "primary_internal_field": "technical",
-          "gap": 2.75,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "fidelity",
-          "external_value": 4.15,
-          "external_label": "Bullish",
-          "internal_value_1to5": 2.7,
-          "primary_internal_field": "ai_score",
-          "gap": 1.45,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 4.0,
-          "external_label": null,
-          "internal_value_1to5": 2.7,
-          "primary_internal_field": "ai_score",
-          "gap": 1.3,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 2.7,
-          "primary_internal_field": "ai_score",
-          "gap": 0.3,
-          "severity": "moderate",
-          "direction_agrees": true
-        }
-      ],
-      "pine_classification": "",
-      "pine_action": "",
-      "pine_score_normalized": null,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-14",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "GS|fidelity",
-      "ticker": "GS",
-      "sector": "Financial Services",
-      "internal_ai_score_0to10": 7.9,
-      "internal_ai_direction": "bullish",
-      "headline_source": "fidelity",
-      "headline_severity": "severe",
-      "headline_gap": -2.75,
-      "reason": "fidelity bearish (=1.2) vs internal ai_score bullish (=3.95); gap -2.75",
-      "confidence_n_sources": 1,
-      "sources_flagging": [
-        "fidelity"
-      ],
-      "external_signals": [
-        {
-          "source": "fidelity",
-          "external_value": 1.2,
-          "external_label": "Bearish",
-          "internal_value_1to5": 3.95,
-          "primary_internal_field": "ai_score",
-          "gap": -2.75,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 3.95,
-          "primary_internal_field": "ai_score",
-          "gap": -0.95,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 3.4,
-          "external_label": "Moderate Buy",
-          "internal_value_1to5": 3.95,
-          "primary_internal_field": "ai_score",
-          "gap": -0.55,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "tradingview",
-          "external_value": 3,
-          "external_label": "Neutral",
-          "internal_value_1to5": 3.4,
-          "primary_internal_field": "technical",
-          "gap": -0.4,
-          "severity": "moderate",
-          "direction_agrees": true
-        },
-        {
-          "source": "marketbeat",
-          "external_value": 3,
-          "external_label": "Hold",
-          "internal_value_1to5": 3.25,
-          "primary_internal_field": "sentiment",
-          "gap": -0.25,
-          "severity": "moderate",
-          "direction_agrees": true
-        }
-      ],
-      "pine_classification": "mixed",
-      "pine_action": "review",
-      "pine_score_normalized": 0.5,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-07",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "TSM|tradingview",
-      "ticker": "TSM",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 6.9,
-      "internal_ai_direction": "neutral",
-      "headline_source": "tradingview",
-      "headline_severity": "severe",
-      "headline_gap": 2.8,
-      "reason": "tradingview bullish (=5) vs internal technical bearish (=2.2); gap +2.80",
-      "confidence_n_sources": 1,
-      "sources_flagging": [
-        "tradingview"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 2.2,
-          "primary_internal_field": "technical",
-          "gap": 2.8,
-          "severity": "severe",
-          "direction_agrees": false
-        },
-        {
-          "source": "fidelity",
-          "external_value": 4.35,
-          "external_label": "Bullish",
-          "internal_value_1to5": 3.45,
-          "primary_internal_field": "ai_score",
-          "gap": 0.9,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 4.318,
-          "external_label": null,
-          "internal_value_1to5": 3.45,
-          "primary_internal_field": "ai_score",
-          "gap": 0.868,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 3,
-          "external_label": "3-Hold",
-          "internal_value_1to5": 3.45,
-          "primary_internal_field": "ai_score",
-          "gap": -0.45,
-          "severity": "moderate",
-          "direction_agrees": true
-        }
-      ],
-      "pine_classification": "",
-      "pine_action": "",
-      "pine_score_normalized": null,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-07",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "MDB|fidelity",
-      "ticker": "MDB",
-      "sector": "Technology",
-      "internal_ai_score_0to10": 5.0,
-      "internal_ai_direction": "neutral",
-      "headline_source": "fidelity",
-      "headline_severity": "strong",
-      "headline_gap": -2.35,
-      "reason": "fidelity bearish (=0.15) vs internal ai_score neutral (=2.5); gap -2.35",
-      "confidence_n_sources": 5,
       "sources_flagging": [
         "etrade",
         "fidelity",
         "marketbeat",
-        "tradingview",
-        "zacks"
+        "tradingview"
       ],
       "external_signals": [
         {
-          "source": "fidelity",
-          "external_value": 0.15,
-          "external_label": "Very Bearish",
-          "internal_value_1to5": 2.5,
-          "primary_internal_field": "ai_score",
-          "gap": -2.35,
+          "source": "tradingview",
+          "external_value": 4,
+          "external_label": "Buy",
+          "internal_value_1to5": 0.7,
+          "primary_internal_field": "technical",
+          "gap": 3.3,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 1.9,
+          "primary_internal_field": "sentiment",
+          "gap": 2.1,
           "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.0,
+          "external_label": "Bullish",
+          "internal_value_1to5": 2.1,
+          "primary_internal_field": "ai_score",
+          "gap": 1.9,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.8,
+          "external_label": null,
+          "internal_value_1to5": 2.1,
+          "primary_internal_field": "ai_score",
+          "gap": 1.7,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 2,
+          "external_label": "4-Sell",
+          "internal_value_1to5": 2.1,
+          "primary_internal_field": "ai_score",
+          "gap": -0.1,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-12",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "MDB|tradingview",
+      "ticker": "MDB",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 4.4,
+      "internal_ai_direction": "bearish",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 2.5,
+      "reason": "tradingview neutral (=3) vs internal technical bearish (=0.5); gap +2.50",
+      "confidence_n_sources": 4,
+      "sources_flagging": [
+        "etrade",
+        "fidelity",
+        "marketbeat",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 3,
+          "external_label": "Neutral",
+          "internal_value_1to5": 0.5,
+          "primary_internal_field": "technical",
+          "gap": 2.5,
+          "severity": "severe",
           "direction_agrees": false
         },
         {
@@ -996,22 +152,22 @@
           "direction_agrees": false
         },
         {
+          "source": "fidelity",
+          "external_value": 0.15,
+          "external_label": "Very Bearish",
+          "internal_value_1to5": 2.2,
+          "primary_internal_field": "ai_score",
+          "gap": -2.05,
+          "severity": "strong",
+          "direction_agrees": true
+        },
+        {
           "source": "etrade",
           "external_value": 4.098,
           "external_label": "Strong Buy",
-          "internal_value_1to5": 2.5,
+          "internal_value_1to5": 2.2,
           "primary_internal_field": "ai_score",
-          "gap": 1.598,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "tradingview",
-          "external_value": 3,
-          "external_label": "Neutral",
-          "internal_value_1to5": 1.5,
-          "primary_internal_field": "technical",
-          "gap": 1.5,
+          "gap": 1.898,
           "severity": "strong",
           "direction_agrees": false
         },
@@ -1019,96 +175,11 @@
           "source": "zacks",
           "external_value": 1,
           "external_label": "5-Strong Sell",
-          "internal_value_1to5": 2.5,
+          "internal_value_1to5": 2.2,
           "primary_internal_field": "ai_score",
-          "gap": -1.5,
-          "severity": "strong",
-          "direction_agrees": false
-        }
-      ],
-      "pine_classification": "supports_external_caution",
-      "pine_action": "downgrade-watchlist-only",
-      "pine_score_normalized": 0.1,
-      "pine_blockers": [],
-      "cooloff_blockers": [],
-      "suggested_decision": "watchlist_only",
-      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 2 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
-      "review": {
-        "reviewed": false,
-        "decision": "",
-        "notes": "",
-        "reviewed_at": "",
-        "follow_up_date": "",
-        "first_seen": "2026-05-07",
-        "last_seen": "2026-07-24"
-      }
-    },
-    {
-      "key": "CNM|tradingview",
-      "ticker": "CNM",
-      "sector": "Industrials",
-      "internal_ai_score_0to10": 5.0,
-      "internal_ai_direction": "neutral",
-      "headline_source": "tradingview",
-      "headline_severity": "strong",
-      "headline_gap": 2.2,
-      "reason": "tradingview bullish (=4) vs internal technical bearish (=1.8); gap +2.20",
-      "confidence_n_sources": 3,
-      "sources_flagging": [
-        "fidelity",
-        "marketbeat",
-        "tradingview"
-      ],
-      "external_signals": [
-        {
-          "source": "tradingview",
-          "external_value": 4,
-          "external_label": "Buy",
-          "internal_value_1to5": 1.8,
-          "primary_internal_field": "technical",
-          "gap": 2.2,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "fidelity",
-          "external_value": 4.0,
-          "external_label": "Bullish",
-          "internal_value_1to5": 2.5,
-          "primary_internal_field": "ai_score",
-          "gap": 1.5,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "marketbeat",
-          "external_value": 4,
-          "external_label": "Moderate Buy",
-          "internal_value_1to5": 2.5,
-          "primary_internal_field": "sentiment",
-          "gap": 1.5,
-          "severity": "strong",
-          "direction_agrees": false
-        },
-        {
-          "source": "etrade",
-          "external_value": 3.8,
-          "external_label": null,
-          "internal_value_1to5": 2.5,
-          "primary_internal_field": "ai_score",
-          "gap": 1.3,
+          "gap": -1.2,
           "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 2,
-          "external_label": "4-Sell",
-          "internal_value_1to5": 2.5,
-          "primary_internal_field": "ai_score",
-          "gap": -0.5,
-          "severity": "moderate",
-          "direction_agrees": false
+          "direction_agrees": true
         }
       ],
       "pine_classification": "supports_external_caution",
@@ -1116,28 +187,28 @@
       "pine_score_normalized": 0.0,
       "pine_blockers": [],
       "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Pine flags caution but external disagreement is mild \u2014 keep on radar pending more evidence.",
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
       "review": {
         "reviewed": false,
         "decision": "",
         "notes": "",
         "reviewed_at": "",
         "follow_up_date": "",
-        "first_seen": "2026-05-12",
-        "last_seen": "2026-07-24"
+        "first_seen": "2026-07-27",
+        "last_seen": "2026-07-27"
       }
     },
     {
       "key": "CVNA|tradingview",
       "ticker": "CVNA",
       "sector": "Consumer Cyclical",
-      "internal_ai_score_0to10": 4.4,
+      "internal_ai_score_0to10": 3.6,
       "internal_ai_direction": "bearish",
       "headline_source": "tradingview",
-      "headline_severity": "strong",
-      "headline_gap": 2.25,
-      "reason": "tradingview bullish (=4) vs internal technical bearish (=1.75); gap +2.25",
+      "headline_severity": "severe",
+      "headline_gap": 3.3,
+      "reason": "tradingview bullish (=4) vs internal technical bearish (=0.7); gap +3.30",
       "confidence_n_sources": 3,
       "sources_flagging": [
         "etrade",
@@ -1149,19 +220,19 @@
           "source": "tradingview",
           "external_value": 4,
           "external_label": "Buy",
-          "internal_value_1to5": 1.75,
+          "internal_value_1to5": 0.7,
           "primary_internal_field": "technical",
-          "gap": 2.25,
-          "severity": "strong",
+          "gap": 3.3,
+          "severity": "severe",
           "direction_agrees": false
         },
         {
           "source": "marketbeat",
           "external_value": 4,
           "external_label": "Moderate Buy",
-          "internal_value_1to5": 2.1,
+          "internal_value_1to5": 1.75,
           "primary_internal_field": "sentiment",
-          "gap": 1.9,
+          "gap": 2.25,
           "severity": "strong",
           "direction_agrees": false
         },
@@ -1169,29 +240,103 @@
           "source": "etrade",
           "external_value": 3.923,
           "external_label": null,
-          "internal_value_1to5": 2.2,
+          "internal_value_1to5": 1.8,
           "primary_internal_field": "ai_score",
-          "gap": 1.723,
+          "gap": 2.123,
           "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 1.8,
+          "primary_internal_field": "ai_score",
+          "gap": 1.2,
+          "severity": "moderate",
           "direction_agrees": false
         },
         {
           "source": "fidelity",
           "external_value": 1.0,
           "external_label": "Bearish",
-          "internal_value_1to5": 2.2,
+          "internal_value_1to5": 1.8,
           "primary_internal_field": "ai_score",
-          "gap": -1.2,
+          "gap": -0.8,
           "severity": "moderate",
           "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-06-03",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "APLD|tradingview",
+      "ticker": "APLD",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 4.1,
+      "internal_ai_direction": "bearish",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.35,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.65); gap +3.35",
+      "confidence_n_sources": 2,
+      "sources_flagging": [
+        "etrade",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 1.65,
+          "primary_internal_field": "technical",
+          "gap": 3.35,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 4.154,
+          "external_label": null,
+          "internal_value_1to5": 2.05,
+          "primary_internal_field": "ai_score",
+          "gap": 2.104,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 2.6,
+          "primary_internal_field": "sentiment",
+          "gap": 1.4,
+          "severity": "moderate",
+          "direction_agrees": false
         },
         {
           "source": "zacks",
           "external_value": 3,
           "external_label": "3-Hold",
-          "internal_value_1to5": 2.2,
+          "internal_value_1to5": 2.05,
           "primary_internal_field": "ai_score",
-          "gap": 0.8,
+          "gap": 0.95,
           "severity": "moderate",
           "direction_agrees": false
         }
@@ -1201,28 +346,28 @@
       "pine_score_normalized": 0.0,
       "pine_blockers": [],
       "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Pine flags caution but external disagreement is mild \u2014 keep on radar pending more evidence.",
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
       "review": {
         "reviewed": false,
         "decision": "",
         "notes": "",
         "reviewed_at": "",
         "follow_up_date": "",
-        "first_seen": "2026-06-03",
-        "last_seen": "2026-07-24"
+        "first_seen": "2026-05-15",
+        "last_seen": "2026-07-27"
       }
     },
     {
-      "key": "FAF|marketbeat",
-      "ticker": "FAF",
-      "sector": "Financial Services",
-      "internal_ai_score_0to10": 7.7,
-      "internal_ai_direction": "bullish",
-      "headline_source": "marketbeat",
-      "headline_severity": "strong",
-      "headline_gap": 2.0,
-      "reason": "marketbeat bullish (=5) vs internal sentiment neutral (=3.0); gap +2.00",
+      "key": "BWA|tradingview",
+      "ticker": "BWA",
+      "sector": "Consumer Cyclical",
+      "internal_ai_score_0to10": 5.3,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.35,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.65); gap +3.35",
       "confidence_n_sources": 2,
       "sources_flagging": [
         "marketbeat",
@@ -1230,126 +375,126 @@
       ],
       "external_signals": [
         {
-          "source": "marketbeat",
+          "source": "tradingview",
           "external_value": 5,
-          "external_label": "Buy",
-          "internal_value_1to5": 3.0,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 1.65,
+          "primary_internal_field": "technical",
+          "gap": 3.35,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 2.5,
           "primary_internal_field": "sentiment",
-          "gap": 2.0,
+          "gap": 1.5,
           "severity": "strong",
           "direction_agrees": false
         },
         {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 3.5,
-          "primary_internal_field": "technical",
-          "gap": 1.5,
-          "severity": "strong",
-          "direction_agrees": true
-        },
-        {
-          "source": "zacks",
-          "external_value": 5,
-          "external_label": "1-Strong Buy",
-          "internal_value_1to5": 3.85,
+          "source": "etrade",
+          "external_value": 3.824,
+          "external_label": null,
+          "internal_value_1to5": 2.65,
           "primary_internal_field": "ai_score",
-          "gap": 1.15,
+          "gap": 1.174,
           "severity": "moderate",
-          "direction_agrees": true
+          "direction_agrees": false
         },
         {
           "source": "fidelity",
-          "external_value": 4.3,
-          "external_label": "Bullish",
-          "internal_value_1to5": 3.85,
+          "external_value": 1.5,
+          "external_label": "Bearish",
+          "internal_value_1to5": 2.65,
           "primary_internal_field": "ai_score",
-          "gap": 0.45,
+          "gap": -1.15,
           "severity": "moderate",
-          "direction_agrees": true
+          "direction_agrees": false
         },
         {
-          "source": "etrade",
-          "external_value": 4.0,
-          "external_label": null,
-          "internal_value_1to5": 3.85,
+          "source": "zacks",
+          "external_value": 2,
+          "external_label": "4-Sell",
+          "internal_value_1to5": 2.65,
           "primary_internal_field": "ai_score",
-          "gap": 0.15,
+          "gap": -0.65,
           "severity": "moderate",
-          "direction_agrees": true
+          "direction_agrees": false
         }
       ],
-      "pine_classification": "mixed",
-      "pine_action": "review",
-      "pine_score_normalized": 0.4,
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
       "pine_blockers": [],
       "cooloff_blockers": [],
-      "suggested_decision": "needs_more_data",
-      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 2 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
       "review": {
         "reviewed": false,
         "decision": "",
         "notes": "",
         "reviewed_at": "",
         "follow_up_date": "",
-        "first_seen": "2026-05-12",
-        "last_seen": "2026-07-24"
+        "first_seen": "2026-06-19",
+        "last_seen": "2026-07-27"
       }
     },
     {
-      "key": "JOBY|tradingview",
-      "ticker": "JOBY",
-      "sector": "Industrials",
-      "internal_ai_score_0to10": 3.3,
-      "internal_ai_direction": "bearish",
+      "key": "DOCN|tradingview",
+      "ticker": "DOCN",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 5.2,
+      "internal_ai_direction": "neutral",
       "headline_source": "tradingview",
-      "headline_severity": "strong",
-      "headline_gap": 2.45,
-      "reason": "tradingview bullish (=4) vs internal technical bearish (=1.55); gap +2.45",
+      "headline_severity": "severe",
+      "headline_gap": 3.1,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.9); gap +3.10",
       "confidence_n_sources": 2,
       "sources_flagging": [
-        "tradingview",
-        "marketbeat:target"
+        "fidelity",
+        "tradingview"
       ],
       "external_signals": [
         {
           "source": "tradingview",
-          "external_value": 4,
-          "external_label": "Buy",
-          "internal_value_1to5": 1.55,
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 1.9,
           "primary_internal_field": "technical",
-          "gap": 2.45,
+          "gap": 3.1,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.15,
+          "external_label": "Bullish",
+          "internal_value_1to5": 2.6,
+          "primary_internal_field": "ai_score",
+          "gap": 1.55,
           "severity": "strong",
           "direction_agrees": false
         },
         {
           "source": "etrade",
-          "external_value": 3.0,
+          "external_value": 4.0,
           "external_label": null,
-          "internal_value_1to5": 1.65,
+          "internal_value_1to5": 2.6,
           "primary_internal_field": "ai_score",
-          "gap": 1.35,
+          "gap": 1.4,
           "severity": "moderate",
           "direction_agrees": false
         },
         {
-          "source": "fidelity",
-          "external_value": 0.3,
-          "external_label": "Very Bearish",
-          "internal_value_1to5": 1.65,
-          "primary_internal_field": "ai_score",
-          "gap": -1.35,
-          "severity": "moderate",
-          "direction_agrees": true
-        },
-        {
           "source": "zacks",
-          "external_value": 2,
-          "external_label": "4-Sell",
-          "internal_value_1to5": 1.65,
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 2.6,
           "primary_internal_field": "ai_score",
-          "gap": 0.35,
+          "gap": 0.4,
           "severity": "moderate",
           "direction_agrees": true
         }
@@ -1367,82 +512,728 @@
         "notes": "",
         "reviewed_at": "",
         "follow_up_date": "",
-        "first_seen": "2026-05-19",
-        "last_seen": "2026-07-24"
+        "first_seen": "2026-05-14",
+        "last_seen": "2026-07-27"
       }
     },
     {
-      "key": "BWA|fidelity",
-      "ticker": "BWA",
-      "sector": "Consumer Cyclical",
-      "internal_ai_score_0to10": 6.7,
-      "internal_ai_direction": "neutral",
-      "headline_source": "fidelity",
-      "headline_severity": "strong",
-      "headline_gap": -1.85,
-      "reason": "fidelity bearish (=1.5) vs internal ai_score neutral (=3.35); gap -1.85",
-      "confidence_n_sources": 1,
+      "key": "QCOM|tradingview",
+      "ticker": "QCOM",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 3.8,
+      "internal_ai_direction": "bearish",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 4.25,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=0.75); gap +4.25",
+      "confidence_n_sources": 2,
       "sources_flagging": [
-        "fidelity"
+        "fidelity",
+        "tradingview"
       ],
       "external_signals": [
-        {
-          "source": "fidelity",
-          "external_value": 1.5,
-          "external_label": "Bearish",
-          "internal_value_1to5": 3.35,
-          "primary_internal_field": "ai_score",
-          "gap": -1.85,
-          "severity": "strong",
-          "direction_agrees": false
-        },
         {
           "source": "tradingview",
           "external_value": 5,
           "external_label": "Strong Buy",
-          "internal_value_1to5": 3.6,
+          "internal_value_1to5": 0.75,
           "primary_internal_field": "technical",
-          "gap": 1.4,
-          "severity": "moderate",
-          "direction_agrees": true
+          "gap": 4.25,
+          "severity": "severe",
+          "direction_agrees": false
         },
         {
-          "source": "zacks",
-          "external_value": 2,
-          "external_label": "4-Sell",
-          "internal_value_1to5": 3.35,
+          "source": "fidelity",
+          "external_value": 4.7,
+          "external_label": "Very Bullish",
+          "internal_value_1to5": 1.9,
           "primary_internal_field": "ai_score",
-          "gap": -1.35,
+          "gap": 2.8,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.286,
+          "external_label": null,
+          "internal_value_1to5": 1.9,
+          "primary_internal_field": "ai_score",
+          "gap": 1.386,
           "severity": "moderate",
           "direction_agrees": false
         },
         {
           "source": "marketbeat",
-          "external_value": 4,
-          "external_label": "Moderate Buy",
-          "internal_value_1to5": 3.35,
+          "external_value": 3,
+          "external_label": "Hold",
+          "internal_value_1to5": 1.8,
           "primary_internal_field": "sentiment",
-          "gap": 0.65,
+          "gap": 1.2,
           "severity": "moderate",
           "direction_agrees": false
         },
         {
-          "source": "etrade",
-          "external_value": 3.824,
-          "external_label": null,
-          "internal_value_1to5": 3.35,
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 1.9,
           "primary_internal_field": "ai_score",
-          "gap": 0.474,
+          "gap": 1.1,
           "severity": "moderate",
           "direction_agrees": false
         }
       ],
       "pine_classification": "supports_external_caution",
       "pine_action": "downgrade-watchlist-only",
-      "pine_score_normalized": 0.2,
-      "pine_blockers": [
-        "earnings_near (11d)"
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-20",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "MLI|tradingview",
+      "ticker": "MLI",
+      "sector": "Industrials",
+      "internal_ai_score_0to10": 6.8,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.3,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.7); gap +3.30",
+      "confidence_n_sources": 1,
+      "sources_flagging": [
+        "tradingview"
       ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 1.7,
+          "primary_internal_field": "technical",
+          "gap": 3.3,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 4.5,
+          "external_label": null,
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "ai_score",
+          "gap": 1.1,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.0,
+          "external_label": "Bullish",
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "ai_score",
+          "gap": 0.6,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 5,
+          "external_label": "Buy",
+          "internal_value_1to5": 5.0,
+          "primary_internal_field": "sentiment",
+          "gap": 0.0,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-06-19",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "RJF|tradingview",
+      "ticker": "RJF",
+      "sector": "Financial Services",
+      "internal_ai_score_0to10": 6.4,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 4.0,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.0); gap +4.00",
+      "confidence_n_sources": 1,
+      "sources_flagging": [
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 1.0,
+          "primary_internal_field": "technical",
+          "gap": 4.0,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.1,
+          "external_label": "Bullish",
+          "internal_value_1to5": 3.2,
+          "primary_internal_field": "ai_score",
+          "gap": 0.9,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 3,
+          "external_label": "Hold",
+          "internal_value_1to5": 2.75,
+          "primary_internal_field": "sentiment",
+          "gap": 0.25,
+          "severity": "moderate",
+          "direction_agrees": true
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.429,
+          "external_label": null,
+          "internal_value_1to5": 3.2,
+          "primary_internal_field": "ai_score",
+          "gap": 0.229,
+          "severity": "moderate",
+          "direction_agrees": true
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 3.2,
+          "primary_internal_field": "ai_score",
+          "gap": -0.2,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-06-08",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "TSM|tradingview",
+      "ticker": "TSM",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 6.8,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.0,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=2.0); gap +3.00",
+      "confidence_n_sources": 1,
+      "sources_flagging": [
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 2.0,
+          "primary_internal_field": "technical",
+          "gap": 3.0,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.35,
+          "external_label": "Bullish",
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "ai_score",
+          "gap": 0.95,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 4.318,
+          "external_label": null,
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "ai_score",
+          "gap": 0.918,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "ai_score",
+          "gap": -0.4,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "",
+      "pine_action": "",
+      "pine_score_normalized": null,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "needs_more_data",
+      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-07",
+        "last_seen": "2026-07-27"
+      }
+    }
+  ],
+  "reviewed_decisions": [],
+  "rows": [
+    {
+      "key": "CNM|tradingview",
+      "ticker": "CNM",
+      "sector": "Industrials",
+      "internal_ai_score_0to10": 4.2,
+      "internal_ai_direction": "bearish",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.3,
+      "reason": "tradingview bullish (=4) vs internal technical bearish (=0.7); gap +3.30",
+      "confidence_n_sources": 4,
+      "sources_flagging": [
+        "etrade",
+        "fidelity",
+        "marketbeat",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 4,
+          "external_label": "Buy",
+          "internal_value_1to5": 0.7,
+          "primary_internal_field": "technical",
+          "gap": 3.3,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 1.9,
+          "primary_internal_field": "sentiment",
+          "gap": 2.1,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.0,
+          "external_label": "Bullish",
+          "internal_value_1to5": 2.1,
+          "primary_internal_field": "ai_score",
+          "gap": 1.9,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.8,
+          "external_label": null,
+          "internal_value_1to5": 2.1,
+          "primary_internal_field": "ai_score",
+          "gap": 1.7,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 2,
+          "external_label": "4-Sell",
+          "internal_value_1to5": 2.1,
+          "primary_internal_field": "ai_score",
+          "gap": -0.1,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-12",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "MDB|tradingview",
+      "ticker": "MDB",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 4.4,
+      "internal_ai_direction": "bearish",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 2.5,
+      "reason": "tradingview neutral (=3) vs internal technical bearish (=0.5); gap +2.50",
+      "confidence_n_sources": 4,
+      "sources_flagging": [
+        "etrade",
+        "fidelity",
+        "marketbeat",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 3,
+          "external_label": "Neutral",
+          "internal_value_1to5": 0.5,
+          "primary_internal_field": "technical",
+          "gap": 2.5,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 1.85,
+          "primary_internal_field": "sentiment",
+          "gap": 2.15,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 0.15,
+          "external_label": "Very Bearish",
+          "internal_value_1to5": 2.2,
+          "primary_internal_field": "ai_score",
+          "gap": -2.05,
+          "severity": "strong",
+          "direction_agrees": true
+        },
+        {
+          "source": "etrade",
+          "external_value": 4.098,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 2.2,
+          "primary_internal_field": "ai_score",
+          "gap": 1.898,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 1,
+          "external_label": "5-Strong Sell",
+          "internal_value_1to5": 2.2,
+          "primary_internal_field": "ai_score",
+          "gap": -1.2,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-07-27",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "CVNA|tradingview",
+      "ticker": "CVNA",
+      "sector": "Consumer Cyclical",
+      "internal_ai_score_0to10": 3.6,
+      "internal_ai_direction": "bearish",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.3,
+      "reason": "tradingview bullish (=4) vs internal technical bearish (=0.7); gap +3.30",
+      "confidence_n_sources": 3,
+      "sources_flagging": [
+        "etrade",
+        "marketbeat",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 4,
+          "external_label": "Buy",
+          "internal_value_1to5": 0.7,
+          "primary_internal_field": "technical",
+          "gap": 3.3,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 1.75,
+          "primary_internal_field": "sentiment",
+          "gap": 2.25,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.923,
+          "external_label": null,
+          "internal_value_1to5": 1.8,
+          "primary_internal_field": "ai_score",
+          "gap": 2.123,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 1.8,
+          "primary_internal_field": "ai_score",
+          "gap": 1.2,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 1.0,
+          "external_label": "Bearish",
+          "internal_value_1to5": 1.8,
+          "primary_internal_field": "ai_score",
+          "gap": -0.8,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-06-03",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "APLD|tradingview",
+      "ticker": "APLD",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 4.1,
+      "internal_ai_direction": "bearish",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.35,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.65); gap +3.35",
+      "confidence_n_sources": 2,
+      "sources_flagging": [
+        "etrade",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 1.65,
+          "primary_internal_field": "technical",
+          "gap": 3.35,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 4.154,
+          "external_label": null,
+          "internal_value_1to5": 2.05,
+          "primary_internal_field": "ai_score",
+          "gap": 2.104,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 2.6,
+          "primary_internal_field": "sentiment",
+          "gap": 1.4,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 2.05,
+          "primary_internal_field": "ai_score",
+          "gap": 0.95,
+          "severity": "moderate",
+          "direction_agrees": false
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-15",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "BWA|tradingview",
+      "ticker": "BWA",
+      "sector": "Consumer Cyclical",
+      "internal_ai_score_0to10": 5.3,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.35,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.65); gap +3.35",
+      "confidence_n_sources": 2,
+      "sources_flagging": [
+        "marketbeat",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 1.65,
+          "primary_internal_field": "technical",
+          "gap": 3.35,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 2.5,
+          "primary_internal_field": "sentiment",
+          "gap": 1.5,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.824,
+          "external_label": null,
+          "internal_value_1to5": 2.65,
+          "primary_internal_field": "ai_score",
+          "gap": 1.174,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 1.5,
+          "external_label": "Bearish",
+          "internal_value_1to5": 2.65,
+          "primary_internal_field": "ai_score",
+          "gap": -1.15,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 2,
+          "external_label": "4-Sell",
+          "internal_value_1to5": 2.65,
+          "primary_internal_field": "ai_score",
+          "gap": -0.65,
+          "severity": "moderate",
+          "direction_agrees": false
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
       "cooloff_blockers": [],
       "suggested_decision": "watchlist_only",
       "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 2 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
@@ -1452,42 +1243,53 @@
         "notes": "",
         "reviewed_at": "",
         "follow_up_date": "",
-        "first_seen": "2026-05-07",
-        "last_seen": "2026-07-24"
+        "first_seen": "2026-06-19",
+        "last_seen": "2026-07-27"
       }
     },
     {
-      "key": "LUNMF|etrade",
-      "ticker": "LUNMF",
-      "sector": "Basic Materials",
-      "internal_ai_score_0to10": 6.6,
+      "key": "DOCN|tradingview",
+      "ticker": "DOCN",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 5.2,
       "internal_ai_direction": "neutral",
-      "headline_source": "etrade",
-      "headline_severity": "strong",
-      "headline_gap": 1.7,
-      "reason": "etrade bullish (=5.0) vs internal ai_score neutral (=3.3); gap +1.70",
-      "confidence_n_sources": 1,
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.1,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.9); gap +3.10",
+      "confidence_n_sources": 2,
       "sources_flagging": [
-        "etrade"
+        "fidelity",
+        "tradingview"
       ],
       "external_signals": [
         {
-          "source": "etrade",
-          "external_value": 5.0,
-          "external_label": null,
-          "internal_value_1to5": 3.3,
-          "primary_internal_field": "ai_score",
-          "gap": 1.7,
-          "severity": "strong",
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 1.9,
+          "primary_internal_field": "technical",
+          "gap": 3.1,
+          "severity": "severe",
           "direction_agrees": false
         },
         {
           "source": "fidelity",
-          "external_value": 2.2,
-          "external_label": "Neutral",
-          "internal_value_1to5": 3.3,
+          "external_value": 4.15,
+          "external_label": "Bullish",
+          "internal_value_1to5": 2.6,
           "primary_internal_field": "ai_score",
-          "gap": -1.1,
+          "gap": 1.55,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 4.0,
+          "external_label": null,
+          "internal_value_1to5": 2.6,
+          "primary_internal_field": "ai_score",
+          "gap": 1.4,
           "severity": "moderate",
           "direction_agrees": false
         },
@@ -1495,18 +1297,396 @@
           "source": "zacks",
           "external_value": 3,
           "external_label": "3-Hold",
-          "internal_value_1to5": 3.3,
+          "internal_value_1to5": 2.6,
           "primary_internal_field": "ai_score",
-          "gap": -0.3,
+          "gap": 0.4,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "",
+      "pine_action": "",
+      "pine_score_normalized": null,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "needs_more_data",
+      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-14",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "QCOM|tradingview",
+      "ticker": "QCOM",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 3.8,
+      "internal_ai_direction": "bearish",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 4.25,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=0.75); gap +4.25",
+      "confidence_n_sources": 2,
+      "sources_flagging": [
+        "fidelity",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 0.75,
+          "primary_internal_field": "technical",
+          "gap": 4.25,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.7,
+          "external_label": "Very Bullish",
+          "internal_value_1to5": 1.9,
+          "primary_internal_field": "ai_score",
+          "gap": 2.8,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.286,
+          "external_label": null,
+          "internal_value_1to5": 1.9,
+          "primary_internal_field": "ai_score",
+          "gap": 1.386,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 3,
+          "external_label": "Hold",
+          "internal_value_1to5": 1.8,
+          "primary_internal_field": "sentiment",
+          "gap": 1.2,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 1.9,
+          "primary_internal_field": "ai_score",
+          "gap": 1.1,
+          "severity": "moderate",
+          "direction_agrees": false
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-20",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "MLI|tradingview",
+      "ticker": "MLI",
+      "sector": "Industrials",
+      "internal_ai_score_0to10": 6.8,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.3,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.7); gap +3.30",
+      "confidence_n_sources": 1,
+      "sources_flagging": [
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 1.7,
+          "primary_internal_field": "technical",
+          "gap": 3.3,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 4.5,
+          "external_label": null,
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "ai_score",
+          "gap": 1.1,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.0,
+          "external_label": "Bullish",
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "ai_score",
+          "gap": 0.6,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 5,
+          "external_label": "Buy",
+          "internal_value_1to5": 5.0,
+          "primary_internal_field": "sentiment",
+          "gap": 0.0,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-06-19",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "RJF|tradingview",
+      "ticker": "RJF",
+      "sector": "Financial Services",
+      "internal_ai_score_0to10": 6.4,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 4.0,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=1.0); gap +4.00",
+      "confidence_n_sources": 1,
+      "sources_flagging": [
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 1.0,
+          "primary_internal_field": "technical",
+          "gap": 4.0,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.1,
+          "external_label": "Bullish",
+          "internal_value_1to5": 3.2,
+          "primary_internal_field": "ai_score",
+          "gap": 0.9,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 3,
+          "external_label": "Hold",
+          "internal_value_1to5": 2.75,
+          "primary_internal_field": "sentiment",
+          "gap": 0.25,
           "severity": "moderate",
           "direction_agrees": true
         },
         {
-          "source": "tradingview",
+          "source": "etrade",
+          "external_value": 3.429,
+          "external_label": null,
+          "internal_value_1to5": 3.2,
+          "primary_internal_field": "ai_score",
+          "gap": 0.229,
+          "severity": "moderate",
+          "direction_agrees": true
+        },
+        {
+          "source": "zacks",
           "external_value": 3,
-          "external_label": "Neutral",
-          "internal_value_1to5": 2.8,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 3.2,
+          "primary_internal_field": "ai_score",
+          "gap": -0.2,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 0 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-06-08",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "TSM|tradingview",
+      "ticker": "TSM",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 6.8,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "severe",
+      "headline_gap": 3.0,
+      "reason": "tradingview bullish (=5) vs internal technical bearish (=2.0); gap +3.00",
+      "confidence_n_sources": 1,
+      "sources_flagging": [
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 2.0,
           "primary_internal_field": "technical",
+          "gap": 3.0,
+          "severity": "severe",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.35,
+          "external_label": "Bullish",
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "ai_score",
+          "gap": 0.95,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 4.318,
+          "external_label": null,
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "ai_score",
+          "gap": 0.918,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "ai_score",
+          "gap": -0.4,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "",
+      "pine_action": "",
+      "pine_score_normalized": null,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "needs_more_data",
+      "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-07",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "JOBY|tradingview",
+      "ticker": "JOBY",
+      "sector": "Industrials",
+      "internal_ai_score_0to10": 3.6,
+      "internal_ai_direction": "bearish",
+      "headline_source": "tradingview",
+      "headline_severity": "strong",
+      "headline_gap": 1.85,
+      "reason": "tradingview bullish (=4) vs internal technical bearish (=2.15); gap +1.85",
+      "confidence_n_sources": 3,
+      "sources_flagging": [
+        "fidelity",
+        "tradingview",
+        "marketbeat:target"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 4,
+          "external_label": "Buy",
+          "internal_value_1to5": 2.15,
+          "primary_internal_field": "technical",
+          "gap": 1.85,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 0.3,
+          "external_label": "Very Bearish",
+          "internal_value_1to5": 1.8,
+          "primary_internal_field": "ai_score",
+          "gap": -1.5,
+          "severity": "strong",
+          "direction_agrees": true
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.0,
+          "external_label": null,
+          "internal_value_1to5": 1.8,
+          "primary_internal_field": "ai_score",
+          "gap": 1.2,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 2,
+          "external_label": "4-Sell",
+          "internal_value_1to5": 1.8,
+          "primary_internal_field": "ai_score",
           "gap": 0.2,
           "severity": "moderate",
           "direction_agrees": true
@@ -1525,69 +1705,71 @@
         "notes": "",
         "reviewed_at": "",
         "follow_up_date": "",
-        "first_seen": "2026-05-07",
-        "last_seen": "2026-07-24"
+        "first_seen": "2026-05-19",
+        "last_seen": "2026-07-27"
       }
     },
     {
-      "key": "MLI|tradingview",
-      "ticker": "MLI",
-      "sector": "Industrials",
-      "internal_ai_score_0to10": 7.8,
-      "internal_ai_direction": "bullish",
-      "headline_source": "tradingview",
+      "key": "QBTS|etrade",
+      "ticker": "QBTS",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 4.3,
+      "internal_ai_direction": "bearish",
+      "headline_source": "etrade",
       "headline_severity": "strong",
-      "headline_gap": 1.55,
-      "reason": "tradingview bullish (=5) vs internal technical neutral (=3.45); gap +1.55",
-      "confidence_n_sources": 1,
+      "headline_gap": 1.912,
+      "reason": "etrade bullish (=4.062) vs internal ai_score bearish (=2.15); gap +1.91",
+      "confidence_n_sources": 3,
       "sources_flagging": [
-        "tradingview"
+        "etrade",
+        "tradingview",
+        "marketbeat:target"
       ],
       "external_signals": [
         {
-          "source": "tradingview",
-          "external_value": 5,
-          "external_label": "Strong Buy",
-          "internal_value_1to5": 3.45,
-          "primary_internal_field": "technical",
-          "gap": 1.55,
+          "source": "etrade",
+          "external_value": 4.062,
+          "external_label": null,
+          "internal_value_1to5": 2.15,
+          "primary_internal_field": "ai_score",
+          "gap": 1.912,
           "severity": "strong",
           "direction_agrees": false
         },
         {
-          "source": "etrade",
-          "external_value": 4.5,
-          "external_label": null,
-          "internal_value_1to5": 3.9,
-          "primary_internal_field": "ai_score",
-          "gap": 0.6,
-          "severity": "moderate",
-          "direction_agrees": true
+          "source": "tradingview",
+          "external_value": 5,
+          "external_label": "Strong Buy",
+          "internal_value_1to5": 3.4,
+          "primary_internal_field": "technical",
+          "gap": 1.6,
+          "severity": "strong",
+          "direction_agrees": false
         },
         {
           "source": "fidelity",
-          "external_value": 4.0,
+          "external_value": 3.55,
           "external_label": "Bullish",
-          "internal_value_1to5": 3.9,
+          "internal_value_1to5": 2.15,
           "primary_internal_field": "ai_score",
-          "gap": 0.1,
+          "gap": 1.4,
           "severity": "moderate",
-          "direction_agrees": true
+          "direction_agrees": false
         },
         {
-          "source": "marketbeat",
-          "external_value": 5,
-          "external_label": "Buy",
-          "internal_value_1to5": 5.0,
-          "primary_internal_field": "sentiment",
-          "gap": 0.0,
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 2.15,
+          "primary_internal_field": "ai_score",
+          "gap": 0.85,
           "severity": "moderate",
-          "direction_agrees": true
+          "direction_agrees": false
         }
       ],
-      "pine_classification": "mixed",
-      "pine_action": "review",
-      "pine_score_normalized": 0.5,
+      "pine_classification": "",
+      "pine_action": "",
+      "pine_score_normalized": null,
       "pine_blockers": [],
       "cooloff_blockers": [],
       "suggested_decision": "needs_more_data",
@@ -1598,43 +1780,298 @@
         "notes": "",
         "reviewed_at": "",
         "follow_up_date": "",
-        "first_seen": "2026-06-19",
-        "last_seen": "2026-07-24"
+        "first_seen": "2026-05-21",
+        "last_seen": "2026-07-27"
       }
     },
     {
-      "key": "SMCI|fidelity",
-      "ticker": "SMCI",
+      "key": "AVGO|tradingview",
+      "ticker": "AVGO",
       "sector": "Technology",
-      "internal_ai_score_0to10": 6.9,
+      "internal_ai_score_0to10": 6.1,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "strong",
+      "headline_gap": 2.2,
+      "reason": "tradingview bullish (=4) vs internal technical bearish (=1.8); gap +2.20",
+      "confidence_n_sources": 2,
+      "sources_flagging": [
+        "fidelity",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 4,
+          "external_label": "Buy",
+          "internal_value_1to5": 1.8,
+          "primary_internal_field": "technical",
+          "gap": 2.2,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.55,
+          "external_label": "Very Bullish",
+          "internal_value_1to5": 3.05,
+          "primary_internal_field": "ai_score",
+          "gap": 1.5,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 4.24,
+          "external_label": null,
+          "internal_value_1to5": 3.05,
+          "primary_internal_field": "ai_score",
+          "gap": 1.19,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 4,
+          "external_label": "2-Buy",
+          "internal_value_1to5": 3.05,
+          "primary_internal_field": "ai_score",
+          "gap": 0.95,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 4.05,
+          "primary_internal_field": "sentiment",
+          "gap": -0.05,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "needs_more_data",
+      "suggested_rationale": "Pine flags caution but external disagreement is mild \u2014 keep on radar pending more evidence.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-07-27",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "EQIX|tradingview",
+      "ticker": "EQIX",
+      "sector": "Real Estate",
+      "internal_ai_score_0to10": 5.9,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "strong",
+      "headline_gap": 2.2,
+      "reason": "tradingview bullish (=4) vs internal technical bearish (=1.8); gap +2.20",
+      "confidence_n_sources": 2,
+      "sources_flagging": [
+        "fidelity",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
+          "external_value": 4,
+          "external_label": "Buy",
+          "internal_value_1to5": 1.8,
+          "primary_internal_field": "technical",
+          "gap": 2.2,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 4.8,
+          "external_label": "Very Bullish",
+          "internal_value_1to5": 2.95,
+          "primary_internal_field": "ai_score",
+          "gap": 1.85,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "etrade",
+          "external_value": 4.061,
+          "external_label": null,
+          "internal_value_1to5": 2.95,
+          "primary_internal_field": "ai_score",
+          "gap": 1.111,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 4,
+          "external_label": "2-Buy",
+          "internal_value_1to5": 2.95,
+          "primary_internal_field": "ai_score",
+          "gap": 1.05,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 4.0,
+          "primary_internal_field": "sentiment",
+          "gap": 0.0,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [
+        "earnings_near (2d)"
+      ],
+      "cooloff_blockers": [],
+      "suggested_decision": "needs_more_data",
+      "suggested_rationale": "Pine flags caution but external disagreement is mild \u2014 keep on radar pending more evidence.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-08",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "GS|fidelity",
+      "ticker": "GS",
+      "sector": "Financial Services",
+      "internal_ai_score_0to10": 6.5,
       "internal_ai_direction": "neutral",
       "headline_source": "fidelity",
       "headline_severity": "strong",
-      "headline_gap": -1.8,
-      "reason": "fidelity bearish (=1.65) vs internal ai_score neutral (=3.45); gap -1.80",
-      "confidence_n_sources": 1,
+      "headline_gap": -2.05,
+      "reason": "fidelity bearish (=1.2) vs internal ai_score neutral (=3.25); gap -2.05",
+      "confidence_n_sources": 2,
       "sources_flagging": [
-        "fidelity"
+        "fidelity",
+        "tradingview"
       ],
       "external_signals": [
         {
           "source": "fidelity",
-          "external_value": 1.65,
-          "external_label": "Neutral",
-          "internal_value_1to5": 3.45,
+          "external_value": 1.2,
+          "external_label": "Bearish",
+          "internal_value_1to5": 3.25,
           "primary_internal_field": "ai_score",
-          "gap": -1.8,
+          "gap": -2.05,
           "severity": "strong",
           "direction_agrees": false
         },
         {
           "source": "tradingview",
+          "external_value": 3,
+          "external_label": "Neutral",
+          "internal_value_1to5": 1.1,
+          "primary_internal_field": "technical",
+          "gap": 1.9,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 3.25,
+          "primary_internal_field": "ai_score",
+          "gap": -0.25,
+          "severity": "moderate",
+          "direction_agrees": true
+        },
+        {
+          "source": "etrade",
+          "external_value": 3.4,
+          "external_label": "Moderate Buy",
+          "internal_value_1to5": 3.25,
+          "primary_internal_field": "ai_score",
+          "gap": 0.15,
+          "severity": "moderate",
+          "direction_agrees": true
+        },
+        {
+          "source": "marketbeat",
+          "external_value": 3,
+          "external_label": "Hold",
+          "internal_value_1to5": 2.95,
+          "primary_internal_field": "sentiment",
+          "gap": 0.05,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
+      "pine_blockers": [],
+      "cooloff_blockers": [],
+      "suggested_decision": "needs_more_data",
+      "suggested_rationale": "Pine flags caution but external disagreement is mild \u2014 keep on radar pending more evidence.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-05-07",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "SMCI|tradingview",
+      "ticker": "SMCI",
+      "sector": "Technology",
+      "internal_ai_score_0to10": 6.3,
+      "internal_ai_direction": "neutral",
+      "headline_source": "tradingview",
+      "headline_severity": "strong",
+      "headline_gap": 2.15,
+      "reason": "tradingview bullish (=4) vs internal technical bearish (=1.85); gap +2.15",
+      "confidence_n_sources": 2,
+      "sources_flagging": [
+        "fidelity",
+        "tradingview"
+      ],
+      "external_signals": [
+        {
+          "source": "tradingview",
           "external_value": 4,
           "external_label": "Buy",
-          "internal_value_1to5": 2.85,
+          "internal_value_1to5": 1.85,
           "primary_internal_field": "technical",
-          "gap": 1.15,
-          "severity": "moderate",
+          "gap": 2.15,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 1.65,
+          "external_label": "Neutral",
+          "internal_value_1to5": 3.15,
+          "primary_internal_field": "ai_score",
+          "gap": -1.5,
+          "severity": "strong",
           "direction_agrees": false
         },
         {
@@ -1651,9 +2088,9 @@
           "source": "zacks",
           "external_value": 3,
           "external_label": "3-Hold",
-          "internal_value_1to5": 3.45,
+          "internal_value_1to5": 3.15,
           "primary_internal_field": "ai_score",
-          "gap": -0.45,
+          "gap": -0.15,
           "severity": "moderate",
           "direction_agrees": true
         },
@@ -1661,19 +2098,92 @@
           "source": "etrade",
           "external_value": 3.1,
           "external_label": "Hold",
-          "internal_value_1to5": 3.45,
+          "internal_value_1to5": 3.15,
           "primary_internal_field": "ai_score",
-          "gap": -0.35,
+          "gap": -0.05,
           "severity": "moderate",
           "direction_agrees": true
         }
       ],
-      "pine_classification": "mixed",
-      "pine_action": "review",
-      "pine_score_normalized": 0.5,
+      "pine_classification": "supports_external_caution",
+      "pine_action": "downgrade-watchlist-only",
+      "pine_score_normalized": 0.0,
       "pine_blockers": [
-        "earnings_near (17d)"
+        "earnings_near (15d)"
       ],
+      "cooloff_blockers": [],
+      "suggested_decision": "watchlist_only",
+      "suggested_rationale": "Pine flags caution (or overextended_bb cohort) AND 2 external source(s) disagree bearishly. Hold from active buys; monitor on watchlist.",
+      "review": {
+        "reviewed": false,
+        "decision": "",
+        "notes": "",
+        "reviewed_at": "",
+        "follow_up_date": "",
+        "first_seen": "2026-06-11",
+        "last_seen": "2026-07-27"
+      }
+    },
+    {
+      "key": "LUNMF|etrade",
+      "ticker": "LUNMF",
+      "sector": "Basic Materials",
+      "internal_ai_score_0to10": 6.4,
+      "internal_ai_direction": "neutral",
+      "headline_source": "etrade",
+      "headline_severity": "strong",
+      "headline_gap": 1.8,
+      "reason": "etrade bullish (=5.0) vs internal ai_score neutral (=3.2); gap +1.80",
+      "confidence_n_sources": 1,
+      "sources_flagging": [
+        "etrade"
+      ],
+      "external_signals": [
+        {
+          "source": "etrade",
+          "external_value": 5.0,
+          "external_label": null,
+          "internal_value_1to5": 3.2,
+          "primary_internal_field": "ai_score",
+          "gap": 1.8,
+          "severity": "strong",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 2.2,
+          "external_label": "Neutral",
+          "internal_value_1to5": 3.2,
+          "primary_internal_field": "ai_score",
+          "gap": -1.0,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "tradingview",
+          "external_value": 3,
+          "external_label": "Neutral",
+          "internal_value_1to5": 2.55,
+          "primary_internal_field": "technical",
+          "gap": 0.45,
+          "severity": "moderate",
+          "direction_agrees": true
+        },
+        {
+          "source": "zacks",
+          "external_value": 3,
+          "external_label": "3-Hold",
+          "internal_value_1to5": 3.2,
+          "primary_internal_field": "ai_score",
+          "gap": -0.2,
+          "severity": "moderate",
+          "direction_agrees": true
+        }
+      ],
+      "pine_classification": "",
+      "pine_action": "",
+      "pine_score_normalized": null,
+      "pine_blockers": [],
       "cooloff_blockers": [],
       "suggested_decision": "needs_more_data",
       "suggested_rationale": "Mixed or insufficient evidence \u2014 collect more data before deciding.",
@@ -1684,14 +2194,14 @@
         "reviewed_at": "",
         "follow_up_date": "",
         "first_seen": "2026-05-07",
-        "last_seen": "2026-07-24"
+        "last_seen": "2026-07-27"
       }
     },
     {
       "key": "VIAV|marketbeat:target",
       "ticker": "VIAV",
       "sector": "Technology",
-      "internal_ai_score_0to10": 6.0,
+      "internal_ai_score_0to10": 5.7,
       "internal_ai_direction": "neutral",
       "headline_source": "marketbeat:target",
       "headline_severity": "moderate",
@@ -1706,29 +2216,9 @@
           "source": "etrade",
           "external_value": 4.222,
           "external_label": null,
-          "internal_value_1to5": 3.0,
+          "internal_value_1to5": 2.85,
           "primary_internal_field": "ai_score",
-          "gap": 1.222,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "fidelity",
-          "external_value": 1.85,
-          "external_label": "Neutral",
-          "internal_value_1to5": 3.0,
-          "primary_internal_field": "ai_score",
-          "gap": -1.15,
-          "severity": "moderate",
-          "direction_agrees": false
-        },
-        {
-          "source": "zacks",
-          "external_value": 4,
-          "external_label": "2-Buy",
-          "internal_value_1to5": 3.0,
-          "primary_internal_field": "ai_score",
-          "gap": 1.0,
+          "gap": 1.372,
           "severity": "moderate",
           "direction_agrees": false
         },
@@ -1736,9 +2226,29 @@
           "source": "tradingview",
           "external_value": 3,
           "external_label": "Neutral",
-          "internal_value_1to5": 2.25,
+          "internal_value_1to5": 1.75,
           "primary_internal_field": "technical",
-          "gap": 0.75,
+          "gap": 1.25,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "zacks",
+          "external_value": 4,
+          "external_label": "2-Buy",
+          "internal_value_1to5": 2.85,
+          "primary_internal_field": "ai_score",
+          "gap": 1.15,
+          "severity": "moderate",
+          "direction_agrees": false
+        },
+        {
+          "source": "fidelity",
+          "external_value": 1.85,
+          "external_label": "Neutral",
+          "internal_value_1to5": 2.85,
+          "primary_internal_field": "ai_score",
+          "gap": -1.0,
           "severity": "moderate",
           "direction_agrees": false
         }
@@ -1757,9 +2267,9 @@
         "reviewed_at": "",
         "follow_up_date": "",
         "first_seen": "2026-05-07",
-        "last_seen": "2026-07-24"
+        "last_seen": "2026-07-27"
       }
     }
   ],
-  "summary": "total=16 \u00b7 unresolved=16 \u00b7 severe=6 \u00b7 reviewed=0"
+  "summary": "total=18 \u00b7 unresolved=18 \u00b7 severe=10 \u00b7 reviewed=0"
 }
