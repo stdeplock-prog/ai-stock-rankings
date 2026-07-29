@@ -332,16 +332,21 @@
         {
           "name": "supp_coverage",
           "status": "OK",
-          "message": "SUPP 61/70 full fundamentals; price_only=9 tech_only=0"
+          "message": "SUPP 60/69 full fundamentals; price_only=9 tech_only=0"
+        },
+        {
+          "name": "watchlist_unavailable",
+          "status": "WARN",
+          "message": "1 watchlist ticker(s) unavailable: "
         },
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=70 misses=0"
+          "message": "yfinance cache hits=69 misses=0"
         }
       ],
       "metrics": {
-        "row_count": 142,
+        "row_count": 141,
         "top_10": [
           {
             "rank": 1,
@@ -465,19 +470,19 @@
         "top_gainers": [],
         "top_losers": [],
         "supp_summary": {
-          "total": 70,
-          "full_fundamentals": 61,
+          "total": 69,
+          "full_fundamentals": 60,
           "eodhd_enriched": 0,
           "metadata_only": 0,
           "price_only": 9,
           "technical_only": 0,
-          "unavailable": 0
+          "unavailable": 1
         },
-        "unavailable_count": 0,
+        "unavailable_count": 1,
         "unavailable_tickers": [],
-        "supp_degraded_pct": 0.129
+        "supp_degraded_pct": 0.13
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "market_risk": {
       "checks": [
@@ -489,7 +494,7 @@
         {
           "name": "indicator_coverage",
           "status": "OK",
-          "message": "indicators pending source: polls, adr, ndr"
+          "message": "indicators pending source: polls, adr, vix, ndr"
         }
       ],
       "metrics": {
@@ -510,6 +515,7 @@
         "pending_indicators": [
           "polls",
           "adr",
+          "vix",
           "ndr"
         ]
       },
