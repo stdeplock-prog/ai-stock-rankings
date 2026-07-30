@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-30T19:37:32Z",
-  "generated_at_chicago": "2026-07-30 02:37 PM CDT",
-  "overall": "WARN",
+  "generated_at": "2026-07-30T22:46:57Z",
+  "generated_at_chicago": "2026-07-30 05:46 PM CDT",
+  "overall": "FAIL",
   "sections": {
     "freshness": {
       "checks": [
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-07-30 02:37 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-07-30 05:46 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,16 +17,16 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-07-30 02:37 PM CDT",
+        "as_of": "2026-07-30 05:46 PM CDT",
         "open_date": "2026-07-30",
         "row_count": 100,
         "is_open_run": false,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-07-30 14:37",
-        "rankings_age_hours": 0.01,
+        "chicago_now": "2026-07-30 17:46",
+        "rankings_age_hours": 0.02,
         "today_live": true,
-        "close_slot_satisfied": false
+        "close_slot_satisfied": true
       },
       "status": "OK"
     },
@@ -35,15 +35,15 @@
         {
           "name": "run_source",
           "status": "OK",
-          "message": "latest run: scheduled (2026-07-30 14:37)"
+          "message": "latest run: scheduled (2026-07-30 17:46)"
         }
       ],
       "metrics": {
         "overall_raw": "OK",
         "overall_effective": "OK",
         "last_run_event": "schedule",
-        "last_run_slot": "midday",
-        "last_run_ts_chicago": "2026-07-30 14:37",
+        "last_run_slot": "close",
+        "last_run_ts_chicago": "2026-07-30 17:46",
         "today_missing": [],
         "today_satisfied": true,
         "source": "schedule",
@@ -55,20 +55,25 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "WARN",
-          "message": "overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK"
+          "status": "FAIL",
+          "message": "overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK"
+        },
+        {
+          "name": "critical_sections",
+          "status": "FAIL",
+          "message": "rankings=FAIL, tasks=OK: critical section failure"
         }
       ],
       "metrics": {
-        "overall": "WARN",
+        "overall": "FAIL",
         "by_section": {
-          "rankings": "WARN",
+          "rankings": "FAIL",
           "watchlist": "OK",
           "tasks": "OK"
         },
-        "critical_section_fail": false
+        "critical_section_fail": true
       },
-      "status": "WARN"
+      "status": "FAIL"
     },
     "rankings_recap": {
       "checks": [
@@ -80,12 +85,12 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-07-29: GEN, AGCO, SF, BALL"
+          "message": "new top10 vs 2026-07-29: GEN, AGCO, SF"
         },
         {
           "name": "sector_concentration",
           "status": "WARN",
-          "message": "top10 dominated by Financial Services (4/10 = 40%)"
+          "message": "top10 dominated by Financial Services (5/10 = 50%)"
         }
       ],
       "metrics": {
@@ -108,19 +113,19 @@
           },
           {
             "rank": 3,
-            "ticker": "CPAY",
-            "company": "Corpay",
-            "ai_score": 8.5,
-            "change": 0,
-            "sector": "Technology"
-          },
-          {
-            "rank": 4,
             "ticker": "FNF",
             "company": "Fidelity National Financial",
             "ai_score": 8.5,
-            "change": 0,
+            "change": 1,
             "sector": "Financial Services"
+          },
+          {
+            "rank": 4,
+            "ticker": "CPAY",
+            "company": "Corpay",
+            "ai_score": 8.5,
+            "change": -1,
+            "sector": "Technology"
           },
           {
             "rank": 5,
@@ -156,103 +161,103 @@
           },
           {
             "rank": 9,
-            "ticker": "SF",
-            "company": "Stifel",
+            "ticker": "SCHW",
+            "company": "Charles Schwab Corporation",
             "ai_score": 8.4,
-            "change": -1,
+            "change": 0,
             "sector": "Financial Services"
           },
           {
             "rank": 10,
-            "ticker": "BALL",
-            "company": "Ball Corporation",
+            "ticker": "SF",
+            "company": "Stifel",
             "ai_score": 8.4,
-            "change": 0,
-            "sector": "Consumer Cyclical"
+            "change": -2,
+            "sector": "Financial Services"
           }
         ],
         "top_gainers": [
           {
-            "rank": 99,
-            "ticker": "LECO",
-            "company": "Lincoln Electric",
-            "change": 9,
-            "ai_score": 7.6,
-            "sector": "Industrials"
-          },
-          {
-            "rank": 100,
-            "ticker": "DUOL",
-            "company": "Duolingo",
-            "change": 9,
-            "ai_score": 7.6,
-            "sector": "Technology"
-          },
-          {
-            "rank": 53,
+            "rank": 52,
             "ticker": "FICO",
             "company": "Fair Isaac",
-            "change": 8,
+            "change": 9,
             "ai_score": 7.9,
             "sector": "Technology"
           },
           {
-            "rank": 67,
-            "ticker": "RYN",
-            "company": "Rayonier",
-            "change": 7,
-            "ai_score": 7.8,
-            "sector": "Real Estate"
+            "rank": 76,
+            "ticker": "CLH",
+            "company": "Clean Harbors",
+            "change": 9,
+            "ai_score": 7.7,
+            "sector": "Industrials"
           },
           {
-            "rank": 98,
+            "rank": 78,
+            "ticker": "LH",
+            "company": "Labcorp",
+            "change": 9,
+            "ai_score": 7.7,
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 97,
             "ticker": "TW",
             "company": "Tradeweb",
-            "change": 7,
+            "change": 8,
             "ai_score": 7.7,
             "sector": "Financial Services"
+          },
+          {
+            "rank": 8,
+            "ticker": "AGCO",
+            "company": "AGCO",
+            "change": 5,
+            "ai_score": 8.4,
+            "sector": "Industrials"
           }
         ],
         "top_losers": [
           {
-            "rank": 75,
-            "ticker": "PB",
-            "company": "Prosperity Bancshares",
-            "change": -11,
-            "ai_score": 7.7,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 83,
-            "ticker": "BNY",
-            "company": "BNY Mellon",
-            "change": -8,
-            "ai_score": 7.7,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 59,
+            "rank": 58,
             "ticker": "SCCO",
             "company": "Southern Copper",
-            "change": -7,
+            "change": -6,
             "ai_score": 7.8,
             "sector": "Basic Materials"
           },
           {
-            "rank": 49,
-            "ticker": "FIVE",
-            "company": "Five Below",
+            "rank": 81,
+            "ticker": "BNY",
+            "company": "BNY Mellon",
             "change": -6,
-            "ai_score": 8.0,
-            "sector": "Consumer Cyclical"
+            "ai_score": 7.7,
+            "sector": "Financial Services"
           },
           {
-            "rank": 72,
+            "rank": 73,
             "ticker": "SARO",
             "company": "StandardAero",
-            "change": -4,
+            "change": -5,
             "ai_score": 7.8,
             "sector": "Industrials"
+          },
+          {
+            "rank": 84,
+            "ticker": "DCI",
+            "company": "Donaldson Company",
+            "change": -5,
+            "ai_score": 7.7,
+            "sector": "Industrials"
+          },
+          {
+            "rank": 47,
+            "ticker": "FIVE",
+            "company": "Five Below",
+            "change": -4,
+            "ai_score": 7.9,
+            "sector": "Consumer Cyclical"
           }
         ],
         "new_top10_entries": [
@@ -270,36 +275,29 @@
           },
           {
             "ticker": "SF",
-            "rank": 9,
-            "ai_score": 8.4,
-            "sector": "Financial Services"
-          },
-          {
-            "ticker": "BALL",
             "rank": 10,
             "ai_score": 8.4,
-            "sector": "Consumer Cyclical"
+            "sector": "Financial Services"
           }
         ],
         "exited_top10_entries": [
           "HALO",
           "HEI-A",
-          "RJF",
-          "SCHW"
+          "RJF"
         ],
         "intraday_new_entries": [],
         "prior_top10_compared_against": "2026-07-29",
         "mov_summary": {
           "with_change": 100,
-          "positive": 36,
-          "negative": 30,
-          "zero": 34
+          "positive": 40,
+          "negative": 43,
+          "zero": 17
         },
         "sector_concentration": {
           "top_sector": "Financial Services",
-          "top_count": 4,
+          "top_count": 5,
           "of": 10,
-          "pct": 0.4,
+          "pct": 0.5,
           "warn": true
         },
         "limitation": "MOV-based gainers/losers; new/exited entries vs prior benchmark snapshot; intraday entries vs market_open_scan."
@@ -521,18 +519,17 @@
         ],
         "sector_crowding": {
           "main_top10": {
-            "status": "WARN",
+            "status": "FAIL",
             "n": 10,
             "top_sector": "Financial Services",
-            "top_count": 4,
-            "top_share": 0.4,
+            "top_count": 5,
+            "top_share": 0.5,
             "distribution": {
-              "Financial Services": 4,
+              "Financial Services": 5,
               "Basic Materials": 1,
               "Technology": 2,
               "Healthcare": 1,
-              "Industrials": 1,
-              "Consumer Cyclical": 1
+              "Industrials": 1
             }
           },
           "watchlist_top10": {
@@ -602,12 +599,13 @@
     "prior_snapshot_present": true
   },
   "action_items": [
-    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK",
-    "[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (4/10 = 40%)",
+    "[FAIL] data_quality.data_quality_overall: overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK",
+    "[FAIL] data_quality.critical_sections: rankings=FAIL, tasks=OK: critical section failure",
+    "[WARN] rankings_recap.sector_concentration: top10 dominated by Financial Services (5/10 = 50%)",
     "[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 3 suspicious top rank(s)",
-    "[INFO] New top10 vs 2026-07-29: GEN, AGCO, SF, BALL",
-    "[INFO] Exited top10 since 2026-07-29: HALO, HEI-A, RJF, SCHW",
-    "[INFO] Top MOV gainer LECO (change=9, rank=99)"
+    "[INFO] New top10 vs 2026-07-29: GEN, AGCO, SF",
+    "[INFO] Exited top10 since 2026-07-29: HALO, HEI-A, RJF",
+    "[INFO] Top MOV gainer FICO (change=9, rank=52)"
   ],
-  "summary": "Live 02:37 PM CT \u00b7 Source scheduled \u00b7 DQ WARN \u00b7 \u2191LECO \u2193PB \u00b7 4 new top10 (GEN\u2026) \u00b7 Risk OK"
+  "summary": "Close 05:46 PM CT \u00b7 Source scheduled \u00b7 DQ FAIL \u00b7 \u2191FICO \u2193SCCO \u00b7 3 new top10 (GEN\u2026) \u00b7 Risk OK"
 }
