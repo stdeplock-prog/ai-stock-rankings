@@ -30,7 +30,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <li>[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK</li>
 </ul>
 <h3>Market &amp; Rankings</h3><ul class="action">
-<li>[WARN] diagnostics.diagnostics_overall: diagnostics overall=WARN; 1 suspicious top rank(s)</li>
+<li>[WARN] diagnostics.diagnostics_overall: diagnostics overall=WARN; 2 suspicious top rank(s)</li>
 <li>[INFO] New top10 vs 2026-08-03: AMG, GOOGL, EME</li>
 <li>[INFO] Exited top10 since 2026-08-03: AFL, INCY, RJF</li>
 <li>[INFO] Top MOV gainer VNOM (change=362, rank=94)</li>
@@ -302,7 +302,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;company&quot;: &quot;East West Bancorp&quot;,
       &quot;change&quot;: -4,
       &quot;ai_score&quot;: 7.7,
-      &quot;sector&quot;: &quot;Financial Services&quot;
+      &quot;sector&quot;: &quot;Industrials&quot;
     },
     {
       &quot;rank&quot;: 84,
@@ -452,6 +452,15 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;change&quot;: 0,
       &quot;sector&quot;: &quot;Technology&quot;,
       &quot;data_source&quot;: &quot;main_pipeline&quot;
+    },
+    {
+      &quot;rank&quot;: 10,
+      &quot;ticker&quot;: &quot;FRSH&quot;,
+      &quot;company&quot;: &quot;Freshworks Inc.&quot;,
+      &quot;ai_score&quot;: 7.6,
+      &quot;change&quot;: 0,
+      &quot;sector&quot;: &quot;Technology&quot;,
+      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     }
   ],
   &quot;prior_top10_compared_against&quot;: &quot;2026-08-03&quot;,
@@ -512,7 +521,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Diagnostics<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall&quot;: &quot;WARN&quot;,
-  &quot;suspicious_count&quot;: 1,
+  &quot;suspicious_count&quot;: 2,
   &quot;suspicious_top&quot;: [
     {
       &quot;ticker&quot;: &quot;SCCO&quot;,
@@ -521,6 +530,15 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;reasons&quot;: [
         &quot;weak SENT (4.3)&quot;,
         &quot;negative MOV (-1.1%)&quot;
+      ]
+    },
+    {
+      &quot;ticker&quot;: &quot;FRSH&quot;,
+      &quot;group&quot;: &quot;watchlist_top10&quot;,
+      &quot;rank&quot;: 10,
+      &quot;reasons&quot;: [
+        &quot;missing SENT&quot;,
+        &quot;missing SWING&quot;
       ]
     }
   ],
@@ -557,7 +575,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>diagnostics_overall</td><td class="WARN">WARN</td><td>diagnostics overall=WARN; 1 suspicious top rank(s)</td></tr>
+<tr><td>diagnostics_overall</td><td class="WARN">WARN</td><td>diagnostics overall=WARN; 2 suspicious top rank(s)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Benchmark<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{

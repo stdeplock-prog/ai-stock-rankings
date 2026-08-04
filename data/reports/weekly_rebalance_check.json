@@ -17,7 +17,7 @@
         "open_date": "2026-08-04",
         "row_count": 100,
         "is_weekend": false,
-        "rankings_age_hours": 0.02
+        "rankings_age_hours": 0.01
       },
       "status": "OK"
     },
@@ -756,7 +756,7 @@
             "rank": 14,
             "ticker": "FRSH",
             "company": "Freshworks Inc.",
-            "ai_score": 7.5,
+            "ai_score": 7.6,
             "sector": "Technology",
             "change": 0,
             "fundamental": 7.64,
@@ -831,10 +831,10 @@
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 32,
+            "rank": 29,
             "ticker": "NBIS",
             "company": "Nebius Group N.V.",
-            "ai_score": 7.0,
+            "ai_score": 7.1,
             "sector": "Communication Services",
             "change": 0,
             "fundamental": 5.92,
@@ -948,7 +948,7 @@
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 42,
+            "rank": 43,
             "ticker": "XE",
             "company": "X-Energy, Inc.",
             "ai_score": 6.8,
@@ -1216,7 +1216,6 @@
               "AAPL",
               "AMKR",
               "DELL",
-              "FRSH",
               "RY",
               "TMO"
             ],
@@ -1226,6 +1225,12 @@
                 "prior": 7.3,
                 "current": 8.3,
                 "delta": 1.0
+              },
+              {
+                "ticker": "FRSH",
+                "prior": 7.2,
+                "current": 7.6,
+                "delta": 0.4
               },
               {
                 "ticker": "EXLS",
@@ -1253,8 +1258,8 @@
             "new_entries": [
               {
                 "ticker": "NBIS",
-                "rank": 32,
-                "ai_score": 7.0,
+                "rank": 29,
+                "ai_score": 7.1,
                 "sector": "Communication Services"
               },
               {
@@ -1303,8 +1308,8 @@
               {
                 "ticker": "FRSH",
                 "prior": 7.2,
-                "current": 7.5,
-                "delta": 0.3
+                "current": 7.6,
+                "delta": 0.4
               }
             ],
             "prior_size": 10,
@@ -1532,12 +1537,12 @@
         {
           "name": "suspicious_ranks",
           "status": "WARN",
-          "message": "1 suspicious top rank(s) flagged"
+          "message": "2 suspicious top rank(s) flagged"
         }
       ],
       "metrics": {
         "overall": "WARN",
-        "suspicious_count": 1,
+        "suspicious_count": 2,
         "suspicious_top": [
           {
             "ticker": "SCCO",
@@ -1546,6 +1551,15 @@
             "reasons": [
               "weak SENT (4.3)",
               "negative MOV (-1.1%)"
+            ]
+          },
+          {
+            "ticker": "FRSH",
+            "group": "watchlist_top10",
+            "rank": 10,
+            "reasons": [
+              "missing SENT",
+              "missing SWING"
             ]
           }
         ]
