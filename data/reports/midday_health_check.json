@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-04T22:47:34Z",
-  "generated_at_chicago": "2026-08-04 05:47 PM CDT",
+  "generated_at": "2026-08-05T16:48:33Z",
+  "generated_at_chicago": "2026-08-05 11:48 AM CDT",
   "overall": "WARN",
   "sections": {
     "data_freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-08-04 05:47 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-08-05 11:48 AM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,11 +17,11 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-08-04 05:47 PM CDT",
-        "open_date": "2026-08-04",
+        "as_of": "2026-08-05 11:48 AM CDT",
+        "open_date": "2026-08-05",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-08-04 17:47",
+        "chicago_now": "2026-08-05 11:48",
         "rankings_age_hours": 0.01,
         "today_live": true
       },
@@ -31,21 +31,21 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+          "status": "WARN",
+          "message": "overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
-        "overall": "OK",
-        "generated_at": "2026-08-04T22:47:33Z",
+        "overall": "WARN",
+        "generated_at": "2026-08-05T16:48:31Z",
         "by_section": {
-          "rankings": "OK",
+          "rankings": "WARN",
           "watchlist": "OK",
           "tasks": "OK"
         },
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "schedule_reliability": {
       "checks": [
@@ -62,8 +62,8 @@
         "today_missing": [],
         "today_satisfied": true,
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-08-04 17:47",
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-08-05 11:48",
         "recovered": false,
         "overall_effective": "OK"
       },
@@ -74,35 +74,35 @@
         {
           "name": "supp_coverage",
           "status": "OK",
-          "message": "SUPP 60/69 full fundamentals; price_only=9 tech_only=0"
+          "message": "SUPP 61/70 full fundamentals; price_only=9 tech_only=0"
         },
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=69 misses=0"
+          "message": "yfinance cache hits=70 misses=0"
         }
       ],
       "metrics": {
         "supp_summary": {
-          "total": 69,
-          "full_fundamentals": 60,
+          "total": 70,
+          "full_fundamentals": 61,
           "eodhd_enriched": 0,
           "metadata_only": 0,
           "price_only": 9,
           "technical_only": 0,
-          "unavailable": 1
+          "unavailable": 0
         },
         "yfinance_info_cache": {
-          "cache_hit_fresh": 69,
+          "cache_hit_fresh": 70,
           "cache_miss": 0,
           "network_call": 0,
           "fallback_to_cache": 0,
           "rate_limit_or_empty": 0,
           "network_success": 0
         },
-        "unavailable_count": 1,
-        "scored": 141,
-        "supp_degraded_pct": 0.13
+        "unavailable_count": 0,
+        "scored": 142,
+        "supp_degraded_pct": 0.129
       },
       "status": "OK"
     },
@@ -134,17 +134,14 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment', 'swing_score']"
+          "message": "parity overall=FAIL; blocker fields=['ai_score']"
         }
       ],
       "metrics": {
         "overall": "FAIL",
         "cross_group_parity_status": "FAIL",
         "fail_fields": [
-          "ai_score",
-          "technical",
-          "sentiment",
-          "swing_score"
+          "ai_score"
         ],
         "known_bias_fields": [
           "low_risk"
@@ -163,7 +160,8 @@
     "parity_present": true
   },
   "action_items": [
-    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical', 'sentiment', 'swing_score']"
+    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK",
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score']"
   ],
-  "summary": "Fresh 05:47 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule OK \u00b7 Benchmark active"
+  "summary": "Fresh 11:48 AM CT \u00b7 Data quality WARN \u00b7 Watchlist OK \u00b7 Schedule OK \u00b7 Benchmark active"
 }
