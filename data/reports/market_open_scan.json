@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-07T22:25:56Z",
-  "generated_at_chicago": "2026-08-07 05:25 PM CDT",
+  "generated_at": "2026-08-10T15:13:30Z",
+  "generated_at_chicago": "2026-08-10 10:13 AM CDT",
   "overall": "WARN",
   "sections": {
     "freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-08-07 05:25 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-08-10 10:12 AM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,14 +17,14 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-08-07 05:25 PM CDT",
-        "open_date": "2026-08-07",
+        "as_of": "2026-08-10 10:12 AM CDT",
+        "open_date": "2026-08-10",
         "row_count": 100,
-        "is_open_run": false,
+        "is_open_run": true,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-08-07 17:25",
-        "rankings_age_hours": 0.02,
+        "chicago_now": "2026-08-10 10:13",
+        "rankings_age_hours": 0.03,
         "today_live": true
       },
       "status": "OK"
@@ -34,15 +34,15 @@
         {
           "name": "run_source",
           "status": "WARN",
-          "message": "latest run: rescued morning slot (2026-08-07 17:25), history shows 3 missing slot(s)"
+          "message": "latest run: rescued morning slot (2026-08-10 10:13), history shows 3 missing slot(s)"
         }
       ],
       "metrics": {
         "overall_raw": "FAIL",
         "overall_effective": "WARN",
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-08-07 17:25",
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-08-10 10:13",
         "today_missing": [],
         "today_satisfied": true,
         "source": "recovered"
@@ -53,20 +53,20 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+          "status": "WARN",
+          "message": "overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN"
         }
       ],
       "metrics": {
-        "overall": "OK",
+        "overall": "WARN",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
-          "tasks": "OK"
+          "tasks": "WARN"
         },
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "rankings_changes": {
       "checks": [
@@ -78,7 +78,7 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-08-05: AVT, GMED, SCHW, CRBG"
+          "message": "new top10 vs 2026-08-07: MS, EXPD, PNFP, EME, RJF"
         }
       ],
       "metrics": {
@@ -93,185 +93,199 @@
           },
           {
             "rank": 2,
-            "ticker": "GEN",
-            "company": "Gen Digital",
-            "ai_score": 8.6,
-            "change": 0,
+            "ticker": "AVT",
+            "company": "Avnet",
+            "ai_score": 8.5,
+            "change": -1,
             "sector": "Technology"
           },
           {
             "rank": 3,
-            "ticker": "AVT",
-            "company": "Avnet",
-            "ai_score": 8.6,
-            "change": -2,
-            "sector": "Technology"
-          },
-          {
-            "rank": 4,
-            "ticker": "ARW",
-            "company": "Arrow Electronics",
-            "ai_score": 8.5,
-            "change": 1,
-            "sector": "Technology"
-          },
-          {
-            "rank": 5,
-            "ticker": "RS",
-            "company": "Reliance, Inc.",
-            "ai_score": 8.5,
-            "change": -1,
-            "sector": "Basic Materials"
-          },
-          {
-            "rank": 6,
-            "ticker": "GOOG",
-            "company": "Alphabet Inc. (Class C)",
+            "ticker": "MS",
+            "company": "Morgan Stanley",
             "ai_score": 8.4,
-            "change": 1,
-            "sector": "Communication Services"
-          },
-          {
-            "rank": 8,
-            "ticker": "GMED",
-            "company": "Globus Medical",
-            "ai_score": 8.4,
-            "change": 0,
-            "sector": "Healthcare"
-          },
-          {
-            "rank": 9,
-            "ticker": "SCHW",
-            "company": "Charles Schwab Corporation",
-            "ai_score": 8.3,
-            "change": 0,
+            "change": 27,
             "sector": "Financial Services"
           },
           {
-            "rank": 10,
+            "rank": 4,
+            "ticker": "EXPD",
+            "company": "Expeditors International",
+            "ai_score": 8.4,
+            "change": 22,
+            "sector": "Industrials"
+          },
+          {
+            "rank": 5,
+            "ticker": "SCHW",
+            "company": "Charles Schwab Corporation",
+            "ai_score": 8.4,
+            "change": 4,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 6,
+            "ticker": "RS",
+            "company": "Reliance, Inc.",
+            "ai_score": 8.3,
+            "change": -2,
+            "sector": "Basic Materials"
+          },
+          {
+            "rank": 7,
+            "ticker": "PNFP",
+            "company": "Pinnacle Financial Partners",
+            "ai_score": 8.3,
+            "change": 4,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 8,
             "ticker": "CRBG",
             "company": "Corebridge Financial",
             "ai_score": 8.3,
-            "change": 0,
+            "change": 2,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 9,
+            "ticker": "EME",
+            "company": "Emcor",
+            "ai_score": 8.3,
+            "change": 3,
+            "sector": "Industrials"
+          },
+          {
+            "rank": 10,
+            "ticker": "RJF",
+            "company": "Raymond James Financial",
+            "ai_score": 8.3,
+            "change": 8,
             "sector": "Financial Services"
           }
         ],
         "top_gainers": [
           {
-            "rank": 52,
-            "ticker": "ECG",
-            "company": "Everus Construction Group",
-            "change": 20,
+            "rank": 25,
+            "ticker": "TWLO",
+            "company": "Twilio",
+            "change": 640,
+            "ai_score": 8.1,
+            "sector": "Technology"
+          },
+          {
+            "rank": 42,
+            "ticker": "UBER",
+            "company": "Uber",
+            "change": 322,
             "ai_score": 7.9,
-            "sector": "Industrials"
-          },
-          {
-            "rank": 92,
-            "ticker": "HWM",
-            "company": "Howmet Aerospace",
-            "change": 11,
-            "ai_score": 7.8,
-            "sector": "Industrials"
-          },
-          {
-            "rank": 94,
-            "ticker": "FFIV",
-            "company": "F5, Inc.",
-            "change": 11,
-            "ai_score": 7.8,
             "sector": "Technology"
           },
           {
-            "rank": 44,
-            "ticker": "CPAY",
-            "company": "Corpay",
-            "change": 8,
-            "ai_score": 8.0,
-            "sector": "Technology"
+            "rank": 81,
+            "ticker": "MET",
+            "company": "MetLife",
+            "change": 155,
+            "ai_score": 7.7,
+            "sector": "Financial Services"
           },
           {
-            "rank": 19,
-            "ticker": "EXPD",
-            "company": "Expeditors International",
-            "change": 7,
-            "ai_score": 8.2,
-            "sector": "Industrials"
+            "rank": 46,
+            "ticker": "CART",
+            "company": "Maplebear Inc.",
+            "change": 116,
+            "ai_score": 7.9,
+            "sector": "Consumer Cyclical"
+          },
+          {
+            "rank": 84,
+            "ticker": "MEDP",
+            "company": "Medpace",
+            "change": 93,
+            "ai_score": 7.7,
+            "sector": "Healthcare"
           }
         ],
         "top_losers": [
           {
-            "rank": 36,
-            "ticker": "HALO",
-            "company": "Halozyme",
-            "change": -11,
-            "ai_score": 8.0,
-            "sector": "Healthcare"
-          },
-          {
-            "rank": 66,
-            "ticker": "MSI",
-            "company": "Motorola Solutions",
-            "change": -11,
-            "ai_score": 7.9,
-            "sector": "Technology"
-          },
-          {
-            "rank": 51,
-            "ticker": "BLK",
-            "company": "BlackRock",
-            "change": -6,
-            "ai_score": 8.0,
+            "rank": 95,
+            "ticker": "PB",
+            "company": "Prosperity Bancshares",
+            "change": -72,
+            "ai_score": 7.7,
             "sector": "Financial Services"
           },
           {
-            "rank": 56,
-            "ticker": "AU",
-            "company": "AngloGold Ashanti",
-            "change": -6,
-            "ai_score": 7.9,
-            "sector": "Basic Materials"
+            "rank": 94,
+            "ticker": "PR",
+            "company": "Permian Resources",
+            "change": -65,
+            "ai_score": 7.7,
+            "sector": "Energy"
+          },
+          {
+            "rank": 73,
+            "ticker": "WMS",
+            "company": "Advanced Drainage Systems",
+            "change": -52,
+            "ai_score": 7.8,
+            "sector": "Industrials"
+          },
+          {
+            "rank": 75,
+            "ticker": "HALO",
+            "company": "Halozyme",
+            "change": -50,
+            "ai_score": 7.8,
+            "sector": "Healthcare"
           },
           {
             "rank": 43,
-            "ticker": "CCK",
-            "company": "Crown Holdings",
-            "change": -4,
-            "ai_score": 8.0,
-            "sector": "Consumer Cyclical"
+            "ticker": "GEN",
+            "company": "Gen Digital",
+            "change": -41,
+            "ai_score": 7.9,
+            "sector": "Technology"
           }
         ],
         "new_top10_entries": [
           {
-            "ticker": "AVT",
+            "ticker": "MS",
             "rank": 3,
-            "ai_score": 8.6,
-            "sector": "Technology"
-          },
-          {
-            "ticker": "GMED",
-            "rank": 8,
             "ai_score": 8.4,
-            "sector": "Healthcare"
+            "sector": "Financial Services"
           },
           {
-            "ticker": "SCHW",
-            "rank": 9,
+            "ticker": "EXPD",
+            "rank": 4,
+            "ai_score": 8.4,
+            "sector": "Industrials"
+          },
+          {
+            "ticker": "PNFP",
+            "rank": 7,
             "ai_score": 8.3,
             "sector": "Financial Services"
           },
           {
-            "ticker": "CRBG",
+            "ticker": "EME",
+            "rank": 9,
+            "ai_score": 8.3,
+            "sector": "Industrials"
+          },
+          {
+            "ticker": "RJF",
             "rank": 10,
             "ai_score": 8.3,
             "sector": "Financial Services"
           }
         ],
-        "prior_top10_compared_against": "2026-08-05",
+        "prior_top10_compared_against": "2026-08-07",
         "mov_summary": {
           "with_change": 100,
-          "positive": 40,
-          "negative": 37,
-          "zero": 23
+          "positive": 73,
+          "negative": 24,
+          "zero": 3
         },
         "limitation": "MOV-based gainers/losers; new-entry detection uses prior benchmark snapshot when available."
       },
@@ -287,7 +301,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=70 misses=0"
+          "message": "yfinance cache hits=0 misses=70"
         }
       ],
       "metrics": {
@@ -295,24 +309,15 @@
         "top_10": [
           {
             "rank": 1,
-            "ticker": "GMED",
-            "company": "Globus Medical",
-            "ai_score": 8.4,
+            "ticker": "AMZN",
+            "company": "Amazon",
+            "ai_score": 8.1,
             "change": 0,
-            "sector": "Healthcare",
+            "sector": "Consumer Cyclical",
             "data_source": "main_pipeline"
           },
           {
             "rank": 2,
-            "ticker": "GOOG",
-            "company": "Alphabet Inc. (Class C)",
-            "ai_score": 8.4,
-            "change": 0,
-            "sector": "Communication Services",
-            "data_source": "main_pipeline"
-          },
-          {
-            "rank": 3,
             "ticker": "APH",
             "company": "Amphenol",
             "ai_score": 8.1,
@@ -321,25 +326,16 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 4,
-            "ticker": "SCCO",
-            "company": "Southern Copper",
+            "rank": 3,
+            "ticker": "GOOG",
+            "company": "Alphabet Inc. (Class C)",
             "ai_score": 8.1,
             "change": 0,
-            "sector": "Basic Materials",
+            "sector": "Communication Services",
             "data_source": "main_pipeline"
           },
           {
-            "rank": 5,
-            "ticker": "AMZN",
-            "company": "Amazon",
-            "ai_score": 8.0,
-            "change": 0,
-            "sector": "Consumer Cyclical",
-            "data_source": "main_pipeline"
-          },
-          {
-            "rank": 6,
+            "rank": 4,
             "ticker": "DELL",
             "company": "Dell Technologies",
             "ai_score": 8.0,
@@ -348,16 +344,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 7,
-            "ticker": "PAAS",
-            "company": "Pan American Silver Corp.",
-            "ai_score": 8.0,
-            "change": 0,
-            "sector": "Basic Materials",
-            "data_source": "supplemental_yfinance"
-          },
-          {
-            "rank": 8,
+            "rank": 5,
             "ticker": "AME",
             "company": "Ametek",
             "ai_score": 7.9,
@@ -366,37 +353,69 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 9,
-            "ticker": "EXLS",
-            "company": "EXL Service",
-            "ai_score": 7.8,
+            "rank": 6,
+            "ticker": "PAAS",
+            "company": "Pan American Silver Corp.",
+            "ai_score": 7.9,
+            "change": 0,
+            "sector": "Basic Materials",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "rank": 7,
+            "ticker": "UBER",
+            "company": "Uber",
+            "ai_score": 7.9,
             "change": 0,
             "sector": "Technology",
             "data_source": "main_pipeline"
           },
           {
-            "rank": 10,
+            "rank": 8,
             "ticker": "NVT",
             "company": "nVent Electric",
             "ai_score": 7.8,
             "change": 0,
             "sector": "Industrials",
             "data_source": "main_pipeline"
+          },
+          {
+            "rank": 9,
+            "ticker": "EXLS",
+            "company": "EXL Service",
+            "ai_score": 7.7,
+            "change": 0,
+            "sector": "Technology",
+            "data_source": "main_pipeline"
+          },
+          {
+            "rank": 10,
+            "ticker": "PATH",
+            "company": "UiPath",
+            "ai_score": 7.7,
+            "change": 0,
+            "sector": "Technology",
+            "data_source": "main_pipeline"
           }
         ],
-        "prior_top10_compared_against": "2026-08-05",
+        "prior_top10_compared_against": "2026-08-07",
         "new_top10_entries": [
           {
-            "ticker": "PAAS",
+            "ticker": "UBER",
             "rank": 7,
-            "ai_score": 8.0
+            "ai_score": 7.9
+          },
+          {
+            "ticker": "PATH",
+            "rank": 10,
+            "ai_score": 7.7
           }
         ],
         "supp_top": [
           {
             "ticker": "PAAS",
             "company": "Pan American Silver Corp.",
-            "ai_score": 8.0,
+            "ai_score": 7.9,
             "change": 0,
             "sector": "Basic Materials"
           },
@@ -415,18 +434,18 @@
             "sector": "Technology"
           },
           {
-            "ticker": "VIAV",
-            "company": "Viavi Solutions Inc.",
+            "ticker": "ZENA",
+            "company": "ZenaTech, Inc.",
             "ai_score": 7.2,
             "change": 0,
             "sector": "Technology"
           },
           {
-            "ticker": "XE",
-            "company": "X-Energy, Inc.",
-            "ai_score": 7.2,
+            "ticker": "FRSH",
+            "company": "Freshworks Inc.",
+            "ai_score": 7.0,
             "change": 0,
-            "sector": "Industrials"
+            "sector": "Technology"
           }
         ],
         "top_gainers": [],
@@ -459,7 +478,7 @@
         }
       ],
       "metrics": {
-        "generated_at": "2026-08-07 15:46 UTC",
+        "generated_at": "2026-08-10 15:13 UTC",
         "generals_fail": {
           "below_count": 2,
           "available_count": 7,
@@ -488,13 +507,13 @@
         {
           "name": "benchmark_findings",
           "status": "OK",
-          "message": "4 WARN finding(s) in benchmark review (advisory)"
+          "message": "6 WARN finding(s) in benchmark review (advisory)"
         }
       ],
       "metrics": {
         "snapshots_kept": 65,
         "any_horizon_completed": true,
-        "findings_warn": 4
+        "findings_warn": 6
       },
       "status": "OK"
     }
@@ -508,23 +527,25 @@
     "benchmark_present": true
   },
   "action_items": [
-    "[WARN] run_source.run_source: latest run: rescued morning slot (2026-08-07 17:25), history shows 3 missing slot(s)",
-    "[INFO] New top10 entries vs 2026-08-05: AVT, GMED, SCHW, CRBG",
-    "[INFO] Top MOV gainer ECG (change=20, rank=52)",
-    "[INFO] Top MOV loser HALO (change=-11, rank=36)",
-    "[INFO] New watchlist top10: PAAS"
+    "[WARN] run_source.run_source: latest run: rescued morning slot (2026-08-10 10:13), history shows 3 missing slot(s)",
+    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN",
+    "[INFO] New top10 entries vs 2026-08-07: MS, EXPD, PNFP, EME, RJF",
+    "[INFO] Top MOV gainer TWLO (change=640, rank=25)",
+    "[INFO] Top MOV loser PB (change=-72, rank=95)",
+    "[INFO] New watchlist top10: UBER, PATH",
+    "[INFO] Watchlist concentration: 5/10 top names in Technology"
   ],
   "strengths_risks": {
     "strengths": [
       "AMG (AI 8.6, rank 1, Financial Services)",
-      "GEN (AI 8.6, rank 2, Technology)",
-      "AVT (AI 8.6, rank 3, Technology)"
+      "AVT (AI 8.5, rank 2, Technology)",
+      "MS (AI 8.4, rank 3, Financial Services)"
     ],
     "risks": [
-      "HALO MOV -11 (rank 36, Healthcare)",
-      "MSI MOV -11 (rank 66, Technology)",
-      "BLK MOV -6 (rank 51, Financial Services)"
+      "PB MOV -72 (rank 95, Financial Services)",
+      "PR MOV -65 (rank 94, Energy)",
+      "WMS MOV -52 (rank 73, Industrials)"
     ]
   },
-  "summary": "Live 05:25 PM CT \u00b7 Source rescued \u00b7 DQ OK \u00b7 Top gainer ECG \u00b7 4 new top10 (AVT\u2026) \u00b7 Risk OK"
+  "summary": "Live 10:12 AM CT \u00b7 Source rescued \u00b7 DQ WARN \u00b7 Top gainer TWLO \u00b7 5 new top10 (MS\u2026) \u00b7 Risk OK"
 }
