@@ -797,9 +797,9 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.2,
+          "score": 0.2058,
           "weight": 0.1,
-          "detail": "0.4M vol",
+          "detail": "0.6M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -878,10 +878,6 @@
         }
       },
       "penalties": {
-        "weak_continuity": {
-          "mult": 0.85,
-          "detail": "CONT LOW (\u00d70.85)"
-        },
         "low_liquidity": {
           "mult": 0.85,
           "detail": "low liq 0.60M (\u00d70.85)"
@@ -1715,7 +1711,7 @@
         "continuity": {
           "score": 0.417,
           "weight": 0.16,
-          "detail": "CONT MID 42",
+          "detail": "CONT HIGH 81",
           "present": true
         },
         "accumulation": {
@@ -3569,9 +3565,9 @@
           "present": true
         },
         "sentiment_catalyst": {
-          "score": 0.9,
+          "score": 0.89,
           "weight": 0.06,
-          "detail": "SENT 9.0/10",
+          "detail": "SENT 8.9/10",
           "present": true
         }
       },
@@ -10013,9 +10009,9 @@
       "confidence": 0.74,
       "components": {
         "tech_trend": {
-          "score": 0.65,
+          "score": 0.74,
           "weight": 0.22,
-          "detail": "TECH 6.5/10",
+          "detail": "TECH 7.4/10",
           "present": true
         },
         "momentum_thrust": {
@@ -14198,7 +14194,7 @@
       "penalties": {
         "low_liquidity": {
           "mult": 0.85,
-          "detail": "low liq 0.30M (\u00d70.85)"
+          "detail": "low liq 0.20M (\u00d70.85)"
         }
       },
       "has_ohlcv": true
@@ -15750,7 +15746,7 @@
           "detail": "CONT LOW (\u00d70.85)"
         }
       },
-      "has_ohlcv": false
+      "has_ohlcv": true
     },
     {
       "ticker": "NEGG",
@@ -15784,7 +15780,75 @@
         "continuity": {
           "score": 0.812,
           "weight": 0.16,
-          "detail": "CONT HIGH 81",
+          "detail": "CONT HIGH 73",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.375,
+          "weight": 0.1,
+          "detail": "3.5M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.67,
+          "weight": 0.06,
+          "detail": "SENT 6.7/10",
+          "present": true
+        }
+      },
+      "penalties": {
+        "overextension": {
+          "mult": 0.9898,
+          "detail": "overext +9% vs 10DMA (\u00d70.99)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "MRVL",
+      "company": "Marvell Technology",
+      "sector": "Technology",
+      "rank": 114,
+      "ai_score": 5.2,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 5.6,
+      "swing_tier": "B",
+      "close": 218.72,
+      "days_to_earnings": 17,
+      "positive_score": 72.0,
+      "score": 67.7,
+      "label": "HIGH",
+      "confidence": 0.74,
+      "components": {
+        "tech_trend": {
+          "score": 0.66,
+          "weight": 0.22,
+          "detail": "TECH 6.6/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.5966,
+          "weight": 0.2,
+          "detail": "2d +3.6% (+0.4x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.78,
+          "weight": 0.16,
+          "detail": "CONT HIGH 78",
           "present": true
         },
         "accumulation": {
@@ -15806,10 +15870,10 @@
           "present": true
         },
         "sentiment_catalyst": {
-          "score": null,
+          "score": 0.89,
           "weight": 0.06,
-          "detail": "no sentiment/catalyst",
-          "present": false
+          "detail": "SENT 7.7/10 +catalyst",
+          "present": true
         }
       },
       "penalties": {
@@ -15822,7 +15886,7 @@
           "detail": "low liq 0.00M (\u00d70.85)"
         }
       },
-      "has_ohlcv": false
+      "has_ohlcv": true
     },
     {
       "ticker": "TRN",
@@ -16794,6 +16858,61 @@
     "CSCO": {
       "score": 47.2,
       "label": "MID",
+      "confidence": 0.68
+    },
+    "BMNR": {
+      "score": 67.9,
+      "label": "HIGH",
+      "confidence": 0.74
+    },
+    "DVN": {
+      "score": 48.7,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "APA": {
+      "score": 76.2,
+      "label": "HIGH",
+      "confidence": 0.74
+    },
+    "AZO": {
+      "score": 55.1,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "CRWV": {
+      "score": 39.7,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "GLW": {
+      "score": 64.4,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "LUNMF": {
+      "score": 50.6,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "MTSI": {
+      "score": 65.4,
+      "label": "HIGH",
+      "confidence": 0.74
+    },
+    "SCCO": {
+      "score": 20.4,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "SMCI": {
+      "score": 41.7,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "SNDK": {
+      "score": 35.4,
+      "label": "LOW",
       "confidence": 0.74
     },
     "PAAS": {
@@ -17424,6 +17543,26 @@
     "TRN": {
       "score": 14.1,
       "label": "LOW",
+      "confidence": 0.68
+    },
+    "NEGG": {
+      "score": 48.4,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "NVTS": {
+      "score": 67.0,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "PBR": {
+      "score": 29.6,
+      "label": "LOW",
+      "confidence": 0.68
+    },
+    "IREN": {
+      "score": 61.3,
+      "label": "MID",
       "confidence": 0.68
     },
     "BFRG": {
