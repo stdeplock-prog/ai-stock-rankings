@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-12T19:24:56Z",
-  "generated_at_chicago": "2026-08-12 02:24 PM CDT",
+  "generated_at": "2026-08-12T21:37:24Z",
+  "generated_at_chicago": "2026-08-12 04:37 PM CDT",
   "overall": "WARN",
   "sections": {
     "data_freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-08-12 02:24 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-08-12 04:37 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,12 +17,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-08-12 02:24 PM CDT",
+        "as_of": "2026-08-12 04:37 PM CDT",
         "open_date": "2026-08-12",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-08-12 14:24",
-        "rankings_age_hours": 0.02,
+        "chicago_now": "2026-08-12 16:37",
+        "rankings_age_hours": 0.01,
         "today_live": true
       },
       "status": "OK"
@@ -37,7 +37,7 @@
       ],
       "metrics": {
         "overall": "OK",
-        "generated_at": "2026-08-12T19:24:54Z",
+        "generated_at": "2026-08-12T21:37:22Z",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
@@ -62,8 +62,8 @@
         "today_missing": [],
         "today_satisfied": true,
         "last_run_event": "schedule",
-        "last_run_slot": "midday",
-        "last_run_ts_chicago": "2026-08-12 14:24",
+        "last_run_slot": "close",
+        "last_run_ts_chicago": "2026-08-12 16:37",
         "recovered": true,
         "overall_effective": "WARN"
       },
@@ -74,18 +74,18 @@
         {
           "name": "supp_coverage",
           "status": "OK",
-          "message": "SUPP 61/70 full fundamentals; price_only=9 tech_only=0"
+          "message": "SUPP 91/100 full fundamentals; price_only=9 tech_only=0"
         },
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=0 misses=70"
+          "message": "yfinance cache hits=70 misses=30"
         }
       ],
       "metrics": {
         "supp_summary": {
-          "total": 70,
-          "full_fundamentals": 61,
+          "total": 100,
+          "full_fundamentals": 91,
           "eodhd_enriched": 0,
           "metadata_only": 0,
           "price_only": 9,
@@ -93,16 +93,16 @@
           "unavailable": 0
         },
         "yfinance_info_cache": {
-          "cache_hit_fresh": 0,
-          "cache_miss": 70,
-          "network_call": 70,
+          "cache_hit_fresh": 70,
+          "cache_miss": 30,
+          "network_call": 30,
           "fallback_to_cache": 0,
           "rate_limit_or_empty": 0,
-          "network_success": 70
+          "network_success": 30
         },
         "unavailable_count": 0,
         "scored": 142,
-        "supp_degraded_pct": 0.129
+        "supp_degraded_pct": 0.09
       },
       "status": "OK"
     },
@@ -134,15 +134,13 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=FAIL; blocker fields=['ai_score', 'technical', 'low_risk']"
+          "message": "parity overall=FAIL; blocker fields=['low_risk']"
         }
       ],
       "metrics": {
         "overall": "FAIL",
         "cross_group_parity_status": "FAIL",
         "fail_fields": [
-          "ai_score",
-          "technical",
           "low_risk"
         ],
         "known_bias_fields": [],
@@ -161,7 +159,7 @@
   },
   "action_items": [
     "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 3 diagnostic slot gap(s) in lookback",
-    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical', 'low_risk']"
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['low_risk']"
   ],
-  "summary": "Fresh 02:24 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
+  "summary": "Fresh 04:37 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
 }
