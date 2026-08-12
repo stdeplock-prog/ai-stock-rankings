@@ -27,7 +27,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="summary"><strong>Summary:</strong> Overall WARN · snaps=65 · main top10 Δ +9/-9 · sector Financial Services 24% · bench lag=7 · adds=15 trims=12</div>
 
 <div class="section"><h2>Action Items</h2><ul class="action">
-<li>[WARN] data_quality.data_quality_overall: overall=WARN; rankings=WARN, tasks=OK</li>
 <li>[WARN] schedule.schedule_effective: schedule effective=WARN (raw=FAIL)</li>
 <li>[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 12/25 (48%)</li>
 <li>[WARN] benchmark_context.lagging_buckets: 7 bucket/horizon pairs with negative avg_mean_return</li>
@@ -62,7 +61,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </div>
 <div><h3>Candidate trims / reviews</h3>
 <table><thead><tr><th>Ticker</th><th>Reason</th></tr></thead><tbody>
-<tr><td><strong>AMG</strong></td><td>exited main top10 vs prior snapshot</td></tr>
 <tr><td><strong>ARW</strong></td><td>exited main top10 vs prior snapshot</td></tr>
 <tr><td><strong>BKNG</strong></td><td>exited main top10 vs prior snapshot</td></tr>
 <tr><td><strong>CPAY</strong></td><td>exited main top10 vs prior snapshot</td></tr>
@@ -225,13 +223,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-08-12 10:57 AM CDT (age 0.0h, weekend=False)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Data Quality<span class="WARN">WARN</span></h2>
+<div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;overall&quot;: &quot;WARN&quot;,
+  &quot;overall&quot;: &quot;OK&quot;,
   &quot;critical_section_fail&quot;: false
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>data_quality_overall</td><td class="WARN">WARN</td><td>overall=WARN; rankings=WARN, tasks=OK</td></tr>
+<tr><td>data_quality_overall</td><td class="OK">OK</td><td>overall=OK; rankings=OK, tasks=OK</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Schedule<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -694,7 +692,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
-      &quot;rank&quot;: 9,
+      &quot;rank&quot;: 4,
       &quot;ticker&quot;: &quot;PAAS&quot;,
       &quot;company&quot;: &quot;Pan American Silver Corp.&quot;,
       &quot;ai_score&quot;: 7.7,
@@ -733,7 +731,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
-      &quot;rank&quot;: 12,
+      &quot;rank&quot;: 7,
       &quot;ticker&quot;: &quot;DAL&quot;,
       &quot;company&quot;: &quot;Delta Air Lines&quot;,
       &quot;ai_score&quot;: 7.5,
@@ -1061,7 +1059,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;fundamental&quot;: 7.56,
       &quot;technical&quot;: 4.8,
       &quot;sentiment&quot;: null,
-      &quot;low_risk&quot;: 8.06,
+      &quot;low_risk&quot;: 7.26,
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
@@ -1225,7 +1223,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;ticker&quot;: &quot;SMTC&quot;,
       &quot;company&quot;: &quot;Semtech Corporation&quot;,
       &quot;ai_score&quot;: 6.0,
-      &quot;sector&quot;: &quot;Technology&quot;,
+      &quot;sector&quot;: &quot;Consumer Cyclical&quot;,
       &quot;change&quot;: 0,
       &quot;fundamental&quot;: 6.29,
       &quot;technical&quot;: 7.3,
@@ -1330,7 +1328,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
         }
       ],
       &quot;exited&quot;: [
-        &quot;AMG&quot;,
         &quot;ARW&quot;,
         &quot;BKNG&quot;,
         &quot;CPAY&quot;,
@@ -1341,6 +1338,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
         &quot;PNFP&quot;
       ],
       &quot;score_changes&quot;: [
+        {
+          &quot;ticker&quot;: &quot;AMG&quot;,
+          &quot;prior&quot;: 8.7,
+          &quot;current&quot;: 8.2,
+          &quot;delta&quot;: -0.5
+        },
         {
           &quot;ticker&quot;: &quot;RS&quot;,
           &quot;prior&quot;: 8.6,
@@ -1434,6 +1437,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
         }
       ],
       &quot;exited&quot;: [
+        &quot;AGX&quot;,
         &quot;AXTI&quot;,
         &quot;FIG&quot;,
         &quot;LUNMF&quot;
@@ -1701,7 +1705,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     {
       &quot;ticker&quot;: &quot;PAAS&quot;,
       &quot;group&quot;: &quot;watchlist_top10&quot;,
-      &quot;rank&quot;: 9,
+      &quot;rank&quot;: 4,
       &quot;reasons&quot;: [
         &quot;missing SENT&quot;,
         &quot;missing SWING&quot;

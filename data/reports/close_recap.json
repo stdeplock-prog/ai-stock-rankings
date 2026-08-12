@@ -55,20 +55,20 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "WARN",
-          "message": "overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK"
+          "status": "OK",
+          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
-        "overall": "WARN",
+        "overall": "OK",
         "by_section": {
-          "rankings": "WARN",
+          "rankings": "OK",
           "watchlist": "OK",
           "tasks": "OK"
         },
         "critical_section_fail": false
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "rankings_recap": {
       "checks": [
@@ -418,7 +418,40 @@
           {
             "ticker": "VIAV",
             "rank": 10,
-            "ai_score": 7.7
+            "ticker": "EQIX",
+            "company": "Equinix",
+            "ai_score": 7.3,
+            "change": 0,
+            "sector": "Real Estate",
+            "data_source": "main_pipeline"
+          }
+        ],
+        "prior_top10_compared_against": "2026-08-11",
+        "new_top10_entries": [
+          {
+            "ticker": "VIAV",
+            "rank": 6,
+            "ai_score": 7.6
+          },
+          {
+            "ticker": "DAL",
+            "rank": 7,
+            "ai_score": 7.5
+          },
+          {
+            "ticker": "EXLS",
+            "rank": 8,
+            "ai_score": 7.5
+          },
+          {
+            "ticker": "AVGO",
+            "rank": 9,
+            "ai_score": 7.3
+          },
+          {
+            "ticker": "EQIX",
+            "rank": 10,
+            "ai_score": 7.3
           }
         ],
         "top_gainers": [],
@@ -494,7 +527,7 @@
           {
             "ticker": "PAAS",
             "group": "watchlist_top10",
-            "rank": 9,
+            "rank": 4,
             "reasons": [
               "missing SENT",
               "missing SWING"
@@ -571,13 +604,13 @@
         {
           "name": "scoring_parity",
           "status": "OK",
-          "message": "parity overall=WARN (advisory)"
+          "message": "parity overall=FAIL (advisory)"
         }
       ],
       "metrics": {
-        "overall": "WARN",
+        "overall": "FAIL",
         "low_risk_bias_known": true,
-        "cross_group_parity_status": "WARN"
+        "cross_group_parity_status": "FAIL"
       },
       "status": "OK"
     }

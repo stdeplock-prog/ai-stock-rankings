@@ -31,21 +31,21 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "WARN",
-          "message": "overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK"
+          "status": "OK",
+          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
         "overall": "WARN",
         "generated_at": "2026-08-12T15:58:06Z",
         "by_section": {
-          "rankings": "WARN",
+          "rankings": "OK",
           "watchlist": "OK",
           "tasks": "OK"
         },
         "critical_section_fail": false
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "schedule_reliability": {
       "checks": [
@@ -134,13 +134,16 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=WARN; low_risk drift explained by selection bias (['low_risk'])"
+          "message": "parity overall=FAIL; blocker fields=['ai_score', 'technical']"
         }
       ],
       "metrics": {
-        "overall": "WARN",
-        "cross_group_parity_status": "WARN",
-        "fail_fields": [],
+        "overall": "FAIL",
+        "cross_group_parity_status": "FAIL",
+        "fail_fields": [
+          "ai_score",
+          "technical"
+        ],
         "known_bias_fields": [
           "low_risk"
         ],
@@ -158,9 +161,8 @@
     "parity_present": true
   },
   "action_items": [
-    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK",
     "[WARN] schedule_reliability.schedule_reliability: schedule reliability FAIL/recovered: live data fresh, 3 diagnostic slot gap(s) in lookback",
-    "[WARN] parity.scoring_parity: parity overall=WARN; low_risk drift explained by selection bias (['low_risk'])"
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['ai_score', 'technical']"
   ],
   "summary": "Fresh 10:57 AM CT \u00b7 Data quality WARN \u00b7 Watchlist OK \u00b7 Schedule FAIL/recovered \u00b7 Benchmark active"
 }

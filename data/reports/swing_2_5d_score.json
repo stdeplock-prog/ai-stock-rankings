@@ -799,6 +799,10 @@
         }
       },
       "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
         "low_liquidity": {
           "mult": 0.85,
           "detail": "low liq 0.80M (\u00d70.85)"
@@ -863,6 +867,69 @@
           "score": 0.81,
           "weight": 0.06,
           "detail": "SENT 8.1/10",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "OVV",
+      "company": "Ovintiv",
+      "sector": "Energy",
+      "rank": 6,
+      "ai_score": 8.3,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 7.0,
+      "swing_tier": "A",
+      "close": 63.45,
+      "days_to_earnings": 84,
+      "positive_score": 70.7,
+      "score": 70.7,
+      "label": "HIGH",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.84,
+          "weight": 0.22,
+          "detail": "TECH 8.4/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 1.0,
+          "weight": 0.2,
+          "detail": "2d +6.9% (+2.6x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.527,
+          "weight": 0.16,
+          "detail": "CONT MID 53",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.523,
+          "weight": 0.14,
+          "detail": "ACC meter 5.2/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.3575,
+          "weight": 0.1,
+          "detail": "3.2M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.73,
+          "weight": 0.06,
+          "detail": "SENT 7.3/10",
           "present": true
         }
       },
@@ -2445,7 +2512,11 @@
         },
         "low_liquidity": {
           "mult": 0.85,
-          "detail": "low liq 0.30M (\u00d70.85)"
+          "detail": "CONT LOW (\u00d70.85)"
+        },
+        "earnings": {
+          "mult": 0.7,
+          "detail": "earnings in 0d (\u00d70.70)"
         }
       },
       "has_ohlcv": true
@@ -2521,7 +2592,7 @@
       "ai_score": 8.0,
       "go_label": null,
       "acc_label": null,
-      "swing_score": 6.4,
+      "swing_score": 6.1,
       "swing_tier": "B",
       "close": 215.07,
       "days_to_earnings": 62,
@@ -5931,7 +6002,7 @@
         "continuity": {
           "score": 0.784,
           "weight": 0.16,
-          "detail": "CONT HIGH 78",
+          "detail": "CONT HIGH 70",
           "present": true
         },
         "accumulation": {
@@ -7377,7 +7448,7 @@
         "activity_liq": {
           "score": 0.2817,
           "weight": 0.1,
-          "detail": "1.9M vol",
+          "detail": "3.9M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -7643,9 +7714,9 @@
           "present": true
         },
         "sentiment_catalyst": {
-          "score": 0.94,
+          "score": 0.74,
           "weight": 0.06,
-          "detail": "SENT 8.2/10 +catalyst",
+          "detail": "SENT 6.2/10 +catalyst",
           "present": true
         }
       },
@@ -7700,9 +7771,9 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.2,
+          "score": 0.2292,
           "weight": 0.1,
-          "detail": "0.2M vol",
+          "detail": "1.0M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -9007,7 +9078,7 @@
         "continuity": {
           "score": 0.752,
           "weight": 0.16,
-          "detail": "CONT HIGH 75",
+          "detail": "CONT HIGH 91",
           "present": true
         },
         "accumulation": {
@@ -11046,12 +11117,12 @@
         }
       },
       "penalties": {
-        "low_liquidity": {
+        "weak_continuity": {
           "mult": 0.85,
           "detail": "low liq 0.30M (\u00d70.85)"
         }
       },
-      "has_ohlcv": false
+      "has_ohlcv": true
     },
     {
       "ticker": "MP",
@@ -11837,7 +11908,7 @@
         }
       },
       "penalties": {},
-      "has_ohlcv": true
+      "has_ohlcv": false
     },
     {
       "ticker": "SMTC",
@@ -11931,7 +12002,7 @@
         "tech_trend": {
           "score": 0.64,
           "weight": 0.22,
-          "detail": "TECH 6.4/10",
+          "detail": "TECH 7.5/10",
           "present": true
         },
         "momentum_thrust": {
@@ -12011,7 +12082,7 @@
         "continuity": {
           "score": 0.713,
           "weight": 0.16,
-          "detail": "CONT HIGH 71",
+          "detail": "CONT HIGH 89",
           "present": true
         },
         "accumulation": {
@@ -12040,6 +12111,10 @@
         }
       },
       "penalties": {
+        "overextension": {
+          "mult": 0.9706,
+          "detail": "overext +10% vs 10DMA (\u00d70.97)"
+        },
         "low_liquidity": {
           "mult": 0.85,
           "detail": "low liq 0.80M (\u00d70.85)"
@@ -12295,7 +12370,7 @@
           "present": true
         },
         "sentiment_catalyst": {
-          "score": null,
+          "score": 0.6,
           "weight": 0.06,
           "detail": "no sentiment/catalyst",
           "present": false
@@ -12383,7 +12458,7 @@
           "detail": "low liq 0.20M (\u00d70.85)"
         }
       },
-      "has_ohlcv": false
+      "has_ohlcv": true
     },
     {
       "ticker": "PI",
@@ -13027,10 +13102,10 @@
           "present": true
         },
         "accumulation": {
-          "score": null,
+          "score": 0.252,
           "weight": 0.14,
-          "detail": "no accumulation signal",
-          "present": false
+          "detail": "ACC meter 2.5/10",
+          "present": true
         },
         "go_gate": {
           "score": null,
@@ -13041,23 +13116,23 @@
         "activity_liq": {
           "score": 0.2,
           "weight": 0.1,
-          "detail": "0.1M vol",
+          "detail": "0.4M vol",
           "present": true
         },
         "sentiment_catalyst": {
-          "score": null,
+          "score": 0.94,
           "weight": 0.06,
-          "detail": "no sentiment/catalyst",
-          "present": false
+          "detail": "SENT 8.2/10 +catalyst",
+          "present": true
         }
       },
       "penalties": {
         "low_liquidity": {
           "mult": 0.85,
-          "detail": "low liq 0.10M (\u00d70.85)"
+          "detail": "low liq 0.40M (\u00d70.85)"
         }
       },
-      "has_ohlcv": false
+      "has_ohlcv": true
     },
     {
       "ticker": "RDDT",
@@ -15970,9 +16045,9 @@
           "present": true
         },
         "continuity": {
-          "score": 0.024,
+          "score": 0.141,
           "weight": 0.16,
-          "detail": "CONT LOW 2",
+          "detail": "CONT LOW 14",
           "present": true
         },
         "accumulation": {
@@ -15990,7 +16065,7 @@
         "activity_liq": {
           "score": 0.2,
           "weight": 0.1,
-          "detail": "0.4M vol",
+          "detail": "0.0M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -16007,7 +16082,7 @@
         },
         "low_liquidity": {
           "mult": 0.85,
-          "detail": "low liq 0.40M (\u00d70.85)"
+          "detail": "low liq 0.00M (\u00d70.85)"
         }
       },
       "has_ohlcv": false
@@ -16098,9 +16173,9 @@
       "confidence": 0.68,
       "components": {
         "tech_trend": {
-          "score": 0.48,
+          "score": 0.3,
           "weight": 0.22,
-          "detail": "TECH 4.8/10",
+          "detail": "TECH 3.0/10",
           "present": true
         },
         "momentum_thrust": {
@@ -16593,7 +16668,7 @@
     "BALL": {
       "score": 40.3,
       "label": "LOW",
-      "confidence": 0.74
+      "confidence": 0.88
     },
     "COP": {
       "score": 82.2,
@@ -17313,7 +17388,7 @@
     "NEXT": {
       "score": 37.5,
       "label": "LOW",
-      "confidence": 0.68
+      "confidence": 0.74
     },
     "ALAB": {
       "score": 46.4,
@@ -17417,6 +17492,36 @@
     },
     "NEGG": {
       "score": 50.9,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "APLD": {
+      "score": 33.7,
+      "label": "LOW",
+      "confidence": 0.88
+    },
+    "IREN": {
+      "score": 72.5,
+      "label": "HIGH",
+      "confidence": 0.68
+    },
+    "SLS": {
+      "score": 60.7,
+      "label": "MID",
+      "confidence": 0.68
+    },
+    "ALAB": {
+      "score": 38.7,
+      "label": "LOW",
+      "confidence": 0.74
+    },
+    "CRDO": {
+      "score": 49.3,
+      "label": "MID",
+      "confidence": 0.74
+    },
+    "NVTS": {
+      "score": 63.1,
       "label": "MID",
       "confidence": 0.68
     },

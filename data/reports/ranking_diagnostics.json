@@ -215,8 +215,9 @@
         "market_cap": "13.0B",
         "ai_score_basis": null,
         "primary_drivers": [
-          "SENT",
           "FUND",
+          "LOW_RISK",
+          "SENT",
           "TECH"
         ],
         "weak_spots": []
@@ -238,8 +239,28 @@
         "ai_score_basis": null,
         "primary_drivers": [
           "FUND",
-          "TECH",
-          "SENT"
+          "LOW_RISK"
+        ],
+        "weak_spots": []
+      },
+      {
+        "rank": 10,
+        "ticker": "JPM",
+        "company": "JPMorgan Chase",
+        "sector": "Financial Services",
+        "industry": "Banks - Diversified",
+        "ai_score": 8.2,
+        "fundamental": 9.1,
+        "technical": 6.8,
+        "sentiment": 7.9,
+        "low_risk": 8.3,
+        "swing_score": 6.2,
+        "mov_pct": 0.0503,
+        "market_cap": "970.2B",
+        "ai_score_basis": null,
+        "primary_drivers": [
+          "FUND",
+          "LOW_RISK"
         ],
         "weak_spots": []
       }
@@ -351,8 +372,7 @@
         "primary_drivers": [
           "SENT",
           "TECH",
-          "FUND",
-          "SWING"
+          "FUND"
         ],
         "weak_spots": []
       },
@@ -528,7 +548,9 @@
         "ai_score_basis": null,
         "primary_drivers": [
           "FUND",
-          "LOW_RISK"
+          "LOW_RISK",
+          "SENT",
+          "TECH"
         ],
         "weak_spots": []
       },
@@ -570,6 +592,7 @@
         "market_cap": "49.7B",
         "ai_score_basis": null,
         "primary_drivers": [
+          "TECH",
           "SENT",
           "FUND"
         ],
@@ -1626,7 +1649,7 @@
     },
     {
       "group": "watchlist_top10",
-      "rank": 9,
+      "rank": 4,
       "ticker": "PAAS",
       "company": "Pan American Silver Corp.",
       "ai_score": 7.7,
@@ -1644,6 +1667,27 @@
       "reasons": [
         "missing SENT",
         "missing SWING"
+      ]
+    },
+    {
+      "group": "watchlist_top10",
+      "rank": 6,
+      "ticker": "VIAV",
+      "company": "Viavi Solutions Inc.",
+      "ai_score": 7.6,
+      "reasons": [
+        "missing SENT",
+        "missing SWING"
+      ]
+    },
+    {
+      "group": "watchlist_top10",
+      "rank": 8,
+      "ticker": "EXLS",
+      "company": "EXL Service",
+      "ai_score": 7.5,
+      "reasons": [
+        "negative MOV (-3.0%)"
       ]
     }
   ],
@@ -1894,8 +1938,8 @@
             "current_rank": 7,
             "alt_rank": 46,
             "alt_score": 7.85,
-            "ai_score": 8.4,
-            "delta": -39
+            "ai_score": 8.0,
+            "delta": -11
           },
           {
             "ticker": "PR",
@@ -2636,6 +2680,65 @@
             "delta": -17
           }
         ],
+        "new_entrants_top_n": [
+          {
+            "ticker": "UBER",
+            "company": "Uber",
+            "alt_rank": 14,
+            "current_rank": 31,
+            "alt_score": 7.1,
+            "ai_score": 6.8
+          },
+          {
+            "ticker": "GLW",
+            "company": "Corning Inc.",
+            "alt_rank": 15,
+            "current_rank": 32,
+            "alt_score": 7.05,
+            "ai_score": 6.7
+          },
+          {
+            "ticker": "CIEN",
+            "company": "Ciena",
+            "alt_rank": 18,
+            "current_rank": 26,
+            "alt_score": 6.9,
+            "ai_score": 6.8
+          },
+          {
+            "ticker": "CRWV",
+            "company": "CoreWeave",
+            "alt_rank": 19,
+            "current_rank": 45,
+            "alt_score": 6.9,
+            "ai_score": 6.4
+          },
+          {
+            "ticker": "NFLX",
+            "company": "Netflix",
+            "alt_rank": 20,
+            "current_rank": 36,
+            "alt_score": 6.8,
+            "ai_score": 6.6
+          },
+          {
+            "ticker": "FLEX",
+            "company": "Flex Ltd.",
+            "alt_rank": 23,
+            "current_rank": 28,
+            "alt_score": 6.575,
+            "ai_score": 6.8
+          },
+          {
+            "ticker": "NVT",
+            "company": "nVent Electric",
+            "alt_rank": 24,
+            "current_rank": 43,
+            "alt_score": 6.55,
+            "ai_score": 6.5
+          }
+        ],
+        "exits_top_n": [],
         "rows_with_alt_score": 72,
         "rows_total": 142
       },
@@ -2754,6 +2857,7 @@
           {
             "ticker": "BWA",
             "company": "BorgWarner",
+            "current_rank": 20,
             "alt_rank": 6,
             "current_rank": 28,
             "alt_score": 7.84,
@@ -3132,9 +3236,9 @@
     "caveat": "Forward-performance snapshots are still accumulating; small sample sizes mean these averages are directional context, not statistically meaningful evidence. Do not adjust scoring weights on this alone."
   },
   "upstream": {
-    "data_quality_audit_overall": "WARN",
-    "scoring_parity_overall": "WARN",
-    "low_risk_drift_verdict": "selection_bias"
+    "data_quality_audit_overall": "OK",
+    "scoring_parity_overall": "FAIL",
+    "low_risk_drift_verdict": "mixed"
   },
   "recommendations": [
     "Manually review the 3 suspicious top-ranked names (sample: EXPD(main_top10), PAAS(watchlist_top10), VIAV(watchlist_top10)). Each was flagged for missing/weak components, negative recent MOV, or technical-only basis.",

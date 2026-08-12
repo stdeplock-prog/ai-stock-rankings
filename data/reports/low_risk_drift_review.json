@@ -8,10 +8,11 @@
     "watchlist_as_of": "2026-08-12 10:58 AM CDT"
   },
   "verdict": {
-    "verdict": "selection_bias",
+    "verdict": "mixed",
     "confidence": "medium",
     "delta_mean_low_risk_wl_minus_main": -1.9515,
     "flags": [
+      "data_gap",
       "selection_bias"
     ],
     "formula_flag": {
@@ -20,9 +21,22 @@
       "evidence": []
     },
     "data_gap_flag": {
-      "triggered": false,
+      "triggered": true,
       "main_rankings_evidence": [],
-      "watchlist_main_evidence": []
+      "watchlist_main_evidence": [
+        {
+          "field": "atr_pct",
+          "pct_null": 0.5139,
+          "present": 35,
+          "null": 37
+        },
+        {
+          "field": "swing_score",
+          "pct_null": 0.5139,
+          "present": 35,
+          "null": 37
+        }
+      ]
     },
     "selection_bias_flag": {
       "triggered": true,
@@ -61,9 +75,9 @@
         "mean": 0.0315,
         "median": 0.03,
         "min": 0.01,
-        "max": 0.08,
-        "p25": 0.03,
-        "p75": 0.04
+        "max": 0.07,
+        "p25": 0.02,
+        "p75": 0.03
       },
       "market_cap_dollars": {
         "n": 95,
@@ -93,9 +107,9 @@
           "pct_null": 0.0
         },
         "market_cap": {
-          "present": 95,
-          "null": 5,
-          "pct_null": 0.05
+          "present": 100,
+          "null": 0,
+          "pct_null": 0.0
         }
       },
       "vol_bucket": {
@@ -233,7 +247,7 @@
             "ticker": "FITB",
             "company": "Fifth Third Bancorp",
             "sector": "Financial Services",
-            "low_risk": 9.4,
+            "low_risk": 9.6,
             "atr_pct": 0.02,
             "vol_bucket": "Med",
             "market_cap": "52.2B",
@@ -241,8 +255,8 @@
             "data_source": null
           },
           {
-            "ticker": "EWBC",
-            "company": "East West Bancorp",
+            "ticker": "FITB",
+            "company": "Fifth Third Bancorp",
             "sector": "Financial Services",
             "low_risk": 9.3,
             "atr_pct": 0.02,
@@ -304,7 +318,7 @@
             "low_risk": 5.0,
             "atr_pct": 0.03,
             "vol_bucket": "Med",
-            "market_cap": "11.6B",
+            "market_cap": "11.5B",
             "source": null,
             "data_source": null
           },
@@ -704,7 +718,7 @@
         "median": 0.03,
         "min": 0.02,
         "max": 0.04,
-        "p25": 0.03,
+        "p25": 0.0225,
         "p75": 0.03
       },
       "market_cap_dollars": {
@@ -771,7 +785,7 @@
           "Consumer Cyclical": 0.1
         },
         "total": 10,
-        "speculative_share": 0.4
+        "speculative_share": 0.3
       },
       "extremes": {
         "highest": [
@@ -932,8 +946,8 @@
             "data_source": null
           },
           {
-            "ticker": "NTRS",
-            "company": "Northern Trust",
+            "ticker": "JPM",
+            "company": "JPMorgan Chase",
             "sector": "Financial Services",
             "low_risk": 8.1,
             "atr_pct": 0.02,
@@ -1316,7 +1330,7 @@
             "low_risk": 2.2,
             "atr_pct": 0.11,
             "vol_bucket": "High",
-            "market_cap": "",
+            "market_cap": "158.4B",
             "source": "tradingview",
             "data_source": "main_pipeline"
           }
@@ -1591,14 +1605,36 @@
             "data_source": "supplemental_yfinance"
           },
           {
-            "ticker": "NEGG",
-            "company": "Newegg Commerce, Inc.",
-            "sector": "Consumer Cyclical",
+            "ticker": "PGY",
+            "company": "Pagaya Technologies Ltd.",
+            "sector": "Technology",
             "low_risk": 0.0,
             "atr_pct": null,
             "vol_bucket": null,
-            "market_cap": "396.9M",
+            "market_cap": "1.81B",
             "source": "csv",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "ticker": "BBAI",
+            "company": "BigBear.ai, Inc.",
+            "sector": "Technology",
+            "low_risk": 0.0,
+            "atr_pct": null,
+            "vol_bucket": null,
+            "market_cap": "1.57B",
+            "source": "both",
+            "data_source": "supplemental_yfinance"
+          },
+          {
+            "ticker": "IREN",
+            "company": "IREN LIMITED",
+            "sector": "Financial Services",
+            "low_risk": 0.0,
+            "atr_pct": null,
+            "vol_bucket": null,
+            "market_cap": "14.3B",
+            "source": "tradingview",
             "data_source": "supplemental_yfinance"
           },
           {
@@ -1759,12 +1795,14 @@
         },
         "vol_bucket": {
           "counts": {
-            "High": 12,
-            "Med": 3
+            "High": 8,
+            "Med": 2,
+            "Unknown": 5
           },
           "share": {
-            "High": 0.8,
-            "Med": 0.2
+            "High": 0.5333,
+            "Med": 0.1333,
+            "Unknown": 0.3333
           },
           "total": 15
         },
@@ -1868,14 +1906,14 @@
           "counts": {
             "Technology": 7,
             "ETF": 1,
-            "Crypto": 1,
-            "Basic Materials": 1
+            "Basic Materials": 1,
+            "Crypto": 1
           },
           "share": {
             "Technology": 0.7,
             "ETF": 0.1,
-            "Crypto": 0.1,
-            "Basic Materials": 0.1
+            "Basic Materials": 0.1,
+            "Crypto": 0.1
           },
           "total": 10,
           "speculative_share": 0.7
@@ -1934,24 +1972,22 @@
     }
   },
   "overlap_main_vs_watchlist": {
-    "shared_count": 9,
-    "only_in_watchlist_main": 63,
-    "only_in_main_rankings": 91,
+    "shared_count": 4,
+    "only_in_watchlist_main": 68,
+    "only_in_main_rankings": 96,
     "differing_count": 0,
     "max_abs_delta": 0.0,
     "mean_abs_delta": 0.0,
     "top_diffs": []
   },
   "parity_context": {
-    "parity_overall": "WARN",
+    "parity_overall": "FAIL",
     "low_risk_status": "WARN",
     "low_risk_message": "mean delta watchlist_main - main = -1.95 (main=7.489, wlm=5.5375) \u2014 explained by selection bias (drift verdict: selection_bias, confidence: medium); same-ticker max |\u0394| = 0.0 on 9 shared tickers",
     "low_risk_delta": -1.9515
   },
   "recommendations": [
-    "Leave the low_risk formula unchanged. The watchlist universe is materially more speculative / higher-volatility than the main universe, so a lower mean low_risk is expected and faithful to the inputs.",
-    "Consider demoting low_risk drift in cross-group parity from FAIL to a known selection-bias finding so it stops drowning out real parity blockers in the Midday Health Check.",
-    "Treat low_risk as explanatory in the watchlist context, not punitive \u2014 surface it next to the score rather than as a tag that demotes a row.",
+    "Mixed signal: more than one root cause is plausible (data_gap, selection_bias). Resolve any data_gap and formula_issue evidence before treating the rest as selection bias.",
     "A future improvement (not in scope here) is to normalize low_risk by sector or market cap before cross-group comparison so the universe-mix effect is removed."
   ]
 }

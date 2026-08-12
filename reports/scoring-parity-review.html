@@ -7,7 +7,7 @@ h1{margin:0 0 4px} h2{margin:18px 0 8px;font-size:18px}
 h3{margin:14px 0 6px;font-size:15px}
 .meta{color:#666;font-size:13px;margin-bottom:14px}
 .badge{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:#c0392b}
 .section{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}
 table{border-collapse:collapse;width:100%;font-size:13px;margin-top:6px}
 th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-align:top}
@@ -61,7 +61,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td>low_risk</td><td class="OK">OK</td><td>100/100 present (100%)</td></tr>
 <tr><td>swing_score</td><td class="OK">OK</td><td>100/100 present (100%)</td></tr>
 </tbody></table>
-<h3>watchlist_main_pipeline <span class="OK">OK</span></h3>
+<h3>watchlist_main_pipeline <span class="FAIL">FAIL</span></h3>
 <table><thead><tr><th>Score</th><th>Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>ai_score</td><td class="OK">OK</td><td>72/72 present (100%)</td></tr>
 <tr><td>fundamental</td><td class="OK">OK</td><td>72/72 present (100%)</td></tr>
@@ -80,7 +80,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td>swing_score</td><td class="WARN">WARN</td><td>0/70 present (0%) — partial-by-design until EODHD enrichment lands</td></tr>
 </tbody></table>
 </div>
-<div class="section"><h2>Cross-group parity (main_rankings vs watchlist_main_pipeline) <span class="WARN">WARN</span></h2>
+<div class="section"><h2>Cross-group parity (main_rankings vs watchlist_main_pipeline) <span class="FAIL">FAIL</span></h2>
 <p style="background:#fff8e1;border:1px solid #f0d27a;padding:8px 10px;border-radius:6px;margin:0 0 8px;font-size:13px"><strong>Known selection bias on low_risk:</strong> low_risk drift explained by selection bias (watchlist universe is more speculative / higher-volatility). Same-ticker max |Δ| = 0.0 across 9 shared tickers (no formula divergence). low_risk row demoted from FAIL to WARN; raw drift preserved below.</p>
 <table><thead><tr><th>Score</th><th>Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>ai_score</td><td><span class="WARN">WARN</span></td><td>mean delta watchlist_main - main = -1.42 (main=7.914, wlm=6.4944)</td></tr>
@@ -264,5 +264,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <li>EODHD fundamentals on SUPP rows is 0 — confirm `EODHD_API_KEY` secret is populated in CI before treating SUPP fundamentals as live.</li>
 <li>Investigate score drift between main_rankings and watchlist_main_pipeline on `ai_score` (mean delta -1.42). Same scoring engine should produce near-identical means; gap suggests universe mix or weight drift.</li>
 <li>low_risk drift between main_rankings and watchlist_main_pipeline is a known selection-bias finding (watchlist universe is more speculative / higher-volatility). Surfaced as WARN, not FAIL — no action required on the scoring formula.</li>
+<li>Main/watchlist-main coverage has FAIL components — fix before tuning weights; partial coverage skews any optimization.</li>
 </ol></div>
 </body></html>

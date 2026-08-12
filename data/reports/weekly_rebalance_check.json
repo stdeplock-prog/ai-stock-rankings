@@ -25,15 +25,15 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "WARN",
-          "message": "overall=WARN; rankings=WARN, tasks=OK"
+          "status": "OK",
+          "message": "overall=OK; rankings=OK, tasks=OK"
         }
       ],
       "metrics": {
-        "overall": "WARN",
+        "overall": "OK",
         "critical_section_fail": false
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "schedule": {
       "checks": [
@@ -509,7 +509,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 9,
+            "rank": 4,
             "ticker": "PAAS",
             "company": "Pan American Silver Corp.",
             "ai_score": 7.7,
@@ -548,7 +548,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 12,
+            "rank": 7,
             "ticker": "DAL",
             "company": "Delta Air Lines",
             "ai_score": 7.5,
@@ -876,7 +876,7 @@
             "fundamental": 7.56,
             "technical": 4.8,
             "sentiment": null,
-            "low_risk": 8.06,
+            "low_risk": 7.26,
             "data_source": "supplemental_yfinance"
           },
           {
@@ -1040,7 +1040,7 @@
             "ticker": "SMTC",
             "company": "Semtech Corporation",
             "ai_score": 6.0,
-            "sector": "Technology",
+            "sector": "Consumer Cyclical",
             "change": 0,
             "fundamental": 6.29,
             "technical": 7.3,
@@ -1151,7 +1151,6 @@
               }
             ],
             "exited": [
-              "AMG",
               "ARW",
               "BKNG",
               "CPAY",
@@ -1162,6 +1161,12 @@
               "PNFP"
             ],
             "score_changes": [
+              {
+                "ticker": "AMG",
+                "prior": 8.7,
+                "current": 8.2,
+                "delta": -0.5
+              },
               {
                 "ticker": "RS",
                 "prior": 8.6,
@@ -1255,6 +1260,7 @@
               }
             ],
             "exited": [
+              "AGX",
               "AXTI",
               "FIG",
               "LUNMF"
@@ -1534,7 +1540,7 @@
           {
             "ticker": "PAAS",
             "group": "watchlist_top10",
-            "rank": 9,
+            "rank": 4,
             "reasons": [
               "missing SENT",
               "missing SWING"
@@ -1589,7 +1595,7 @@
       {
         "ticker": "NTRS",
         "reason": "new entrant \u2014 main top10",
-        "ai_score": 8.4,
+        "ai_score": 8.3,
         "sector": "Financial Services"
       },
       {
@@ -1599,9 +1605,21 @@
         "sector": "Energy"
       },
       {
-        "ticker": "FIVE",
+        "ticker": "OVV",
         "reason": "new entrant \u2014 main top10",
-        "ai_score": 8.4,
+        "ai_score": 8.3,
+        "sector": "Energy"
+      },
+      {
+        "ticker": "EME",
+        "reason": "new entrant \u2014 main top10",
+        "ai_score": 8.2,
+        "sector": "Industrials"
+      },
+      {
+        "ticker": "ROST",
+        "reason": "new entrant \u2014 main top10",
+        "ai_score": 8.2,
         "sector": "Consumer Cyclical"
       },
       {
@@ -1645,15 +1663,33 @@
         "reason": "watchlist top25 with AI 7.9 TECH 8.3",
         "ai_score": 7.9,
         "sector": "Industrials"
+      },
+      {
+        "ticker": "AVGO",
+        "reason": "new entrant \u2014 watchlist top10",
+        "ai_score": 7.3,
+        "sector": "Technology"
+      },
+      {
+        "ticker": "EQIX",
+        "reason": "new entrant \u2014 watchlist top10",
+        "ai_score": 7.3,
+        "sector": "Real Estate"
+      },
+      {
+        "ticker": "AME",
+        "reason": "watchlist top25 with AI 7.8 TECH 8.2",
+        "ai_score": 7.8,
+        "sector": "Industrials"
       }
     ],
     "candidate_trims": [
       {
-        "ticker": "AMG",
+        "ticker": "ARW",
         "reason": "exited main top10 vs prior snapshot"
       },
       {
-        "ticker": "ARW",
+        "ticker": "BKNG",
         "reason": "exited main top10 vs prior snapshot"
       },
       {
@@ -1710,7 +1746,6 @@
     "snapshot_count": 65
   },
   "action_items": [
-    "[WARN] data_quality.data_quality_overall: overall=WARN; rankings=WARN, tasks=OK",
     "[WARN] schedule.schedule_effective: schedule effective=WARN (raw=FAIL)",
     "[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 12/25 (48%)",
     "[WARN] benchmark_context.lagging_buckets: 7 bucket/horizon pairs with negative avg_mean_return",
