@@ -51,7 +51,7 @@ th{background:#f7f7f7}
 </tbody></table>
 <p class="muted">Each row pairs one external 1..5 score against the listed primary internal score: tradingview→technical, fidelity/etrade→ai_score, zacks→ai_score, marketbeat→sentiment. gap = external − internal (1..5 scale).</p>
 </div>
-<div class="section"><h2>Disagreement queue (15 tickers)</h2>
+<div class="section"><h2>Disagreement queue (14 tickers)</h2>
 <table><thead><tr><th>Ticker</th><th>Sector</th><th>AI</th><th>Severity</th><th>Headline source</th><th>Gap</th><th>Sources</th><th>Reason</th></tr></thead><tbody>
 <tr><td><strong>LYV</strong></td><td>Communication Services</td><td>7.60</td><td class="severity-severe">severe</td><td>fidelity</td><td>-3.65</td><td><span class=tag>fidelity</span> <span class=tag>zacks</span></td><td>fidelity bearish (=0.15) vs internal ai_score bullish (=3.8); gap -3.65</td></tr>
 <tr><td><strong>MDB</strong></td><td>Technology</td><td>7.30</td><td class="severity-severe">severe</td><td>fidelity</td><td>-3.50</td><td><span class=tag>fidelity</span> <span class=tag>zacks</span></td><td>fidelity bearish (=0.15) vs internal ai_score bullish (=3.65); gap -3.50</td></tr>
@@ -82,11 +82,11 @@ th{background:#f7f7f7}
 </div>
 <div class="section"><h2>Coverage</h2>
 <table><thead><tr><th>Source</th><th>As of</th><th>Seed</th><th>Covered</th><th>Compared</th><th>Covered but not in internal</th></tr></thead><tbody>
-<tr><td><strong>etrade</strong></td><td>2026-05-07</td><td>30</td><td>28</td><td>18</td><td class="muted">CACC, DVA, ECG, EWBC, FAF, FSLR, GS, HST, LLYVA, MLI</td></tr>
-<tr><td><strong>fidelity</strong></td><td>2026-05-07</td><td>30</td><td>26</td><td>17</td><td class="muted">CACC, DVA, ECG, EWBC, FAF, FSLR, GS, HST, MLI</td></tr>
-<tr><td><strong>marketbeat</strong></td><td>2026-05-07</td><td>30</td><td>28</td><td>8</td><td class="muted">CACC, DVA, ECG, EWBC, FAF, FSLR, GS, HST, LLYVA, MLI</td></tr>
-<tr><td><strong>tradingview</strong></td><td>2026-05-07</td><td>30</td><td>29</td><td>19</td><td class="muted">CACC, DVA, ECG, EWBC, FAF, FSLR, GS, HST, LLYVA, MLI</td></tr>
-<tr><td><strong>zacks</strong></td><td>2026-05-07</td><td>30</td><td>27</td><td>18</td><td class="muted">CACC, DVA, ECG, EWBC, FAF, FSLR, GS, HST, LLYVA</td></tr>
+<tr><td><strong>etrade</strong></td><td>2026-05-07</td><td>30</td><td>28</td><td>17</td><td class="muted">CACC, DVA, ECG, EWBC, FAF, FSLR, GS, HST, LLYVA, LYV, MLI</td></tr>
+<tr><td><strong>fidelity</strong></td><td>2026-05-07</td><td>30</td><td>26</td><td>16</td><td class="muted">CACC, DVA, ECG, EWBC, FAF, FSLR, GS, HST, LYV, MLI</td></tr>
+<tr><td><strong>marketbeat</strong></td><td>2026-05-07</td><td>30</td><td>28</td><td>7</td><td class="muted">CACC, DVA, ECG, EWBC, FAF, FSLR, GS, HST, LLYVA, LYV, MLI</td></tr>
+<tr><td><strong>tradingview</strong></td><td>2026-05-07</td><td>30</td><td>29</td><td>18</td><td class="muted">CACC, DVA, ECG, EWBC, FAF, FSLR, GS, HST, LLYVA, LYV, MLI</td></tr>
+<tr><td><strong>zacks</strong></td><td>2026-05-07</td><td>30</td><td>27</td><td>17</td><td class="muted">CACC, DVA, ECG, EWBC, FAF, FSLR, GS, HST, LLYVA, LYV</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Recommendation</h2>
 <p>Use this report for <strong>calibration only</strong>. Sample size is small (30 tickers, single capture day) and skewed toward tickers we already flagged as interesting — direction-agreement rates should not be read as accuracy. The disagreement queue is the actionable output: review each entry against fundamentals/news before any manual override. <strong>Do not change scoring weights based on this run.</strong></p>
