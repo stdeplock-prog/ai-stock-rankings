@@ -30,10 +30,10 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <li>[WARN] leaderboards.main_sector_concentration: main_top25 dominated by Financial Services 10/25 (40%)</li>
 <li>[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 15/25 (60%)</li>
 <li>[WARN] benchmark_context.lagging_buckets: 6 bucket/horizon pairs with negative avg_mean_return</li>
-<li>[WARN] diagnostics.suspicious_ranks: 4 suspicious top rank(s) flagged</li>
-<li>[INFO] main_top10 new entries: JPM, CFG, MS, EXPD, C</li>
+<li>[WARN] diagnostics.suspicious_ranks: 5 suspicious top rank(s) flagged</li>
+<li>[INFO] main_top10 new entries: JPM, MS, EXPD, C, GEV</li>
 <li>[INFO] main_top10 exited: AMG, ARW, AVT, CRBG, GEN</li>
-<li>[INFO] watchlist_top10 new entries: NBIS, UBER, TMO, DAL, DVN</li>
+<li>[INFO] watchlist_top10 new entries: DVN, NBIS, UBER, SNDK, TMO</li>
 <li>[INFO] watchlist_top10 exited: EXLS, GMED, NVT, PAAS, SCCO</li>
 <li>[INFO] supp_top10 new entries: NBIS, PATH, MDB, SCCO, GUSH</li>
 <li>[INFO] supp_top10 exited: AGX, AREC, AXTI, PAAS, XE</li>
@@ -44,7 +44,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div><h3>Candidate adds</h3>
 <table><thead><tr><th>Ticker</th><th>Reason</th></tr></thead><tbody>
 <tr><td><strong>JPM</strong></td><td>new entrant — main top10</td></tr>
-<tr><td><strong>CFG</strong></td><td>new entrant — main top10</td></tr>
 <tr><td><strong>MS</strong></td><td>new entrant — main top10</td></tr>
 <tr><td><strong>EXPD</strong></td><td>new entrant — main top10</td></tr>
 <tr><td><strong>C</strong></td><td>new entrant — main top10</td></tr>
@@ -53,11 +52,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td><strong>NTRS</strong></td><td>new entrant — main top10</td></tr>
 <tr><td><strong>EME</strong></td><td>new entrant — main top10</td></tr>
 <tr><td><strong>BNY</strong></td><td>new entrant — main top10</td></tr>
+<tr><td><strong>HBAN</strong></td><td>new entrant — main top10</td></tr>
+<tr><td><strong>DVN</strong></td><td>new entrant — watchlist top10</td></tr>
 <tr><td><strong>NBIS</strong></td><td>new entrant — watchlist top10</td></tr>
 <tr><td><strong>UBER</strong></td><td>new entrant — watchlist top10</td></tr>
+<tr><td><strong>SNDK</strong></td><td>new entrant — watchlist top10</td></tr>
 <tr><td><strong>TMO</strong></td><td>new entrant — watchlist top10</td></tr>
-<tr><td><strong>DAL</strong></td><td>new entrant — watchlist top10</td></tr>
-<tr><td><strong>DVN</strong></td><td>new entrant — watchlist top10</td></tr>
 <tr><td><strong>AME</strong></td><td>watchlist top25 with AI 7.9 TECH 8.2</td></tr>
 </tbody></table>
 </div>
@@ -74,18 +74,19 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <tr><td><strong>RS</strong></td><td>exited main top10 vs prior snapshot</td></tr>
 <tr><td><strong>SCHW</strong></td><td>exited main top10 vs prior snapshot</td></tr>
 <tr><td><strong>AMZN</strong></td><td>diagnostics flagged (watchlist_top10 #1): negative MOV (-2.4%)</td></tr>
-<tr><td><strong>NBIS</strong></td><td>diagnostics flagged (watchlist_top10 #5): missing SENT; missing SWING</td></tr>
-<tr><td><strong>DVN</strong></td><td>diagnostics flagged (watchlist_top10 #10): negative MOV (-1.6%)</td></tr>
+<tr><td><strong>DVN</strong></td><td>diagnostics flagged (watchlist_top10 #4): negative MOV (-1.6%)</td></tr>
+<tr><td><strong>NBIS</strong></td><td>diagnostics flagged (watchlist_top10 #6): missing SENT; missing SWING</td></tr>
+<tr><td><strong>SNDK</strong></td><td>diagnostics flagged (watchlist_top10 #9): weak SWING (4.9)</td></tr>
 </tbody></table>
 </div>
 </div></div>
 <div class="section"><h2>Weekly Change Review</h2>
 <p class='kv'><strong>Compared against:</strong> 2026-08-07 · snapshots total 65 · in 7-day window 5</p>
 <h3>main_top10</h3>
-<p class='kv'><strong>New entries:</strong> JPM, CFG, MS, EXPD, C, GEV, BAC, NTRS, EME, BNY</p>
+<p class='kv'><strong>New entries:</strong> JPM, MS, EXPD, C, GEV, BAC, NTRS, EME, BNY, HBAN</p>
 <p class='kv'><strong>Exited:</strong> AMG, ARW, AVT, CRBG, GEN, GMED, GOOG, GOOGL, RS, SCHW</p>
 <h3>watchlist_top10</h3>
-<p class='kv'><strong>New entries:</strong> NBIS, UBER, TMO, DAL, DVN</p>
+<p class='kv'><strong>New entries:</strong> DVN, NBIS, UBER, SNDK, TMO</p>
 <p class='kv'><strong>Exited:</strong> EXLS, GMED, NVT, PAAS, SCCO</p>
 <table><thead><tr><th>Ticker</th><th>Prior</th><th>Current</th><th>Δ</th></tr></thead><tbody>
 <tr><td><strong>GOOG</strong></td><td>8.4</td><td>7.6</td><td>-0.8</td></tr>
@@ -275,7 +276,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;company&quot;: &quot;Morgan Stanley&quot;,
       &quot;ai_score&quot;: 8.4,
       &quot;sector&quot;: &quot;Financial Services&quot;,
-      &quot;change&quot;: 0,
+      &quot;change&quot;: 1,
       &quot;fundamental&quot;: 9.0,
       &quot;technical&quot;: 8.2,
       &quot;sentiment&quot;: 6.6,
@@ -283,7 +284,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 4,
+      &quot;rank&quot;: 3,
       &quot;ticker&quot;: &quot;EXPD&quot;,
       &quot;company&quot;: &quot;Expeditors International&quot;,
       &quot;ai_score&quot;: 8.4,
@@ -296,7 +297,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 5,
+      &quot;rank&quot;: 4,
       &quot;ticker&quot;: &quot;C&quot;,
       &quot;company&quot;: &quot;Citigroup&quot;,
       &quot;ai_score&quot;: 8.3,
@@ -309,7 +310,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 6,
+      &quot;rank&quot;: 5,
       &quot;ticker&quot;: &quot;GEV&quot;,
       &quot;company&quot;: &quot;GE Vernova&quot;,
       &quot;ai_score&quot;: 8.3,
@@ -322,7 +323,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 7,
+      &quot;rank&quot;: 6,
       &quot;ticker&quot;: &quot;BAC&quot;,
       &quot;company&quot;: &quot;Bank of America&quot;,
       &quot;ai_score&quot;: 8.3,
@@ -335,7 +336,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 8,
+      &quot;rank&quot;: 7,
       &quot;ticker&quot;: &quot;NTRS&quot;,
       &quot;company&quot;: &quot;Northern Trust&quot;,
       &quot;ai_score&quot;: 8.2,
@@ -348,12 +349,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 9,
+      &quot;rank&quot;: 8,
       &quot;ticker&quot;: &quot;EME&quot;,
       &quot;company&quot;: &quot;Emcor&quot;,
       &quot;ai_score&quot;: 8.2,
       &quot;sector&quot;: &quot;Industrials&quot;,
-      &quot;change&quot;: 0,
+      &quot;change&quot;: 1,
       &quot;fundamental&quot;: 8.4,
       &quot;technical&quot;: 8.0,
       &quot;sentiment&quot;: 8.7,
@@ -361,7 +362,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 10,
+      &quot;rank&quot;: 9,
       &quot;ticker&quot;: &quot;BNY&quot;,
       &quot;company&quot;: &quot;BNY Mellon&quot;,
       &quot;ai_score&quot;: 8.2,
@@ -374,7 +375,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 11,
+      &quot;rank&quot;: 10,
       &quot;ticker&quot;: &quot;HBAN&quot;,
       &quot;company&quot;: &quot;Huntington Bancshares&quot;,
       &quot;ai_score&quot;: 8.2,
@@ -413,7 +414,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 14,
+      &quot;rank&quot;: 13,
       &quot;ticker&quot;: &quot;CVX&quot;,
       &quot;company&quot;: &quot;Chevron Corporation&quot;,
       &quot;ai_score&quot;: 8.1,
@@ -426,7 +427,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 15,
+      &quot;rank&quot;: 14,
       &quot;ticker&quot;: &quot;GOOGL&quot;,
       &quot;company&quot;: &quot;Alphabet Inc. (Class A)&quot;,
       &quot;ai_score&quot;: 8.1,
@@ -439,7 +440,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 16,
+      &quot;rank&quot;: 15,
       &quot;ticker&quot;: &quot;MPC&quot;,
       &quot;company&quot;: &quot;Marathon Petroleum&quot;,
       &quot;ai_score&quot;: 8.1,
@@ -452,7 +453,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: null
     },
     {
-      &quot;rank&quot;: 17,
+      &quot;rank&quot;: 16,
       &quot;ticker&quot;: &quot;AMZN&quot;,
       &quot;company&quot;: &quot;Amazon&quot;,
       &quot;ai_score&quot;: 8.1,
@@ -483,8 +484,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;company&quot;: &quot;Amphenol&quot;,
       &quot;ai_score&quot;: 8.0,
       &quot;sector&quot;: &quot;Technology&quot;,
-      &quot;change&quot;: 0,
-      &quot;fundamental&quot;: 8.1,
+      &quot;change&quot;: 2,
+      &quot;fundamental&quot;: 8.0,
       &quot;technical&quot;: 8.2,
       &quot;sentiment&quot;: 8.4,
       &quot;low_risk&quot;: 7.4,
@@ -531,6 +532,19 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     },
     {
       &quot;rank&quot;: 23,
+      &quot;ticker&quot;: &quot;DVN&quot;,
+      &quot;company&quot;: &quot;Devon Energy&quot;,
+      &quot;ai_score&quot;: 8.0,
+      &quot;sector&quot;: &quot;Energy&quot;,
+      &quot;change&quot;: 56,
+      &quot;fundamental&quot;: 8.7,
+      &quot;technical&quot;: 8.0,
+      &quot;sentiment&quot;: 6.5,
+      &quot;low_risk&quot;: 6.8,
+      &quot;data_source&quot;: null
+    },
+    {
+      &quot;rank&quot;: 24,
       &quot;ticker&quot;: &quot;PNC&quot;,
       &quot;company&quot;: &quot;PNC Financial Services&quot;,
       &quot;ai_score&quot;: 8.0,
@@ -606,7 +620,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;ai_score&quot;: 8.0,
       &quot;sector&quot;: &quot;Technology&quot;,
       &quot;change&quot;: 0,
-      &quot;fundamental&quot;: 8.1,
+      &quot;fundamental&quot;: 8.0,
       &quot;technical&quot;: 8.2,
       &quot;sentiment&quot;: 8.4,
       &quot;low_risk&quot;: 7.4,
@@ -627,6 +641,19 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     },
     {
       &quot;rank&quot;: 4,
+      &quot;ticker&quot;: &quot;DVN&quot;,
+      &quot;company&quot;: &quot;Devon Energy&quot;,
+      &quot;ai_score&quot;: 8.0,
+      &quot;sector&quot;: &quot;Energy&quot;,
+      &quot;change&quot;: 0,
+      &quot;fundamental&quot;: 8.7,
+      &quot;technical&quot;: 8.0,
+      &quot;sentiment&quot;: 6.5,
+      &quot;low_risk&quot;: 6.8,
+      &quot;data_source&quot;: &quot;main_pipeline&quot;
+    },
+    {
+      &quot;rank&quot;: 5,
       &quot;ticker&quot;: &quot;AME&quot;,
       &quot;company&quot;: &quot;Ametek&quot;,
       &quot;ai_score&quot;: 7.9,
@@ -639,7 +666,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
-      &quot;rank&quot;: 5,
+      &quot;rank&quot;: 6,
       &quot;ticker&quot;: &quot;NBIS&quot;,
       &quot;company&quot;: &quot;Nebius Group N.V.&quot;,
       &quot;ai_score&quot;: 7.8,
@@ -652,7 +679,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
-      &quot;rank&quot;: 6,
+      &quot;rank&quot;: 7,
       &quot;ticker&quot;: &quot;UBER&quot;,
       &quot;company&quot;: &quot;Uber&quot;,
       &quot;ai_score&quot;: 7.8,
@@ -665,7 +692,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
-      &quot;rank&quot;: 7,
+      &quot;rank&quot;: 8,
       &quot;ticker&quot;: &quot;GOOG&quot;,
       &quot;company&quot;: &quot;Alphabet Inc. (Class C)&quot;,
       &quot;ai_score&quot;: 7.6,
@@ -678,7 +705,20 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
-      &quot;rank&quot;: 8,
+      &quot;rank&quot;: 9,
+      &quot;ticker&quot;: &quot;SNDK&quot;,
+      &quot;company&quot;: &quot;Sandisk&quot;,
+      &quot;ai_score&quot;: 7.6,
+      &quot;sector&quot;: &quot;Technology&quot;,
+      &quot;change&quot;: 0,
+      &quot;fundamental&quot;: 7.5,
+      &quot;technical&quot;: 6.8,
+      &quot;sentiment&quot;: 7.0,
+      &quot;low_risk&quot;: 9.7,
+      &quot;data_source&quot;: &quot;main_pipeline&quot;
+    },
+    {
+      &quot;rank&quot;: 10,
       &quot;ticker&quot;: &quot;TMO&quot;,
       &quot;company&quot;: &quot;Thermo Fisher Scientific&quot;,
       &quot;ai_score&quot;: 7.6,
@@ -691,7 +731,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
-      &quot;rank&quot;: 9,
+      &quot;rank&quot;: 11,
       &quot;ticker&quot;: &quot;DAL&quot;,
       &quot;company&quot;: &quot;Delta Air Lines&quot;,
       &quot;ai_score&quot;: 7.5,
@@ -704,17 +744,17 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
-      &quot;rank&quot;: 10,
-      &quot;ticker&quot;: &quot;DVN&quot;,
-      &quot;company&quot;: &quot;Devon Energy&quot;,
+      &quot;rank&quot;: 12,
+      &quot;ticker&quot;: &quot;PATH&quot;,
+      &quot;company&quot;: &quot;UiPath, Inc.&quot;,
       &quot;ai_score&quot;: 7.5,
-      &quot;sector&quot;: &quot;Energy&quot;,
+      &quot;sector&quot;: &quot;Technology&quot;,
       &quot;change&quot;: 0,
-      &quot;fundamental&quot;: 7.7,
-      &quot;technical&quot;: 8.0,
-      &quot;sentiment&quot;: 6.5,
-      &quot;low_risk&quot;: 6.8,
-      &quot;data_source&quot;: &quot;main_pipeline&quot;
+      &quot;fundamental&quot;: 7.59,
+      &quot;technical&quot;: 6.9,
+      &quot;sentiment&quot;: null,
+      &quot;low_risk&quot;: 9.81,
+      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
       &quot;rank&quot;: 11,
@@ -736,7 +776,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;ai_score&quot;: 7.5,
       &quot;sector&quot;: &quot;Technology&quot;,
       &quot;change&quot;: 0,
-      &quot;fundamental&quot;: 8.4,
+      &quot;fundamental&quot;: 8.3,
       &quot;technical&quot;: 8.2,
       &quot;sentiment&quot;: 7.9,
       &quot;low_risk&quot;: 3.1,
@@ -873,7 +913,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
-      &quot;rank&quot;: 23,
+      &quot;rank&quot;: 22,
       &quot;ticker&quot;: &quot;ZENA&quot;,
       &quot;company&quot;: &quot;ZenaTech, Inc.&quot;,
       &quot;ai_score&quot;: 7.2,
@@ -896,6 +936,19 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;technical&quot;: 8.0,
       &quot;sentiment&quot;: null,
       &quot;low_risk&quot;: 7.28,
+      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
+    },
+    {
+      &quot;rank&quot;: 24,
+      &quot;ticker&quot;: &quot;SCCO&quot;,
+      &quot;company&quot;: &quot;Southern Copper Corporation&quot;,
+      &quot;ai_score&quot;: 7.1,
+      &quot;sector&quot;: &quot;Basic Materials&quot;,
+      &quot;change&quot;: 0,
+      &quot;fundamental&quot;: 8.7,
+      &quot;technical&quot;: 4.4,
+      &quot;sentiment&quot;: null,
+      &quot;low_risk&quot;: 9.31,
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
@@ -923,8 +976,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;Industrials&quot;: 2,
       &quot;Communication Services&quot;: 2,
       &quot;Consumer Cyclical&quot;: 1,
-      &quot;Healthcare&quot;: 1,
       &quot;Energy&quot;: 1,
+      &quot;Healthcare&quot;: 1,
       &quot;Real Estate&quot;: 1,
       &quot;Financial Services&quot;: 1,
       &quot;Basic Materials&quot;: 1
@@ -932,7 +985,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   },
   &quot;supp_top25&quot;: [
     {
-      &quot;rank&quot;: 5,
+      &quot;rank&quot;: 6,
       &quot;ticker&quot;: &quot;NBIS&quot;,
       &quot;company&quot;: &quot;Nebius Group N.V.&quot;,
       &quot;ai_score&quot;: 7.8,
@@ -997,7 +1050,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
-      &quot;rank&quot;: 22,
+      &quot;rank&quot;: 21,
       &quot;ticker&quot;: &quot;TSM&quot;,
       &quot;company&quot;: &quot;Taiwan Semiconductor Manufactur&quot;,
       &quot;ai_score&quot;: 7.2,
@@ -1010,7 +1063,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
     },
     {
-      &quot;rank&quot;: 23,
+      &quot;rank&quot;: 22,
       &quot;ticker&quot;: &quot;ZENA&quot;,
       &quot;company&quot;: &quot;ZenaTech, Inc.&quot;,
       &quot;ai_score&quot;: 7.2,
@@ -1026,7 +1079,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;rank&quot;: 24,
       &quot;ticker&quot;: &quot;MDB&quot;,
       &quot;company&quot;: &quot;MongoDB, Inc.&quot;,
-      &quot;ai_score&quot;: 7.1,
+      &quot;ai_score&quot;: 7.0,
       &quot;sector&quot;: &quot;Technology&quot;,
       &quot;change&quot;: 0,
       &quot;fundamental&quot;: 6.84,
@@ -1225,7 +1278,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;sector&quot;: &quot;Technology&quot;,
       &quot;change&quot;: 0,
       &quot;fundamental&quot;: 6.5,
-      &quot;technical&quot;: 7.9,
+      &quot;technical&quot;: 7.8,
       &quot;sentiment&quot;: null,
       &quot;low_risk&quot;: null,
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
@@ -1279,55 +1332,55 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
           &quot;sector&quot;: &quot;Financial Services&quot;
         },
         {
-          &quot;ticker&quot;: &quot;CFG&quot;,
-          &quot;rank&quot;: 2,
-          &quot;ai_score&quot;: 8.5,
-          &quot;sector&quot;: &quot;Financial Services&quot;
-        },
-        {
           &quot;ticker&quot;: &quot;MS&quot;,
-          &quot;rank&quot;: 3,
+          &quot;rank&quot;: 2,
           &quot;ai_score&quot;: 8.4,
           &quot;sector&quot;: &quot;Financial Services&quot;
         },
         {
           &quot;ticker&quot;: &quot;EXPD&quot;,
-          &quot;rank&quot;: 4,
+          &quot;rank&quot;: 3,
           &quot;ai_score&quot;: 8.4,
           &quot;sector&quot;: &quot;Industrials&quot;
         },
         {
           &quot;ticker&quot;: &quot;C&quot;,
-          &quot;rank&quot;: 5,
+          &quot;rank&quot;: 4,
           &quot;ai_score&quot;: 8.3,
           &quot;sector&quot;: &quot;Financial Services&quot;
         },
         {
           &quot;ticker&quot;: &quot;GEV&quot;,
-          &quot;rank&quot;: 6,
+          &quot;rank&quot;: 5,
           &quot;ai_score&quot;: 8.3,
           &quot;sector&quot;: &quot;Industrials&quot;
         },
         {
           &quot;ticker&quot;: &quot;BAC&quot;,
-          &quot;rank&quot;: 7,
+          &quot;rank&quot;: 6,
           &quot;ai_score&quot;: 8.3,
           &quot;sector&quot;: &quot;Financial Services&quot;
         },
         {
           &quot;ticker&quot;: &quot;NTRS&quot;,
-          &quot;rank&quot;: 8,
+          &quot;rank&quot;: 7,
           &quot;ai_score&quot;: 8.2,
           &quot;sector&quot;: &quot;Financial Services&quot;
         },
         {
           &quot;ticker&quot;: &quot;EME&quot;,
-          &quot;rank&quot;: 9,
+          &quot;rank&quot;: 8,
           &quot;ai_score&quot;: 8.2,
           &quot;sector&quot;: &quot;Industrials&quot;
         },
         {
           &quot;ticker&quot;: &quot;BNY&quot;,
+          &quot;rank&quot;: 9,
+          &quot;ai_score&quot;: 8.2,
+          &quot;sector&quot;: &quot;Financial Services&quot;
+        },
+        {
+          &quot;ticker&quot;: &quot;HBAN&quot;,
           &quot;rank&quot;: 10,
           &quot;ai_score&quot;: 8.2,
           &quot;sector&quot;: &quot;Financial Services&quot;
@@ -1352,34 +1405,34 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     &quot;watchlist_top10&quot;: {
       &quot;new_entries&quot;: [
         {
+          &quot;ticker&quot;: &quot;DVN&quot;,
+          &quot;rank&quot;: 4,
+          &quot;ai_score&quot;: 8.0,
+          &quot;sector&quot;: &quot;Energy&quot;
+        },
+        {
           &quot;ticker&quot;: &quot;NBIS&quot;,
-          &quot;rank&quot;: 5,
+          &quot;rank&quot;: 6,
           &quot;ai_score&quot;: 7.8,
           &quot;sector&quot;: &quot;Communication Services&quot;
         },
         {
           &quot;ticker&quot;: &quot;UBER&quot;,
-          &quot;rank&quot;: 6,
+          &quot;rank&quot;: 7,
           &quot;ai_score&quot;: 7.8,
           &quot;sector&quot;: &quot;Technology&quot;
         },
         {
+          &quot;ticker&quot;: &quot;SNDK&quot;,
+          &quot;rank&quot;: 9,
+          &quot;ai_score&quot;: 7.6,
+          &quot;sector&quot;: &quot;Technology&quot;
+        },
+        {
           &quot;ticker&quot;: &quot;TMO&quot;,
-          &quot;rank&quot;: 8,
+          &quot;rank&quot;: 10,
           &quot;ai_score&quot;: 7.6,
           &quot;sector&quot;: &quot;Healthcare&quot;
-        },
-        {
-          &quot;ticker&quot;: &quot;DAL&quot;,
-          &quot;rank&quot;: 9,
-          &quot;ai_score&quot;: 7.5,
-          &quot;sector&quot;: &quot;Industrials&quot;
-        },
-        {
-          &quot;ticker&quot;: &quot;DVN&quot;,
-          &quot;rank&quot;: 10,
-          &quot;ai_score&quot;: 7.5,
-          &quot;sector&quot;: &quot;Energy&quot;
         }
       ],
       &quot;exited&quot;: [
@@ -1428,7 +1481,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;new_entries&quot;: [
         {
           &quot;ticker&quot;: &quot;NBIS&quot;,
-          &quot;rank&quot;: 5,
+          &quot;rank&quot;: 6,
           &quot;ai_score&quot;: 7.8,
           &quot;sector&quot;: &quot;Communication Services&quot;
         },
@@ -1714,7 +1767,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Diagnostics<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall&quot;: &quot;FAIL&quot;,
-  &quot;suspicious_count&quot;: 4,
+  &quot;suspicious_count&quot;: 5,
   &quot;suspicious_top&quot;: [
     {
       &quot;ticker&quot;: &quot;AMZN&quot;,
@@ -1725,9 +1778,17 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       ]
     },
     {
+      &quot;ticker&quot;: &quot;DVN&quot;,
+      &quot;group&quot;: &quot;watchlist_top10&quot;,
+      &quot;rank&quot;: 4,
+      &quot;reasons&quot;: [
+        &quot;negative MOV (-1.6%)&quot;
+      ]
+    },
+    {
       &quot;ticker&quot;: &quot;NBIS&quot;,
       &quot;group&quot;: &quot;watchlist_top10&quot;,
-      &quot;rank&quot;: 5,
+      &quot;rank&quot;: 6,
       &quot;reasons&quot;: [
         &quot;missing SENT&quot;,
         &quot;missing SWING&quot;
@@ -1736,22 +1797,22 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     {
       &quot;ticker&quot;: &quot;GOOG&quot;,
       &quot;group&quot;: &quot;watchlist_top10&quot;,
-      &quot;rank&quot;: 7,
+      &quot;rank&quot;: 8,
       &quot;reasons&quot;: [
         &quot;negative MOV (-3.6%)&quot;
       ]
     },
     {
-      &quot;ticker&quot;: &quot;DVN&quot;,
+      &quot;ticker&quot;: &quot;SNDK&quot;,
       &quot;group&quot;: &quot;watchlist_top10&quot;,
       &quot;rank&quot;: 10,
       &quot;reasons&quot;: [
-        &quot;negative MOV (-1.6%)&quot;
+        &quot;weak SWING (4.9)&quot;
       ]
     }
   ]
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>suspicious_ranks</td><td class="WARN">WARN</td><td>4 suspicious top rank(s) flagged</td></tr>
+<tr><td>suspicious_ranks</td><td class="WARN">WARN</td><td>5 suspicious top rank(s) flagged</td></tr>
 </tbody></table></div>
 </body></html>

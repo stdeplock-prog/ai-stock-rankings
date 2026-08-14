@@ -33,8 +33,8 @@ details{margin:8px 0} summary{cursor:pointer;font-weight:600;font-size:14px}
 <div class="section"><h2>Sector crowding (top 10)</h2>
 <p><strong>main_top10:</strong> <span class="FAIL">FAIL</span> &mdash; top sector <em>Financial Services</em>: 7/10 (70%).</p>
 <p class="meta">Distribution: Financial Services=7, Industrials=3</p>
-<p><strong>watchlist_top10:</strong> <span class="WARN">WARN</span> &mdash; top sector <em>Technology</em>: 3/10 (30%).</p>
-<p class="meta">Distribution: Consumer Cyclical=1, Technology=3, Industrials=2, Communication Services=2, Healthcare=1, Energy=1</p>
+<p><strong>watchlist_top10:</strong> <span class="WARN">WARN</span> &mdash; top sector <em>Technology</em>: 4/10 (40%).</p>
+<p class="meta">Distribution: Consumer Cyclical=1, Technology=4, Energy=1, Industrials=1, Communication Services=2, Healthcare=1</p>
 </div>
 <div class="section"><h2>Top leaders &mdash; main rankings</h2>
 <h3>Main top 10</h3>
@@ -50,7 +50,7 @@ details{margin:8px 0} summary{cursor:pointer;font-weight:600;font-size:14px}
 </details></div>
 <div class="section"><h2>Suspicious top ranks</h2>
 <p class="meta">A row is flagged when a top-10 leader has any missing/weak component, a technical-only basis (SUPP), or a recent MOV at or below -1.0%. These are not errors — they are annotations to drive manual review.</p>
-<table><thead><tr><th>Group</th><th class="num">#</th><th>Ticker</th><th>Company</th><th class="num">AI</th><th>Reasons</th></tr></thead><tbody><tr><td>watchlist_top10</td><td class="num">1</td><td>AMZN</td><td>Amazon</td><td class="num">8.1</td><td>negative MOV (-2.4%)</td></tr><tr><td>watchlist_top10</td><td class="num">5</td><td>NBIS</td><td>Nebius Group N.V.</td><td class="num">7.8</td><td>missing SENT; missing SWING</td></tr><tr><td>watchlist_top10</td><td class="num">7</td><td>GOOG</td><td>Alphabet Inc. (Class C)</td><td class="num">7.6</td><td>negative MOV (-3.6%)</td></tr><tr><td>watchlist_top10</td><td class="num">10</td><td>DVN</td><td>Devon Energy</td><td class="num">7.5</td><td>negative MOV (-1.6%)</td></tr></tbody></table>
+<table><thead><tr><th>Group</th><th class="num">#</th><th>Ticker</th><th>Company</th><th class="num">AI</th><th>Reasons</th></tr></thead><tbody><tr><td>watchlist_top10</td><td class="num">1</td><td>AMZN</td><td>Amazon</td><td class="num">8.1</td><td>negative MOV (-2.4%)</td></tr><tr><td>watchlist_top10</td><td class="num">4</td><td>DVN</td><td>Devon Energy</td><td class="num">8.0</td><td>negative MOV (-1.6%)</td></tr><tr><td>watchlist_top10</td><td class="num">6</td><td>NBIS</td><td>Nebius Group N.V.</td><td class="num">7.8</td><td>missing SENT; missing SWING</td></tr><tr><td>watchlist_top10</td><td class="num">8</td><td>GOOG</td><td>Alphabet Inc. (Class C)</td><td class="num">7.6</td><td>negative MOV (-3.6%)</td></tr><tr><td>watchlist_top10</td><td class="num">9</td><td>SNDK</td><td>Sandisk</td><td class="num">7.6</td><td>weak SWING (4.9)</td></tr></tbody></table>
 </div>
 <div class="section"><h2>Alternate weighting sensitivity</h2>
 <p class="diag"><strong>Diagnostic only.</strong> These weighting schemes are not used in production scoring. Each scheme is computed from existing component fields; rows with any missing component under a non-zero weight are excluded so technical-only rows do not silently inflate.</p>
@@ -85,9 +85,9 @@ details{margin:8px 0} summary{cursor:pointer;font-weight:600;font-size:14px}
 <p class="note">Forward-performance snapshots are still accumulating; small sample sizes mean these averages are directional context, not statistically meaningful evidence. Do not adjust scoring weights on this alone.</p>
 </div>
 <div class="section"><h2>Recommendations / action items</h2><ol class="recs">
-<li>Manually review the 4 suspicious top-ranked names (sample: AMZN(watchlist_top10), DVN(watchlist_top10), GOOG(watchlist_top10), NBIS(watchlist_top10)). Each was flagged for missing/weak components, negative recent MOV, or technical-only basis.</li>
+<li>Manually review the 5 suspicious top-ranked names (sample: AMZN(watchlist_top10), DVN(watchlist_top10), GOOG(watchlist_top10), NBIS(watchlist_top10), SNDK(watchlist_top10)). Each was flagged for missing/weak components, negative recent MOV, or technical-only basis.</li>
 <li>Main top-10 sector concentration: Financial Services = 70%. Consider whether the leader board is reflecting broad strength or a single theme.</li>
-<li>Watchlist top-10 sector concentration: Technology = 30%.</li>
+<li>Watchlist top-10 sector concentration: Technology = 40%.</li>
 <li>Under the diagnostic momentum_tilt weighting, 12 of the current top-25 drop out — production composite may be under-weighting momentum/technical signals. Diagnostic only; do not change formulas without forward-test data.</li>
 <li>Do NOT change scoring weights based on this report alone — forward performance history is still limited. Use these diagnostics to pick names for manual review, not to retune the engine.</li>
 </ol></div>
