@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-18T14:51:53Z",
-  "generated_at_chicago": "2026-08-18 09:51 AM CDT",
-  "overall": "FAIL",
+  "generated_at": "2026-08-18T18:07:08Z",
+  "generated_at_chicago": "2026-08-18 01:07 PM CDT",
+  "overall": "WARN",
   "sections": {
     "data_freshness": {
       "checks": [
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-08-18 09:51 AM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-08-18 01:06 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,12 +17,12 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-08-18 09:51 AM CDT",
+        "as_of": "2026-08-18 01:06 PM CDT",
         "open_date": "2026-08-18",
         "row_count": 100,
         "is_weekend": false,
-        "chicago_now": "2026-08-18 09:51",
-        "rankings_age_hours": 0.01,
+        "chicago_now": "2026-08-18 13:07",
+        "rankings_age_hours": 0.02,
         "today_live": true
       },
       "status": "OK"
@@ -31,26 +31,21 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "FAIL",
-          "message": "overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK"
-        },
-        {
-          "name": "critical_sections",
-          "status": "FAIL",
-          "message": "rankings=FAIL, tasks=OK: critical section failure"
+          "status": "OK",
+          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
-        "overall": "FAIL",
-        "generated_at": "2026-08-18T14:51:51Z",
+        "overall": "OK",
+        "generated_at": "2026-08-18T18:07:06Z",
         "by_section": {
-          "rankings": "FAIL",
+          "rankings": "OK",
           "watchlist": "OK",
           "tasks": "OK"
         },
-        "critical_section_fail": true
+        "critical_section_fail": false
       },
-      "status": "FAIL"
+      "status": "OK"
     },
     "schedule_reliability": {
       "checks": [
@@ -67,8 +62,8 @@
         "today_missing": [],
         "today_satisfied": true,
         "last_run_event": "schedule",
-        "last_run_slot": "morning",
-        "last_run_ts_chicago": "2026-08-18 09:51",
+        "last_run_slot": "midday",
+        "last_run_ts_chicago": "2026-08-18 13:07",
         "recovered": false,
         "overall_effective": "OK"
       },
@@ -84,7 +79,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=98 misses=0"
+          "message": "yfinance cache hits=0 misses=98"
         }
       ],
       "metrics": {
@@ -98,12 +93,12 @@
           "unavailable": 0
         },
         "yfinance_info_cache": {
-          "cache_hit_fresh": 98,
-          "cache_miss": 0,
-          "network_call": 0,
+          "cache_hit_fresh": 0,
+          "cache_miss": 98,
+          "network_call": 98,
           "fallback_to_cache": 0,
           "rate_limit_or_empty": 0,
-          "network_success": 0
+          "network_success": 98
         },
         "unavailable_count": 0,
         "scored": 142,
@@ -139,17 +134,17 @@
         {
           "name": "scoring_parity",
           "status": "WARN",
-          "message": "parity overall=FAIL; only remaining drift is ['low_risk'] explained by selection bias"
+          "message": "parity overall=FAIL; blocker fields=['low_risk']"
         }
       ],
       "metrics": {
         "overall": "FAIL",
-        "cross_group_parity_status": "WARN",
-        "fail_fields": [],
-        "known_bias_fields": [
+        "cross_group_parity_status": "FAIL",
+        "fail_fields": [
           "low_risk"
         ],
-        "low_risk_bias_known": true
+        "known_bias_fields": [],
+        "low_risk_bias_known": false
       },
       "status": "WARN"
     }
@@ -163,9 +158,7 @@
     "parity_present": true
   },
   "action_items": [
-    "[FAIL] data_quality.data_quality_overall: overall=FAIL; sections=rankings:FAIL, watchlist:OK, tasks:OK",
-    "[FAIL] data_quality.critical_sections: rankings=FAIL, tasks=OK: critical section failure",
-    "[WARN] parity.scoring_parity: parity overall=FAIL; only remaining drift is ['low_risk'] explained by selection bias"
+    "[WARN] parity.scoring_parity: parity overall=FAIL; blocker fields=['low_risk']"
   ],
-  "summary": "Fresh 09:51 AM CT \u00b7 Data quality FAIL \u00b7 Watchlist OK \u00b7 Schedule OK \u00b7 Benchmark active"
+  "summary": "Fresh 01:06 PM CT \u00b7 Data quality OK \u00b7 Watchlist OK \u00b7 Schedule OK \u00b7 Benchmark active"
 }
