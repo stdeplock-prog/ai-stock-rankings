@@ -7,7 +7,7 @@ h1{margin:0 0 4px} h2{margin:18px 0 8px;font-size:18px}
 h3{margin:14px 0 6px;font-size:15px}
 .meta{color:#666;font-size:13px;margin-bottom:14px}
 .badge{display:inline-block;padding:2px 10px;border-radius:12px;color:#fff;
-       font-weight:600;font-size:12px;letter-spacing:.5px;background:#3c8c3c}
+       font-weight:600;font-size:12px;letter-spacing:.5px;background:#b88a00}
 .section{border:1px solid #e3e3e3;border-radius:8px;padding:14px 16px;margin:14px 0}
 table{border-collapse:collapse;width:100%;font-size:13px;margin-top:6px}
 th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-align:top}
@@ -20,137 +20,136 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Low-Risk Drift Review</h1>
-<p class="meta">Generated 2026-08-17T21:15:05Z &middot; Verdict: <span class="badge">selection_bias</span> &middot; confidence: medium</p>
+<p class="meta">Generated 2026-08-18T14:32:43Z &middot; Verdict: <span class="badge">mixed</span> &middot; confidence: medium</p>
 
-<div class="section"><h2>Inputs</h2><table><tr><th>Source</th><th>Present</th><th>as_of</th></tr><tr><td>data/rankings.json</td><td>True</td><td>2026-08-17 04:14 PM CDT</td></tr><tr><td>data/watchlist_rankings.json</td><td>True</td><td>2026-08-17 04:15 PM CDT</td></tr><tr><td>data/reports/scoring_parity_review.json</td><td>True</td><td>—</td></tr></table></div>
+<div class="section"><h2>Inputs</h2><table><tr><th>Source</th><th>Present</th><th>as_of</th></tr><tr><td>data/rankings.json</td><td>True</td><td>2026-08-18 09:32 AM CDT</td></tr><tr><td>data/watchlist_rankings.json</td><td>True</td><td>2026-08-18 09:32 AM CDT</td></tr><tr><td>data/reports/scoring_parity_review.json</td><td>True</td><td>—</td></tr></table></div>
 <div class="section"><h2>Verdict</h2>
-<p>delta(mean low_risk) wl_main - main = <b>-1.666</b> &middot; flags: selection_bias</p>
+<p>delta(mean low_risk) wl_main - main = <b>-2.2062</b> &middot; flags: data_gap, selection_bias</p>
 <table><tr><th>Flag</th><th>Triggered</th><th>Detail</th></tr>
 <tr><td>formula_issue</td><td class="flag-off">False</td><td>severity=OK &middot; examples=[]</td></tr>
-<tr><td>data_gap</td><td class="flag-off">False</td><td>main=[] wlm=[]</td></tr>
-<tr><td>selection_bias</td><td class="flag-on">True</td><td>[{&quot;kind&quot;: &quot;speculative_sector_share&quot;, &quot;main&quot;: 0.54, &quot;watchlist_main&quot;: 0.8372, &quot;delta&quot;: 0.2972}, {&quot;kind&quot;: &quot;high_vol_bucket_share&quot;, &quot;main&quot;: 0.17, &quot;watchlist_main&quot;: 0.6279, &quot;delta&quot;: 0.4579}]</td></tr>
+<tr><td>data_gap</td><td class="flag-on">True</td><td>main=[{&quot;field&quot;: &quot;atr_pct&quot;, &quot;pct_null&quot;: 0.99, &quot;present&quot;: 1, &quot;null&quot;: 99}, {&quot;field&quot;: &quot;swing_score&quot;, &quot;pct_null&quot;: 0.99, &quot;pres wlm=[{&quot;field&quot;: &quot;atr_pct&quot;, &quot;pct_null&quot;: 1.0, &quot;present&quot;: 0, &quot;null&quot;: 44}, {&quot;field&quot;: &quot;swing_score&quot;, &quot;pct_null&quot;: 1.0, &quot;presen</td></tr>
+<tr><td>selection_bias</td><td class="flag-on">True</td><td>[{&quot;kind&quot;: &quot;speculative_sector_share&quot;, &quot;main&quot;: 0.56, &quot;watchlist_main&quot;: 0.8409, &quot;delta&quot;: 0.2809}]</td></tr>
 </table></div>
 <div class="section"><h2>low_risk distribution by group</h2>
 <table><thead><tr><th>Group</th><th class="num">rows</th><th class="num">n</th><th class="num">mean</th><th class="num">median</th><th class="num">min</th><th class="num">p25</th><th class="num">p75</th><th class="num">max</th><th class="num">null</th></tr></thead><tbody>
-<tr><td>main_rankings</td><td class="num">100</td><td class="num">100</td><td class="num">7.252</td><td class="num">7.6</td><td class="num">3.7</td><td class="num">6.2</td><td class="num">8.3</td><td class="num">9.1</td><td class="num">0</td></tr>
-<tr><td>main_top25</td><td class="num">25</td><td class="num">25</td><td class="num">7.288</td><td class="num">7.6</td><td class="num">5.5</td><td class="num">6.2</td><td class="num">8.2</td><td class="num">9.1</td><td class="num">0</td></tr>
-<tr><td>main_top10</td><td class="num">10</td><td class="num">10</td><td class="num">7.99</td><td class="num">8.05</td><td class="num">6.7</td><td class="num">7.7</td><td class="num">8.4</td><td class="num">8.8</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td class="num">43</td><td class="num">43</td><td class="num">5.586</td><td class="num">6.1</td><td class="num">0</td><td class="num">3.7</td><td class="num">7.5</td><td class="num">9.7</td><td class="num">0</td></tr>
-<tr><td>watchlist_supp</td><td class="num">99</td><td class="num">79</td><td class="num">5.4184</td><td class="num">6.38</td><td class="num">0</td><td class="num">3.52</td><td class="num">8.205</td><td class="num">9.81</td><td class="num">20</td></tr>
+<tr><td>main_rankings</td><td class="num">100</td><td class="num">100</td><td class="num">7.488</td><td class="num">7.9</td><td class="num">3.4</td><td class="num">6.575</td><td class="num">8.425</td><td class="num">9.8</td><td class="num">0</td></tr>
+<tr><td>main_top25</td><td class="num">25</td><td class="num">25</td><td class="num">7.416</td><td class="num">7.8</td><td class="num">5.8</td><td class="num">6.5</td><td class="num">8</td><td class="num">9.2</td><td class="num">0</td></tr>
+<tr><td>main_top10</td><td class="num">10</td><td class="num">10</td><td class="num">7.93</td><td class="num">7.95</td><td class="num">7.5</td><td class="num">7.725</td><td class="num">8</td><td class="num">8.7</td><td class="num">0</td></tr>
+<tr><td>watchlist_main_pipeline</td><td class="num">44</td><td class="num">44</td><td class="num">5.2818</td><td class="num">5.9</td><td class="num">0</td><td class="num">3.175</td><td class="num">7.15</td><td class="num">9.9</td><td class="num">0</td></tr>
+<tr><td>watchlist_supp</td><td class="num">98</td><td class="num">78</td><td class="num">5.4259</td><td class="num">6.4</td><td class="num">0</td><td class="num">3.395</td><td class="num">8.2175</td><td class="num">9.81</td><td class="num">20</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Risk-input coverage</h2>
 <table><thead><tr><th>Group</th><th>field</th><th class="num">present</th><th class="num">null</th><th class="num">% null</th></tr></thead><tbody>
-<tr><td>main_rankings</td><td>atr_pct</td><td class="num">100</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_rankings</td><td>atr_pct</td><td class="num">1</td><td class="num">99</td><td class="num">0.99</td></tr>
 <tr><td>main_rankings</td><td>vol_bucket</td><td class="num">100</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>main_rankings</td><td>swing_score</td><td class="num">100</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_rankings</td><td>swing_score</td><td class="num">1</td><td class="num">99</td><td class="num">0.99</td></tr>
 <tr><td>main_rankings</td><td>market_cap</td><td class="num">100</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>main_top25</td><td>atr_pct</td><td class="num">25</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_top25</td><td>atr_pct</td><td class="num">1</td><td class="num">24</td><td class="num">0.96</td></tr>
 <tr><td>main_top25</td><td>vol_bucket</td><td class="num">25</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>main_top25</td><td>swing_score</td><td class="num">25</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_top25</td><td>swing_score</td><td class="num">1</td><td class="num">24</td><td class="num">0.96</td></tr>
 <tr><td>main_top25</td><td>market_cap</td><td class="num">25</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>main_top10</td><td>atr_pct</td><td class="num">10</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_top10</td><td>atr_pct</td><td class="num">1</td><td class="num">9</td><td class="num">0.9</td></tr>
 <tr><td>main_top10</td><td>vol_bucket</td><td class="num">10</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>main_top10</td><td>swing_score</td><td class="num">10</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>main_top10</td><td>swing_score</td><td class="num">1</td><td class="num">9</td><td class="num">0.9</td></tr>
 <tr><td>main_top10</td><td>market_cap</td><td class="num">10</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>atr_pct</td><td class="num">43</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>vol_bucket</td><td class="num">43</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>swing_score</td><td class="num">43</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>market_cap</td><td class="num">42</td><td class="num">1</td><td class="num">0.0233</td></tr>
-<tr><td>watchlist_supp</td><td>atr_pct</td><td class="num">0</td><td class="num">99</td><td class="num">1</td></tr>
-<tr><td>watchlist_supp</td><td>vol_bucket</td><td class="num">0</td><td class="num">99</td><td class="num">1</td></tr>
-<tr><td>watchlist_supp</td><td>swing_score</td><td class="num">0</td><td class="num">99</td><td class="num">1</td></tr>
-<tr><td>watchlist_supp</td><td>market_cap</td><td class="num">92</td><td class="num">7</td><td class="num">0.0707</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>atr_pct</td><td class="num">0</td><td class="num">44</td><td class="num">1</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>vol_bucket</td><td class="num">44</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>swing_score</td><td class="num">0</td><td class="num">44</td><td class="num">1</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>market_cap</td><td class="num">44</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>watchlist_supp</td><td>atr_pct</td><td class="num">0</td><td class="num">98</td><td class="num">1</td></tr>
+<tr><td>watchlist_supp</td><td>vol_bucket</td><td class="num">0</td><td class="num">98</td><td class="num">1</td></tr>
+<tr><td>watchlist_supp</td><td>swing_score</td><td class="num">0</td><td class="num">98</td><td class="num">1</td></tr>
+<tr><td>watchlist_supp</td><td>market_cap</td><td class="num">91</td><td class="num">7</td><td class="num">0.0714</td></tr>
 </tbody></table></div>
 <div class="section"><h2>vol_bucket share</h2><table><thead><tr><th>Group</th><th>bucket</th><th class="num">count</th><th class="num">share</th></tr></thead><tbody>
-<tr><td>main_rankings</td><td>High</td><td class="num">17</td><td class="num">0.17</td></tr>
-<tr><td>main_rankings</td><td>Med</td><td class="num">83</td><td class="num">0.83</td></tr>
-<tr><td>main_top25</td><td>High</td><td class="num">3</td><td class="num">0.12</td></tr>
-<tr><td>main_top25</td><td>Med</td><td class="num">22</td><td class="num">0.88</td></tr>
-<tr><td>main_top10</td><td>High</td><td class="num">2</td><td class="num">0.2</td></tr>
-<tr><td>main_top10</td><td>Med</td><td class="num">8</td><td class="num">0.8</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>High</td><td class="num">27</td><td class="num">0.6279</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>Med</td><td class="num">16</td><td class="num">0.3721</td></tr>
-<tr><td>watchlist_supp</td><td>__missing__</td><td class="num">99</td><td class="num">1</td></tr>
+<tr><td>main_rankings</td><td>Med</td><td class="num">1</td><td class="num">0.01</td></tr>
+<tr><td>main_rankings</td><td>Unknown</td><td class="num">99</td><td class="num">0.99</td></tr>
+<tr><td>main_top25</td><td>Med</td><td class="num">1</td><td class="num">0.04</td></tr>
+<tr><td>main_top25</td><td>Unknown</td><td class="num">24</td><td class="num">0.96</td></tr>
+<tr><td>main_top10</td><td>Med</td><td class="num">1</td><td class="num">0.1</td></tr>
+<tr><td>main_top10</td><td>Unknown</td><td class="num">9</td><td class="num">0.9</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>Unknown</td><td class="num">44</td><td class="num">1</td></tr>
+<tr><td>watchlist_supp</td><td>__missing__</td><td class="num">98</td><td class="num">1</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Sector mix</h2><table><thead><tr><th>Group</th><th>speculative_share</th><th>top sectors (count)</th></tr></thead><tbody>
-<tr><td>main_rankings</td><td>0.54</td><td>Financial Services=25, Technology=18, Energy=13, Industrials=12, Consumer Cyclical=10, Healthcare=7</td></tr>
-<tr><td>main_top25</td><td>0.32</td><td>Financial Services=12, Energy=6, Industrials=4, Consumer Cyclical=1, Technology=1, Basic Materials=1</td></tr>
-<tr><td>main_top10</td><td>0</td><td>Financial Services=7, Industrials=3</td></tr>
-<tr><td>watchlist_main_pipeline</td><td>0.8372</td><td>Technology=22, Consumer Cyclical=5, Communication Services=5, Industrials=3, Energy=2, Healthcare=2</td></tr>
-<tr><td>watchlist_supp</td><td>0.5859</td><td>Technology=40, Industrials=15, Healthcare=9, Financial Services=8, ETF=7, Basic Materials=6</td></tr>
+<tr><td>main_rankings</td><td>0.56</td><td>Technology=26, Financial Services=25, Industrials=12, Energy=11, Consumer Cyclical=9, Communication Services=5</td></tr>
+<tr><td>main_top25</td><td>0.4</td><td>Financial Services=11, Industrials=4, Energy=4, Technology=3, Consumer Cyclical=2, Communication Services=1</td></tr>
+<tr><td>main_top10</td><td>0.2</td><td>Financial Services=5, Industrials=3, Technology=2</td></tr>
+<tr><td>watchlist_main_pipeline</td><td>0.8409</td><td>Technology=22, Communication Services=6, Consumer Cyclical=5, Industrials=3, Energy=2, Healthcare=2</td></tr>
+<tr><td>watchlist_supp</td><td>0.5816</td><td>Technology=40, Industrials=15, Healthcare=9, Financial Services=8, ETF=7, Basic Materials=6</td></tr>
 </tbody></table></div>
 <div class="section"><h2>watchlist_main_pipeline by source label</h2><table><thead><tr><th>label</th><th class="num">rows</th><th class="num">low_risk mean</th><th class="num">median</th><th class="num">spec_share</th></tr></thead><tbody>
-<tr><td>tradingview</td><td class="num">27</td><td class="num">6.2074</td><td class="num">6.8</td><td class="num">0.7778</td></tr>
-<tr><td>both</td><td class="num">12</td><td class="num">3.9583</td><td class="num">3.45</td><td class="num">1</td></tr>
-<tr><td>csv</td><td class="num">4</td><td class="num">6.275</td><td class="num">5.8</td><td class="num">0.75</td></tr>
+<tr><td>tradingview</td><td class="num">27</td><td class="num">5.8704</td><td class="num">6.3</td><td class="num">0.7778</td></tr>
+<tr><td>both</td><td class="num">12</td><td class="num">3.6583</td><td class="num">2.8</td><td class="num">1</td></tr>
+<tr><td>csv</td><td class="num">5</td><td class="num">6</td><td class="num">5.4</td><td class="num">0.8</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Same-ticker overlap (main vs watchlist_main_pipeline)</h2>
-<p>shared tickers: <b>10</b> &middot; differing low_risk: <b>0</b> &middot; max |Δ|: <b>0</b> &middot; mean |Δ| (over differing): <b>0</b></p>
+<p>shared tickers: <b>12</b> &middot; differing low_risk: <b>0</b> &middot; max |Δ|: <b>0</b> &middot; mean |Δ| (over differing): <b>0</b></p>
 </div>
 <div class="section"><h2>Highest / lowest low_risk names per group</h2>
 <h3>main_rankings — top 5 highest</h3>
 <table><thead><tr><th>ticker</th><th>company</th><th>sector</th><th class="num">low_risk</th><th class="num">atr_pct</th><th>vol</th><th>cap</th></tr></thead><tbody>
-<tr><td>JPM</td><td>JPMorgan Chase</td><td>Financial Services</td><td class="num">9.1</td><td class="num">0.02</td><td>Med</td><td>959.5B</td></tr>
-<tr><td>ROST</td><td>Ross Stores</td><td>Consumer Cyclical</td><td class="num">9</td><td class="num">0.02</td><td>Med</td><td>75.5B</td></tr>
-<tr><td>HUBB</td><td>Hubbell Incorporated</td><td>Industrials</td><td class="num">9</td><td class="num">0.03</td><td>Med</td><td>26.6B</td></tr>
-<tr><td>WYNN</td><td>Wynn Resorts</td><td>Consumer Cyclical</td><td class="num">9</td><td class="num">0.03</td><td>Med</td><td>10.6B</td></tr>
-<tr><td>AXP</td><td>American Express</td><td>Financial Services</td><td class="num">8.9</td><td class="num">0.02</td><td>Med</td><td>227.0B</td></tr>
+<tr><td>FFIV</td><td>F5, Inc.</td><td>Technology</td><td class="num">9.8</td><td class="num">—</td><td>Unknown</td><td>22.3B</td></tr>
+<tr><td>GDDY</td><td>GoDaddy</td><td>Technology</td><td class="num">9.5</td><td class="num">—</td><td>Unknown</td><td>12.3B</td></tr>
+<tr><td>CSCO</td><td>Cisco</td><td>Technology</td><td class="num">9.4</td><td class="num">—</td><td>Unknown</td><td>438.5B</td></tr>
+<tr><td>FITB</td><td>Fifth Third Bancorp</td><td>Financial Services</td><td class="num">9.3</td><td class="num">—</td><td>Unknown</td><td>52.3B</td></tr>
+<tr><td>OTIS</td><td>Otis Worldwide</td><td>Industrials</td><td class="num">9.3</td><td class="num">—</td><td>Unknown</td><td>27.1B</td></tr>
 </tbody></table>
 <h3>main_rankings — bottom 5 lowest</h3>
 <table><thead><tr><th>ticker</th><th>company</th><th>sector</th><th class="num">low_risk</th><th class="num">atr_pct</th><th>vol</th><th>cap</th></tr></thead><tbody>
-<tr><td>NUE</td><td>Nucor</td><td>Basic Materials</td><td class="num">3.7</td><td class="num">0.03</td><td>Med</td><td>61.9B</td></tr>
-<tr><td>COP</td><td>ConocoPhillips</td><td>Energy</td><td class="num">3.8</td><td class="num">0.03</td><td>Med</td><td>153.2B</td></tr>
-<tr><td>FOXA</td><td>Fox Corporation (Class A)</td><td>Communication Services</td><td class="num">4.3</td><td class="num">0.03</td><td>Med</td><td>29.0B</td></tr>
-<tr><td>FOX</td><td>Fox Corporation (Class B)</td><td>Communication Services</td><td class="num">4.5</td><td class="num">0.03</td><td>Med</td><td>25.8B</td></tr>
-<tr><td>OXY</td><td>Occidental Petroleum</td><td>Energy</td><td class="num">4.7</td><td class="num">0.03</td><td>Med</td><td>59.0B</td></tr>
+<tr><td>COP</td><td>ConocoPhillips</td><td>Energy</td><td class="num">3.4</td><td class="num">—</td><td>Unknown</td><td>155.0B</td></tr>
+<tr><td>ORCL</td><td>Oracle Corporation</td><td>Technology</td><td class="num">4</td><td class="num">—</td><td>Unknown</td><td>416.3B</td></tr>
+<tr><td>OXY</td><td>Occidental Petroleum</td><td>Energy</td><td class="num">4.2</td><td class="num">—</td><td>Unknown</td><td>59.3B</td></tr>
+<tr><td>XOM</td><td>ExxonMobil</td><td>Energy</td><td class="num">4.4</td><td class="num">—</td><td>Unknown</td><td>675.1B</td></tr>
+<tr><td>VLO</td><td>Valero Energy</td><td>Energy</td><td class="num">5</td><td class="num">—</td><td>Unknown</td><td>100.1B</td></tr>
 </tbody></table>
 <h3>main_top25 — top 5 highest</h3>
 <table><thead><tr><th>ticker</th><th>company</th><th>sector</th><th class="num">low_risk</th><th class="num">atr_pct</th><th>vol</th><th>cap</th></tr></thead><tbody>
-<tr><td>JPM</td><td>JPMorgan Chase</td><td>Financial Services</td><td class="num">9.1</td><td class="num">0.02</td><td>Med</td><td>959.5B</td></tr>
-<tr><td>GEV</td><td>GE Vernova</td><td>Industrials</td><td class="num">8.8</td><td class="num">0.05</td><td>High</td><td>287.4B</td></tr>
-<tr><td>AME</td><td>Ametek</td><td>Industrials</td><td class="num">8.6</td><td class="num">0.02</td><td>Med</td><td>58.3B</td></tr>
-<tr><td>MS</td><td>Morgan Stanley</td><td>Financial Services</td><td class="num">8.5</td><td class="num">0.03</td><td>Med</td><td>343.0B</td></tr>
-<tr><td>KEY</td><td>KeyCorp</td><td>Financial Services</td><td class="num">8.4</td><td class="num">0.02</td><td>Med</td><td>24.7B</td></tr>
+<tr><td>JPM</td><td>JPMorgan Chase</td><td>Financial Services</td><td class="num">9.2</td><td class="num">—</td><td>Unknown</td><td>960.0B</td></tr>
+<tr><td>HUBB</td><td>Hubbell Incorporated</td><td>Industrials</td><td class="num">8.7</td><td class="num">0.03</td><td>Med</td><td>25.9B</td></tr>
+<tr><td>KEY</td><td>KeyCorp</td><td>Financial Services</td><td class="num">8.5</td><td class="num">—</td><td>Unknown</td><td>24.7B</td></tr>
+<tr><td>HBAN</td><td>Huntington Bancshares</td><td>Financial Services</td><td class="num">8.4</td><td class="num">—</td><td>Unknown</td><td>36.1B</td></tr>
+<tr><td>INTU</td><td>Intuit</td><td>Technology</td><td class="num">8.3</td><td class="num">—</td><td>Unknown</td><td>96.5B</td></tr>
 </tbody></table>
 <h3>main_top25 — bottom 5 lowest</h3>
 <table><thead><tr><th>ticker</th><th>company</th><th>sector</th><th class="num">low_risk</th><th class="num">atr_pct</th><th>vol</th><th>cap</th></tr></thead><tbody>
-<tr><td>MPC</td><td>Marathon Petroleum</td><td>Energy</td><td class="num">5.5</td><td class="num">0.03</td><td>Med</td><td>100.6B</td></tr>
-<tr><td>VLO</td><td>Valero Energy</td><td>Energy</td><td class="num">5.5</td><td class="num">0.03</td><td>Med</td><td>100.0B</td></tr>
-<tr><td>SCHW</td><td>Charles Schwab Corporation</td><td>Financial Services</td><td class="num">5.7</td><td class="num">0.02</td><td>Med</td><td>191.2B</td></tr>
-<tr><td>PSX</td><td>Phillips 66</td><td>Energy</td><td class="num">5.9</td><td class="num">0.03</td><td>Med</td><td>96.4B</td></tr>
-<tr><td>DVN</td><td>Devon Energy</td><td>Energy</td><td class="num">6</td><td class="num">0.03</td><td>Med</td><td>52.3B</td></tr>
+<tr><td>DVN</td><td>Devon Energy</td><td>Energy</td><td class="num">5.8</td><td class="num">—</td><td>Unknown</td><td>52.9B</td></tr>
+<tr><td>CVX</td><td>Chevron Corporation</td><td>Energy</td><td class="num">5.8</td><td class="num">—</td><td>Unknown</td><td>401.4B</td></tr>
+<tr><td>PSX</td><td>Phillips 66</td><td>Energy</td><td class="num">5.9</td><td class="num">—</td><td>Unknown</td><td>95.8B</td></tr>
+<tr><td>AMZN</td><td>Amazon</td><td>Consumer Cyclical</td><td class="num">6</td><td class="num">—</td><td>Unknown</td><td>2.80T</td></tr>
+<tr><td>SCHW</td><td>Charles Schwab Corporation</td><td>Financial Services</td><td class="num">6.1</td><td class="num">—</td><td>Unknown</td><td>193.3B</td></tr>
 </tbody></table>
 <h3>main_top10 — top 5 highest</h3>
 <table><thead><tr><th>ticker</th><th>company</th><th>sector</th><th class="num">low_risk</th><th class="num">atr_pct</th><th>vol</th><th>cap</th></tr></thead><tbody>
-<tr><td>GEV</td><td>GE Vernova</td><td>Industrials</td><td class="num">8.8</td><td class="num">0.05</td><td>High</td><td>287.4B</td></tr>
-<tr><td>MS</td><td>Morgan Stanley</td><td>Financial Services</td><td class="num">8.5</td><td class="num">0.03</td><td>Med</td><td>343.0B</td></tr>
-<tr><td>KEY</td><td>KeyCorp</td><td>Financial Services</td><td class="num">8.4</td><td class="num">0.02</td><td>Med</td><td>24.7B</td></tr>
-<tr><td>BNY</td><td>BNY Mellon</td><td>Financial Services</td><td class="num">8.4</td><td class="num">0.02</td><td>Med</td><td>111.5B</td></tr>
-<tr><td>C</td><td>Citigroup</td><td>Financial Services</td><td class="num">8.2</td><td class="num">0.02</td><td>Med</td><td>232.3B</td></tr>
+<tr><td>HUBB</td><td>Hubbell Incorporated</td><td>Industrials</td><td class="num">8.7</td><td class="num">0.03</td><td>Med</td><td>25.9B</td></tr>
+<tr><td>MS</td><td>Morgan Stanley</td><td>Financial Services</td><td class="num">8</td><td class="num">—</td><td>Unknown</td><td>339.9B</td></tr>
+<tr><td>C</td><td>Citigroup</td><td>Financial Services</td><td class="num">8</td><td class="num">—</td><td>Unknown</td><td>230.6B</td></tr>
+<tr><td>UBER</td><td>Uber</td><td>Technology</td><td class="num">8</td><td class="num">—</td><td>Unknown</td><td>157.0B</td></tr>
+<tr><td>CRM</td><td>Salesforce</td><td>Technology</td><td class="num">8</td><td class="num">—</td><td>Unknown</td><td>161.2B</td></tr>
 </tbody></table>
 <h3>main_top10 — bottom 5 lowest</h3>
 <table><thead><tr><th>ticker</th><th>company</th><th>sector</th><th class="num">low_risk</th><th class="num">atr_pct</th><th>vol</th><th>cap</th></tr></thead><tbody>
-<tr><td>NTRS</td><td>Northern Trust</td><td>Financial Services</td><td class="num">6.7</td><td class="num">0.02</td><td>Med</td><td>35.0B</td></tr>
-<tr><td>BAC</td><td>Bank of America</td><td>Financial Services</td><td class="num">7.6</td><td class="num">0.02</td><td>Med</td><td>446.8B</td></tr>
-<tr><td>EXPD</td><td>Expeditors International</td><td>Industrials</td><td class="num">7.7</td><td class="num">0.02</td><td>Med</td><td>24.5B</td></tr>
-<tr><td>EME</td><td>Emcor</td><td>Industrials</td><td class="num">7.7</td><td class="num">0.04</td><td>High</td><td>38.0B</td></tr>
-<tr><td>CFG</td><td>Citizens Financial Group</td><td>Financial Services</td><td class="num">7.9</td><td class="num">0.02</td><td>Med</td><td>31.3B</td></tr>
+<tr><td>GEV</td><td>GE Vernova</td><td>Industrials</td><td class="num">7.5</td><td class="num">—</td><td>Unknown</td><td>274.4B</td></tr>
+<tr><td>EXPD</td><td>Expeditors International</td><td>Industrials</td><td class="num">7.7</td><td class="num">—</td><td>Unknown</td><td>24.4B</td></tr>
+<tr><td>COF</td><td>Capital One</td><td>Financial Services</td><td class="num">7.7</td><td class="num">—</td><td>Unknown</td><td>137.2B</td></tr>
+<tr><td>BAC</td><td>Bank of America</td><td>Financial Services</td><td class="num">7.8</td><td class="num">—</td><td>Unknown</td><td>448.7B</td></tr>
+<tr><td>CFG</td><td>Citizens Financial Group</td><td>Financial Services</td><td class="num">7.9</td><td class="num">—</td><td>Unknown</td><td>31.3B</td></tr>
 </tbody></table>
 <h3>watchlist_main_pipeline — top 5 highest</h3>
 <table><thead><tr><th>ticker</th><th>company</th><th>sector</th><th class="num">low_risk</th><th class="num">atr_pct</th><th>vol</th><th>cap</th></tr></thead><tbody>
-<tr><td>TTWO</td><td>Take-Two Interactive</td><td>Communication Services</td><td class="num">9.7</td><td class="num">0.03</td><td>Med</td><td>45.2B</td></tr>
-<tr><td>Q</td><td>Qnity Electronics</td><td>Technology</td><td class="num">9.1</td><td class="num">0.05</td><td>High</td><td>29.4B</td></tr>
-<tr><td>SNDK</td><td>Sandisk</td><td>Technology</td><td class="num">8.8</td><td class="num">0.1</td><td>High</td><td>260.9B</td></tr>
-<tr><td>EQIX</td><td>Equinix</td><td>Real Estate</td><td class="num">8.7</td><td class="num">0.03</td><td>Med</td><td>108.3B</td></tr>
-<tr><td>META</td><td>Meta Platforms</td><td>Communication Services</td><td class="num">8.7</td><td class="num">0.04</td><td>High</td><td>1.45T</td></tr>
+<tr><td>TTWO</td><td>Take-Two Interactive</td><td>Communication Services</td><td class="num">9.9</td><td class="num">—</td><td>Unknown</td><td>46.2B</td></tr>
+<tr><td>Q</td><td>Qnity Electronics</td><td>Technology</td><td class="num">9.1</td><td class="num">—</td><td>Unknown</td><td>28.3B</td></tr>
+<tr><td>META</td><td>Meta Platforms</td><td>Communication Services</td><td class="num">8.7</td><td class="num">—</td><td>Unknown</td><td>1.40T</td></tr>
+<tr><td>AME</td><td>Ametek</td><td>Industrials</td><td class="num">8.4</td><td class="num">—</td><td>Unknown</td><td>57.4B</td></tr>
+<tr><td>EQIX</td><td>Equinix</td><td>Real Estate</td><td class="num">8.4</td><td class="num">—</td><td>Unknown</td><td>107.9B</td></tr>
 </tbody></table>
 <h3>watchlist_main_pipeline — bottom 5 lowest</h3>
 <table><thead><tr><th>ticker</th><th>company</th><th>sector</th><th class="num">low_risk</th><th class="num">atr_pct</th><th>vol</th><th>cap</th></tr></thead><tbody>
-<tr><td>CVNA</td><td>Carvana</td><td>Consumer Cyclical</td><td class="num">0</td><td class="num">0.05</td><td>High</td><td>104.3B</td></tr>
-<tr><td>APP</td><td>AppLovin</td><td>Communication Services</td><td class="num">0</td><td class="num">0.08</td><td>High</td><td>104.8B</td></tr>
-<tr><td>COIN</td><td>Coinbase</td><td>Financial Services</td><td class="num">0</td><td class="num">0.06</td><td>High</td><td>39.7B</td></tr>
-<tr><td>NVDA</td><td>Nvidia</td><td>Technology</td><td class="num">1.4</td><td class="num">0.03</td><td>Med</td><td>5.45T</td></tr>
-<tr><td>AMD</td><td>Advanced Micro Devices</td><td>Technology</td><td class="num">2.2</td><td class="num">0.06</td><td>High</td><td>826.0B</td></tr>
+<tr><td>CVNA</td><td>Carvana</td><td>Consumer Cyclical</td><td class="num">0</td><td class="num">—</td><td>Unknown</td><td>98.0B</td></tr>
+<tr><td>APP</td><td>AppLovin</td><td>Communication Services</td><td class="num">0</td><td class="num">—</td><td>Unknown</td><td>104.6B</td></tr>
+<tr><td>COIN</td><td>Coinbase</td><td>Financial Services</td><td class="num">0</td><td class="num">—</td><td>Unknown</td><td>38.9B</td></tr>
+<tr><td>AMD</td><td>Advanced Micro Devices</td><td>Technology</td><td class="num">1.3</td><td class="num">—</td><td>Unknown</td><td>782.7B</td></tr>
+<tr><td>NVDA</td><td>Nvidia</td><td>Technology</td><td class="num">1.4</td><td class="num">—</td><td>Unknown</td><td>5.32T</td></tr>
 </tbody></table>
 <h3>watchlist_supp — top 5 highest</h3>
 <table><thead><tr><th>ticker</th><th>company</th><th>sector</th><th class="num">low_risk</th><th class="num">atr_pct</th><th>vol</th><th>cap</th></tr></thead><tbody>
@@ -162,23 +161,21 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </tbody></table>
 <h3>watchlist_supp — bottom 5 lowest</h3>
 <table><thead><tr><th>ticker</th><th>company</th><th>sector</th><th class="num">low_risk</th><th class="num">atr_pct</th><th>vol</th><th>cap</th></tr></thead><tbody>
-<tr><td>CRDO</td><td>Credo Technology Group Holding</td><td>Technology</td><td class="num">0</td><td class="num">—</td><td></td><td>52.2B</td></tr>
-<tr><td>IONQ</td><td>IonQ, Inc.</td><td>Technology</td><td class="num">0</td><td class="num">—</td><td></td><td>18.9B</td></tr>
 <tr><td>PGY</td><td>Pagaya Technologies Ltd.</td><td>Technology</td><td class="num">0</td><td class="num">—</td><td></td><td>1.74B</td></tr>
+<tr><td>IONQ</td><td>IonQ, Inc.</td><td>Technology</td><td class="num">0</td><td class="num">—</td><td></td><td>18.9B</td></tr>
+<tr><td>CRDO</td><td>Credo Technology Group Holding</td><td>Technology</td><td class="num">0</td><td class="num">—</td><td></td><td>52.2B</td></tr>
 <tr><td>SLNH</td><td>Soluna Holdings, Inc.</td><td>Financial Services</td><td class="num">0</td><td class="num">—</td><td></td><td>203.5M</td></tr>
 <tr><td>APLD</td><td>Applied Digital Corporation</td><td>Technology</td><td class="num">0</td><td class="num">—</td><td></td><td>8.82B</td></tr>
 </tbody></table>
 </div>
 <div class="section"><h2>Cross-reference: scoring parity</h2><div class="kv"><pre>{
-  &quot;parity_overall&quot;: &quot;WARN&quot;,
+  &quot;parity_overall&quot;: &quot;FAIL&quot;,
   &quot;low_risk_status&quot;: &quot;WARN&quot;,
-  &quot;low_risk_message&quot;: &quot;mean delta watchlist_main - main = -1.67 (main=7.252, wlm=5.586) \u2014 explained by selection bias (drift verdict: selection_bias, confidence: medium); same-ticker max |\u0394| = 0.0 on 10 shared tickers&quot;,
-  &quot;low_risk_delta&quot;: -1.666
+  &quot;low_risk_message&quot;: &quot;mean delta watchlist_main - main = -2.21 (main=7.488, wlm=5.2818) \u2014 explained by selection bias (drift verdict: selection_bias, confidence: medium); same-ticker max |\u0394| = 0.0 on 10 shared tickers&quot;,
+  &quot;low_risk_delta&quot;: -2.2062
 }</pre></div></div>
 <div class="section"><h2>Recommendations</h2><ol class="recs">
-<li>Leave the low_risk formula unchanged. The watchlist universe is materially more speculative / higher-volatility than the main universe, so a lower mean low_risk is expected and faithful to the inputs.</li>
-<li>Consider demoting low_risk drift in cross-group parity from FAIL to a known selection-bias finding so it stops drowning out real parity blockers in the Midday Health Check.</li>
-<li>Treat low_risk as explanatory in the watchlist context, not punitive — surface it next to the score rather than as a tag that demotes a row.</li>
+<li>Mixed signal: more than one root cause is plausible (data_gap, selection_bias). Resolve any data_gap and formula_issue evidence before treating the rest as selection bias.</li>
 <li>A future improvement (not in scope here) is to normalize low_risk by sector or market cap before cross-group comparison so the universe-mix effect is removed.</li>
 </ol></div>
 </body></html>
