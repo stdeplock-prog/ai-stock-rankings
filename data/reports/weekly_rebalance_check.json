@@ -59,7 +59,7 @@
         {
           "name": "watchlist_sector_concentration",
           "status": "WARN",
-          "message": "watchlist_top25 dominated by Technology 13/25 (52%)"
+          "message": "watchlist_top25 dominated by Technology 12/25 (48%)"
         }
       ],
       "metrics": {
@@ -164,8 +164,8 @@
             "change": -2,
             "fundamental": 8.1,
             "technical": 8.1,
-            "sentiment": 9.0,
-            "low_risk": 7.8,
+            "sentiment": 9.5,
+            "low_risk": 6.2,
             "data_source": null
           },
           {
@@ -287,6 +287,32 @@
           },
           {
             "rank": 18,
+            "ticker": "HUM",
+            "company": "Humana",
+            "ai_score": 8.0,
+            "sector": "Healthcare",
+            "change": 75,
+            "fundamental": 8.1,
+            "technical": 8.1,
+            "sentiment": 7.0,
+            "low_risk": 7.8,
+            "data_source": null
+          },
+          {
+            "rank": 19,
+            "ticker": "JPM",
+            "company": "JPMorgan Chase",
+            "ai_score": 7.9,
+            "sector": "Financial Services",
+            "change": -2,
+            "fundamental": 9.1,
+            "technical": 6.4,
+            "sentiment": 8.6,
+            "low_risk": 7.1,
+            "data_source": null
+          },
+          {
+            "rank": 20,
             "ticker": "PSX",
             "company": "Phillips 66",
             "ai_score": 7.9,
@@ -398,10 +424,12 @@
           "warn": true,
           "by_sector": {
             "Financial Services": 11,
-            "Energy": 6,
+            "Energy": 4,
             "Industrials": 3,
             "Technology": 3,
-            "Consumer Cyclical": 2
+            "Consumer Cyclical": 2,
+            "Consumer Defensive": 1,
+            "Healthcare": 1
           }
         },
         "watchlist_top25": [
@@ -492,8 +520,8 @@
             "change": 0,
             "fundamental": 7.4,
             "technical": 7.0,
-            "sentiment": 7.4,
-            "low_risk": 9.1,
+            "sentiment": 8.8,
+            "low_risk": 8.2,
             "data_source": "main_pipeline"
           },
           {
@@ -733,15 +761,16 @@
         ],
         "watchlist_sector_concentration": {
           "top_sector": "Technology",
-          "top_count": 13,
+          "top_count": 12,
           "of": 25,
-          "pct": 0.52,
+          "pct": 0.48,
           "warn": true,
           "by_sector": {
-            "Technology": 13,
+            "Technology": 12,
             "Industrials": 2,
             "Communication Services": 2,
             "Healthcare": 2,
+            "Financial Services": 2,
             "Energy": 1,
             "Consumer Cyclical": 1,
             "Real Estate": 1,
@@ -852,7 +881,7 @@
             "fundamental": 8.71,
             "technical": 5.0,
             "sentiment": null,
-            "low_risk": 7.26,
+            "low_risk": 8.5,
             "data_source": "supplemental_yfinance"
           },
           {
@@ -1107,7 +1136,13 @@
                 "ticker": "KEYS",
                 "rank": 4,
                 "ai_score": 8.2,
-                "sector": "Technology"
+                "sector": "Energy"
+              },
+              {
+                "ticker": "BG",
+                "rank": 6,
+                "ai_score": 8.2,
+                "sector": "Consumer Defensive"
               },
               {
                 "ticker": "MS",
@@ -1132,6 +1167,12 @@
                 "rank": 10,
                 "ai_score": 8.2,
                 "sector": "Industrials"
+              },
+              {
+                "ticker": "C",
+                "rank": 10,
+                "ai_score": 8.2,
+                "sector": "Financial Services"
               }
             ],
             "exited": [
@@ -1671,6 +1712,10 @@
         "reason": "exited main top10 vs prior snapshot"
       },
       {
+        "ticker": "OKE",
+        "reason": "exited main top10 vs prior snapshot"
+      },
+      {
         "ticker": "ROST",
         "reason": "exited main top10 vs prior snapshot"
       },
@@ -1709,7 +1754,7 @@
   },
   "action_items": [
     "[WARN] leaderboards.main_sector_concentration: main_top25 dominated by Financial Services 11/25 (44%)",
-    "[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 13/25 (52%)",
+    "[WARN] leaderboards.watchlist_sector_concentration: watchlist_top25 dominated by Technology 12/25 (48%)",
     "[WARN] benchmark_context.lagging_buckets: 6 bucket/horizon pairs with negative avg_mean_return",
     "[WARN] diagnostics.suspicious_ranks: 5 suspicious top rank(s) flagged",
     "[INFO] main_top10 new entries: COF, KEYS, MS, DVN, HBAN",
