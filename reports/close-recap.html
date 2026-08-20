@@ -26,9 +26,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="summary"><strong>Recap:</strong> Live 01:21 PM CT · Source scheduled · DQ WARN · ↑BKNG ↓WYNN · 4 new top10 (INCY…) · Risk OK</div>
 
 <div class="section"><h2>Action Items</h2>
-<h3>Operational</h3><ul class="action">
-<li>[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK</li>
-</ul>
 <h3>Market &amp; Rankings</h3><ul class="action">
 <li>[WARN] diagnostics.diagnostics_overall: diagnostics overall=WARN; 8 suspicious top rank(s)</li>
 <li>[INFO] New top10 vs 2026-08-19: INCY, JPM, UBER, CRM</li>
@@ -136,18 +133,18 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>run_source</td><td class="OK">OK</td><td>latest run: scheduled (2026-08-20 13:21)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Data Quality<span class="WARN">WARN</span></h2>
+<div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;overall&quot;: &quot;WARN&quot;,
+  &quot;overall&quot;: &quot;OK&quot;,
   &quot;by_section&quot;: {
-    &quot;rankings&quot;: &quot;WARN&quot;,
+    &quot;rankings&quot;: &quot;OK&quot;,
     &quot;watchlist&quot;: &quot;OK&quot;,
     &quot;tasks&quot;: &quot;OK&quot;
   },
   &quot;critical_section_fail&quot;: false
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>data_quality_overall</td><td class="WARN">WARN</td><td>overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK</td></tr>
+<tr><td>data_quality_overall</td><td class="OK">OK</td><td>overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Rankings Recap<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -198,6 +195,14 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;company&quot;: &quot;Chevron Corporation&quot;,
       &quot;ai_score&quot;: 8.2,
       &quot;change&quot;: 0,
+      &quot;sector&quot;: &quot;Energy&quot;
+    },
+    {
+      &quot;rank&quot;: 6,
+      &quot;ticker&quot;: &quot;DVN&quot;,
+      &quot;company&quot;: &quot;Devon Energy&quot;,
+      &quot;ai_score&quot;: 8.2,
+      &quot;change&quot;: -1,
       &quot;sector&quot;: &quot;Energy&quot;
     },
     {
@@ -528,7 +533,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Diagnostics<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall&quot;: &quot;WARN&quot;,
-  &quot;suspicious_count&quot;: 8,
+  &quot;suspicious_count&quot;: 7,
   &quot;suspicious_top&quot;: [
     {
       &quot;ticker&quot;: &quot;GEV&quot;,
@@ -618,18 +623,18 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>diagnostics_overall</td><td class="WARN">WARN</td><td>diagnostics overall=WARN; 8 suspicious top rank(s)</td></tr>
+<tr><td>diagnostics_overall</td><td class="WARN">WARN</td><td>diagnostics overall=WARN; 7 suspicious top rank(s)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Benchmark<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;snapshots_kept&quot;: 64,
   &quot;any_horizon_completed&quot;: true,
   &quot;bucket_performance&quot;: {},
-  &quot;findings_warn&quot;: 2
+  &quot;findings_warn&quot;: 1
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>benchmark_snapshots</td><td class="OK">OK</td><td>64 snapshot(s); ≥1 horizon has forward results</td></tr>
-<tr><td>benchmark_findings</td><td class="OK">OK</td><td>2 WARN finding(s) in benchmark review (advisory)</td></tr>
+<tr><td>benchmark_findings</td><td class="OK">OK</td><td>1 WARN finding(s) in benchmark review (advisory)</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Parity<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
