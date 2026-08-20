@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-19T21:11:30Z",
-  "generated_at_chicago": "2026-08-19 04:11 PM CDT",
-  "overall": "OK",
+  "generated_at": "2026-08-20T14:34:50Z",
+  "generated_at_chicago": "2026-08-20 09:34 AM CDT",
+  "overall": "WARN",
   "sections": {
     "freshness": {
       "checks": [
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-08-19 04:10 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-08-20 09:34 AM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,14 +17,14 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-08-19 04:10 PM CDT",
-        "open_date": "2026-08-19",
+        "as_of": "2026-08-20 09:34 AM CDT",
+        "open_date": "2026-08-20",
         "row_count": 100,
-        "is_open_run": false,
+        "is_open_run": true,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-08-19 16:11",
-        "rankings_age_hours": 0.03,
+        "chicago_now": "2026-08-20 09:34",
+        "rankings_age_hours": 0.01,
         "today_live": true
       },
       "status": "OK"
@@ -34,15 +34,15 @@
         {
           "name": "run_source",
           "status": "OK",
-          "message": "latest run: scheduled (2026-08-19 16:11)"
+          "message": "latest run: scheduled (2026-08-20 09:34)"
         }
       ],
       "metrics": {
         "overall_raw": "OK",
         "overall_effective": "OK",
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-08-19 16:11",
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-08-20 09:34",
         "today_missing": [],
         "today_satisfied": true,
         "source": "schedule"
@@ -53,20 +53,20 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+          "status": "WARN",
+          "message": "overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
-        "overall": "OK",
+        "overall": "WARN",
         "by_section": {
-          "rankings": "OK",
+          "rankings": "WARN",
           "watchlist": "OK",
           "tasks": "OK"
         },
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "rankings_changes": {
       "checks": [
@@ -78,208 +78,208 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-08-18: DVN, KEYS, CVX, HBAN"
+          "message": "new top10 vs 2026-08-19: INCY, JPM, CRM, UBER"
         }
       ],
       "metrics": {
         "top_10": [
           {
             "rank": 1,
-            "ticker": "EXPD",
-            "company": "Expeditors International",
+            "ticker": "INCY",
+            "company": "Incyte",
             "ai_score": 8.4,
-            "change": 0,
-            "sector": "Industrials"
+            "change": 104,
+            "sector": "Healthcare"
           },
           {
             "rank": 2,
-            "ticker": "EME",
-            "company": "Emcor",
-            "ai_score": 8.3,
-            "change": 9,
-            "sector": "Industrials"
-          },
-          {
-            "rank": 3,
-            "ticker": "COF",
-            "company": "Capital One",
+            "ticker": "JPM",
+            "company": "JPMorgan Chase",
             "ai_score": 8.2,
-            "change": -1,
+            "change": 15,
             "sector": "Financial Services"
           },
           {
-            "rank": 4,
-            "ticker": "DVN",
-            "company": "Devon Energy",
+            "rank": 3,
+            "ticker": "EME",
+            "company": "Emcor",
             "ai_score": 8.2,
-            "change": -1,
+            "change": 8,
+            "sector": "Industrials"
+          },
+          {
+            "rank": 4,
+            "ticker": "CVX",
+            "company": "Chevron Corporation",
+            "ai_score": 8.2,
+            "change": 3,
             "sector": "Energy"
           },
           {
             "rank": 5,
-            "ticker": "MS",
-            "company": "Morgan Stanley",
+            "ticker": "DVN",
+            "company": "Devon Energy",
             "ai_score": 8.2,
-            "change": -1,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 6,
-            "ticker": "KEYS",
-            "company": "Keysight Technologies",
-            "ai_score": 8.2,
-            "change": -1,
-            "sector": "Technology"
-          },
-          {
-            "rank": 7,
-            "ticker": "C",
-            "company": "Citigroup",
-            "ai_score": 8.2,
-            "change": 1,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 8,
-            "ticker": "CVX",
-            "company": "Chevron Corporation",
-            "ai_score": 8.2,
-            "change": -1,
+            "change": -2,
             "sector": "Energy"
           },
           {
-            "rank": 9,
-            "ticker": "HBAN",
-            "company": "Huntington Bancshares",
+            "rank": 6,
+            "ticker": "MS",
+            "company": "Morgan Stanley",
             "ai_score": 8.2,
-            "change": -3,
+            "change": -2,
             "sector": "Financial Services"
+          },
+          {
+            "rank": 7,
+            "ticker": "CRM",
+            "company": "Salesforce",
+            "ai_score": 8.1,
+            "change": 25,
+            "sector": "Technology"
+          },
+          {
+            "rank": 8,
+            "ticker": "UBER",
+            "company": "Uber",
+            "ai_score": 8.1,
+            "change": 23,
+            "sector": "Technology"
+          },
+          {
+            "rank": 9,
+            "ticker": "EXPD",
+            "company": "Expeditors International",
+            "ai_score": 8.1,
+            "change": -8,
+            "sector": "Industrials"
           },
           {
             "rank": 10,
             "ticker": "GEV",
             "company": "GE Vernova",
-            "ai_score": 8.2,
+            "ai_score": 8.1,
             "change": -1,
             "sector": "Industrials"
           }
         ],
         "top_gainers": [
           {
-            "rank": 17,
-            "ticker": "HUM",
-            "company": "Humana",
-            "change": 76,
-            "ai_score": 8.0,
-            "sector": "Healthcare"
-          },
-          {
-            "rank": 26,
-            "ticker": "TFC",
-            "company": "Truist Financial",
-            "change": 60,
-            "ai_score": 7.9,
-            "sector": "Financial Services"
-          },
-          {
-            "rank": 66,
-            "ticker": "INCY",
-            "company": "Incyte",
-            "change": 39,
-            "ai_score": 7.5,
-            "sector": "Healthcare"
-          },
-          {
-            "rank": 2,
-            "ticker": "EME",
-            "company": "Emcor",
-            "change": 9,
-            "ai_score": 8.3,
-            "sector": "Industrials"
-          },
-          {
-            "rank": 81,
-            "ticker": "ANET",
-            "company": "Arista Networks",
-            "change": 6,
+            "rank": 76,
+            "ticker": "DHR",
+            "company": "Danaher Corporation",
+            "change": 168,
             "ai_score": 7.4,
-            "sector": "Technology"
-          }
-        ],
-        "top_losers": [
-          {
-            "rank": 65,
-            "ticker": "NDAQ",
-            "company": "Nasdaq, Inc.",
-            "change": -38,
-            "ai_score": 7.5,
-            "sector": "Financial Services"
+            "sector": "Healthcare"
           },
           {
-            "rank": 59,
-            "ticker": "FOX",
-            "company": "Fox Corporation (Class B)",
-            "change": -12,
-            "ai_score": 7.6,
-            "sector": "Communication Services"
-          },
-          {
-            "rank": 43,
-            "ticker": "MSI",
-            "company": "Motorola Solutions",
-            "change": -7,
-            "ai_score": 7.7,
-            "sector": "Technology"
-          },
-          {
-            "rank": 67,
-            "ticker": "EQIX",
-            "company": "Equinix",
-            "change": -7,
+            "rank": 62,
+            "ticker": "CBRE",
+            "company": "CBRE Group",
+            "change": 150,
             "ai_score": 7.5,
             "sector": "Real Estate"
           },
           {
-            "rank": 47,
-            "ticker": "LLY",
-            "company": "Lilly (Eli)",
-            "change": -6,
-            "ai_score": 7.7,
+            "rank": 1,
+            "ticker": "INCY",
+            "company": "Incyte",
+            "change": 104,
+            "ai_score": 8.4,
             "sector": "Healthcare"
+          },
+          {
+            "rank": 64,
+            "ticker": "INVH",
+            "company": "Invitation Homes",
+            "change": 98,
+            "ai_score": 7.5,
+            "sector": "Real Estate"
+          },
+          {
+            "rank": 56,
+            "ticker": "SPGI",
+            "company": "S&P Global",
+            "change": 92,
+            "ai_score": 7.6,
+            "sector": "Financial Services"
+          }
+        ],
+        "top_losers": [
+          {
+            "rank": 73,
+            "ticker": "HBAN",
+            "company": "Huntington Bancshares",
+            "change": -67,
+            "ai_score": 7.5,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 84,
+            "ticker": "CPAY",
+            "company": "Corpay",
+            "change": -65,
+            "ai_score": 7.4,
+            "sector": "Technology"
+          },
+          {
+            "rank": 78,
+            "ticker": "A",
+            "company": "Agilent Technologies",
+            "change": -45,
+            "ai_score": 7.4,
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 55,
+            "ticker": "GS",
+            "company": "Goldman Sachs",
+            "change": -42,
+            "ai_score": 7.6,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 57,
+            "ticker": "DELL",
+            "company": "Dell Technologies",
+            "change": -41,
+            "ai_score": 7.6,
+            "sector": "Technology"
           }
         ],
         "new_top10_entries": [
           {
-            "ticker": "DVN",
-            "rank": 4,
-            "ai_score": 8.2,
-            "sector": "Energy"
+            "ticker": "INCY",
+            "rank": 1,
+            "ai_score": 8.4,
+            "sector": "Healthcare"
           },
           {
-            "ticker": "KEYS",
-            "rank": 6,
+            "ticker": "JPM",
+            "rank": 2,
             "ai_score": 8.2,
+            "sector": "Financial Services"
+          },
+          {
+            "ticker": "CRM",
+            "rank": 7,
+            "ai_score": 8.1,
             "sector": "Technology"
           },
           {
-            "ticker": "CVX",
+            "ticker": "UBER",
             "rank": 8,
-            "ai_score": 8.2,
-            "sector": "Energy"
-          },
-          {
-            "ticker": "HBAN",
-            "rank": 9,
-            "ai_score": 8.2,
-            "sector": "Financial Services"
+            "ai_score": 8.1,
+            "sector": "Technology"
           }
         ],
-        "prior_top10_compared_against": "2026-08-18",
+        "prior_top10_compared_against": "2026-08-19",
         "mov_summary": {
           "with_change": 100,
-          "positive": 35,
-          "negative": 56,
-          "zero": 9
+          "positive": 68,
+          "negative": 28,
+          "zero": 4
         },
         "limitation": "MOV-based gainers/losers; new-entry detection uses prior benchmark snapshot when available."
       },
@@ -295,7 +295,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=0 misses=98"
+          "message": "yfinance cache hits=98 misses=0"
         }
       ],
       "metrics": {
@@ -303,15 +303,6 @@
         "top_10": [
           {
             "rank": 1,
-            "ticker": "ISSC",
-            "company": "Innovative Solutions and Suppor",
-            "ai_score": 8.3,
-            "change": 0,
-            "sector": "Industrials",
-            "data_source": "supplemental_yfinance"
-          },
-          {
-            "rank": 2,
             "ticker": "DVN",
             "company": "Devon Energy",
             "ai_score": 8.2,
@@ -320,34 +311,34 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 3,
-            "ticker": "DELL",
-            "company": "Dell Technologies",
-            "ai_score": 8.0,
+            "rank": 2,
+            "ticker": "UBER",
+            "company": "Uber",
+            "ai_score": 8.1,
             "change": 0,
             "sector": "Technology",
             "data_source": "main_pipeline"
           },
           {
-            "rank": 4,
+            "rank": 3,
             "ticker": "SOL-USD",
             "company": "Solana USD",
-            "ai_score": 8.0,
+            "ai_score": 7.8,
             "change": 0,
             "sector": "Crypto",
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 5,
-            "ticker": "UBER",
-            "company": "Uber",
-            "ai_score": 7.8,
+            "rank": 4,
+            "ticker": "GUSH",
+            "company": "Direxion Daily S&P Oil & Gas Ex",
+            "ai_score": 7.7,
             "change": 0,
-            "sector": "Technology",
-            "data_source": "main_pipeline"
+            "sector": "ETF",
+            "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 6,
+            "rank": 5,
             "ticker": "AMZN",
             "company": "Amazon",
             "ai_score": 7.6,
@@ -356,7 +347,25 @@
             "data_source": "main_pipeline"
           },
           {
+            "rank": 6,
+            "ticker": "BTC-USD",
+            "company": "Bitcoin USD",
+            "ai_score": 7.6,
+            "change": 0,
+            "sector": "Crypto",
+            "data_source": "supplemental_yfinance"
+          },
+          {
             "rank": 7,
+            "ticker": "DELL",
+            "company": "Dell Technologies",
+            "ai_score": 7.6,
+            "change": 0,
+            "sector": "Technology",
+            "data_source": "main_pipeline"
+          },
+          {
+            "rank": 8,
             "ticker": "GOOG",
             "company": "Alphabet Inc. (Class C)",
             "ai_score": 7.6,
@@ -365,7 +374,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 8,
+            "rank": 9,
             "ticker": "AME",
             "company": "Ametek",
             "ai_score": 7.5,
@@ -374,70 +383,66 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 9,
-            "ticker": "EQIX",
-            "company": "Equinix",
-            "ai_score": 7.5,
-            "change": 0,
-            "sector": "Real Estate",
-            "data_source": "main_pipeline"
-          },
-          {
             "rank": 10,
-            "ticker": "SNDK",
-            "company": "Sandisk",
+            "ticker": "BMNR",
+            "company": "BitMine Immersion Technologies,",
             "ai_score": 7.5,
             "change": 0,
-            "sector": "Technology",
-            "data_source": "main_pipeline"
+            "sector": "Financial Services",
+            "data_source": "supplemental_yfinance"
           }
         ],
-        "prior_top10_compared_against": "2026-08-18",
+        "prior_top10_compared_against": "2026-08-19",
         "new_top10_entries": [
           {
-            "ticker": "ISSC",
-            "rank": 1,
-            "ai_score": 8.3
+            "ticker": "GUSH",
+            "rank": 4,
+            "ai_score": 7.7
           },
           {
-            "ticker": "SOL-USD",
-            "rank": 4,
-            "ai_score": 8.0
+            "ticker": "BTC-USD",
+            "rank": 6,
+            "ai_score": 7.6
+          },
+          {
+            "ticker": "BMNR",
+            "rank": 10,
+            "ai_score": 7.5
           }
         ],
         "supp_top": [
           {
-            "ticker": "ISSC",
-            "company": "Innovative Solutions and Suppor",
-            "ai_score": 8.3,
-            "change": 0,
-            "sector": "Industrials"
-          },
-          {
             "ticker": "SOL-USD",
             "company": "Solana USD",
-            "ai_score": 8.0,
+            "ai_score": 7.8,
             "change": 0,
             "sector": "Crypto"
           },
           {
-            "ticker": "SCCO",
-            "company": "Southern Copper Corporation",
-            "ai_score": 7.4,
-            "change": 0,
-            "sector": "Basic Materials"
-          },
-          {
-            "ticker": "FRSH",
-            "company": "Freshworks Inc.",
-            "ai_score": 7.3,
-            "change": 0,
-            "sector": "Technology"
-          },
-          {
             "ticker": "GUSH",
             "company": "Direxion Daily S&P Oil & Gas Ex",
-            "ai_score": 7.3,
+            "ai_score": 7.7,
+            "change": 0,
+            "sector": "ETF"
+          },
+          {
+            "ticker": "BTC-USD",
+            "company": "Bitcoin USD",
+            "ai_score": 7.6,
+            "change": 0,
+            "sector": "Crypto"
+          },
+          {
+            "ticker": "BMNR",
+            "company": "BitMine Immersion Technologies,",
+            "ai_score": 7.5,
+            "change": 0,
+            "sector": "Financial Services"
+          },
+          {
+            "ticker": "IBIT",
+            "company": "iShares Bitcoin Trust ETF",
+            "ai_score": 7.5,
             "change": 0,
             "sector": "ETF"
           }
@@ -472,7 +477,7 @@
         }
       ],
       "metrics": {
-        "generated_at": "2026-08-19 14:51 UTC",
+        "generated_at": "2026-08-20 14:34 UTC",
         "generals_fail": {
           "below_count": 2,
           "available_count": 7,
@@ -501,13 +506,13 @@
         {
           "name": "benchmark_findings",
           "status": "OK",
-          "message": "4 WARN finding(s) in benchmark review (advisory)"
+          "message": "2 WARN finding(s) in benchmark review (advisory)"
         }
       ],
       "metrics": {
         "snapshots_kept": 64,
         "any_horizon_completed": true,
-        "findings_warn": 4
+        "findings_warn": 2
       },
       "status": "OK"
     }
@@ -521,22 +526,23 @@
     "benchmark_present": true
   },
   "action_items": [
-    "[INFO] New top10 entries vs 2026-08-18: DVN, KEYS, CVX, HBAN",
-    "[INFO] Top MOV gainer HUM (change=76, rank=17)",
-    "[INFO] Top MOV loser NDAQ (change=-38, rank=65)",
-    "[INFO] New watchlist top10: ISSC, SOL-USD"
+    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK",
+    "[INFO] New top10 entries vs 2026-08-19: INCY, JPM, CRM, UBER",
+    "[INFO] Top MOV gainer DHR (change=168, rank=76)",
+    "[INFO] Top MOV loser HBAN (change=-67, rank=73)",
+    "[INFO] New watchlist top10: GUSH, BTC-USD, BMNR"
   ],
   "strengths_risks": {
     "strengths": [
-      "EXPD (AI 8.4, rank 1, Industrials)",
-      "EME (AI 8.3, rank 2, Industrials)",
-      "COF (AI 8.2, rank 3, Financial Services)"
+      "INCY (AI 8.4, rank 1, Healthcare)",
+      "JPM (AI 8.2, rank 2, Financial Services)",
+      "EME (AI 8.2, rank 3, Industrials)"
     ],
     "risks": [
-      "NDAQ MOV -38 (rank 65, Financial Services)",
-      "FOX MOV -12 (rank 59, Communication Services)",
-      "MSI MOV -7 (rank 43, Technology)"
+      "HBAN MOV -67 (rank 73, Financial Services)",
+      "CPAY MOV -65 (rank 84, Technology)",
+      "A MOV -45 (rank 78, Healthcare)"
     ]
   },
-  "summary": "Live 04:10 PM CT \u00b7 Source scheduled \u00b7 DQ OK \u00b7 Top gainer HUM \u00b7 4 new top10 (DVN\u2026) \u00b7 Risk OK"
+  "summary": "Live 09:34 AM CT \u00b7 Source scheduled \u00b7 DQ WARN \u00b7 Top gainer DHR \u00b7 4 new top10 (INCY\u2026) \u00b7 Risk OK"
 }
