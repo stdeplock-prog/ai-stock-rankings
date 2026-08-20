@@ -55,20 +55,20 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
+          "status": "WARN",
+          "message": "overall=WARN; sections=rankings:WARN, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
-        "overall": "OK",
+        "overall": "WARN",
         "by_section": {
-          "rankings": "OK",
+          "rankings": "WARN",
           "watchlist": "OK",
           "tasks": "OK"
         },
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "rankings_recap": {
       "checks": [
@@ -138,7 +138,7 @@
             "ticker": "MS",
             "company": "Morgan Stanley",
             "ai_score": 8.2,
-            "change": -3,
+            "change": -2,
             "sector": "Financial Services"
           },
           {
@@ -380,6 +380,15 @@
           },
           {
             "rank": 7,
+            "ticker": "DELL",
+            "company": "Dell Technologies",
+            "ai_score": 7.6,
+            "change": 0,
+            "sector": "Technology",
+            "data_source": "main_pipeline"
+          },
+          {
+            "rank": 8,
             "ticker": "GOOG",
             "company": "Alphabet Inc. (Class C)",
             "ai_score": 7.6,
@@ -483,12 +492,12 @@
         {
           "name": "diagnostics_overall",
           "status": "WARN",
-          "message": "diagnostics overall=WARN; 6 suspicious top rank(s)"
+          "message": "diagnostics overall=WARN; 8 suspicious top rank(s)"
         }
       ],
       "metrics": {
         "overall": "WARN",
-        "suspicious_count": 6,
+        "suspicious_count": 8,
         "suspicious_top": [
           {
             "ticker": "SOL-USD",
@@ -523,9 +532,9 @@
             ]
           },
           {
-            "ticker": "GOOG",
+            "ticker": "BTC-USD",
             "group": "watchlist_top10",
-            "rank": 7,
+            "rank": 6,
             "reasons": [
               "negative MOV (-4.2%)"
             ]

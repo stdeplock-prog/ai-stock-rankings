@@ -25,15 +25,15 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "OK",
-          "message": "overall=OK; rankings=OK, tasks=OK"
+          "status": "WARN",
+          "message": "overall=WARN; rankings=WARN, tasks=OK"
         }
       ],
       "metrics": {
-        "overall": "OK",
+        "overall": "WARN",
         "critical_section_fail": false
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "schedule": {
       "checks": [
@@ -481,7 +481,33 @@
             "data_source": "main_pipeline"
           },
           {
+            "rank": 6,
+            "ticker": "BTC-USD",
+            "company": "Bitcoin USD",
+            "ai_score": 7.6,
+            "sector": "Crypto",
+            "change": 0,
+            "fundamental": null,
+            "technical": 7.6,
+            "sentiment": null,
+            "low_risk": null,
+            "data_source": "supplemental_yfinance"
+          },
+          {
             "rank": 7,
+            "ticker": "DELL",
+            "company": "Dell Technologies",
+            "ai_score": 7.6,
+            "sector": "Technology",
+            "change": 0,
+            "fundamental": 8.2,
+            "technical": 6.8,
+            "sentiment": 7.2,
+            "low_risk": 7.3,
+            "data_source": "main_pipeline"
+          },
+          {
+            "rank": 8,
             "ticker": "GOOG",
             "company": "Alphabet Inc. (Class C)",
             "ai_score": 7.6,
@@ -630,8 +656,8 @@
             "ai_score": 7.2,
             "sector": "Technology",
             "change": 0,
-            "fundamental": 7.53,
-            "technical": 6.4,
+            "fundamental": 7.58,
+            "technical": 6.1,
             "sentiment": null,
             "low_risk": 8.98,
             "data_source": "supplemental_yfinance"
@@ -900,7 +926,7 @@
             "sector": "Financial Services",
             "change": 0,
             "fundamental": 8.39,
-            "technical": 4.4,
+            "technical": 4.3,
             "sentiment": null,
             "low_risk": 9.66,
             "data_source": "supplemental_yfinance"
@@ -1263,6 +1289,12 @@
                 "sector": "ETF"
               },
               {
+                "ticker": "BTC-USD",
+                "rank": 6,
+                "ai_score": 7.6,
+                "sector": "Crypto"
+              },
+              {
                 "ticker": "BMNR",
                 "rank": 13,
                 "ai_score": 7.4,
@@ -1536,12 +1568,12 @@
         {
           "name": "suspicious_ranks",
           "status": "WARN",
-          "message": "6 suspicious top rank(s) flagged"
+          "message": "8 suspicious top rank(s) flagged"
         }
       ],
       "metrics": {
         "overall": "WARN",
-        "suspicious_count": 6,
+        "suspicious_count": 8,
         "suspicious_top": [
           {
             "ticker": "SOL-USD",
@@ -1578,7 +1610,7 @@
           {
             "ticker": "GOOG",
             "group": "watchlist_top10",
-            "rank": 7,
+            "rank": 8,
             "reasons": [
               "negative MOV (-4.2%)"
             ]

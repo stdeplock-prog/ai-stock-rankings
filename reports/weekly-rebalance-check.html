@@ -220,13 +220,13 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
 <tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-08-20 09:53 AM CDT (age 0.0h, weekend=False)</td></tr>
 </tbody></table></div>
-<div class="section"><h2>Data Quality<span class="OK">OK</span></h2>
+<div class="section"><h2>Data Quality<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;overall&quot;: &quot;OK&quot;,
+  &quot;overall&quot;: &quot;WARN&quot;,
   &quot;critical_section_fail&quot;: false
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>data_quality_overall</td><td class="OK">OK</td><td>overall=OK; rankings=OK, tasks=OK</td></tr>
+<tr><td>data_quality_overall</td><td class="WARN">WARN</td><td>overall=WARN; rankings=WARN, tasks=OK</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Schedule<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
@@ -661,7 +661,33 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;data_source&quot;: &quot;main_pipeline&quot;
     },
     {
+      &quot;rank&quot;: 6,
+      &quot;ticker&quot;: &quot;BTC-USD&quot;,
+      &quot;company&quot;: &quot;Bitcoin USD&quot;,
+      &quot;ai_score&quot;: 7.6,
+      &quot;sector&quot;: &quot;Crypto&quot;,
+      &quot;change&quot;: 0,
+      &quot;fundamental&quot;: null,
+      &quot;technical&quot;: 7.6,
+      &quot;sentiment&quot;: null,
+      &quot;low_risk&quot;: null,
+      &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
+    },
+    {
       &quot;rank&quot;: 7,
+      &quot;ticker&quot;: &quot;DELL&quot;,
+      &quot;company&quot;: &quot;Dell Technologies&quot;,
+      &quot;ai_score&quot;: 7.6,
+      &quot;sector&quot;: &quot;Technology&quot;,
+      &quot;change&quot;: 0,
+      &quot;fundamental&quot;: 8.2,
+      &quot;technical&quot;: 6.8,
+      &quot;sentiment&quot;: 7.2,
+      &quot;low_risk&quot;: 7.3,
+      &quot;data_source&quot;: &quot;main_pipeline&quot;
+    },
+    {
+      &quot;rank&quot;: 8,
       &quot;ticker&quot;: &quot;GOOG&quot;,
       &quot;company&quot;: &quot;Alphabet Inc. (Class C)&quot;,
       &quot;ai_score&quot;: 7.6,
@@ -810,8 +836,8 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;ai_score&quot;: 7.2,
       &quot;sector&quot;: &quot;Technology&quot;,
       &quot;change&quot;: 0,
-      &quot;fundamental&quot;: 7.53,
-      &quot;technical&quot;: 6.4,
+      &quot;fundamental&quot;: 7.58,
+      &quot;technical&quot;: 6.1,
       &quot;sentiment&quot;: null,
       &quot;low_risk&quot;: 8.98,
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
@@ -1080,7 +1106,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
       &quot;sector&quot;: &quot;Financial Services&quot;,
       &quot;change&quot;: 0,
       &quot;fundamental&quot;: 8.39,
-      &quot;technical&quot;: 4.4,
+      &quot;technical&quot;: 4.3,
       &quot;sentiment&quot;: null,
       &quot;low_risk&quot;: 9.66,
       &quot;data_source&quot;: &quot;supplemental_yfinance&quot;
@@ -1437,6 +1463,12 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
           &quot;sector&quot;: &quot;ETF&quot;
         },
         {
+          &quot;ticker&quot;: &quot;BTC-USD&quot;,
+          &quot;rank&quot;: 6,
+          &quot;ai_score&quot;: 7.6,
+          &quot;sector&quot;: &quot;Crypto&quot;
+        },
+        {
           &quot;ticker&quot;: &quot;BMNR&quot;,
           &quot;rank&quot;: 13,
           &quot;ai_score&quot;: 7.4,
@@ -1703,7 +1735,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <div class="section"><h2>Diagnostics<span class="WARN">WARN</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;overall&quot;: &quot;WARN&quot;,
-  &quot;suspicious_count&quot;: 6,
+  &quot;suspicious_count&quot;: 8,
   &quot;suspicious_top&quot;: [
     {
       &quot;ticker&quot;: &quot;SOL-USD&quot;,
@@ -1740,7 +1772,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
     {
       &quot;ticker&quot;: &quot;GOOG&quot;,
       &quot;group&quot;: &quot;watchlist_top10&quot;,
-      &quot;rank&quot;: 7,
+      &quot;rank&quot;: 8,
       &quot;reasons&quot;: [
         &quot;negative MOV (-4.2%)&quot;
       ]
@@ -1768,6 +1800,6 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
   ]
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>suspicious_ranks</td><td class="WARN">WARN</td><td>6 suspicious top rank(s) flagged</td></tr>
+<tr><td>suspicious_ranks</td><td class="WARN">WARN</td><td>8 suspicious top rank(s) flagged</td></tr>
 </tbody></table></div>
 </body></html>
