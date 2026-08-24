@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-24T14:57:55Z",
-  "generated_at_chicago": "2026-08-24 09:57 AM CDT",
+  "generated_at": "2026-08-24T18:12:09Z",
+  "generated_at_chicago": "2026-08-24 01:12 PM CDT",
   "overall": "OK",
   "caveat": "DAILY OHLCV ONLY: This report is a daily-bar proxy for the Pine v6 go/no-go gate stack. No true intraday VWAP, no Open Drift, no minute-bar logic. DIAGNOSTIC ONLY \u2014 rankings and scoring formulas are NOT mutated.",
   "thresholds": {
@@ -18,12 +18,12 @@
   },
   "counts": {
     "evaluated": 68,
-    "ohlcv_missing": 21,
+    "ohlcv_missing": 22,
     "insufficient_bars": 0,
     "blocked": 6,
     "go_normalized_ge_07": 28,
     "go_normalized_lt_04": 15,
-    "candidates": 89
+    "candidates": 90
   },
   "highlights": {
     "cleanest_go_main": [
@@ -992,7 +992,7 @@
         ],
         "company": "Northern Trust",
         "sector": "Financial Services",
-        "ai_score": 8.0,
+        "ai_score": 7.9,
         "swing_score": 7.7,
         "swing_tier": "A",
         "days_to_earnings": 57,
@@ -1304,47 +1304,47 @@
         "blocker_count": 0
       },
       {
-        "ticker": "AMP",
+        "ticker": "ADM",
         "sources": [
           "main"
         ],
-        "company": "Ameriprise Financial",
-        "sector": "Financial Services",
+        "company": "Archer Daniels Midland",
+        "sector": "Consumer Defensive",
         "ai_score": 7.5,
-        "swing_score": 7.1,
+        "swing_score": 8.0,
         "swing_tier": "A",
-        "days_to_earnings": 65,
+        "days_to_earnings": 70,
         "evaluated": true,
         "bars": 912,
         "gates": {
-          "trend_sma_aligned": false,
+          "trend_sma_aligned": true,
           "above_sma20": true,
           "above_bb_mid": true,
           "above_sma50": true,
           "ma50_rising": true,
-          "rsi_in_zone": true,
+          "rsi_in_zone": false,
           "rsi_slope_pos": false,
           "return_20d_ok": false,
           "rel_vol_ok": false,
           "bar_strength": false,
-          "mfi_above_avg": false,
+          "mfi_above_avg": true,
           "near_20d_high": false
         },
         "metrics": {
-          "last_close": 555.59,
-          "sma5": 557.242,
-          "sma8": 561.4375,
-          "sma13": 560.3723,
-          "sma20": 554.8627,
-          "sma50": 515.5783,
-          "rsi14": 57.9015,
-          "rsi14_3bar_ago": 65.6983,
-          "return_20d": 0.0537,
-          "rel_vol_20d": 1.293,
-          "mfi14": 57.7226,
-          "high_20d": 570.68,
-          "bb_upper_20": 574.2253,
-          "range_10d_pct": 0.0466
+          "last_close": 80.3,
+          "sma5": 81.0935,
+          "sma8": 80.5352,
+          "sma13": 79.5719,
+          "sma20": 79.7717,
+          "sma50": 79.5668,
+          "rsi14": 50.2561,
+          "rsi14_3bar_ago": 56.8077,
+          "return_20d": -0.0595,
+          "rel_vol_20d": 0.952,
+          "mfi14": 63.9975,
+          "high_20d": 82.6653,
+          "bb_upper_20": 83.2954,
+          "range_10d_pct": 0.1009
         },
         "blockers": [],
         "insufficient_data_reasons": [],
@@ -1492,7 +1492,7 @@
       {
         "ticker": "QCOM",
         "sector": "Technology",
-        "ai_score": 4.9,
+        "ai_score": 5.0,
         "go_no_go_score_normalized": 0.3,
         "blockers": [],
         "action": "downgrade-watchlist-only",
@@ -1690,6 +1690,59 @@
         "action": "downgrade-watchlist-only",
         "rationale": "Pine score 0.10 weak \u2014 Pine agrees with external bearish caution"
       }
+    },
+    {
+      "ticker": "ADM",
+      "sources": [
+        "main"
+      ],
+      "company": "Archer Daniels Midland",
+      "sector": "Consumer Defensive",
+      "ai_score": 7.5,
+      "swing_score": 8.0,
+      "swing_tier": "A",
+      "days_to_earnings": 70,
+      "evaluated": true,
+      "bars": 912,
+      "gates": {
+        "trend_sma_aligned": true,
+        "above_sma20": true,
+        "above_bb_mid": true,
+        "above_sma50": true,
+        "ma50_rising": true,
+        "rsi_in_zone": false,
+        "rsi_slope_pos": false,
+        "return_20d_ok": false,
+        "rel_vol_ok": false,
+        "bar_strength": false,
+        "mfi_above_avg": true,
+        "near_20d_high": false
+      },
+      "metrics": {
+        "last_close": 80.3,
+        "sma5": 81.0935,
+        "sma8": 80.5352,
+        "sma13": 79.5719,
+        "sma20": 79.7717,
+        "sma50": 79.5668,
+        "rsi14": 50.2561,
+        "rsi14_3bar_ago": 56.8077,
+        "return_20d": -0.0595,
+        "rel_vol_20d": 0.952,
+        "mfi14": 63.9975,
+        "high_20d": 82.6653,
+        "bb_upper_20": 83.2954,
+        "range_10d_pct": 0.1009
+      },
+      "blockers": [],
+      "insufficient_data_reasons": [],
+      "go_no_go_score": 5,
+      "go_no_go_gates_evaluated": 10,
+      "go_no_go_score_normalized": 0.5,
+      "accumulation_score": 1,
+      "accumulation_gates_evaluated": 5,
+      "accumulation_score_normalized": 0.2,
+      "blocker_count": 0
     },
     {
       "ticker": "AME",
@@ -2180,59 +2233,6 @@
       "blocker_count": 0
     },
     {
-      "ticker": "BLK",
-      "sources": [
-        "main"
-      ],
-      "company": "BlackRock",
-      "sector": "Financial Services",
-      "ai_score": 7.5,
-      "swing_score": 7.5,
-      "swing_tier": "A",
-      "days_to_earnings": 50,
-      "evaluated": true,
-      "bars": 912,
-      "gates": {
-        "trend_sma_aligned": false,
-        "above_sma20": true,
-        "above_bb_mid": true,
-        "above_sma50": true,
-        "ma50_rising": true,
-        "rsi_in_zone": true,
-        "rsi_slope_pos": false,
-        "return_20d_ok": true,
-        "rel_vol_ok": false,
-        "bar_strength": false,
-        "mfi_above_avg": false,
-        "near_20d_high": false
-      },
-      "metrics": {
-        "last_close": 1156.55,
-        "sma5": 1151.35,
-        "sma8": 1159.2787,
-        "sma13": 1150.2877,
-        "sma20": 1131.957,
-        "sma50": 1067.6532,
-        "rsi14": 60.3852,
-        "rsi14_3bar_ago": 61.9139,
-        "return_20d": 0.0956,
-        "rel_vol_20d": 0.628,
-        "mfi14": 45.0602,
-        "high_20d": 1182.84,
-        "bb_upper_20": 1194.1491,
-        "range_10d_pct": 0.0525
-      },
-      "blockers": [],
-      "insufficient_data_reasons": [],
-      "go_no_go_score": 6,
-      "go_no_go_gates_evaluated": 10,
-      "go_no_go_score_normalized": 0.6,
-      "accumulation_score": 1,
-      "accumulation_gates_evaluated": 5,
-      "accumulation_score_normalized": 0.2,
-      "blocker_count": 0
-    },
-    {
       "ticker": "BMNR",
       "sources": [
         "watchlist"
@@ -2303,7 +2303,7 @@
       ],
       "company": "Bitcoin USD",
       "sector": "Crypto",
-      "ai_score": 8.0,
+      "ai_score": 7.8,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -2313,7 +2313,7 @@
         "disagreement"
       ],
       "sector": "Consumer Cyclical",
-      "ai_score": 5.7,
+      "ai_score": 5.6,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -2711,7 +2711,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 5.0,
+      "ai_score": 5.1,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -2994,13 +2994,24 @@
       "blocker_count": 0
     },
     {
+      "ticker": "EXEL",
+      "sources": [
+        "watchlist"
+      ],
+      "company": "Exelixis, Inc.",
+      "sector": "Healthcare",
+      "ai_score": 6.8,
+      "evaluated": false,
+      "reason": "ohlcv missing"
+    },
+    {
       "ticker": "EXLS",
       "sources": [
         "watchlist"
       ],
       "company": "ExlService Holdings, Inc.",
       "sector": "Technology",
-      "ai_score": 7.2,
+      "ai_score": 7.1,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -3399,7 +3410,7 @@
       ],
       "company": "iShares Bitcoin Trust ETF",
       "sector": "ETF",
-      "ai_score": 9.2,
+      "ai_score": 9.0,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -3568,7 +3579,7 @@
         "disagreement"
       ],
       "sector": "Industrials",
-      "ai_score": 4.6,
+      "ai_score": 4.5,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -3734,12 +3745,10 @@
     {
       "ticker": "LUNMF",
       "sources": [
-        "watchlist",
         "disagreement"
       ],
-      "company": "Lundin Mining Corp.",
       "sector": "Basic Materials",
-      "ai_score": 6.8,
+      "ai_score": 6.7,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -3802,7 +3811,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 5.7,
+      "ai_score": 5.6,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -4237,7 +4246,7 @@
       ],
       "company": "Northern Trust",
       "sector": "Financial Services",
-      "ai_score": 8.0,
+      "ai_score": 7.9,
       "swing_score": 7.7,
       "swing_tier": "A",
       "days_to_earnings": 57,
@@ -4451,7 +4460,7 @@
       ],
       "company": "Pan American Silver Corp.",
       "sector": "Basic Materials",
-      "ai_score": 7.4,
+      "ai_score": 7.5,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -4472,7 +4481,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 3.9,
+      "ai_score": 3.7,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -4482,7 +4491,7 @@
         "disagreement"
       ],
       "sector": "Technology",
-      "ai_score": 4.9,
+      "ai_score": 5.0,
       "evaluated": true,
       "bars": 912,
       "gates": {
@@ -4601,7 +4610,7 @@
       ],
       "company": "Southern Copper Corporation",
       "sector": "Basic Materials",
-      "ai_score": 8.0,
+      "ai_score": 7.8,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -4720,7 +4729,6 @@
     {
       "ticker": "SNDK",
       "sources": [
-        "main",
         "watchlist"
       ],
       "company": "Sandisk",
@@ -4778,7 +4786,7 @@
       ],
       "company": "Solana USD",
       "sector": "Crypto",
-      "ai_score": 8.1,
+      "ai_score": 8.0,
       "evaluated": false,
       "reason": "ohlcv missing"
     },
@@ -5214,7 +5222,7 @@
         "sma13": 295.6014,
         "sma20": 295.8993,
         "sma50": 279.6025,
-        "rsi14": 58.5162,
+        "rsi14": 58.5161,
         "rsi14_3bar_ago": 56.1938,
         "return_20d": -0.0153,
         "rel_vol_20d": 1.071,
@@ -5293,7 +5301,7 @@
       ],
       "company": "West Pharmaceutical Services",
       "sector": "Healthcare",
-      "ai_score": 7.7,
+      "ai_score": 7.6,
       "swing_score": 8.4,
       "swing_tier": "A",
       "days_to_earnings": 58,
@@ -5400,5 +5408,5 @@
     "disagreement_queue_present": true,
     "ohlcv_dir_exists": true
   },
-  "summary": "Overall OK \u00b7 cands=89 \u00b7 evaluated=68 \u00b7 missing_ohlcv=21 \u00b7 go>=.7:28 \u00b7 weak<.4:15 \u00b7 blocked=6 \u00b7 dis_supports_internal=0 \u00b7 dis_supports_external=3"
+  "summary": "Overall OK \u00b7 cands=90 \u00b7 evaluated=68 \u00b7 missing_ohlcv=22 \u00b7 go>=.7:28 \u00b7 weak<.4:15 \u00b7 blocked=6 \u00b7 dis_supports_internal=0 \u00b7 dis_supports_external=3"
 }
