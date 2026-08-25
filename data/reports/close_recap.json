@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-24T21:15:39Z",
-  "generated_at_chicago": "2026-08-24 04:15 PM CDT",
+  "generated_at": "2026-08-25T15:06:45Z",
+  "generated_at_chicago": "2026-08-25 10:06 AM CDT",
   "overall": "WARN",
   "sections": {
     "freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-08-24 04:15 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-08-25 10:05 AM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,16 +17,16 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-08-24 04:15 PM CDT",
-        "open_date": "2026-08-24",
+        "as_of": "2026-08-25 10:05 AM CDT",
+        "open_date": "2026-08-25",
         "row_count": 100,
-        "is_open_run": false,
+        "is_open_run": true,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-08-24 16:15",
-        "rankings_age_hours": 0.01,
+        "chicago_now": "2026-08-25 10:06",
+        "rankings_age_hours": 0.03,
         "today_live": true,
-        "close_slot_satisfied": true
+        "close_slot_satisfied": false
       },
       "status": "OK"
     },
@@ -35,15 +35,15 @@
         {
           "name": "run_source",
           "status": "OK",
-          "message": "latest run: scheduled (2026-08-24 16:15)"
+          "message": "latest run: scheduled (2026-08-25 10:06)"
         }
       ],
       "metrics": {
         "overall_raw": "OK",
         "overall_effective": "OK",
         "last_run_event": "schedule",
-        "last_run_slot": "close",
-        "last_run_ts_chicago": "2026-08-24 16:15",
+        "last_run_slot": "morning",
+        "last_run_ts_chicago": "2026-08-25 10:06",
         "today_missing": [],
         "today_satisfied": true,
         "source": "schedule",
@@ -80,58 +80,63 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-08-21: BG, SCHW, OKE, IBKR"
+          "message": "new top10 vs 2026-08-24: VLO, HUM"
+        },
+        {
+          "name": "sector_concentration",
+          "status": "WARN",
+          "message": "top10 dominated by Energy (4/10 = 40%)"
         }
       ],
       "metrics": {
         "top_10": [
           {
             "rank": 1,
-            "ticker": "BG",
-            "company": "Bunge Global",
-            "ai_score": 8.3,
-            "change": 0,
-            "sector": "Consumer Defensive"
+            "ticker": "EXPD",
+            "company": "Expeditors International",
+            "ai_score": 8.4,
+            "change": 2,
+            "sector": "Industrials"
           },
           {
             "rank": 2,
             "ticker": "INCY",
             "company": "Incyte",
-            "ai_score": 8.2,
+            "ai_score": 8.3,
             "change": 0,
             "sector": "Healthcare"
           },
           {
             "rank": 3,
-            "ticker": "EXPD",
-            "company": "Expeditors International",
-            "ai_score": 8.2,
-            "change": 0,
-            "sector": "Industrials"
+            "ticker": "SCHW",
+            "company": "Charles Schwab Corporation",
+            "ai_score": 8.1,
+            "change": 2,
+            "sector": "Financial Services"
           },
           {
             "rank": 4,
             "ticker": "JPM",
             "company": "JPMorgan Chase",
-            "ai_score": 8.2,
+            "ai_score": 8.1,
             "change": 0,
             "sector": "Financial Services"
           },
           {
             "rank": 5,
-            "ticker": "SCHW",
-            "company": "Charles Schwab Corporation",
-            "ai_score": 8.2,
-            "change": 0,
-            "sector": "Financial Services"
+            "ticker": "OKE",
+            "company": "Oneok",
+            "ai_score": 8.1,
+            "change": 2,
+            "sector": "Energy"
           },
           {
             "rank": 6,
-            "ticker": "CVX",
-            "company": "Chevron Corporation",
-            "ai_score": 8.2,
-            "change": 0,
-            "sector": "Energy"
+            "ticker": "UBER",
+            "company": "Uber",
+            "ai_score": 8.1,
+            "change": 3,
+            "sector": "Technology"
           },
           {
             "rank": 7,
@@ -143,163 +148,149 @@
           },
           {
             "rank": 8,
-            "ticker": "OKE",
-            "company": "Oneok",
+            "ticker": "CVX",
+            "company": "Chevron Corporation",
             "ai_score": 8.1,
-            "change": -1,
+            "change": -2,
             "sector": "Energy"
           },
           {
             "rank": 9,
-            "ticker": "IBKR",
-            "company": "Interactive Brokers",
+            "ticker": "VLO",
+            "company": "Valero Energy",
             "ai_score": 8.1,
-            "change": 1,
-            "sector": "Financial Services"
+            "change": 3,
+            "sector": "Energy"
           },
           {
             "rank": 10,
-            "ticker": "UBER",
-            "company": "Uber",
-            "ai_score": 8.1,
-            "change": -1,
-            "sector": "Technology"
+            "ticker": "HUM",
+            "company": "Humana",
+            "ai_score": 8.0,
+            "change": 83,
+            "sector": "Healthcare"
           }
         ],
         "top_gainers": [
           {
-            "rank": 99,
-            "ticker": "LYB",
-            "company": "LyondellBasell",
-            "change": 8,
-            "ai_score": 7.2,
-            "sector": "Basic Materials"
+            "rank": 72,
+            "ticker": "GWW",
+            "company": "W. W. Grainger",
+            "change": 213,
+            "ai_score": 7.4,
+            "sector": "Industrials"
           },
           {
-            "rank": 98,
-            "ticker": "HAL",
-            "company": "Halliburton",
-            "change": 7,
-            "ai_score": 7.2,
-            "sector": "Energy"
-          },
-          {
-            "rank": 79,
-            "ticker": "SMCI",
-            "company": "Supermicro",
-            "change": 6,
-            "ai_score": 7.3,
-            "sector": "Technology"
-          },
-          {
-            "rank": 47,
-            "ticker": "ADM",
-            "company": "Archer Daniels Midland",
-            "change": 5,
-            "ai_score": 7.5,
+            "rank": 15,
+            "ticker": "COST",
+            "company": "Costco",
+            "change": 115,
+            "ai_score": 7.9,
             "sector": "Consumer Defensive"
           },
           {
-            "rank": 22,
-            "ticker": "FANG",
-            "company": "Diamondback Energy",
-            "change": 4,
-            "ai_score": 7.8,
-            "sector": "Energy"
+            "rank": 71,
+            "ticker": "MSCI",
+            "company": "MSCI",
+            "change": 99,
+            "ai_score": 7.4,
+            "sector": "Financial Services"
+          },
+          {
+            "rank": 13,
+            "ticker": "INVH",
+            "company": "Invitation Homes",
+            "change": 93,
+            "ai_score": 8.0,
+            "sector": "Real Estate"
+          },
+          {
+            "rank": 81,
+            "ticker": "DLTR",
+            "company": "Dollar Tree",
+            "change": 91,
+            "ai_score": 7.4,
+            "sector": "Consumer Defensive"
           }
         ],
         "top_losers": [
           {
-            "rank": 37,
-            "ticker": "WST",
-            "company": "West Pharmaceutical Services",
-            "change": -4,
-            "ai_score": 7.6,
-            "sector": "Healthcare"
-          },
-          {
-            "rank": 71,
-            "ticker": "ADI",
-            "company": "Analog Devices",
-            "change": -4,
-            "ai_score": 7.3,
-            "sector": "Technology"
-          },
-          {
-            "rank": 76,
-            "ticker": "MA",
-            "company": "Mastercard",
-            "change": -4,
+            "rank": 84,
+            "ticker": "GS",
+            "company": "Goldman Sachs",
+            "change": -50,
             "ai_score": 7.3,
             "sector": "Financial Services"
           },
           {
-            "rank": 38,
-            "ticker": "EXPE",
-            "company": "Expedia Group",
-            "change": -3,
-            "ai_score": 7.6,
-            "sector": "Consumer Cyclical"
+            "rank": 68,
+            "ticker": "MS",
+            "company": "Morgan Stanley",
+            "change": -40,
+            "ai_score": 7.5,
+            "sector": "Financial Services"
           },
           {
-            "rank": 83,
-            "ticker": "MU",
-            "company": "Micron Technology",
-            "change": -3,
+            "rank": 94,
+            "ticker": "TMO",
+            "company": "Thermo Fisher Scientific",
+            "change": -39,
             "ai_score": 7.3,
-            "sector": "Technology"
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 39,
+            "ticker": "BG",
+            "company": "Bunge Global",
+            "change": -38,
+            "ai_score": 7.7,
+            "sector": "Consumer Defensive"
+          },
+          {
+            "rank": 95,
+            "ticker": "ALLE",
+            "company": "Allegion",
+            "change": -38,
+            "ai_score": 7.3,
+            "sector": "Industrials"
           }
         ],
         "new_top10_entries": [
           {
-            "ticker": "BG",
-            "rank": 1,
-            "ai_score": 8.3,
-            "sector": "Consumer Defensive"
-          },
-          {
-            "ticker": "SCHW",
-            "rank": 5,
-            "ai_score": 8.2,
-            "sector": "Financial Services"
-          },
-          {
-            "ticker": "OKE",
-            "rank": 8,
+            "ticker": "VLO",
+            "rank": 9,
             "ai_score": 8.1,
             "sector": "Energy"
           },
           {
-            "ticker": "IBKR",
-            "rank": 9,
-            "ai_score": 8.1,
-            "sector": "Financial Services"
+            "ticker": "HUM",
+            "rank": 10,
+            "ai_score": 8.0,
+            "sector": "Healthcare"
           }
         ],
         "exited_top10_entries": [
-          "COF",
-          "MPC",
-          "PSX",
-          "VLO"
+          "BG",
+          "IBKR"
         ],
         "intraday_new_entries": [],
-        "prior_top10_compared_against": "2026-08-21",
+        "prior_top10_compared_against": "2026-08-24",
         "mov_summary": {
           "with_change": 100,
-          "positive": 29,
-          "negative": 29,
-          "zero": 42
+          "positive": 37,
+          "negative": 60,
+          "zero": 3
         },
         "sector_concentration": {
-          "top_sector": "Financial Services",
-          "top_count": 3,
+          "top_sector": "Energy",
+          "top_count": 4,
           "of": 10,
-          "pct": 0.3,
-          "warn": false
+          "pct": 0.4,
+          "warn": true
         },
         "limitation": "MOV-based gainers/losers; new/exited entries vs prior benchmark snapshot; intraday entries vs market_open_scan."
       },
-      "status": "OK"
+      "status": "WARN"
     },
     "watchlist": {
       "checks": [
@@ -311,7 +302,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=98 misses=0"
+          "message": "yfinance cache hits=0 misses=98"
         }
       ],
       "metrics": {
@@ -321,22 +312,13 @@
             "rank": 1,
             "ticker": "IBIT",
             "company": "iShares Bitcoin Trust ETF",
-            "ai_score": 9.0,
+            "ai_score": 8.5,
             "change": 0,
             "sector": "ETF",
             "data_source": "supplemental_yfinance"
           },
           {
             "rank": 2,
-            "ticker": "SOL-USD",
-            "company": "Solana USD",
-            "ai_score": 8.3,
-            "change": 0,
-            "sector": "Crypto",
-            "data_source": "supplemental_yfinance"
-          },
-          {
-            "rank": 3,
             "ticker": "DVN",
             "company": "Devon Energy",
             "ai_score": 8.1,
@@ -345,7 +327,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 4,
+            "rank": 3,
             "ticker": "UBER",
             "company": "Uber",
             "ai_score": 8.1,
@@ -354,7 +336,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 5,
+            "rank": 4,
             "ticker": "BMNR",
             "company": "BitMine Immersion Technologies,",
             "ai_score": 7.9,
@@ -363,7 +345,7 @@
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 6,
+            "rank": 5,
             "ticker": "SCCO",
             "company": "Southern Copper Corporation",
             "ai_score": 7.9,
@@ -372,16 +354,16 @@
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 7,
-            "ticker": "BTC-USD",
-            "company": "Bitcoin USD",
+            "rank": 6,
+            "ticker": "SOL-USD",
+            "company": "Solana USD",
             "ai_score": 7.8,
             "change": 0,
             "sector": "Crypto",
             "data_source": "supplemental_yfinance"
           },
           {
-            "rank": 8,
+            "rank": 7,
             "ticker": "EQIX",
             "company": "Equinix",
             "ai_score": 7.6,
@@ -390,39 +372,38 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 9,
-            "ticker": "PAAS",
-            "company": "Pan American Silver Corp.",
+            "rank": 8,
+            "ticker": "AAPL",
+            "company": "Apple Inc.",
             "ai_score": 7.5,
             "change": 0,
-            "sector": "Basic Materials",
-            "data_source": "supplemental_yfinance"
+            "sector": "Technology",
+            "data_source": "main_pipeline"
           },
           {
-            "rank": 10,
+            "rank": 9,
             "ticker": "SNDK",
             "company": "Sandisk",
             "ai_score": 7.5,
             "change": 0,
             "sector": "Technology",
             "data_source": "main_pipeline"
+          },
+          {
+            "rank": 10,
+            "ticker": "PAAS",
+            "company": "Pan American Silver Corp.",
+            "ai_score": 7.4,
+            "change": 0,
+            "sector": "Basic Materials",
+            "data_source": "supplemental_yfinance"
           }
         ],
-        "prior_top10_compared_against": "2026-08-21",
+        "prior_top10_compared_against": "2026-08-24",
         "new_top10_entries": [
           {
-            "ticker": "EQIX",
+            "ticker": "AAPL",
             "rank": 8,
-            "ai_score": 7.6
-          },
-          {
-            "ticker": "PAAS",
-            "rank": 9,
-            "ai_score": 7.5
-          },
-          {
-            "ticker": "SNDK",
-            "rank": 10,
             "ai_score": 7.5
           }
         ],
@@ -457,7 +438,7 @@
         }
       ],
       "metrics": {
-        "generated_at": "2026-08-24 14:57 UTC",
+        "generated_at": "2026-08-25 15:06 UTC",
         "generals_fail": {
           "below_count": 2,
           "available_count": 7,
@@ -493,7 +474,7 @@
             "group": "main_top10",
             "rank": 4,
             "reasons": [
-              "negative MOV (-2.3%)"
+              "negative MOV (-1.6%)"
             ]
           },
           {
@@ -509,21 +490,9 @@
             ]
           },
           {
-            "ticker": "SOL-USD",
-            "group": "watchlist_top10",
-            "rank": 2,
-            "reasons": [
-              "technical-only basis",
-              "missing FUND",
-              "missing SENT",
-              "missing LOW_RISK",
-              "missing SWING"
-            ]
-          },
-          {
             "ticker": "BMNR",
             "group": "watchlist_top10",
-            "rank": 5,
+            "rank": 4,
             "reasons": [
               "missing SENT",
               "missing SWING"
@@ -532,9 +501,21 @@
           {
             "ticker": "SCCO",
             "group": "watchlist_top10",
-            "rank": 6,
+            "rank": 5,
             "reasons": [
               "missing SENT",
+              "missing SWING"
+            ]
+          },
+          {
+            "ticker": "SOL-USD",
+            "group": "watchlist_top10",
+            "rank": 6,
+            "reasons": [
+              "technical-only basis",
+              "missing FUND",
+              "missing SENT",
+              "missing LOW_RISK",
               "missing SWING"
             ]
           }
@@ -543,31 +524,30 @@
           "main_top10": {
             "status": "WARN",
             "n": 10,
-            "top_sector": "Financial Services",
-            "top_count": 3,
-            "top_share": 0.3,
+            "top_sector": "Energy",
+            "top_count": 4,
+            "top_share": 0.4,
             "distribution": {
-              "Consumer Defensive": 1,
-              "Healthcare": 1,
               "Industrials": 1,
-              "Financial Services": 3,
-              "Energy": 3,
+              "Healthcare": 2,
+              "Financial Services": 2,
+              "Energy": 4,
               "Technology": 1
             }
           },
           "watchlist_top10": {
-            "status": "OK",
+            "status": "WARN",
             "n": 10,
-            "top_sector": "Crypto",
-            "top_count": 2,
-            "top_share": 0.2,
+            "top_sector": "Technology",
+            "top_count": 3,
+            "top_share": 0.3,
             "distribution": {
               "ETF": 1,
-              "Crypto": 2,
               "Energy": 1,
-              "Technology": 2,
+              "Technology": 3,
               "Financial Services": 1,
               "Basic Materials": 2,
+              "Crypto": 1,
               "Real Estate": 1
             }
           }
@@ -585,14 +565,14 @@
         {
           "name": "benchmark_findings",
           "status": "OK",
-          "message": "2 WARN finding(s) in benchmark review (advisory)"
+          "message": "3 WARN finding(s) in benchmark review (advisory)"
         }
       ],
       "metrics": {
         "snapshots_kept": 64,
         "any_horizon_completed": true,
         "bucket_performance": {},
-        "findings_warn": 2
+        "findings_warn": 3
       },
       "status": "OK"
     },
@@ -601,13 +581,13 @@
         {
           "name": "scoring_parity",
           "status": "OK",
-          "message": "parity overall=WARN (advisory)"
+          "message": "parity overall=FAIL (advisory)"
         }
       ],
       "metrics": {
-        "overall": "WARN",
+        "overall": "FAIL",
         "low_risk_bias_known": true,
-        "cross_group_parity_status": "WARN"
+        "cross_group_parity_status": "FAIL"
       },
       "status": "OK"
     }
@@ -625,11 +605,11 @@
     "prior_snapshot_present": true
   },
   "action_items": [
+    "[WARN] rankings_recap.sector_concentration: top10 dominated by Energy (4/10 = 40%)",
     "[WARN] diagnostics.diagnostics_overall: diagnostics overall=WARN; 7 suspicious top rank(s)",
-    "[INFO] New top10 vs 2026-08-21: BG, SCHW, OKE, IBKR",
-    "[INFO] Exited top10 since 2026-08-21: COF, MPC, PSX, VLO",
-    "[INFO] Top MOV gainer LYB (change=8, rank=99)",
-    "[INFO] Top MOV loser WST (change=-4, rank=37)"
+    "[INFO] New top10 vs 2026-08-24: VLO, HUM",
+    "[INFO] Exited top10 since 2026-08-24: BG, IBKR",
+    "[INFO] Top MOV gainer GWW (change=213, rank=72)"
   ],
-  "summary": "Close 04:15 PM CT \u00b7 Source scheduled \u00b7 DQ OK \u00b7 \u2191LYB \u2193WST \u00b7 4 new top10 (BG\u2026) \u00b7 Risk OK"
+  "summary": "Live 10:05 AM CT \u00b7 Source scheduled \u00b7 DQ OK \u00b7 \u2191GWW \u2193GS \u00b7 2 new top10 (VLO\u2026) \u00b7 Risk OK"
 }
