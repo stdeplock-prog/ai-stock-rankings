@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-01T17:56:10Z",
-  "generated_at_chicago": "2026-09-01 12:56 PM CDT",
+  "generated_at": "2026-09-01T23:28:29Z",
+  "generated_at_chicago": "2026-09-01 06:28 PM CDT",
   "overall": "WARN",
   "sections": {
     "freshness": {
@@ -8,7 +8,7 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-09-01 12:55 PM CDT (age 0.0h, weekend=False)"
+          "message": "as_of 2026-09-01 06:28 PM CDT (age 0.0h, weekend=False)"
         },
         {
           "name": "today_live",
@@ -17,16 +17,16 @@
         }
       ],
       "metrics": {
-        "as_of": "2026-09-01 12:55 PM CDT",
+        "as_of": "2026-09-01 06:28 PM CDT",
         "open_date": "2026-09-01",
         "row_count": 100,
-        "is_open_run": true,
+        "is_open_run": false,
         "universe": "SP500 + NDX100 + Russell1000 (~1400 tickers)",
         "is_weekend": false,
-        "chicago_now": "2026-09-01 12:56",
-        "rankings_age_hours": 0.02,
+        "chicago_now": "2026-09-01 18:28",
+        "rankings_age_hours": 0.01,
         "today_live": true,
-        "close_slot_satisfied": false
+        "close_slot_satisfied": true
       },
       "status": "OK"
     },
@@ -35,15 +35,15 @@
         {
           "name": "run_source",
           "status": "WARN",
-          "message": "latest run: rescued slot (2026-09-01 12:56), history shows 11 missing slot(s)"
+          "message": "latest run: rescued slot (2026-09-01 18:28), history shows 11 missing slot(s)"
         }
       ],
       "metrics": {
         "overall_raw": "FAIL",
         "overall_effective": "WARN",
         "last_run_event": "schedule",
-        "last_run_slot": "morning",
-        "last_run_ts_chicago": "2026-09-01 12:56",
+        "last_run_slot": "close",
+        "last_run_ts_chicago": "2026-09-01 18:28",
         "today_missing": [
           "midday"
         ],
@@ -57,20 +57,20 @@
       "checks": [
         {
           "name": "data_quality_overall",
-          "status": "WARN",
-          "message": "overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN"
+          "status": "OK",
+          "message": "overall=OK; sections=rankings:OK, watchlist:OK, tasks:OK"
         }
       ],
       "metrics": {
-        "overall": "WARN",
+        "overall": "OK",
         "by_section": {
           "rankings": "OK",
           "watchlist": "OK",
-          "tasks": "WARN"
+          "tasks": "OK"
         },
         "critical_section_fail": false
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "rankings_recap": {
       "checks": [
@@ -82,61 +82,77 @@
         {
           "name": "new_top10_entries",
           "status": "OK",
-          "message": "new top10 vs 2026-08-26: BG, FTNT, AAPL, ROP, NDSN"
+          "message": "new top10 vs 2026-08-26: BG, PSX, UNP, FTNT, JPM"
         }
       ],
       "metrics": {
         "top_10": [
           {
             "rank": 1,
-            "ticker": "BG",
-            "company": "Bunge Global",
-            "ai_score": 8.4,
-            "change": 40,
-            "sector": "Consumer Defensive"
+            "ticker": "EXPD",
+            "company": "Expeditors International",
+            "ai_score": 8.5,
+            "change": 2,
+            "sector": "Industrials"
           },
           {
             "rank": 2,
-            "ticker": "OKE",
-            "company": "Oneok",
-            "ai_score": 8.2,
-            "change": 4,
-            "sector": "Energy"
+            "ticker": "BG",
+            "company": "Bunge Global",
+            "ai_score": 8.3,
+            "change": -1,
+            "sector": "Consumer Defensive"
           },
           {
             "rank": 3,
-            "ticker": "EXPD",
-            "company": "Expeditors International",
+            "ticker": "OKE",
+            "company": "Oneok",
             "ai_score": 8.2,
-            "change": -2,
-            "sector": "Industrials"
+            "change": -1,
+            "sector": "Energy"
           },
           {
             "rank": 4,
             "ticker": "DVN",
             "company": "Devon Energy",
             "ai_score": 8.2,
-            "change": 4,
+            "change": 0,
             "sector": "Energy"
           },
           {
             "rank": 5,
-            "ticker": "IBKR",
-            "company": "Interactive Brokers",
+            "ticker": "PSX",
+            "company": "Phillips 66",
             "ai_score": 8.1,
-            "change": 2,
-            "sector": "Financial Services"
+            "change": 20,
+            "sector": "Energy"
           },
           {
             "rank": 6,
-            "ticker": "FTNT",
-            "company": "Fortinet",
-            "ai_score": 8.0,
-            "change": 219,
-            "sector": "Technology"
+            "ticker": "IBKR",
+            "company": "Interactive Brokers",
+            "ai_score": 8.1,
+            "change": -1,
+            "sector": "Financial Services"
           },
           {
             "rank": 7,
+            "ticker": "UNP",
+            "company": "Union Pacific Corporation",
+            "ai_score": 8.0,
+            "change": 39,
+            "sector": "Industrials"
+          },
+          {
+            "rank": 8,
+            "ticker": "FTNT",
+            "company": "Fortinet",
+            "ai_score": 8.0,
+            "change": -2,
+            "sector": "Technology"
+          },
+          {
+            "rank": 9,
             "ticker": "INCY",
             "company": "Incyte",
             "ai_score": 8.0,
@@ -144,144 +160,128 @@
             "sector": "Healthcare"
           },
           {
-            "rank": 8,
-            "ticker": "AAPL",
-            "company": "Apple Inc.",
-            "ai_score": 8.0,
-            "change": 105,
-            "sector": "Technology"
-          },
-          {
-            "rank": 9,
-            "ticker": "ROP",
-            "company": "Roper Technologies",
-            "ai_score": 7.9,
-            "change": 36,
-            "sector": "Technology"
-          },
-          {
             "rank": 10,
-            "ticker": "NDSN",
-            "company": "Nordson Corporation",
-            "ai_score": 7.9,
-            "change": 17,
-            "sector": "Industrials"
+            "ticker": "JPM",
+            "company": "JPMorgan Chase",
+            "ai_score": 8.0,
+            "change": 2,
+            "sector": "Financial Services"
           }
         ],
         "top_gainers": [
           {
-            "rank": 30,
-            "ticker": "FFIV",
-            "company": "F5, Inc.",
-            "change": 244,
-            "ai_score": 7.7,
-            "sector": "Technology"
+            "rank": 44,
+            "ticker": "WELL",
+            "company": "Welltower",
+            "change": 82,
+            "ai_score": 7.6,
+            "sector": "Real Estate"
           },
           {
             "rank": 90,
-            "ticker": "CVS",
-            "company": "CVS Health",
-            "change": 240,
+            "ticker": "HCA",
+            "company": "HCA Healthcare",
+            "change": 76,
             "ai_score": 7.3,
             "sector": "Healthcare"
           },
           {
-            "rank": 74,
-            "ticker": "CRWD",
-            "company": "CrowdStrike",
-            "change": 236,
-            "ai_score": 7.3,
-            "sector": "Technology"
+            "rank": 53,
+            "ticker": "FDX",
+            "company": "FedEx",
+            "change": 59,
+            "ai_score": 7.6,
+            "sector": "Industrials"
           },
           {
-            "rank": 6,
-            "ticker": "FTNT",
-            "company": "Fortinet",
-            "change": 219,
-            "ai_score": 8.0,
-            "sector": "Technology"
-          },
-          {
-            "rank": 67,
-            "ticker": "WFC",
-            "company": "Wells Fargo",
-            "change": 181,
-            "ai_score": 7.4,
+            "rank": 36,
+            "ticker": "BEN",
+            "company": "Franklin Resources",
+            "change": 57,
+            "ai_score": 7.7,
             "sector": "Financial Services"
+          },
+          {
+            "rank": 38,
+            "ticker": "MSI",
+            "company": "Motorola Solutions",
+            "change": 57,
+            "ai_score": 7.7,
+            "sector": "Technology"
           }
         ],
         "top_losers": [
           {
-            "rank": 95,
-            "ticker": "MSI",
-            "company": "Motorola Solutions",
-            "change": -53,
-            "ai_score": 7.2,
+            "rank": 41,
+            "ticker": "ROP",
+            "company": "Roper Technologies",
+            "change": -32,
+            "ai_score": 7.7,
             "sector": "Technology"
           },
           {
-            "rank": 98,
-            "ticker": "GDDY",
-            "company": "GoDaddy",
-            "change": -50,
-            "ai_score": 7.2,
-            "sector": "Technology"
+            "rank": 34,
+            "ticker": "MPC",
+            "company": "Marathon Petroleum",
+            "change": -23,
+            "ai_score": 7.8,
+            "sector": "Energy"
           },
           {
-            "rank": 62,
-            "ticker": "TGT",
-            "company": "Target Corporation",
-            "change": -48,
-            "ai_score": 7.4,
-            "sector": "Consumer Defensive"
-          },
-          {
-            "rank": 93,
-            "ticker": "BEN",
-            "company": "Franklin Resources",
-            "change": -46,
-            "ai_score": 7.2,
+            "rank": 80,
+            "ticker": "BAC",
+            "company": "Bank of America",
+            "change": -22,
+            "ai_score": 7.3,
             "sector": "Financial Services"
           },
           {
-            "rank": 73,
-            "ticker": "XOM",
-            "company": "ExxonMobil",
-            "change": -44,
-            "ai_score": 7.3,
-            "sector": "Energy"
+            "rank": 49,
+            "ticker": "HUM",
+            "company": "Humana",
+            "change": -16,
+            "ai_score": 7.6,
+            "sector": "Healthcare"
+          },
+          {
+            "rank": 51,
+            "ticker": "AMT",
+            "company": "American Tower",
+            "change": -15,
+            "ai_score": 7.6,
+            "sector": "Real Estate"
           }
         ],
         "new_top10_entries": [
           {
             "ticker": "BG",
-            "rank": 1,
-            "ai_score": 8.4,
+            "rank": 2,
+            "ai_score": 8.3,
             "sector": "Consumer Defensive"
           },
           {
-            "ticker": "FTNT",
-            "rank": 6,
-            "ai_score": 8.0,
-            "sector": "Technology"
+            "ticker": "PSX",
+            "rank": 5,
+            "ai_score": 8.1,
+            "sector": "Energy"
           },
           {
-            "ticker": "AAPL",
+            "ticker": "UNP",
+            "rank": 7,
+            "ai_score": 8.0,
+            "sector": "Industrials"
+          },
+          {
+            "ticker": "FTNT",
             "rank": 8,
             "ai_score": 8.0,
             "sector": "Technology"
           },
           {
-            "ticker": "ROP",
-            "rank": 9,
-            "ai_score": 7.9,
-            "sector": "Technology"
-          },
-          {
-            "ticker": "NDSN",
+            "ticker": "JPM",
             "rank": 10,
-            "ai_score": 7.9,
-            "sector": "Industrials"
+            "ai_score": 8.0,
+            "sector": "Financial Services"
           }
         ],
         "exited_top10_entries": [
@@ -295,20 +295,20 @@
         "prior_top10_compared_against": "2026-08-26",
         "mov_summary": {
           "with_change": 100,
-          "positive": 62,
-          "negative": 36,
-          "zero": 2
+          "positive": 26,
+          "negative": 71,
+          "zero": 3
         },
         "sector_concentration": {
-          "top_sector": "Technology",
+          "top_sector": "Energy",
           "top_count": 3,
           "of": 10,
-          "pct": 0.4,
-          "warn": true
+          "pct": 0.3,
+          "warn": false
         },
         "limitation": "MOV-based gainers/losers; new/exited entries vs prior benchmark snapshot; intraday entries vs market_open_scan."
       },
-      "status": "WARN"
+      "status": "OK"
     },
     "watchlist": {
       "checks": [
@@ -320,7 +320,7 @@
         {
           "name": "yfinance_cache",
           "status": "OK",
-          "message": "yfinance cache hits=0 misses=98"
+          "message": "yfinance cache hits=98 misses=0"
         }
       ],
       "metrics": {
@@ -357,7 +357,7 @@
             "rank": 4,
             "ticker": "DELL",
             "company": "Dell Technologies",
-            "ai_score": 7.6,
+            "ai_score": 7.7,
             "change": 0,
             "sector": "Technology",
             "data_source": "main_pipeline"
@@ -382,6 +382,15 @@
           },
           {
             "rank": 7,
+            "ticker": "LITE",
+            "company": "Lumentum",
+            "ai_score": 7.3,
+            "change": 0,
+            "sector": "Technology",
+            "data_source": "main_pipeline"
+          },
+          {
+            "rank": 8,
             "ticker": "MU",
             "company": "Micron Technology",
             "ai_score": 7.3,
@@ -390,7 +399,7 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 8,
+            "rank": 9,
             "ticker": "AMZN",
             "company": "Amazon",
             "ai_score": 7.2,
@@ -399,18 +408,9 @@
             "data_source": "main_pipeline"
           },
           {
-            "rank": 9,
-            "ticker": "LITE",
-            "company": "Lumentum",
-            "ai_score": 7.2,
-            "change": 0,
-            "sector": "Technology",
-            "data_source": "main_pipeline"
-          },
-          {
             "rank": 10,
-            "ticker": "PATH",
-            "company": "UiPath, Inc.",
+            "ticker": "DUOL",
+            "company": "Duolingo, Inc.",
             "ai_score": 7.2,
             "change": 0,
             "sector": "Technology",
@@ -435,22 +435,22 @@
             "ai_score": 7.3
           },
           {
-            "ticker": "MU",
+            "ticker": "LITE",
             "rank": 7,
             "ai_score": 7.3
           },
           {
-            "ticker": "AMZN",
+            "ticker": "MU",
             "rank": 8,
-            "ai_score": 7.2
+            "ai_score": 7.3
           },
           {
-            "ticker": "LITE",
+            "ticker": "AMZN",
             "rank": 9,
             "ai_score": 7.2
           },
           {
-            "ticker": "PATH",
+            "ticker": "DUOL",
             "rank": 10,
             "ai_score": 7.2
           }
@@ -511,19 +511,20 @@
         {
           "name": "diagnostics_overall",
           "status": "WARN",
-          "message": "diagnostics overall=FAIL; 7 suspicious top rank(s)"
+          "message": "diagnostics overall=FAIL; 8 suspicious top rank(s)"
         }
       ],
       "metrics": {
         "overall": "FAIL",
-        "suspicious_count": 7,
+        "suspicious_count": 8,
         "suspicious_top": [
           {
-            "ticker": "OKE",
+            "ticker": "JPM",
             "group": "main_top10",
-            "rank": 2,
+            "rank": 10,
             "reasons": [
-              "negative MOV (-1.1%)"
+              "weak SENT (4.0)",
+              "negative MOV (-1.4%)"
             ]
           },
           {
@@ -547,16 +548,15 @@
             "group": "watchlist_top10",
             "rank": 6,
             "reasons": [
-              "weak SENT (5.0)",
               "negative MOV (-1.7%)"
             ]
           },
           {
-            "ticker": "MU",
+            "ticker": "LITE",
             "group": "watchlist_top10",
             "rank": 7,
             "reasons": [
-              "weak LOW_RISK (2.7)"
+              "negative MOV (-5.6%)"
             ]
           }
         ],
@@ -564,15 +564,15 @@
           "main_top10": {
             "status": "WARN",
             "n": 10,
-            "top_sector": "Technology",
+            "top_sector": "Energy",
             "top_count": 3,
             "top_share": 0.3,
             "distribution": {
-              "Consumer Defensive": 1,
-              "Energy": 2,
               "Industrials": 2,
-              "Financial Services": 1,
-              "Technology": 3,
+              "Consumer Defensive": 1,
+              "Energy": 3,
+              "Financial Services": 2,
+              "Technology": 1,
               "Healthcare": 1
             }
           },
@@ -604,14 +604,14 @@
         {
           "name": "benchmark_findings",
           "status": "OK",
-          "message": "4 WARN finding(s) in benchmark review (advisory)"
+          "message": "5 WARN finding(s) in benchmark review (advisory)"
         }
       ],
       "metrics": {
         "snapshots_kept": 61,
         "any_horizon_completed": true,
         "bucket_performance": {},
-        "findings_warn": 4
+        "findings_warn": 5
       },
       "status": "OK"
     },
@@ -644,13 +644,12 @@
     "prior_snapshot_present": true
   },
   "action_items": [
-    "[WARN] run_source.run_source: latest run: rescued slot (2026-09-01 12:56), history shows 11 missing slot(s)",
-    "[WARN] data_quality.data_quality_overall: overall=WARN; sections=rankings:OK, watchlist:OK, tasks:WARN",
+    "[WARN] run_source.run_source: latest run: rescued slot (2026-09-01 18:28), history shows 11 missing slot(s)",
     "[WARN] market_risk.generals_fail: Generals Fail 3/7 below 200DMA (threshold 3): GOOGL, META, TSLA",
-    "[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 7 suspicious top rank(s)",
-    "[INFO] New top10 vs 2026-08-26: BG, FTNT, AAPL, ROP, NDSN",
+    "[WARN] diagnostics.diagnostics_overall: diagnostics overall=FAIL; 8 suspicious top rank(s)",
+    "[INFO] New top10 vs 2026-08-26: BG, PSX, UNP, FTNT, JPM",
     "[INFO] Exited top10 since 2026-08-26: BALL, CRM, CVX, GS, SCHW",
-    "[INFO] Top MOV gainer FFIV (change=244, rank=30)"
+    "[INFO] Top MOV gainer WELL (change=82, rank=44)"
   ],
-  "summary": "Live 12:55 PM CT \u00b7 Source rescued \u00b7 DQ WARN \u00b7 \u2191FFIV \u2193MSI \u00b7 5 new top10 (BG\u2026) \u00b7 Risk alert 3/7<200DMA"
+  "summary": "Close 06:28 PM CT \u00b7 Source rescued \u00b7 DQ OK \u00b7 \u2191WELL \u2193ROP \u00b7 5 new top10 (BG\u2026) \u00b7 Risk alert 3/7<200DMA"
 }
