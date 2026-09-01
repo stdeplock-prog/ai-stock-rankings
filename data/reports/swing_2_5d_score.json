@@ -199,6 +199,17 @@
         "confidence": 0.74,
         "go_label": null,
         "acc_label": null,
+        "penalties": []
+      },
+      {
+        "ticker": "FTNT",
+        "company": "Fortinet",
+        "rank": 8,
+        "score": 77.3,
+        "label": "HIGH",
+        "confidence": 0.88,
+        "go_label": null,
+        "acc_label": null,
         "penalties": [
           "overextension"
         ]
@@ -444,7 +455,7 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.9,
+          "score": 0.3867,
           "weight": 0.1,
           "detail": "12.6M vol",
           "present": true
@@ -1478,18 +1489,13 @@
           "present": true
         },
         "sentiment_catalyst": {
-          "score": 0.64,
+          "score": 0.9,
           "weight": 0.06,
-          "detail": "SENT 5.2/10 +catalyst",
+          "detail": "SENT 7.8/10 +catalyst",
           "present": true
         }
       },
-      "penalties": {
-        "weak_continuity": {
-          "mult": 0.85,
-          "detail": "CONT LOW (\u00d70.85)"
-        }
-      },
+      "penalties": {},
       "has_ohlcv": true
     },
     {
@@ -3467,10 +3473,10 @@
           "present": true
         },
         "accumulation": {
-          "score": null,
+          "score": 0.113,
           "weight": 0.14,
-          "detail": "no accumulation signal",
-          "present": false
+          "detail": "ACC meter 1.1/10",
+          "present": true
         },
         "go_gate": {
           "score": null,
@@ -4167,9 +4173,9 @@
       "confidence": 0.74,
       "components": {
         "tech_trend": {
-          "score": 0.68,
+          "score": 0.72,
           "weight": 0.22,
-          "detail": "TECH 6.8/10",
+          "detail": "TECH 7.2/10",
           "present": true
         },
         "momentum_thrust": {
@@ -4213,8 +4219,8 @@
       "has_ohlcv": true
     },
     {
-      "ticker": "ADSK",
-      "company": "Autodesk",
+      "ticker": "CPAY",
+      "company": "Corpay",
       "sector": "Technology",
       "rank": 63,
       "ai_score": 7.4,
@@ -4260,9 +4266,9 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.2758,
+          "score": 0.2,
           "weight": 0.1,
-          "detail": "1.8M vol",
+          "detail": "0.4M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -4773,9 +4779,9 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.5325,
+          "score": 0.6142,
           "weight": 0.1,
-          "detail": "6.2M vol",
+          "detail": "7.6M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -8323,9 +8329,9 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.2117,
+          "score": 0.5325,
           "weight": 0.1,
-          "detail": "0.7M vol",
+          "detail": "6.2M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -8336,9 +8342,9 @@
         }
       },
       "penalties": {
-        "low_liquidity": {
+        "weak_continuity": {
           "mult": 0.85,
-          "detail": "low liq 0.70M (\u00d70.85)"
+          "detail": "CONT LOW (\u00d70.85)"
         }
       },
       "has_ohlcv": false
@@ -8611,7 +8617,12 @@
           "present": true
         }
       },
-      "penalties": {},
+      "penalties": {
+        "overextension": {
+          "mult": 0.9221,
+          "detail": "overext +13% vs 10DMA (\u00d70.92)"
+        }
+      },
       "has_ohlcv": true
     },
     {
@@ -8719,6 +8730,1828 @@
           "score": 0.488,
           "weight": 0.16,
           "detail": "CONT MID 49",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.54,
+          "weight": 0.14,
+          "detail": "ACC meter 5.4/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.3342,
+          "weight": 0.1,
+          "detail": "2.8M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.86,
+          "weight": 0.06,
+          "detail": "SENT 8.6/10",
+          "present": true
+        }
+      },
+      "penalties": {
+        "overextension": {
+          "mult": 0.9328,
+          "detail": "overext +13% vs 10DMA (\u00d70.93)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "DELL",
+      "company": "Dell Technologies",
+      "sector": "Technology",
+      "rank": 4,
+      "ai_score": 7.6,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 5.7,
+      "swing_tier": "B",
+      "close": 456.01,
+      "days_to_earnings": 0,
+      "positive_score": 47.8,
+      "score": 28.4,
+      "label": "LOW",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.7,
+          "weight": 0.22,
+          "detail": "TECH 7.0/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.3556,
+          "weight": 0.2,
+          "detail": "2d -3.4% (-0.7x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.366,
+          "weight": 0.16,
+          "detail": "CONT LOW 37",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.256,
+          "weight": 0.14,
+          "detail": "ACC meter 2.6/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.62,
+          "weight": 0.1,
+          "detail": "7.7M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.65,
+          "weight": 0.06,
+          "detail": "SENT 6.5/10",
+          "present": true
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
+        "earnings": {
+          "mult": 0.7,
+          "detail": "earnings in 0d (\u00d70.70)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "SNDK",
+      "company": "Sandisk",
+      "sector": "Technology",
+      "rank": 5,
+      "ai_score": 7.6,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 5.3,
+      "swing_tier": "C",
+      "close": 1566.7,
+      "days_to_earnings": 66,
+      "positive_score": 67.4,
+      "score": 67.4,
+      "label": "HIGH",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.7,
+          "weight": 0.22,
+          "detail": "TECH 7.0/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.6182,
+          "weight": 0.2,
+          "detail": "2d +5.5% (+0.5x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.633,
+          "weight": 0.16,
+          "detail": "CONT MID 63",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.508,
+          "weight": 0.14,
+          "detail": "ACC meter 5.1/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "23.4M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.89,
+          "weight": 0.06,
+          "detail": "SENT 8.9/10",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "GOOG",
+      "company": "Alphabet Inc. (Class C)",
+      "sector": "Communication Services",
+      "rank": 6,
+      "ai_score": 7.3,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 5.8,
+      "swing_tier": "B",
+      "close": 335.41,
+      "days_to_earnings": 57,
+      "positive_score": 47.0,
+      "score": 40.0,
+      "label": "LOW",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.54,
+          "weight": 0.22,
+          "detail": "TECH 5.4/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.4393,
+          "weight": 0.2,
+          "detail": "2d -0.7% (-0.3x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.333,
+          "weight": 0.16,
+          "detail": "CONT LOW 33",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.192,
+          "weight": 0.14,
+          "detail": "ACC meter 1.9/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "23.2M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.62,
+          "weight": 0.06,
+          "detail": "SENT 5.0/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "MU",
+      "company": "Micron Technology",
+      "sector": "Technology",
+      "rank": 7,
+      "ai_score": 7.3,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 8.0,
+      "swing_tier": "A",
+      "close": 958.73,
+      "days_to_earnings": 29,
+      "positive_score": 67.3,
+      "score": 67.3,
+      "label": "HIGH",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.79,
+          "weight": 0.22,
+          "detail": "TECH 7.9/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.5837,
+          "weight": 0.2,
+          "detail": "2d +2.5% (+0.4x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.618,
+          "weight": 0.16,
+          "detail": "CONT MID 62",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.389,
+          "weight": 0.14,
+          "detail": "ACC meter 3.9/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "22.5M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.98,
+          "weight": 0.06,
+          "detail": "SENT 8.6/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "AMZN",
+      "company": "Amazon",
+      "sector": "Consumer Cyclical",
+      "rank": 8,
+      "ai_score": 7.2,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 7.4,
+      "swing_tier": "A",
+      "close": 259.77,
+      "days_to_earnings": 58,
+      "positive_score": 54.5,
+      "score": 54.5,
+      "label": "MID",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.65,
+          "weight": 0.22,
+          "detail": "TECH 6.5/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.6236,
+          "weight": 0.2,
+          "detail": "2d +1.4% (+0.6x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.401,
+          "weight": 0.16,
+          "detail": "CONT MID 40",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.151,
+          "weight": 0.14,
+          "detail": "ACC meter 1.5/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "46.0M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.61,
+          "weight": 0.06,
+          "detail": "SENT 4.9/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "LITE",
+      "company": "Lumentum",
+      "sector": "Technology",
+      "rank": 9,
+      "ai_score": 7.2,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 5.7,
+      "swing_tier": "B",
+      "close": 914.76,
+      "days_to_earnings": 65,
+      "positive_score": 53.5,
+      "score": 53.5,
+      "label": "MID",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.8,
+          "weight": 0.22,
+          "detail": "TECH 8.0/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.4217,
+          "weight": 0.2,
+          "detail": "2d -2.6% (-0.4x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.634,
+          "weight": 0.16,
+          "detail": "CONT MID 63",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.195,
+          "weight": 0.14,
+          "detail": "ACC meter 1.9/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.3575,
+          "weight": 0.1,
+          "detail": "3.2M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.76,
+          "weight": 0.06,
+          "detail": "SENT 7.6/10",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "PATH",
+      "company": "UiPath, Inc.",
+      "sector": "Technology",
+      "rank": 10,
+      "ai_score": 7.2,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 18.16,
+      "days_to_earnings": null,
+      "positive_score": 69.6,
+      "score": 69.6,
+      "label": "HIGH",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.65,
+          "weight": 0.22,
+          "detail": "TECH 6.5/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.5031,
+          "weight": 0.2,
+          "detail": "2d +0.1% (+0.0x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.873,
+          "weight": 0.16,
+          "detail": "CONT HIGH 87",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "39.3M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "SMCI",
+      "company": "Supermicro",
+      "sector": "Technology",
+      "rank": 11,
+      "ai_score": 7.2,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 5.2,
+      "swing_tier": "C",
+      "close": 37.28,
+      "days_to_earnings": 63,
+      "positive_score": 56.9,
+      "score": 56.9,
+      "label": "MID",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.68,
+          "weight": 0.22,
+          "detail": "TECH 6.8/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.4087,
+          "weight": 0.2,
+          "detail": "2d -3.1% (-0.4x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.648,
+          "weight": 0.16,
+          "detail": "CONT MID 65",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.22,
+          "weight": 0.14,
+          "detail": "ACC meter 2.2/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "22.8M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.75,
+          "weight": 0.06,
+          "detail": "SENT 7.5/10",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "TMO",
+      "company": "Thermo Fisher Scientific",
+      "sector": "Healthcare",
+      "rank": 12,
+      "ai_score": 7.2,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 7.4,
+      "swing_tier": "A",
+      "close": 617.1,
+      "days_to_earnings": 49,
+      "positive_score": 45.3,
+      "score": 45.3,
+      "label": "MID",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.68,
+          "weight": 0.22,
+          "detail": "TECH 6.8/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.2437,
+          "weight": 0.2,
+          "detail": "2d -2.6% (-1.2x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.56,
+          "weight": 0.16,
+          "detail": "CONT MID 56",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.255,
+          "weight": 0.14,
+          "detail": "ACC meter 2.5/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2525,
+          "weight": 0.1,
+          "detail": "1.4M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.83,
+          "weight": 0.06,
+          "detail": "SENT 7.1/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "DUOL",
+      "company": "Duolingo, Inc.",
+      "sector": "Technology",
+      "rank": 13,
+      "ai_score": 7.1,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 156.11,
+      "days_to_earnings": null,
+      "positive_score": 76.1,
+      "score": 76.1,
+      "label": "HIGH",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.67,
+          "weight": 0.22,
+          "detail": "TECH 6.7/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 1.0,
+          "weight": 0.2,
+          "detail": "2d +9.3% (+2.8x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.907,
+          "weight": 0.16,
+          "detail": "CONT HIGH 91",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2467,
+          "weight": 0.1,
+          "detail": "1.3M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "PLTR",
+      "company": "Palantir Technologies",
+      "sector": "Technology",
+      "rank": 14,
+      "ai_score": 7.1,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 5.9,
+      "swing_tier": "B",
+      "close": 186.38,
+      "days_to_earnings": 62,
+      "positive_score": 68.0,
+      "score": 68.0,
+      "label": "HIGH",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.8,
+          "weight": 0.22,
+          "detail": "TECH 8.0/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.5115,
+          "weight": 0.2,
+          "detail": "2d +0.2% (+0.1x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.792,
+          "weight": 0.16,
+          "detail": "CONT HIGH 79",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.418,
+          "weight": 0.14,
+          "detail": "ACC meter 4.2/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "25.9M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.75,
+          "weight": 0.06,
+          "detail": "SENT 7.5/10",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "SCCO",
+      "company": "Southern Copper Corporation",
+      "sector": "Basic Materials",
+      "rank": 15,
+      "ai_score": 7.1,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 203.59,
+      "days_to_earnings": null,
+      "positive_score": 33.4,
+      "score": 28.4,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.45,
+          "weight": 0.22,
+          "detail": "TECH 4.5/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.215,
+          "weight": 0.2,
+          "detail": "2d -5.9% (-1.3x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.405,
+          "weight": 0.16,
+          "detail": "CONT MID 40",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2,
+          "weight": 0.1,
+          "detail": "0.4M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.40M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "TSM",
+      "company": "Taiwan Semiconductor Manufactur",
+      "sector": "Technology",
+      "rank": 16,
+      "ai_score": 7.1,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 413.6,
+      "days_to_earnings": null,
+      "positive_score": 42.2,
+      "score": 42.2,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.48,
+          "weight": 0.22,
+          "detail": "TECH 4.8/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.3556,
+          "weight": 0.2,
+          "detail": "2d -0.9% (-0.7x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.414,
+          "weight": 0.16,
+          "detail": "CONT MID 41",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.4392,
+          "weight": 0.1,
+          "detail": "4.6M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "UBER",
+      "company": "Uber",
+      "sector": "Technology",
+      "rank": 17,
+      "ai_score": 7.1,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 6.4,
+      "swing_tier": "B",
+      "close": 75.65,
+      "days_to_earnings": 62,
+      "positive_score": 38.7,
+      "score": 32.9,
+      "label": "LOW",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.51,
+          "weight": 0.22,
+          "detail": "TECH 5.1/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.2204,
+          "weight": 0.2,
+          "detail": "2d -3.6% (-1.3x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.331,
+          "weight": 0.16,
+          "detail": "CONT LOW 33",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.052,
+          "weight": 0.14,
+          "detail": "ACC meter 0.5/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "18.5M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.56,
+          "weight": 0.06,
+          "detail": "SENT 5.6/10",
+          "present": true
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "FRSH",
+      "company": "Freshworks Inc.",
+      "sector": "Technology",
+      "rank": 18,
+      "ai_score": 7.0,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 13.52,
+      "days_to_earnings": null,
+      "positive_score": 50.8,
+      "score": 50.8,
+      "label": "MID",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.56,
+          "weight": 0.22,
+          "detail": "TECH 5.6/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.4043,
+          "weight": 0.2,
+          "detail": "2d -1.2% (-0.4x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.719,
+          "weight": 0.16,
+          "detail": "CONT HIGH 72",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2642,
+          "weight": 0.1,
+          "detail": "1.6M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "NFLX",
+      "company": "Netflix",
+      "sector": "Communication Services",
+      "rank": 19,
+      "ai_score": 7.0,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 7.2,
+      "swing_tier": "A",
+      "close": 81.05,
+      "days_to_earnings": 49,
+      "positive_score": 65.2,
+      "score": 65.2,
+      "label": "HIGH",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.66,
+          "weight": 0.22,
+          "detail": "TECH 6.6/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.6394,
+          "weight": 0.2,
+          "detail": "2d +1.5% (+0.6x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.596,
+          "weight": 0.16,
+          "detail": "CONT MID 60",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.406,
+          "weight": 0.14,
+          "detail": "ACC meter 4.1/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "30.7M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.97,
+          "weight": 0.06,
+          "detail": "SENT 8.5/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "APH",
+      "company": "Amphenol",
+      "sector": "Technology",
+      "rank": 20,
+      "ai_score": 6.9,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 6.0,
+      "swing_tier": "B",
+      "close": 158.55,
+      "days_to_earnings": 56,
+      "positive_score": 40.4,
+      "score": 40.4,
+      "label": "LOW",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.53,
+          "weight": 0.22,
+          "detail": "TECH 5.3/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.3831,
+          "weight": 0.2,
+          "detail": "2d -1.7% (-0.5x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.44,
+          "weight": 0.16,
+          "detail": "CONT MID 44",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.05,
+          "weight": 0.14,
+          "detail": "ACC meter 0.5/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.4917,
+          "weight": 0.1,
+          "detail": "5.5M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.6,
+          "weight": 0.06,
+          "detail": "SENT 4.8/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "EQIX",
+      "company": "Equinix",
+      "sector": "Real Estate",
+      "rank": 21,
+      "ai_score": 6.9,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 6.3,
+      "swing_tier": "B",
+      "close": 1046.72,
+      "days_to_earnings": 57,
+      "positive_score": 36.8,
+      "score": 31.3,
+      "label": "LOW",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.6,
+          "weight": 0.22,
+          "detail": "TECH 6.0/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.1618,
+          "weight": 0.2,
+          "detail": "2d -3.0% (-1.5x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.428,
+          "weight": 0.16,
+          "detail": "CONT MID 43",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.17,
+          "weight": 0.14,
+          "detail": "ACC meter 1.7/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2117,
+          "weight": 0.1,
+          "detail": "0.7M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.77,
+          "weight": 0.06,
+          "detail": "SENT 6.5/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.70M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "sector": "Technology",
+      "rank": 22,
+      "ai_score": 6.9,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 6.7,
+      "swing_tier": "B",
+      "close": 220.78,
+      "days_to_earnings": 77,
+      "positive_score": 53.2,
+      "score": 53.2,
+      "label": "MID",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.68,
+          "weight": 0.22,
+          "detail": "TECH 6.8/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.2527,
+          "weight": 0.2,
+          "detail": "2d -3.2% (-1.1x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.711,
+          "weight": 0.16,
+          "detail": "CONT HIGH 71",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.152,
+          "weight": 0.14,
+          "detail": "ACC meter 1.5/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "124.3M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.72,
+          "weight": 0.06,
+          "detail": "SENT 7.2/10",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "PAAS",
+      "company": "Pan American Silver Corp.",
+      "sector": "Basic Materials",
+      "rank": 23,
+      "ai_score": 6.9,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 50.88,
+      "days_to_earnings": null,
+      "positive_score": 32.9,
+      "score": 32.9,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.45,
+          "weight": 0.22,
+          "detail": "TECH 4.5/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.131,
+          "weight": 0.2,
+          "detail": "2d -7.3% (-1.7x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.444,
+          "weight": 0.16,
+          "detail": "CONT MID 44",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2758,
+          "weight": 0.1,
+          "detail": "1.8M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "VG",
+      "company": "Venture Global, Inc.",
+      "sector": "Energy",
+      "rank": 24,
+      "ai_score": 6.9,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 14.99,
+      "days_to_earnings": null,
+      "positive_score": 76.4,
+      "score": 76.4,
+      "label": "HIGH",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.61,
+          "weight": 0.22,
+          "detail": "TECH 6.1/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.9187,
+          "weight": 0.2,
+          "detail": "2d +3.5% (+1.9x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.866,
+          "weight": 0.16,
+          "detail": "CONT HIGH 87",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.6317,
+          "weight": 0.1,
+          "detail": "7.9M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "WDC",
+      "company": "Western Digital",
+      "sector": "Technology",
+      "rank": 25,
+      "ai_score": 6.9,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 4.6,
+      "swing_tier": "C",
+      "close": 450.55,
+      "days_to_earnings": 65,
+      "positive_score": 40.6,
+      "score": 34.5,
+      "label": "LOW",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.64,
+          "weight": 0.22,
+          "detail": "TECH 6.4/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.391,
+          "weight": 0.2,
+          "detail": "2d -3.9% (-0.5x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.27,
+          "weight": 0.16,
+          "detail": "CONT LOW 27",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.012,
+          "weight": 0.14,
+          "detail": "ACC meter 0.1/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.5092,
+          "weight": 0.1,
+          "detail": "5.8M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.71,
+          "weight": 0.06,
+          "detail": "SENT 7.1/10",
+          "present": true
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "EXLS",
+      "company": "ExlService Holdings, Inc.",
+      "sector": "Technology",
+      "rank": 26,
+      "ai_score": 6.8,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 37.77,
+      "days_to_earnings": null,
+      "positive_score": 46.7,
+      "score": 39.7,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.53,
+          "weight": 0.22,
+          "detail": "TECH 5.3/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.351,
+          "weight": 0.2,
+          "detail": "2d -1.1% (-0.7x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.689,
+          "weight": 0.16,
+          "detail": "CONT HIGH 69",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2058,
+          "weight": 0.1,
+          "detail": "0.6M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.60M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "sector": "Communication Services",
+      "rank": 27,
+      "ai_score": 6.8,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 6.2,
+      "swing_tier": "B",
+      "close": 572.34,
+      "days_to_earnings": 57,
+      "positive_score": 51.4,
+      "score": 51.4,
+      "label": "MID",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.54,
+          "weight": 0.22,
+          "detail": "TECH 5.4/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.5158,
+          "weight": 0.2,
+          "detail": "2d +0.2% (+0.1x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.609,
+          "weight": 0.16,
+          "detail": "CONT MID 61",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.022,
+          "weight": 0.14,
+          "detail": "ACC meter 0.2/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "13.4M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.66,
+          "weight": 0.06,
+          "detail": "SENT 5.4/10 +catalyst",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "EXEL",
+      "company": "Exelixis, Inc.",
+      "sector": "Healthcare",
+      "rank": 28,
+      "ai_score": 6.7,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 55.83,
+      "days_to_earnings": null,
+      "positive_score": 56.9,
+      "score": 48.4,
+      "label": "MID",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.55,
+          "weight": 0.22,
+          "detail": "TECH 5.5/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.6057,
+          "weight": 0.2,
+          "detail": "2d +1.0% (+0.5x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.767,
+          "weight": 0.16,
+          "detail": "CONT HIGH 77",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2233,
+          "weight": 0.1,
+          "detail": "0.9M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.90M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "CLS",
+      "company": "Celestica, Inc.",
+      "sector": "Technology",
+      "rank": 29,
+      "ai_score": 6.6,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 291.35,
+      "days_to_earnings": null,
+      "positive_score": 21.0,
+      "score": 15.1,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.41,
+          "weight": 0.22,
+          "detail": "TECH 4.1/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.0,
+          "weight": 0.2,
+          "detail": "2d -8.2% (-2.3x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.191,
+          "weight": 0.16,
+          "detail": "CONT LOW 19",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2175,
+          "weight": 0.1,
+          "detail": "0.8M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.80M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "HOOD",
+      "company": "Robinhood Markets",
+      "sector": "Financial Services",
+      "rank": 30,
+      "ai_score": 6.6,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 7.3,
+      "swing_tier": "A",
+      "close": 104.81,
+      "days_to_earnings": 64,
+      "positive_score": 59.0,
+      "score": 59.0,
+      "label": "MID",
+      "confidence": 0.88,
+      "components": {
+        "tech_trend": {
+          "score": 0.77,
+          "weight": 0.22,
+          "detail": "TECH 7.7/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.3011,
+          "weight": 0.2,
+          "detail": "2d -4.5% (-0.9x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.739,
+          "weight": 0.16,
+          "detail": "CONT HIGH 74",
+          "present": true
+        },
+        "accumulation": {
+          "score": 0.263,
+          "weight": 0.14,
+          "detail": "ACC meter 2.6/10",
+          "present": true
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.9,
+          "weight": 0.1,
+          "detail": "16.3M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": 0.74,
+          "weight": 0.06,
+          "detail": "SENT 7.4/10",
+          "present": true
+        }
+      },
+      "penalties": {},
+      "has_ohlcv": true
+    },
+    {
+      "ticker": "CIEN",
+      "company": "Ciena",
+      "sector": "Technology",
+      "rank": 31,
+      "ai_score": 6.5,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": 3.9,
+      "swing_tier": "D",
+      "close": 382.8,
+      "days_to_earnings": 1,
+      "positive_score": 37.0,
+      "score": 22.0,
+      "label": "LOW",
+      "confidence": 0.74,
+      "components": {
+        "tech_trend": {
+          "score": 0.5,
+          "weight": 0.22,
+          "detail": "TECH 5.0/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.2917,
+          "weight": 0.2,
+          "detail": "2d -5.3% (-0.9x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.247,
+          "weight": 0.16,
+          "detail": "CONT LOW 25",
           "present": true
         },
         "accumulation": {
@@ -9214,9 +11047,9 @@
           "present": true
         },
         "sentiment_catalyst": {
-          "score": 0.72,
+          "score": 0.69,
           "weight": 0.06,
-          "detail": "SENT 7.2/10",
+          "detail": "SENT 6.9/10",
           "present": true
         }
       },
@@ -9277,10 +11110,10 @@
           "present": true
         },
         "sentiment_catalyst": {
-          "score": null,
+          "score": 0.92,
           "weight": 0.06,
-          "detail": "no sentiment/catalyst",
-          "present": false
+          "detail": "SENT 8.0/10 +catalyst",
+          "present": true
         }
       },
       "penalties": {},
@@ -9844,9 +11677,9 @@
           "present": true
         },
         "continuity": {
-          "score": 0.202,
+          "score": 0.214,
           "weight": 0.16,
-          "detail": "CONT LOW 20",
+          "detail": "CONT LOW 21",
           "present": true
         },
         "accumulation": {
@@ -11645,8 +13478,8 @@
         "sentiment_catalyst": {
           "score": null,
           "weight": 0.06,
-          "detail": "no sentiment/catalyst",
-          "present": false
+          "detail": "SENT 6.1/10",
+          "present": true
         }
       },
       "penalties": {
@@ -15321,9 +17154,9 @@
           "present": false
         },
         "activity_liq": {
-          "score": 0.7892,
+          "score": 0.8708,
           "weight": 0.1,
-          "detail": "10.6M vol",
+          "detail": "12.0M vol",
           "present": true
         },
         "sentiment_catalyst": {
@@ -15373,7 +17206,79 @@
         "continuity": {
           "score": 0.105,
           "weight": 0.16,
-          "detail": "CONT LOW 10",
+          "detail": "CONT LOW 2",
+          "present": true
+        },
+        "accumulation": {
+          "score": null,
+          "weight": 0.14,
+          "detail": "no accumulation signal",
+          "present": false
+        },
+        "go_gate": {
+          "score": null,
+          "weight": 0.12,
+          "detail": "no go gate",
+          "present": false
+        },
+        "activity_liq": {
+          "score": 0.2058,
+          "weight": 0.1,
+          "detail": "0.6M vol",
+          "present": true
+        },
+        "sentiment_catalyst": {
+          "score": null,
+          "weight": 0.06,
+          "detail": "no sentiment/catalyst",
+          "present": false
+        }
+      },
+      "penalties": {
+        "weak_continuity": {
+          "mult": 0.85,
+          "detail": "CONT LOW (\u00d70.85)"
+        },
+        "low_liquidity": {
+          "mult": 0.85,
+          "detail": "low liq 0.60M (\u00d70.85)"
+        }
+      },
+      "has_ohlcv": false
+    },
+    {
+      "ticker": "CCSI",
+      "company": "Consensus Cloud Solutions, Inc.",
+      "sector": "Technology",
+      "rank": 103,
+      "ai_score": 4.8,
+      "go_label": null,
+      "acc_label": null,
+      "swing_score": null,
+      "swing_tier": null,
+      "close": 36.63,
+      "days_to_earnings": null,
+      "positive_score": 17.0,
+      "score": 12.3,
+      "label": "LOW",
+      "confidence": 0.68,
+      "components": {
+        "tech_trend": {
+          "score": 0.39,
+          "weight": 0.22,
+          "detail": "TECH 3.9/10",
+          "present": true
+        },
+        "momentum_thrust": {
+          "score": 0.0,
+          "weight": 0.2,
+          "detail": "2d -8.1% (-3.2x typ)",
+          "present": true
+        },
+        "continuity": {
+          "score": 0.062,
+          "weight": 0.16,
+          "detail": "CONT LOW 6",
           "present": true
         },
         "accumulation": {
