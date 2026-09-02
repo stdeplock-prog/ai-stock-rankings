@@ -26,20 +26,15 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </style></head><body>
 <p class="back"><a href="../index.html">&larr; Back to dashboard</a></p>
 <h1>Schedule Reliability</h1>
-<p class="meta">Generated 2026-09-01T23:28:29Z &middot; Effective: <span class="badge">WARN</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
+<p class="meta">Generated 2026-09-02T17:54:54Z &middot; Effective: <span class="badge">WARN</span> &middot; Raw history: <span class="badge-raw">FAIL</span></p>
 
-<p class="banner"><strong>Fresh — slot gaps are diagnostic.</strong> live data fresh (age 0.01h &lt; 6.0h) and current expected slot (close) covered; 11 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage. Effective state is WARN; raw history remains FAIL because the missed/late slot bookkeeping is preserved for transparency. The live data is current.</p>
+<p class="banner"><strong>Fresh — slot gaps are diagnostic.</strong> live data fresh (age 0.02h &lt; 6.0h) and current expected slot (midday) covered; 11 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage. Effective state is WARN; raw history remains FAIL because the missed/late slot bookkeeping is preserved for transparency. The live data is current.</p>
 <div class="section calendar"><h2>Recent Slot Delivery</h2>
 <table><thead><tr><th>Date</th>
 <th>morning</th>
 <th>midday</th>
 <th>close</th>
 </tr></thead><tbody>
-<tr><td>2026-08-26</td>
-<td class="hit">✓</td>
-<td class="hit">✓</td>
-<td class="miss">missing</td>
-</tr>
 <tr><td>2026-08-27</td>
 <td class="miss">missing</td>
 <td class="miss">missing</td>
@@ -60,23 +55,16 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 <td class="miss">missing</td>
 <td class="hit">✓</td>
 </tr>
+<tr><td>2026-09-02</td>
+<td class="hit">✓</td>
+<td class="miss">missing</td>
+<td class="future">—</td>
+</tr>
 </tbody></table></div>
 <div class="section"><h2>Calendar<span class="FAIL">FAIL</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
   &quot;calendar&quot;: {
     &quot;rows&quot;: [
-      {
-        &quot;date&quot;: &quot;2026-08-26&quot;,
-        &quot;slot_hits&quot;: {
-          &quot;morning&quot;: 1,
-          &quot;midday&quot;: 1,
-          &quot;close&quot;: 0
-        },
-        &quot;missing&quot;: [
-          &quot;close&quot;
-        ],
-        &quot;duplicate&quot;: []
-      },
       {
         &quot;date&quot;: &quot;2026-08-27&quot;,
         &quot;slot_hits&quot;: {
@@ -130,6 +118,18 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
           &quot;midday&quot;
         ],
         &quot;duplicate&quot;: []
+      },
+      {
+        &quot;date&quot;: &quot;2026-09-02&quot;,
+        &quot;slot_hits&quot;: {
+          &quot;morning&quot;: 1,
+          &quot;midday&quot;: 0,
+          &quot;close&quot;: 0
+        },
+        &quot;missing&quot;: [
+          &quot;midday&quot;
+        ],
+        &quot;duplicate&quot;: []
       }
     ],
     &quot;missing_count&quot;: 11,
@@ -144,27 +144,27 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-alig
 </tbody></table></div>
 <div class="section"><h2>Recency<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{
-  &quot;chicago_now&quot;: &quot;2026-09-01 18:28&quot;,
+  &quot;chicago_now&quot;: &quot;2026-09-02 12:54&quot;,
   &quot;is_weekend&quot;: false,
-  &quot;expected_slot_now&quot;: &quot;close&quot;,
-  &quot;rankings_as_of&quot;: &quot;2026-09-01 06:28 PM CDT&quot;,
-  &quot;rankings_age_hours&quot;: 0.01,
+  &quot;expected_slot_now&quot;: &quot;midday&quot;,
+  &quot;rankings_as_of&quot;: &quot;2026-09-02 12:54 PM CDT&quot;,
+  &quot;rankings_age_hours&quot;: 0.02,
   &quot;last_run&quot;: {
-    &quot;ts_utc&quot;: &quot;2026-09-01T23:28:29Z&quot;,
-    &quot;ts_chicago&quot;: &quot;2026-09-01 18:28&quot;,
-    &quot;chicago_date&quot;: &quot;2026-09-01&quot;,
+    &quot;ts_utc&quot;: &quot;2026-09-02T17:54:54Z&quot;,
+    &quot;ts_chicago&quot;: &quot;2026-09-02 12:54&quot;,
+    &quot;chicago_date&quot;: &quot;2026-09-02&quot;,
     &quot;event_name&quot;: &quot;schedule&quot;,
-    &quot;slot&quot;: &quot;close&quot;,
+    &quot;slot&quot;: &quot;morning&quot;,
     &quot;proceeded&quot;: true,
-    &quot;as_of&quot;: &quot;2026-09-01 06:28 PM CDT&quot;,
-    &quot;open_date&quot;: &quot;2026-09-01&quot;,
-    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/33569697751&quot;,
-    &quot;commit_sha&quot;: &quot;008e9954c926228438e0d046aa4808e11ba0a044&quot;
+    &quot;as_of&quot;: &quot;2026-09-02 12:54 PM CDT&quot;,
+    &quot;open_date&quot;: &quot;2026-09-02&quot;,
+    &quot;run_url&quot;: &quot;https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/33661253540&quot;,
+    &quot;commit_sha&quot;: &quot;f2c3d9e08ee9b167c850b0b3bbbfd9bbef89d13f&quot;
   }
 }</pre></div>
 <table><thead><tr><th style="width:32%">Check</th><th style="width:10%">Status</th><th>Detail</th></tr></thead><tbody>
-<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-09-01 06:28 PM CDT (age 0.0h)</td></tr>
-<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=schedule slot=close at 2026-09-01 18:28</td></tr>
+<tr><td>rankings_freshness</td><td class="OK">OK</td><td>as_of 2026-09-02 12:54 PM CDT (age 0.0h)</td></tr>
+<tr><td>last_run_event</td><td class="OK">OK</td><td>latest run: event=schedule slot=morning at 2026-09-02 12:54</td></tr>
 </tbody></table></div>
 <div class="section"><h2>Skip Pattern<span class="OK">OK</span></h2>
 <div class="kv"><strong>Metrics:</strong><pre>{

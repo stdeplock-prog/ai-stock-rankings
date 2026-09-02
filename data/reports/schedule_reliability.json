@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-01T23:28:29Z",
-  "generated_at_chicago": "2026-09-01 06:28 PM CDT",
+  "generated_at": "2026-09-02T17:54:54Z",
+  "generated_at_chicago": "2026-09-02 12:54 PM CDT",
   "overall": "FAIL",
   "overall_raw": "FAIL",
   "overall_effective": "WARN",
@@ -11,13 +11,13 @@
     "today_missing": [
       "midday"
     ],
-    "current_slot": "close",
+    "current_slot": "midday",
     "current_slot_covered": true,
-    "rankings_age_hours": 0.01,
+    "rankings_age_hours": 0.02,
     "rankings_fresh": true,
     "last_run_event": "schedule",
     "missing_count": 11,
-    "reason": "live data fresh (age 0.01h < 6.0h) and current expected slot (close) covered; 11 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage"
+    "reason": "live data fresh (age 0.02h < 6.0h) and current expected slot (midday) covered; 11 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage"
   },
   "sections": {
     "calendar": {
@@ -44,18 +44,6 @@
       "metrics": {
         "calendar": {
           "rows": [
-            {
-              "date": "2026-08-26",
-              "slot_hits": {
-                "morning": 1,
-                "midday": 1,
-                "close": 0
-              },
-              "missing": [
-                "close"
-              ],
-              "duplicate": []
-            },
             {
               "date": "2026-08-27",
               "slot_hits": {
@@ -109,6 +97,18 @@
                 "midday"
               ],
               "duplicate": []
+            },
+            {
+              "date": "2026-09-02",
+              "slot_hits": {
+                "morning": 1,
+                "midday": 0,
+                "close": 0
+              },
+              "missing": [
+                "midday"
+              ],
+              "duplicate": []
             }
           ],
           "missing_count": 11,
@@ -123,33 +123,33 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-09-01 06:28 PM CDT (age 0.0h)",
+          "message": "as_of 2026-09-02 12:54 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "last_run_event",
           "status": "OK",
-          "message": "latest run: event=schedule slot=close at 2026-09-01 18:28",
+          "message": "latest run: event=schedule slot=morning at 2026-09-02 12:54",
           "data": {}
         }
       ],
       "metrics": {
-        "chicago_now": "2026-09-01 18:28",
+        "chicago_now": "2026-09-02 12:54",
         "is_weekend": false,
-        "expected_slot_now": "close",
-        "rankings_as_of": "2026-09-01 06:28 PM CDT",
-        "rankings_age_hours": 0.01,
+        "expected_slot_now": "midday",
+        "rankings_as_of": "2026-09-02 12:54 PM CDT",
+        "rankings_age_hours": 0.02,
         "last_run": {
-          "ts_utc": "2026-09-01T23:28:29Z",
-          "ts_chicago": "2026-09-01 18:28",
-          "chicago_date": "2026-09-01",
+          "ts_utc": "2026-09-02T17:54:54Z",
+          "ts_chicago": "2026-09-02 12:54",
+          "chicago_date": "2026-09-02",
           "event_name": "schedule",
-          "slot": "close",
+          "slot": "morning",
           "proceeded": true,
-          "as_of": "2026-09-01 06:28 PM CDT",
-          "open_date": "2026-09-01",
-          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/33569697751",
-          "commit_sha": "008e9954c926228438e0d046aa4808e11ba0a044"
+          "as_of": "2026-09-02 12:54 PM CDT",
+          "open_date": "2026-09-02",
+          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/33661253540",
+          "commit_sha": "f2c3d9e08ee9b167c850b0b3bbbfd9bbef89d13f"
         }
       },
       "status": "OK"
