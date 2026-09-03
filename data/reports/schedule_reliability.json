@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-03T17:44:46Z",
-  "generated_at_chicago": "2026-09-03 12:44 PM CDT",
+  "generated_at": "2026-09-03T23:01:22Z",
+  "generated_at_chicago": "2026-09-03 06:01 PM CDT",
   "overall": "FAIL",
   "overall_raw": "FAIL",
   "overall_effective": "WARN",
@@ -11,13 +11,13 @@
     "today_missing": [
       "midday"
     ],
-    "current_slot": "midday",
+    "current_slot": "close",
     "current_slot_covered": true,
     "rankings_age_hours": 0.01,
     "rankings_fresh": true,
     "last_run_event": "schedule",
     "missing_count": 9,
-    "reason": "live data fresh (age 0.01h < 6.0h) and current expected slot (midday) covered; 9 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage"
+    "reason": "live data fresh (age 0.01h < 6.0h) and current expected slot (close) covered; 9 historical/bookkeeping slot gap(s) in lookback are diagnostic, not an outage"
   },
   "sections": {
     "calendar": {
@@ -37,7 +37,7 @@
         {
           "name": "history_source",
           "status": "OK",
-          "message": "history loaded from workflow_runs.jsonl (164 records)",
+          "message": "history loaded from workflow_runs.jsonl (163 records)",
           "data": {}
         }
       ],
@@ -101,7 +101,7 @@
               "slot_hits": {
                 "morning": 1,
                 "midday": 0,
-                "close": 0
+                "close": 1
               },
               "missing": [
                 "midday"
@@ -121,33 +121,33 @@
         {
           "name": "rankings_freshness",
           "status": "OK",
-          "message": "as_of 2026-09-03 12:44 PM CDT (age 0.0h)",
+          "message": "as_of 2026-09-03 06:01 PM CDT (age 0.0h)",
           "data": {}
         },
         {
           "name": "last_run_event",
           "status": "OK",
-          "message": "latest run: event=schedule slot=morning at 2026-09-03 12:44",
+          "message": "latest run: event=schedule slot=close at 2026-09-03 18:01",
           "data": {}
         }
       ],
       "metrics": {
-        "chicago_now": "2026-09-03 12:44",
+        "chicago_now": "2026-09-03 18:01",
         "is_weekend": false,
-        "expected_slot_now": "midday",
-        "rankings_as_of": "2026-09-03 12:44 PM CDT",
+        "expected_slot_now": "close",
+        "rankings_as_of": "2026-09-03 06:01 PM CDT",
         "rankings_age_hours": 0.01,
         "last_run": {
-          "ts_utc": "2026-09-03T17:44:46Z",
-          "ts_chicago": "2026-09-03 12:44",
+          "ts_utc": "2026-09-03T23:01:22Z",
+          "ts_chicago": "2026-09-03 18:01",
           "chicago_date": "2026-09-03",
           "event_name": "schedule",
-          "slot": "morning",
+          "slot": "close",
           "proceeded": true,
-          "as_of": "2026-09-03 12:44 PM CDT",
+          "as_of": "2026-09-03 06:01 PM CDT",
           "open_date": "2026-09-03",
-          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/33784037881",
-          "commit_sha": "2134d77d8b9b09d57ef6c45d5a8d225d0e2ad6ba"
+          "run_url": "https://github.com/stdeplock-prog/ai-stock-rankings/actions/runs/33814621481",
+          "commit_sha": "ee7737856745c556ba64ecf991068c0a96be551f"
         }
       },
       "status": "OK"
@@ -157,12 +157,12 @@
         {
           "name": "skip_volume",
           "status": "OK",
-          "message": "0 skip records in 14d (18 proceeded)",
+          "message": "0 skip records in 14d (17 proceeded)",
           "data": {}
         }
       ],
       "metrics": {
-        "proceed_14d": 18,
+        "proceed_14d": 17,
         "skip_14d": 0,
         "skip_reasons_14d": {}
       },
@@ -173,13 +173,13 @@
         {
           "name": "event_mix",
           "status": "OK",
-          "message": "schedule=18 dispatch=0 other=0",
+          "message": "schedule=17 dispatch=0 other=0",
           "data": {}
         }
       ],
       "metrics": {
         "proceed_14d_by_event": {
-          "schedule": 18,
+          "schedule": 17,
           "workflow_dispatch": 0,
           "other": 0
         }
@@ -187,6 +187,6 @@
       "status": "OK"
     }
   },
-  "history_records": 164,
+  "history_records": 163,
   "history_source": "jsonl"
 }
