@@ -24,6 +24,21 @@
 #                        Requires num_analysts >= MIN_ANALYSTS.
 #   news_sentiment     : from news_sent_score_30d (already 0-100), scaled /10.
 #                        Currently only populated by the EODHD provider.
+#
+# TODO (options sentiment): a put/call or call/put component is desired but
+# intentionally not implemented yet — the repo has no per-ticker options
+# data feed. `market_risk_monitor.put_call_ratio` is a placeholder
+# (status: source_needed). To add this signal, a future fetcher needs to
+# populate one of:
+#   * data/processed/catalysts.csv with a `put_call_ratio` (or
+#     `call_put_ratio`) column, or
+#   * a sibling artifact under data/processed/ keyed by Ticker.
+# Likely sources: CBOE equity P/C, ORATS, Polygon, Tradier options chains
+# (compute total put volume / total call volume per ticker over a rolling
+# window, e.g. 5d or 20d). Once available, add an `options_sentiment`
+# component here with a small weight (suggest 0.05-0.10) and let RSI absorb
+# the residual when missing — matching the existing analyst/upside/news
+# pattern.
 
 from __future__ import annotations
 
